@@ -30,6 +30,21 @@
     border-radius: 8px;
     text-align: center;
   }
+  h1 {
+  color: white;
+  background-color: #003366; /* bleu gendarmerie */
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 20px;
+} 
+  h1 .sous-titre {
+  font-size: 0.6em; /* plus petit */
+  font-weight: normal;
+  display: block;
+  margin-top: 4px;
+}
+
 
   h2,h3 {
     text-align:center;
@@ -159,7 +174,11 @@
 <script src="https://unpkg.com/html5-qrcode"></script>
 </head>
 <body>
-<h1>CR Gendarmerie - LIMES Breil  La Turbie  DSI Tende</h1>
+<h1>
+  CR GENDARMERIE<br>
+  <span class="sous-titre">LIMES Breil La Turbie DSI Tende</span>
+</h1>
+
 
 <!-- Menu -->
 <nav>
@@ -1115,6 +1134,7 @@ Pl: ${counts.pl.v} / ${counts.pl.cv} CV / ${counts.pl.cf} CF`;
 
 </body>
 </html>
+
 
 
 
