@@ -7,6 +7,8 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#2c3e50">
 <link rel="apple-touch-icon" href="icon-192.png">
+
+<!-- Font Awesome pour les icônes -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
@@ -19,9 +21,20 @@
     background: #fff;
     color: #222;
   }
-  h1,h2,h3 {
+
+  /* Titre bleu gendarmerie */
+  h1 {
+    color: white;
+    background-color: #003366; /* Bleu gendarmerie */
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  h2,h3 {
     text-align:center;
   }
+
   label {
     display: block;
     margin: 6px 0 3px 0;
@@ -46,6 +59,9 @@
     min-height: 36px;
     user-select:none;
     transition: background-color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px; /* espace icône/texte */
   }
   button.plusminus {
     width: 48px;
@@ -115,7 +131,6 @@
 
   /* --- Important: sections hidden by default (single-page behavior) --- */
   section { display: none; }
-  /* hide hr separators since sections are now standalone */
   hr { display: none; }
 
   /* Responsive adjustments */
@@ -124,19 +139,21 @@
     .header-inputs label { flex: 1 1 30%; font-size: 0.9em; }
     .header-inputs input { width: 100%; padding: 4px; font-size: 1em; }
   }
-  /* simple nav styling */
+
+  /* Navigation */
   nav { text-align:center; margin: 12px 0; }
   nav button { margin: 6px 4px; padding: 8px 12px; }
-  
-  .btn-infos { background-color: #3498db; }      /* bleu */
-.btn-esr { background-color: #2ecc71; }        /* vert */
-.btn-materiel { background-color: #f39c12; }   /* orange */
-.btn-compteurs { background-color: #9b59b6; }  /* violet */
-.btn-esi { background-color: #e74c3c; }        /* rouge */
-.btn-passeur { background-color: #16a085; }    /* vert foncé */
-.btn-obs { background-color: #E5E7EB; }        /* gris clair */
-.btn-deroulement { background-color: #d35400; }/* orange foncé */
-.btn-cr { background-color: #27ae60; }         /* vert clair */
+
+  /* Couleurs boutons */
+  .btn-infos { background-color: #3498db; color:white; }
+  .btn-esr { background-color: #2ecc71; color:white; }
+  .btn-materiel { background-color: #f39c12; color:white; }
+  .btn-compteurs { background-color: #9b59b6; color:white; }
+  .btn-esi { background-color: #e74c3c; color:white; }
+  .btn-passeur { background-color: #16a085; color:white; }
+  .btn-obs { background-color: #E5E7EB; color:black; }
+  .btn-deroulement { background-color: #d35400; color:white; }
+  .btn-cr { background-color: #27ae60; color:white; }
 </style>
 
 <script src="https://unpkg.com/html5-qrcode"></script>
@@ -145,7 +162,6 @@
 <h1>CR Gendarmerie - LIMES Breil  La Turbie  DSI Tende</h1>
 
 <!-- Menu -->
-
 <nav>
   <button class="btn-infos" onclick="showPage('infosSection')">
     <i class="fas fa-id-card"></i> Infos
@@ -176,19 +192,15 @@
   </button>
 </nav>
 
-
-
-<!-- quick showPage helper (used on load) -->
+<!-- JS pour navigation -->
 <script>
   function showPage(pageId) {
     document.querySelectorAll('section').forEach(sec => sec.style.display = 'none');
     const el = document.getElementById(pageId);
     if(el) el.style.display = 'block';
-    // scroll top for better mobile UX
     window.scrollTo(0,0);
   }
   document.addEventListener('DOMContentLoaded', () => {
-    // show infos by default
     showPage('infosSection');
   });
 </script>
@@ -1103,6 +1115,7 @@ Pl: ${counts.pl.v} / ${counts.pl.cv} CV / ${counts.pl.cf} CF`;
 
 </body>
 </html>
+
 
 
 
