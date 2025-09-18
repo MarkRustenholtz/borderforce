@@ -7,6 +7,8 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#2c3e50">
 <link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -145,16 +147,35 @@
 <!-- Menu -->
 
 <nav>
-  <button class="btn-infos" onclick="showPage('infosSection')">Infos</button>
-  <button class="btn-esr" onclick="showPage('esrSection')">ESR</button>
-  <button class="btn-materiel" onclick="showPage('materielSection')">Matériel</button>
-  <button class="btn-compteurs" onclick="showPage('vehiculesSection')">Compteurs</button>
-  <button class="btn-esi" onclick="showPage('esiSection')">ESI</button>
-  <button class="btn-passeur" onclick="showPage('passeurSection')">Passeurs</button>
-  <button class="btn-obs" onclick="showPage('observationsSection')">Observations</button>
-  <button class="btn-deroulement" onclick="showPage('deroulementSection')">Déroulement</button>
-  <button class="btn-cr" onclick="showPage('generateSection')">Compte Rendu</button>
+  <button class="btn-infos" onclick="showPage('infosSection')">
+    <i class="fas fa-id-card"></i> Infos
+  </button>
+  <button class="btn-esr" onclick="showPage('esrSection')">
+    <i class="fas fa-user-shield"></i> ESR
+  </button>
+  <button class="btn-materiel" onclick="showPage('materielSection')">
+    <i class="fas fa-video"></i> Matériel
+  </button>
+  <button class="btn-compteurs" onclick="showPage('vehiculesSection')">
+    <i class="fas fa-chart-bar"></i> Compteurs
+  </button>
+  <button class="btn-esi" onclick="showPage('esiSection')">
+    <i class="fas fa-passport"></i> ESI
+  </button>
+  <button class="btn-passeur" onclick="showPage('passeurSection')">
+    <i class="fas fa-user-secret"></i> Passeurs
+  </button>
+  <button class="btn-obs" onclick="showPage('observationsSection')">
+    <i class="fas fa-eye"></i> Observations
+  </button>
+  <button class="btn-deroulement" onclick="showPage('deroulementSection')">
+    <i class="fas fa-tasks"></i> Déroulement
+  </button>
+  <button class="btn-cr" onclick="showPage('generateSection')">
+    <i class="fas fa-file-alt"></i> Compte Rendu
+  </button>
 </nav>
+
 
 
 <!-- quick showPage helper (used on load) -->
@@ -1082,5 +1103,6 @@ Pl: ${counts.pl.v} / ${counts.pl.cv} CV / ${counts.pl.cf} CF`;
 
 </body>
 </html>
+
 
 
