@@ -159,6 +159,15 @@
   nav { text-align:center; margin: 12px 0; }
   nav button { margin: 6px 4px; padding: 8px 12px; }
 
+  .menu {
+  display: inline-block;       /* s’adapte à la largeur des boutons */
+  border: 2px solid #003366;   /* cadre bleu gendarmerie */
+  border-radius: 10px;          /* coins arrondis */
+  padding: 8px;                 /* espace intérieur */
+  background-color: #f9f9f9;    /* optionnel, pour faire ressortir le cadre */
+}
+
+
   /* Couleurs boutons */
   .btn-infos { background-color: #3498db; color:white; }
   .btn-esr { background-color: #2ecc71; color:white; }
@@ -181,7 +190,7 @@
 
 
 <!-- Menu -->
-<nav>
+<nav class="menu">
   <button class="btn-infos" onclick="showPage('infosSection')">
     <i class="fas fa-id-card"></i> Infos
   </button>
@@ -1134,6 +1143,7 @@ Pl: ${counts.pl.v} / ${counts.pl.cv} CV / ${counts.pl.cf} CF`;
 
 </body>
 </html>
+
 
 
 
