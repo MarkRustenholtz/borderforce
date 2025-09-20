@@ -1,13 +1,14 @@
-const CACHE_NAME = 'cr-gendarmerie-cache-v1';
+const CACHE_NAME = 'cr-gendarmerie-cache-v2'; // ⚠️ change le numéro à chaque mise à jour
 const urlsToCache = [
   './',
   './index.html',
   './manifest.json',
   './icon-192.png',
   './icon-512.png',
-  'https://unpkg.com/html5-qrcode' // pour fonctionner offline
+  'https://unpkg.com/html5-qrcode'
 ];
 
+// Installation : on met en cache les fichiers de base
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -16,6 +17,7 @@ self.addEventListener('install', event => {
   );
 });
 
+// Activation : on supprime les anciens caches
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames =>
@@ -29,15 +31,26 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
+// Fetch : réseau d’abord, cache en secours
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request).catch(() => {
-        if (event.request.mode === "navigate") {
-          return caches.match('./index.html');
-        }
-      });
-    })
+    fetch(event.request)
+      .then(response => {
+        // si la requête réussit, on met à jour le cache
+        const responseClone = response.clone();
+        caches.open(CACHE_NAME).then(cache => {
+          cache.put(event.request, responseClone);
+        });
+        return response;
+      })
+      .catch(() => {
+        // si échec réseau → on retourne le cache
+        return caches.match(event.request).then(response => {
+          if (response) return response;
+          if (event.request.mode === 'navigate') {
+            return caches.match('./index.html');
+          }
+        });
+      })
   );
 });
-
