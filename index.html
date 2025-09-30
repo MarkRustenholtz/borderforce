@@ -323,7 +323,7 @@
   padding: 16px;
   border: 2px solid #1f6fb2; /* bordure */
   border-radius: 12px;
-  background: #fff;
+  background: #87CEEB;
   box-shadow: 0 2px 8px rgba(0,0,0,.08);
 }
 
@@ -332,7 +332,7 @@
   display: flex;
   flex-direction: column;   /* toujours vertical */
   align-items: stretch;     /* occupe toute la largeur au lieu d'être centrés */
-  gap: 6px;                 /* espace réduit entre champs */
+  gap: 50px;                 /* espace réduit entre champs */
   margin-bottom: 10px;
 }
 
@@ -344,8 +344,15 @@
 #infosPage .flex-col label {
   margin-bottom: 4px;
 }
-
-  
+#siteSelect,
+#dateInput,
+#heureDebutInput,
+#heureFinInput {
+  font-weight: bold;
+}
+  #siteSelect {
+  margin-bottom: 50px; /* tu peux ajuster la valeur (px) */
+}
 #homePage {
   display: flex;
   flex-direction: column;
