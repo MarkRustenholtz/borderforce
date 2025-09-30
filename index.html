@@ -7,574 +7,1025 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#2c3e50">
 <link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
 
 <!-- Font Awesome pour les icônes -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
   body {
-    font-family: Arial, sans-serif;
-    margin: 10px;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-    background: #fff;
+    font-family: verdana, sans-serif;
+    margin: 0;
+    padding: 0; /* on enlève tout le padding */
+    background: #f0f2f5;
     color: #222;
+    min-height: 100vh;
+    box-sizing: border-box;
   }
 
-  /* Titre bleu gendarmerie */
-  h1 {
+  /* Page d'accueil */
+  .home-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    text-align: center;
+    padding: 20px;
+  }
+
+  /* Bandeau titre propre (uniquement accueil) */
+  #homePage .home-title {
+    background: #003366;
     color: white;
-    background-color: #003366; /* Bleu gendarmerie */
-    padding: 12px;
-    border-radius: 8px;
+    font-size: 1.5em;
+    text-align: center;
+    padding: 20px;
+    margin: 0 0 30px 0; /* colle bien en haut, espace dessous */
+  }
+
+  #homePage .home-title .sous-titre {
+    font-size: 0.6em;
+    font-weight: normal;
+    display: block;
+    margin-top: 8px;
+  }
+
+  /* Grille icônes */
+  .app-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 15px;
+    padding: 10px;
+  }
+
+  .icon-button {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: none;
+    font-family: inherit;
+  }
+
+  .icon-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+  }
+
+  .icon-button i {
+    font-size: 40px;
+    margin-bottom: 8px;
+    color: #0d6efd;
+  }
+
+  .icon-button span {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
     text-align: center;
   }
-  h1 {
-  color: white;
-  background-color: #003366; /* bleu gendarmerie */
-  padding: 12px;
-  border-radius: 8px;
-  text-align: center;
-  margin-bottom: 20px;
-} 
-  h1 .sous-titre {
-  font-size: 0.6em; /* plus petit */
-  font-weight: normal;
-  display: block;
-  margin-top: 4px;
-}
 
+  /* Couleurs spécifiques pour chaque icône */
+  .icon-infos i { color: #3498db; }
+  .icon-esr i { color: #2ecc71; }
+  .icon-materiel i { color: #f39c12; }
+  .icon-compteurs i { color: #9b59b6; }
+  .icon-esi i { color: #e74c3c; }
+  .icon-passeur i { color: #16a085; }
+  .icon-obs i { color: #95a5a6; }
+  .icon-deroulement i { color: #d35400; }
+  .icon-pulsar i { color: #e67e22; }
+  .icon-cr i { color: #27ae60; }
+  .icon-fiche i { color: #e74c3c; }
+  .icon-visa i { color: #0055A4; }
+  .icon-qr i { color: #8e44ad; }
 
-  h2,h3 {
-    text-align:center;
+  /* Pages individuelles */
+  .page {
+    display: none;
+    min-height: 100vh;
+    background: #f0f2f5;
+  }
+
+  .page.active {
+    display: block;
+  }
+
+  .page-header {
+    background-color: #003366;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: -10px -10px 20px -10px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .back-button {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1em;
+  }
+
+  .back-button:hover {
+    background: rgba(255,255,255,0.3);
+  }
+
+  .page-title {
+    font-size: 1.3em;
+    font-weight: bold;
+    flex-grow: 1;
+  }
+
+  .page-content {
+    padding: 0 10px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Styles formulaires */
+  h2, h3 {
+    text-align: center;
+    color: #2c3e50;
   }
 
   label {
     display: block;
     margin: 6px 0 3px 0;
+    font-weight: 500;
   }
-  input[type=text], input[type=date], input[type=time], select {
+
+  input[type=text], input[type=date], input[type=time], input[type=number], select {
     width: 100%;
-    padding: 6px 8px;
+    padding: 8px 10px;
     box-sizing: border-box;
-    border-radius: 4px;
-    border: 1px solid #aaa;
+    border-radius: 6px;
+    border: 1px solid #ddd;
     font-size: 1em;
+    margin-bottom: 8px;
   }
+
   button {
     cursor: pointer;
     font-weight: bold;
     border: none;
     border-radius: 6px;
-    padding: 6px 12px;
-    font-size: 1.1em;
+    padding: 8px 12px;
+    font-size: 1em;
     margin: 4px 2px;
     min-width: 36px;
     min-height: 36px;
-    user-select:none;
+    user-select: none;
     transition: background-color 0.2s ease;
     display: inline-flex;
     align-items: center;
-    gap: 6px; /* espace icône/texte */
+    gap: 6px;
   }
+
   button.plusminus {
     width: 48px;
     border-radius: 10px;
     font-size: 1.5em;
+    background-color: #f0f0f0;
   }
+
   button.plusminus:hover { background-color: #ddd; }
-  button.red {
-    background-color: #d9534f; color: white; font-weight: bold;
-  }
-  button.red:hover { background-color: #c9302c; }
-  button.blue {
-    background-color: #3498db; color: white; font-weight: bold;
-  }
-  button.blue:hover { background-color: #217dbb; }
-  .flex-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .flex-col {
-    flex: 1 1 200px;
-    min-width: 200px;
-  }
+  button.plusminus.minus { background-color: #e74c3c; color: white; }
+  button.plusminus.minus:hover { background-color: #c0392b; }
+  button.plusminus.plus { background-color: #3498db; color: white; }
+  button.plusminus.plus:hover { background-color: #2980b9; }
+  button.add { background-color: #27ae60; color: white; }
+  button.add:hover { background-color: #229954; }
+  button.red { background-color: #e74c3c; color: white; }
+  button.red:hover { background-color: #c0392b; }
+  button.blue { background-color: #3498db; color: white; }
+  button.blue:hover { background-color: #2980b9; }
+  button.green { background-color: #27ae60; color: white; }
+  button.green:hover { background-color: #229954; }
+
+  .flex-col { flex: 1 1 200px; min-width: 200px; }
+
   .vehicle-card {
     border: 2px solid #3498db;
     border-radius: 10px;
-    padding: 12px;
-    margin-bottom: 18px;
-    background: #f9fafe;
+    padding: 15px;
+    margin-bottom: 20px;
+    background: #f8f9fa;
   }
+
   .vehicle-card h3 {
     margin-top: 0;
     color: #2c3e50;
   }
-  .number-input {
-    width: 60px;
-    font-size: 1.1em;
-    text-align: center;
-    border-radius: 4px;
-    border: 1px solid #aaa;
-    padding: 4px 6px;
+
+  span[id$="Count"] {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0 10px;
   }
-  .manual-input {
-    width: 80px;
-    font-size: 1em;
-    padding: 4px 6px;
+
+  .flex-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
   }
+
+  .flex-row > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .flex-row > div label {
+    justify-content: flex-start;
+    text-align: left;
+    width: 100%;
+  }
+
+  .manual-input { width: 80px; font-size: 1em; padding: 4px 6px; }
+
   textarea {
     width: 100%;
     min-height: 200px;
     font-family: monospace;
     font-size: 1em;
-    padding: 8px;
+    padding: 10px;
     box-sizing: border-box;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+    border-radius: 6px;
+    border: 1px solid #ddd;
     resize: vertical;
   }
-  .small-note {
-    font-size: 0.85em;
-    color: #666;
-    margin-top: -6px;
-    margin-bottom: 12px;
+
+  .small-note { font-size: 0.85em; color: #666; margin-top: 5px; margin-bottom: 15px; }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .icon-button { width: 100px; height: 100px; }
+    .icon-button i { font-size: 32px; }
   }
 
-  /* --- Important: sections hidden by default (single-page behavior) --- */
-  section { display: none; }
-  hr { display: none; }
-
-  /* Responsive adjustments */
   @media (max-width: 768px) {
-    .header-inputs { display: flex; flex-wrap: wrap; gap: 6px; }
-    .header-inputs label { flex: 1 1 30%; font-size: 0.9em; }
-    .header-inputs input { width: 100%; padding: 4px; font-size: 1em; }
+    .app-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 5px; }
+    .icon-button { width: 100%; height: 90px; }
+    .icon-button i { font-size: 28px; }
+    .icon-button span { font-size: 12px; }
   }
 
-  /* Navigation */
-  nav { text-align:center; margin: 12px 0; }
-  nav button { margin: 6px 4px; padding: 8px 12px; }
+  /* Titres page Fiche identité */
+  #ficheIdentitePage h2 {
+    background-color: #003366 !important;
+    color: white !important;
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-align: center;
+    margin-top: 20px;
+  }
 
-  .menu {
-  display: inline-block;       /* s’adapte à la largeur des boutons */
-  border: 2px solid #003366;   /* cadre bleu gendarmerie */
-  border-radius: 10px;          /* coins arrondis */
-  padding: 8px;                 /* espace intérieur */
-  background-color: #f9f9f9;    /* optionnel, pour faire ressortir le cadre */
+  #ficheIdentitePage .red { background-color: #e74c3c; color: white; }
+  #ficheIdentitePage .red:hover { background-color: #c0392b; }
+  #ficheIdentitePage .green { background-color: #27ae60; color: white; }
+  #ficheIdentitePage .green:hover { background-color: #229954; }
+  #ficheIdentitePage .blue { background-color: #3498db; color: white; }
+  #ficheIdentitePage .blue:hover { background-color: #2980b9; }
+
+#infosPage input,
+#infosPage select {
+  border: 2px solid #000;     /* noir */
+  border-radius: 6px;
+  background-color: #fff;
+  color: #2c3e50;
+  padding: 8px 10px;
+  font-size: 1em;
+  box-sizing: border-box;
 }
-nav button.active {
-  border: 2px solid #003366; /* cadre bleu gendarmerie */
-  background-color: #cce0ff;  /* surbrillance légère */
+  
+#homePage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Bandeau accueil */
+#homePage .home-title {
+  background: #003366;
+  color: white;
+  font-size: 1.5em;
+  text-align: center;
+  padding: 20px;
+  margin-top: -20px;   /* enlève le padding haut */
+  margin-left: -20px;  /* enlève le padding gauche */
+  margin-right: -20px; /* enlève le padding droit */
+  margin-bottom: 30px; /* espace sous le bandeau */
+}
+
+#homePage .home-title .sous-titre {
+  font-size: 0.6em;
+  font-weight: normal;
+  display: block;
+  margin-top: 8px;
+}
+
+/* Empêche tout scroll horizontal */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Corrige les pages internes qui ont des marges négatives */
+.page {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* On cache le radio natif */
+#pulsarPage input[type="radio"] {
+  display: none;
+}
+
+/* Style de base des boutons */
+#pulsarPage label {
+  display: inline-block;
+  margin: 15px;
+  cursor: pointer;
+}
+
+#pulsarPage label span {
+  display: inline-block;
+  padding: 20px 50px;
+  border: 2px solid #ccc;
+  border-radius: 14px;
+  font-size: 1.6em;
+  font-weight: bold;
+  background: #f9f9f9;
+  color: #333;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  transition: all 0.2s ease;
+}
+
+/* Effet hover */
+#pulsarPage label span:hover {
+  background: #eee;
+}
+
+/* ✅ Bouton Oui sélectionné */
+#pulsarPage input[type="radio"]:checked + span.yes {
+  background: #2ecc71;    /* vert */
+  color: #fff;
+  border-color: #27ae60;
+}
+
+/* ❌ Bouton Non sélectionné */
+#pulsarPage input[type="radio"]:checked + span.no {
+  background: #e74c3c;    /* rouge */
+  color: #fff;
+  border-color: #c0392b;
 }
 
 
-  /* Couleurs boutons */
-  .btn-infos { background-color: #3498db; color:white; }
-  .btn-esr { background-color: #2ecc71; color:white; }
-  .btn-materiel { background-color: #f39c12; color:white; }
-  .btn-compteurs { background-color: #9b59b6; color:white; }
-  .btn-esi { background-color: #e74c3c; color:white; }
-  .btn-passeur { background-color: #16a085; color:white; }
-  .btn-obs { background-color: #E5E7EB; color:black; }
-  .btn-deroulement { background-color: #d35400; color:white; }
-  .btn-cr { background-color: #27ae60; color:white; }
+
 </style>
 
 <script src="https://unpkg.com/html5-qrcode"></script>
 </head>
 <body>
-<h1>
-  CR GENDARMERIE<br>
-  <span class="sous-titre">LIMES Breil La Turbie DSI Tende</span>
-</h1>
+
+<!-- Page d'accueil avec nouvelle présentation -->
+<div id="homePage" class="home-page">
+  <h1 class="home-title">
+    CR GENDARMERIE<br>
+    <span class="sous-titre">LIMES Breil La Turbie DSI Tende</span>
+  </h1>
+
+  <div class="app-grid">
+    <button class="icon-button icon-infos" onclick="showPage('infosPage')">
+      <i class="fas fa-calendar-alt"></i>
+      <span>Informations</span>
+    </button>
+    
+    <button class="icon-button icon-esr" onclick="showPage('esrPage')">
+      <i class="fas fa-user-shield"></i>
+      <span>ESR</span>
+    </button>
+    
+    <button class="icon-button icon-materiel" onclick="showPage('materielPage')">
+      <i class="fas fa-video"></i>
+      <span>Matériel</span>
+    </button>
+    
+    <button class="icon-button icon-compteurs" onclick="showPage('vehiculesPage')">
+      <i class="fas fa-chart-bar"></i>
+      <span>Compteurs</span>
+    </button>
+    
+    <button class="icon-button icon-esi" onclick="showPage('esiPage')">
+      <i class="fas fa-passport"></i>
+      <span>ESI</span>
+    </button>
+    
+    <button class="icon-button icon-passeur" onclick="showPage('passeurPage')">
+      <i class="fas fa-user-secret"></i>
+      <span>Passeurs</span>
+    </button>
+    
+    <button class="icon-button icon-obs" onclick="showPage('observationsPage')">
+      <i class="fas fa-eye"></i>
+      <span>Observations</span>
+    </button>
+    
+    <button class="icon-button icon-deroulement" onclick="showPage('deroulementPage')">
+      <i class="fas fa-tasks"></i>
+      <span>Déroulement</span>
+    </button>
+    
+    <button class="icon-button icon-pulsar" onclick="showPage('pulsarPage')">
+      <i class="fas fa-fire"></i>
+      <span>Pulsar</span>
+    </button>
+    
+    <button class="icon-button icon-cr" onclick="showPage('generatePage')">
+      <i class="fas fa-file-alt"></i>
+      <span>Compte Rendu</span>
+    </button>
+    
+    <button class="icon-button icon-fiche" onclick="showPage('ficheIdentitePage')">
+      <i class="fas fa-id-card"></i>
+      <span>Fiche identité</span>
+    </button>
+
+    <button class="icon-button icon-visa" onclick="showPage('assistantVisaPage')">
+      <i class="fas fa-passport"></i>
+      <span>Assistant Visas</span>
+    </button>
+	<button id="scanQrBtn" class="icon-button icon-qr" onclick="showPage('qrPage')">
+  <i class="fas fa-qrcode"></i>
+  <span>QR Code</span>
+</button>
 
 
-<!-- Menu -->
-<nav class="menu">
-  <button class="btn-infos" onclick="showPage('infosSection')">
-    <i class="fas fa-calendar-alt"></i> Infos
-  </button>
-  <button class="btn-esr" onclick="showPage('esrSection')">
-    <i class="fas fa-user-shield"></i> ESR
-  </button>
-  <button class="btn-materiel" onclick="showPage('materielSection')">
-    <i class="fas fa-video"></i> Matériel
-  </button>
-  <button class="btn-compteurs" onclick="showPage('vehiculesSection')">
-    <i class="fas fa-chart-bar"></i> Compteurs
-  </button>
-  <button class="btn-esi" onclick="showPage('esiSection')">
-    <i class="fas fa-passport"></i> ESI
-  </button>
-  <button class="btn-passeur" onclick="showPage('passeurSection')">
-    <i class="fas fa-user-secret"></i> Passeurs
-  </button>
-  <button class="btn-obs" onclick="showPage('observationsSection')">
-    <i class="fas fa-eye"></i> Observations
-  </button>
-  <button class="btn-deroulement" onclick="showPage('deroulementSection')">
-    <i class="fas fa-tasks"></i> Déroulement
-  </button>
-  <button class="btn-pulsar" onclick="showPage('pulsarSection')">
-    <i class="fas fa-fire"></i> Pulsar
-  </button>
-  <button class="btn-cr" onclick="showPage('generateSection')">
-    <i class="fas fa-file-alt"></i> Compte Rendu
-  </button>
-  <button onclick="window.open('https://markrustenholtz.github.io/esi/', '_blank')">
-    ESI + Visa
-  </button>
-</nav>
+  </div>
+</div>
 
-<!-- JS pour navigation -->
-<script>
-  function showPage(pageId) {
-  // cacher toutes les sections
-  document.querySelectorAll('section').forEach(sec => sec.style.display = 'none');
 
-  // afficher la section demandée
-  const el = document.getElementById(pageId);
-  if(el) el.style.display = 'block';
+<!-- Page Informations -->
+<div id="infosPage" class="page">
+  <div class="page-header">
+    <button class="back-button" onclick="showPage('homePage')">
+      <i class="fas fa-arrow-left"></i> Retour
+    </button>
+    <div class="page-title">Informations</div>
+  </div>
+  <div class="page-content">
+    <label for="siteSelect">Site :</label>
+    <select id="siteSelect" aria-label="Sélection du site">
+      <option value="Breil">Breil</option>
+      <option value="La Turbie">La Turbie</option>
+      <option value="DSI Tende">DSI Tende</option>
+    </select>
 
-  // --- gérer l'état actif des boutons ---
-  document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
-  const btn = document.querySelector(`nav button[onclick="showPage('${pageId}')"]`);
-  if(btn) btn.classList.add('active');
-
-  // scroll top
-  window.scrollTo(0,0);
-}
-  document.addEventListener('DOMContentLoaded', () => {
-    showPage('infosSection');
-  });
-</script>
-
-<!-- === SECTIONS === -->
-
-<section id="infosSection">
-  <label for="siteSelect">Site :</label>
-  <select id="siteSelect" aria-label="Sélection du site">
-    <option value="Breil">Breil</option>
-    <option value="La Turbie">La Turbie</option>
-    <option value="DSI Tende">DSI Tende</option>
-  </select>
-
-  <div class="flex-row" style="gap:15px; margin-top:10px;">
-    <div class="flex-col">
-      <label for="dateInput">Date :</label>
-      <input type="date" id="dateInput" />
-    </div>
-    <div class="flex-col">
-      <label for="heureDebutInput">Heure début :</label>
-      <input type="time" id="heureDebutInput" />
-    </div>
-    <div class="flex-col">
-      <label for="heureFinInput">Heure fin :</label>
-      <input type="time" id="heureFinInput" />
+    <div class="flex-row">
+      <div class="flex-col">
+        <label for="dateInput">Date :</label>
+        <input type="date" id="dateInput" />
+      </div>
+      <div class="flex-col">
+        <label for="heureDebutInput">Heure début :</label>
+        <input type="time" id="heureDebutInput" />
+      </div>
+      <div class="flex-col">
+        <label for="heureFinInput">Heure fin :</label>
+        <input type="time" id="heureFinInput" />
+      </div>
     </div>
   </div>
-</section>
+</div>
+<!-- Page ESR -->
+<div id="esrPage" class="page">
+  <div class="page-header">
+    <button class="back-button" onclick="showPage('homePage')">
+      <i class="fas fa-arrow-left"></i> Retour
+    </button>
+    <div class="page-title">ESR (Effectif)</div>
+  </div>
+  <div class="page-content">
+    <div id="esrList"></div>
+    <div style="margin-top: 20px;">
+      <input type="text" id="esrGrade" placeholder="Grade" />
+      <input type="text" id="esrNom" placeholder="Nom Prénom" />
+      <input type="text" id="esrNigend" placeholder="Nigend" />
+      <input type="text" id="esrCRT" placeholder="CRT (ex: 06/1 Nice)" />
+      <button id="addEsrBtn" class="blue">Ajouter ESR</button>
+      <button id="delEsrBtn" class="red">Supprimer dernier ESR</button>
+    </div>
+    <div class="small-note">Tous les champs doivent être remplis pour ajouter un ESR</div>
+  </div>
+</div>
 
-<section id="esrSection">
-  <h2>ESR (Effectif)</h2>
-  <div id="esrList"></div>
-  <div style="margin-top:6px;">
-    <input type="text" id="esrGrade" placeholder="Grade" />
-    <input type="text" id="esrNom" placeholder="Nom Prénom" />
-    <input type="text" id="esrNigend" placeholder="Nigend" />
-    <input type="text" id="esrCRT" placeholder="CRT ( ex: 06/1 Nice )" />
-    <button id="addEsrBtn" class="blue">Ajouter ESR</button>
-     <button id="delEsrBtn" class="red">Supprimer dernier ESR</button>
+<!-- Page Matériel -->
+<div id="materielPage" class="page">
+  <div class="page-header">
+    <button class="back-button" onclick="showPage('homePage')">
+      <i class="fas fa-arrow-left"></i> Retour
+    </button>
+    <div class="page-title">Matériel et utilisateurs</div>
   </div>
-  <div class="small-note">Tous les champs doivent être remplis pour ajouter un ESR</div>
-</section>
+  <div class="page-content">
+    <div class="flex-row">
+      <div style="flex:2;">
+        <label>Caméra n° :
+          <input type="text" id="cameraNum" placeholder="Numéro caméra" />
+        </label>
+      </div>
+      <div style="flex:3;">
+        <label>Porteur caméra (ESR) :
+          <select id="cameraESR"></select>
+        </label>
+      </div>
+    </div>
+    <div class="flex-row">
+      <div style="flex:2;">
+        <label>Tablette n° 1 :
+          <input type="text" id="tablette1Num" placeholder="N°(ex: 6)" />
+        </label>
+      </div>
+      <div style="flex:3;">
+        <label>Utilisateur tablette 1 (ESR) :
+          <select id="tablette1ESR"></select>
+        </label>
+      </div>
+    </div>
+    <div class="flex-row">
+      <div style="flex:2;">
+        <label>Tablette n° 2 (optionnel) :
+          <input type="text" id="tablette2Num" placeholder="N°(ex: 7)" />
+        </label>
+      </div>
+      <div style="flex:3;">
+        <label>Utilisateur tablette 2 (ESR) :
+          <select id="tablette2ESR"></select>
+        </label>
+      </div>
+    </div>
+    <div style="margin-top:15px;">
+      <label>Véhicule de service (immatriculation) :
+        <input type="text" id="vehiculeService" placeholder="Ex: AB-123-CD" />
+      </label>
+    </div>
+  </div>
+</div>
 
-<section id="materielSection">
-  <h2>Matériel et utilisateurs</h2>
-  <div class="flex-row" style="gap:12px;">
-    <div style="flex:2;">
-      <label>Caméra n° :
-        <input type="text" id="cameraNum" placeholder="Numéro  caméra" />
-      </label>
+<!-- Page Véhicules/Compteurs -->
+<div id="vehiculesPage" class="page">
+  <div class="page-header">
+    <button class="back-button" onclick="showPage('homePage')">
+      <i class="fas fa-arrow-left"></i> Retour
+    </button>
+    <div class="page-title">Moyens / Personnes contrôlées</div>
+  </div>
+  <div class="page-content">
+    <div class="vehicle-card" id="trainCard">
+      <h3>Train</h3>
+      <div class="flex-row" style="align-items:center;">
+        <div>
+          <button class="plusminus minus" data-type="train" data-field="vehicles" data-action="minus">-</button>
+          <span id="trainVehiclesCount">0</span> véhicules
+          <button class="plusminus plus" data-type="train" data-field="vehicles" data-action="plus">+</button>
+        </div>
+        <div style="margin-left:20px;">
+          <button class="plusminus minus" data-type="train" data-field="cv" data-action="minus">-</button>
+          <span id="trainCvCount">0</span> CV
+          <button class="plusminus plus" data-type="train" data-field="cv" data-action="plus">+</button>
+        </div>
+        <div>
+          <label style="margin-left:15px;">Ajouter CV manuellement:
+            <input type="number" id="trainCvManual" class="manual-input" min="0" placeholder="0" inputmode="numeric" pattern="[0-9]*">
+            <button id="trainCvAddManualBtn" class="add">Ajouter</button>
+          </label>
+        </div>
+        <div style="margin-left:20px;">
+          <button class="plusminus minus" data-type="train" data-field="cf" data-action="minus">-</button>
+          <span id="trainCfCount">0</span> CF
+          <button class="plusminus plus" data-type="train" data-field="cf" data-action="plus">+</button>
+        </div>
+        <div>
+          <label style="margin-left:15px;">Ajouter CF manuellement:
+            <input type="number" id="trainCfManual" class="manual-input" min="0" placeholder="0" inputmode="numeric" pattern="[0-9]*">
+            <button id="trainCfAddManualBtn" class="add">Ajouter</button>
+          </label>
+        </div>
+      </div>
     </div>
-    <div style="flex:3;">
-      <label>Porteur caméra (ESR) :
-        <select id="cameraESR"></select>
-      </label>
+
+    <div class="vehicle-card" id="busCard">
+      <h3>Bus</h3>
+      <div class="flex-row" style="align-items:center;">
+        <div>
+          <button class="plusminus minus" data-type="bus" data-field="vehicles" data-action="minus">-</button>
+          <span id="busVehiclesCount">0</span> véhicules
+          <button class="plusminus plus" data-type="bus" data-field="vehicles" data-action="plus">+</button>
+        </div>
+        <div style="margin-left:20px;">
+          <button class="plusminus minus" data-type="bus" data-field="cv" data-action="minus">-</button>
+          <span id="busCvCount">0</span> CV
+          <button class="plusminus plus" data-type="bus" data-field="cv" data-action="plus">+</button>
+        </div>
+        <div>
+          <label style="margin-left:15px;">Ajouter CV manuellement:
+            <input type="number" id="busCvManual" class="manual-input" min="0" placeholder="0" inputmode="numeric" pattern="[0-9]*">
+            <button id="busCvAddManualBtn" class="add">Ajouter</button>
+          </label>
+        </div>
+        <div style="margin-left:20px;">
+          <button class="plusminus minus" data-type="bus" data-field="cf" data-action="minus">-</button>
+          <span id="busCfCount">0</span> CF
+          <button class="plusminus plus" data-type="bus" data-field="cf" data-action="plus">+</button>
+        </div>
+        <div>
+          <label style="margin-left:15px;">Ajouter CF manuellement:
+            <input type="number" id="busCfManual" class="manual-input" min="0" placeholder="0" inputmode="numeric" pattern="[0-9]*">
+            <button id="busCfAddManualBtn" class="add">Ajouter</button>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="vehicle-card" id="vlCard">
+      <h3>VL</h3>
+      <div class="flex-row" style="align-items:center;">
+        <div>
+          <button class="plusminus minus" data-type="vl" data-field="vehicles" data-action="minus">-</button>
+          <span id="vlVehiclesCount">0</span> véhicules
+          <button class="plusminus plus" data-type="vl" data-field="vehicles" data-action="plus">+</button>
+        </div>
+        <div style="margin-left:20px;">
+          <button class="plusminus minus" data-type="vl" data-field="cv" data-action="minus">-</button>
+          <span id="vlCvCount">0</span> CV
+          <button class="plusminus plus" data-type="vl" data-field="cv" data-action="plus">+</button>
+        </div>
+        <div>
+          <label style="margin-left:15px;">Ajouter CV manuellement:
+            <input type="number" id="vlCvManual" class="manual-input" min="0" placeholder="0" inputmode="numeric" pattern="[0-9]*">
+            <button id="vlCvAddManualBtn" class="add">Ajouter</button>
+          </label>
+        </div>
+        <div style="margin-left:20px;">
+          <button class="plusminus minus" data-type="vl" data-field="cf" data-action="minus">-</button>
+          <span id="vlCfCount">0</span> CF
+          <button class="plusminus plus" data-type="vl" data-field="cf" data-action="plus">+</button>
+        </div>
+        <div>
+          <label style="margin-left:15px;">Ajouter CF manuellement:
+            <input type="number" id="vlCfManual" class="manual-input" min="0" placeholder="0" inputmode="numeric" pattern="[0-9]*">
+            <button id="vlCfAddManualBtn" class="add">Ajouter</button>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="vehicle-card" id="plCard">
+      <h3>PL</h3>
+      <div class="flex-row" style="align-items:center;">
+        <div>
+          <button class="plusminus minus" data-type="pl" data-field="vehicles" data-action="minus">-</button>
+          <span id="plVehiclesCount">0</span> véhicules
+          <button class="plusminus plus" data-type="pl" data-field="vehicles" data-action="plus">+</button>
+        </div>
+        <div style="margin-left:20px;">
+          <button class="plusminus minus" data-type="pl" data-field="cv" data-action="minus">-</button>
+          <span id="plCvCount">0</span> CV
+          <button class="plusminus plus" data-type="pl" data-field="cv" data-action="plus">+</button>
+        </div>
+        <div>
+          <label style="margin-left:15px;">Ajouter CV manuellement:
+            <input type="number" id="plCvManual" class="manual-input" min="0" placeholder="0" inputmode="numeric" pattern="[0-9]*">
+            <button id="plCvAddManualBtn" class="add">Ajouter</button>
+          </label>
+        </div>
+        <div style="margin-left:20px;">
+          <button class="plusminus minus" data-type="pl" data-field="cf" data-action="minus">-</button>
+          <span id="plCfCount">0</span> CF
+          <button class="plusminus plus" data-type="pl" data-field="cf" data-action="plus">+</button>
+        </div>
+        <div>
+          <label style="margin-left:15px;">Ajouter CF manuellement:
+            <input type="number" id="plCfManual" class="manual-input" min="0" placeholder="0" inputmode="numeric" pattern="[0-9]*">
+            <button id="plCfAddManualBtn" class="add">Ajouter</button>
+          </label>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="flex-row" style="gap:12px;">
-    <div style="flex:2;">
-      <label>Tablette n° 1 :
-        <input type="text" id="tablette1Num" placeholder="N°(ex: 6)" />
-      </label>
-    </div>
-    <div style="flex:3;">
-      <label>Utilisateur tablette 1 (ESR) :
-        <select id="tablette1ESR"></select>
-      </label>
-    </div>
+</div>
+
+<!-- Page ESI -->
+<div id="esiPage" class="page">
+  <div class="page-header">
+    <button class="back-button" onclick="showPage('homePage')">
+      <i class="fas fa-arrow-left"></i> Retour
+    </button>
+    <div class="page-title">ESI Intercepté(s)</div>
   </div>
-  <div class="flex-row" style="gap:12px;">
-    <div style="flex:2;">
-      <label>Tablette n° 2 (optionnel) :
-        <input type="text" id="tablette2Num" placeholder="N°(ex: 7)" />
-      </label>
+  <div class="page-content">
+    <div id="esiList"></div>
+    <div style="margin-top: 20px;">
+      <select id="esiAge" aria-label="Majeur ou mineur">
+        <option value="">Majeur(e)/Mineur(e)</option>
+        <option value="Majeur">Majeur</option>
+        <option value="Mineur">Mineur</option>
+        <option value="Majeure">Majeure</option>
+        <option value="Mineure">Mineure</option>
+      </select>
+      <select id="esiSexe" aria-label="Sexe H/F">
+        <option value="">Homme/Femme</option>
+        <option value="Homme">Homme</option>
+        <option value="Femme">Femme</option>
+      </select>
+      <input type="number" id="esiAgeNum" placeholder="Âge (chiffre)" min="0" style="width: 100px;" />
+      <input type="text" id="esiNationalite" placeholder="Nationalité" />
+      <input type="text" id="esiLieu" placeholder="Lieu interpellation" />
+      <label for="esiHeure">Heure interpellation :</label>
+      <input type="time" id="esiHeure" />
+      <input type="text" id="esiSuites" placeholder="Suites données" />
+      <button id="addEsiBtn" class="blue">Ajouter ESI</button>
+      <button id="delEsiBtn" class="red">Supprimer dernier ESI</button>
     </div>
-    <div style="flex:3;">
-      <label>Utilisateur tablette 2 (ESR) :
-        <select id="tablette2ESR"></select>
-      </label>
-    </div>
+    <div class="small-note">Tous les champs doivent être remplis pour ajouter un ESI</div>
   </div>
-  <div style="margin-top:12px;">
-    <label>Véhicule de service (immatriculation) :
-      <input type="text" id="vehiculeService" placeholder="Ex: AB-123-CD" />
+</div>
+
+<!-- Page Passeurs -->
+<div id="passeurPage" class="page">
+  <div class="page-header">
+    <button class="back-button" onclick="showPage('homePage')">
+      <i class="fas fa-arrow-left"></i> Retour
+    </button>
+    <div class="page-title">Passeur(s) Intercepté(s)</div>
+  </div>
+  <div class="page-content">
+    <div id="passeurList"></div>
+    <div style="margin-top: 20px;">
+      <select id="passeurAge" aria-label="Majeur ou mineur">
+        <option value="">Majeur(e)/Mineur(e)</option>
+        <option value="Majeur">Majeur</option>
+        <option value="Mineur">Mineur</option>
+        <option value="Majeure">Majeure</option>
+        <option value="Mineure">Mineure</option>
+      </select>
+      <select id="passeurSexe" aria-label="Sexe H/F">
+        <option value="">Homme/Femme</option>
+        <option value="Homme">Homme</option>
+        <option value="Femme">Femme</option>
+      </select>
+      <input type="number" id="passeurAgeNum" placeholder="Âge (chiffre)" min="0" style="width: 100px;" />
+      <input type="text" id="passeurNationalite" placeholder="Nationalité" />
+      <input type="text" id="passeurLieu" placeholder="Lieu interpellation" />
+      <label for="passeurHeure">Heure interpellation :</label>
+      <input type="time" id="passeurHeure" />
+      <input type="text" id="passeurSuites" placeholder="Suites données" />
+      <button id="addPasseurBtn" class="blue">Ajouter Passeur</button>
+      <button id="delPasseurBtn" class="red">Suppr. dernier Passeur</button>
+    </div>
+    <div class="small-note">Tous les champs doivent être remplis pour ajouter un passeur</div>
+  </div>
+</div>
+
+<!-- Page Observations -->
+<div id="observationsPage" class="page">
+  <div class="page-header">
+    <button class="back-button" onclick="showPage('homePage')">
+      <i class="fas fa-arrow-left"></i> Retour
+    </button>
+    <div class="page-title">Observations</div>
+  </div>
+  <div class="page-content">
+   <textarea id="observations"
+              placeholder="Difficultés éventuelles (tablette, téléphone, véhicule, ...)&#10;Autres…"
+              oninput="this.style.height='auto'; this.style.height=this.scrollHeight+'px';"></textarea>
+
+  </div>
+</div>
+
+<!-- Page Déroulement -->
+<div id="deroulementPage" class="page">
+  <div class="page-header">
+    <button class="back-button" onclick="showPage('homePage')">
+      <i class="fas fa-arrow-left"></i> Retour
+    </button>
+    <div class="page-title">Déroulement de la mission</div>
+  </div>
+  <div class="page-content">
+    <textarea id="deroulement"
+              placeholder="Déroulement détaillé..."
+              oninput="this.style.height='auto'; this.style.height=this.scrollHeight+'px';"></textarea>
+  </div>
+</div>
+
+<!-- Page Pulsar -->
+<div id="pulsarPage" class="page">
+  <div class="page-header">
+    <button class="back-button" onclick="showPage('homePage')">
+      <i class="fas fa-arrow-left"></i> Retour
+    </button>
+    <div class="page-title">PULSAR</div>
+  </div>
+  <div class="page-content">
+  <div style="text-align: center; margin-top: 50px;">
+    <label>
+      <input type="radio" name="pulsar" id="pulsarOui" onclick="onPulsarChange()">
+      <span class="yes">OUI</span>
+    </label>
+
+    <label>
+      <input type="radio" name="pulsar" id="pulsarNon" onclick="onPulsarChange()">
+      <span class="no">NON</span>
     </label>
   </div>
-</section>
+</div>
+</div>
 
-<section id="vehiculesSection">
-  <h2>Moyens / Personnes contrôlées</h2>
+<!-- Page Fiche identité (intégration ESI+Visa - partie Fiche) -->
+<div id="ficheIdentitePage" class="page">
+  <div class="page-header">
+    <button class="back-button" onclick="showPage('homePage')">
+      <i class="fas fa-arrow-left"></i> Retour
+    </button>
+    <div class="page-title">Fiche identité</div>
+  </div>
+  <div class="page-content">
+    <!-- Ici on intégrera le formulaire complet ESI (prochaine étape) -->
+    <div id="ficheIdentiteApp">
+  <form id="ficheForm">
+    <label>Catégorie :
+      <select id="categorie">
+        <option value="ESI">ESI</option>
+        <option value="PASSEUR">PASSEUR</option>
+      </select>
+    </label>
 
-  <div class="vehicle-card" id="trainCard">
-    <h3>Train</h3>
-    <div class="flex-row" style="align-items:center;">
-      <div>
-        <button class="plusminus" data-type="train" data-field="vehicles" data-action="minus">-</button>
-        <span id="trainVehiclesCount">0</span> véhicules
-        <button class="plusminus" data-type="train" data-field="vehicles" data-action="plus">+</button>
-      </div>
-      <div style="margin-left:20px;">
-        <button class="plusminus" data-type="train" data-field="cv" data-action="minus">-</button>
-        <span id="trainCvCount">0</span> CV
-        <button class="plusminus" data-type="train" data-field="cv" data-action="plus">+</button>
-      </div>
-      <div>
-        <label style="margin-left:15px;">Ajouter CV manuellement:
-          <input type="number" id="trainCvManual" class="manual-input" min="0" value="0" />
-          <button id="trainCvAddManualBtn">Ajouter</button>
-        </label>
-      </div>
-      <div style="margin-left:20px;">
-        <button class="plusminus" data-type="train" data-field="cf" data-action="minus">-</button>
-        <span id="trainCfCount">0</span> CF
-        <button class="plusminus" data-type="train" data-field="cf" data-action="plus">+</button>
-      </div>
-      <div>
-        <label style="margin-left:15px;">Ajouter CF manuellement:
-          <input type="number" id="trainCfManual" class="manual-input" min="0" value="0" />
-          <button id="trainCfAddManualBtn">Ajouter</button>
-        </label>
-      </div>
+    <h2>Identité</h2>
+    <label>Nom<input type="text" id="nom" autocomplete="off" required></label>
+    <label>Prénom<input type="text" id="prenom" autocomplete="off" required></label>
+    <label>Sexe
+      <select id="sexe">
+        <option value="">--Sélectionner--</option>
+        <option value="Masculin">Masculin</option>
+        <option value="Féminin">Féminin</option>
+        <option value="Autre">Autre</option>
+      </select>
+    </label>
+    <label>Nationalité<input type="text" id="nationalite" autocomplete="off"></label>
+
+    <label>Date de naissance :</label>
+    <div class="date-naissance">
+      <input type="number" id="jour" placeholder="JJ" min="1" max="31" required>
+      <input type="number" id="mois" placeholder="MM" min="1" max="12" required>
+      <input type="number" id="annee" placeholder="AAAA" min="1900" max="2100" required>
     </div>
-  </div>
+    <label>Âge<input type="number" id="age" readonly></label>
 
-  <div class="vehicle-card" id="busCard">
-    <h3>Bus</h3>
-    <div class="flex-row" style="align-items:center;">
-      <div>
-        <button class="plusminus" data-type="bus" data-field="vehicles" data-action="minus">-</button>
-        <span id="busVehiclesCount">0</span> véhicules
-        <button class="plusminus" data-type="bus" data-field="vehicles" data-action="plus">+</button>
-      </div>
-      <div style="margin-left:20px;">
-        <button class="plusminus" data-type="bus" data-field="cv" data-action="minus">-</button>
-        <span id="busCvCount">0</span> CV
-        <button class="plusminus" data-type="bus" data-field="cv" data-action="plus">+</button>
-      </div>
-      <div>
-        <label style="margin-left:15px;">Ajouter CV manuellement:
-          <input type="number" id="busCvManual" class="manual-input" min="0" value="0" />
-          <button id="busCvAddManualBtn">Ajouter</button>
-        </label>
-      </div>
-      <div style="margin-left:20px;">
-        <button class="plusminus" data-type="bus" data-field="cf" data-action="minus">-</button>
-        <span id="busCfCount">0</span> CF
-        <button class="plusminus" data-type="bus" data-field="cf" data-action="plus">+</button>
-      </div>
-      <div>
-        <label style="margin-left:15px;">Ajouter CF manuellement:
-          <input type="number" id="busCfManual" class="manual-input" min="0" value="0" />
-          <button id="busCfAddManualBtn">Ajouter</button>
-        </label>
-      </div>
+    <h2>Intervention</h2>
+    <label>Heure et Date d'intervention :</label>
+    <div class="heure-date">
+      <input type="time" id="heure" required>
+      <input type="date" id="dateIntervention" required>
     </div>
-  </div>
+    <label>Lieu d'interpellation<input type="text" id="lieuInterpellation" autocomplete="off"></label>
+    <label>Suites données<input type="text" id="suitesDonnees" autocomplete="off"></label>
 
-  <div class="vehicle-card" id="vlCard">
-    <h3>VL</h3>
-    <div class="flex-row" style="align-items:center;">
-      <div>
-        <button class="plusminus" data-type="vl" data-field="vehicles" data-action="minus">-</button>
-        <span id="vlVehiclesCount">0</span> véhicules
-        <button class="plusminus" data-type="vl" data-field="vehicles" data-action="plus">+</button>
-      </div>
-      <div style="margin-left:20px;">
-        <button class="plusminus" data-type="vl" data-field="cv" data-action="minus">-</button>
-        <span id="vlCvCount">0</span> CV
-        <button class="plusminus" data-type="vl" data-field="cv" data-action="plus">+</button>
-      </div>
-      <div>
-        <label style="margin-left:15px;">Ajouter CV manuellement:
-          <input type="number" id="vlCvManual" class="manual-input" min="0" value="0" />
-          <button id="vlCvAddManualBtn">Ajouter</button>
-        </label>
-      </div>
-      <div style="margin-left:20px;">
-        <button class="plusminus" data-type="vl" data-field="cf" data-action="minus">-</button>
-        <span id="vlCfCount">0</span> CF
-        <button class="plusminus" data-type="vl" data-field="cf" data-action="plus">+</button>
-      </div>
-      <div>
-        <label style="margin-left:15px;">Ajouter CF manuellement:
-          <input type="number" id="vlCfManual" class="manual-input" min="0" value="0" />
-          <button id="vlCfAddManualBtn">Ajouter</button>
-        </label>
-      </div>
+    <h2>Voyage</h2>
+    <label>Ville de départ<input type="text" id="villeDepart" autocomplete="off"></label>
+    <label>Pays de départ<input type="text" id="paysDepart" autocomplete="off"></label>
+    <label>Ville de destination<input type="text" id="villeDestination" autocomplete="off"></label>
+    <label>Pays de destination<input type="text" id="paysDestination" autocomplete="off"></label>
+
+    <h2>Véhicule</h2>
+    <label>Type de véhicule<input type="text" id="vehicule" autocomplete="off"></label>
+    <label>Immatriculation<input type="text" id="immatriculation" autocomplete="off"></label>
+
+    <h2>Pièces d'identité présentées</h2>
+    <div id="piecesIdentite">
+      <label><input type="checkbox" name="piece" value="Passeport valide"> Passeport valide</label>
+      <label><input type="checkbox" name="piece" value="Passeport périmé"> Passeport périmé</label>
+      <label><input type="checkbox" name="piece" value="Fiche de demande d'asile valide"> Fiche de demande d'asile valide</label>
+      <label><input type="checkbox" name="piece" value="Fiche de demande d'asile périmée"> Fiche de demande d'asile périmée</label>
+      <label><input type="checkbox" name="piece" value="Carte d'identité valide"> Carte d'identité valide</label>
+      <label><input type="checkbox" name="piece" value="Carte d'identité périmée"> Carte d'identité périmée</label>
+      <label><input type="checkbox" name="piece" value="Titre de séjour valide"> Titre de séjour valide</label>
+      <label><input type="checkbox" name="piece" value="Titre de séjour périmé"> Titre de séjour périmé</label>
+      <label><input type="checkbox" id="autreCheck" name="piece" value=""> Autre :</label>
     </div>
-  </div>
+    <input type="text" id="autreTexte" placeholder="Précisez..." style="width:100%;margin-top:5px;padding:8px;" disabled>
 
-  <div class="vehicle-card" id="plCard">
-    <h3>PL</h3>
-    <div class="flex-row" style="align-items:center;">
-      <div>
-        <button class="plusminus" data-type="pl" data-field="vehicles" data-action="minus">-</button>
-        <span id="plVehiclesCount">0</span> véhicules
-        <button class="plusminus" data-type="pl" data-field="vehicles" data-action="plus">+</button>
-      </div>
-      <div style="margin-left:20px;">
-        <button class="plusminus" data-type="pl" data-field="cv" data-action="minus">-</button>
-        <span id="plCvCount">0</span> CV
-        <button class="plusminus" data-type="pl" data-field="cv" data-action="plus">+</button>
-      </div>
-      <div>
-        <label style="margin-left:15px;">Ajouter CV manuellement:
-          <input type="number" id="plCvManual" class="manual-input" min="0" value="0" />
-          <button id="plCvAddManualBtn">Ajouter</button>
-        </label>
-      </div>
-      <div style="margin-left:20px;">
-        <button class="plusminus" data-type="pl" data-field="cf" data-action="minus">-</button>
-        <span id="plCfCount">0</span> CF
-        <button class="plusminus" data-type="pl" data-field="cf" data-action="plus">+</button>
-      </div>
-      <div>
-        <label style="margin-left:15px;">Ajouter CF manuellement:
-          <input type="number" id="plCfManual" class="manual-input" min="0" value="0" />
-          <button id="plCfAddManualBtn">Ajouter</button>
-        </label>
-      </div>
+    <button type="submit" class="blue">Enregistrer la fiche</button>
+
+  </form>
+
+  <h2>Historique des fiches</h2>
+  <div id="historique"></div>
+  <button id="effacerFiches" class="red">Effacer toutes les fiches</button>
+</div>
+
+  </div>
+</div>
+
+<!-- Page Assistant Visas (intégration ESI+Visa - partie Assistant) -->
+<div id="assistantVisaPage" class="page">
+  <div class="page-header">
+    <button class="back-button" onclick="showPage('homePage')">
+      <i class="fas fa-arrow-left"></i> Retour
+    </button>
+    <div class="page-title">Assistant Visas</div>
+  </div>
+  <div class="page-content">
+    <!-- Ici on intégrera l'Assistant Visa France (prochaine étape) -->
+    <div id="assistantVisaApp">
+  <h2>Mini Assistant Visa France</h2>
+  <label for="paysInput">Sélectionnez votre pays :</label><br>
+  <div class="autocomplete-container">
+    <input type="text" id="paysInput" placeholder="Tapez le nom du pays..." autocomplete="off">
+    <div id="paysDropdown"></div>
+  </div><br>
+
+  <label for="duree">Type de séjour :</label><br>
+  <select id="duree">
+    <option value="court">Courte durée (&lt;90 jours)</option>
+    <option value="long">Longue durée (&gt;90 jours)</option>
+  </select><br>
+
+  <p id="resultat"></p>
+  
+  
+  <p>LIENS UTILES:</p> <a href="https://www.visa-schengen.info/voyager-en-europe/pays-exemptes/" target="blank">Pays exemptés de visas</a><br><br>
+                <a href="https://www.visa-schengen.info/voyager-en-europe/pays-concernes/" target="blank">Pays concernés</a><br><br>
+				<a href="https://www.immigration.interieur.gouv.fr/fr/Immigration/Les-visas" target="blank">Les visas/immigration</a>   
+							
+</div>
+
+  </div>
+</div>
+
+<!-- Page Compte Rendu -->
+<div id="generatePage" class="page">
+  <div class="page-header">
+    <button class="back-button" onclick="showPage('homePage')">
+      <i class="fas fa-arrow-left"></i> Retour
+    </button>
+    <div class="page-title">Compte Rendu</div>
+  </div>
+  <div class="page-content">
+    <div style="text-align:center; margin-bottom: 20px;">
+      <button id="generateBtn" class="blue" style="padding:12px 24px; font-size:1.1em;">Générer compte rendu</button>
+      <button id="copyBtn" class="green" style="padding:12px 24px; font-size:1.1em;">Copier dans le presse-papiers</button>
+      <button id="resetBtn" class="red" style="font-size:1.1em;">Effacer les données sauvegardées</button>
     </div>
+
+    <h3>Compte rendu généré :</h3>
+    <textarea id="compteRendu" readonly style="font-family:Verdana; white-space:pre-wrap; overflow:hidden;"></textarea>
+
+    
   </div>
-</section>
-
-<section id="esiSection">
-  <h2>ESI Intercepté(s)</h2>
-  <div id="esiList"></div>
-  <div style="margin-top:6px;">
-    <select id="esiAge" aria-label="Majeur ou mineur">
-      <option value="">Majeur(e)/Mineur(e)</option>
-      <option value="Majeur">Majeur</option>
-      <option value="Mineur">Mineur</option>
-      <option value="Majeure">Majeure</option>
-      <option value="Mineure">Mineure</option>
-    </select>
-    <select id="esiSexe" aria-label="Sexe H/F">
-      <option value="">Homme/Femme</option>
-      <option value="Homme">Homme</option>
-      <option value="Femme">Femme</option>
-    </select>
-    <input type="number" id="esiAgeNum" placeholder="Âge (chiffre)" min="0" style="width: 100px;" />
-    <input type="text" id="esiNationalite" placeholder="Nationalité" />
-    <input type="text" id="esiLieu" placeholder="Lieu interpellation" />
-    <label for="esiHeure">Heure interpellation :</label>
-    <input type="time" id="esiHeure" />
-    <input type="text" id="esiSuites" placeholder="Suites données" />
-    <button id="addEsiBtn" class="blue">Ajouter ESI</button>
-    <button id="delEsiBtn" class="red">Supprimer dernier ESI</button>
-  </div>
-  <div class="small-note">Tous les champs doivent être remplis pour ajouter un ESI</div>
-</section>
-
-<section id="passeurSection">
-  <h2>Passeur(s) Intercepté(s)</h2>
-  <div id="passeurList"></div>
-  <div style="margin-top:6px;">
-    <select id="passeurAge" aria-label="Majeur ou mineur">
-      <option value="">Majeur(e)/Mineur(e)</option>
-      <option value="Majeur">Majeur</option>
-      <option value="Mineur">Mineur</option>
-      <option value="Majeure">Majeure</option>
-      <option value="Mineure">Mineure</option>
-    </select>
-    <select id="passeurSexe" aria-label="Sexe H/F">
-      <option value="">Homme/Femme</option>
-      <option value="Homme">Homme</option>
-      <option value="Femme">Femme</option>
-    </select>
-    <input type="number" id="passeurAgeNum" placeholder="Âge (chiffre)" min="0" style="width: 100px;" />
-    <input type="text" id="passeurNationalite" placeholder="Nationalité" />
-    <input type="text" id="passeurLieu" placeholder="Lieu interpellation" />
-    <label for="passeurHeure">Heure interpellation :</label>
-    <input type="time" id="passeurHeure" />
-    <input type="text" id="passeurSuites" placeholder="Suites données" />
-    <button id="addPasseurBtn" class="blue">Ajouter Passeur</button>
-    <button id="delPasseurBtn" class="red">Suppr. dernier Passeur</button>
-  </div>
-  <div class="small-note">Tous les champs doivent être remplis pour ajouter un passeur</div>
-</section>
-
-<!-- Observations separate -->
-<section id="observationsSection">
-  <h2>Observations</h2>
-  <textarea id="observations" placeholder="Difficultés éventuelles (tablette, téléphone, véhicule, ...)&#10;Autres…"></textarea>
-</section>
-
-<!-- Déroulement separate -->
-<section id="deroulementSection">
-  <h2>Déroulement de la mission</h2>
-  <textarea id="deroulement" placeholder="Déroulement détaillé..."></textarea>
-</section>
-
-<!-- Pulsar -->
-<section id="pulsarSection">
-  <h2>PULSAR</h2>
-  <label>
-    <input type="radio" name="pulsar" id="pulsarOui" onclick="onPulsarChange()"> Oui
-  </label>
-  <label>
-    <input type="radio" name="pulsar" id="pulsarNon" onclick="onPulsarChange()"> Non
-  </label>
-</section>
-
-
-
-<!-- Generate CR Section (buttons + CR output) -->
-<section id="generateSection">
-  <div style="text-align:center; margin-bottom: 12px;">
-    <button id="generateBtn" class="blue" style="padding:10px 20px; font-size:1.05em;">Générer compte rendu</button>
-    <button id="copyBtn" style="background-color:#27ae60; color:white; font-weight:bold; padding:10px 20px; font-size:1.05em;">Copier dans le presse-papiers</button>
-    <button id="scanQrBtn" style="background-color:#8e44ad; color:white; font-weight:bold; padding:10px 20px; font-size:1.05em;">Scanner QR code</button>
-    <button id="resetBtn" class="red" style="font-size:1.05em;">Effacer les données sauvegardées</button>
+</div>
+<!-- Page QR Code -->
+<div id="qrPage" class="page">
+  <div class="page-header">
+    <button class="back-button" onclick="showPage('homePage')">
+      <i class="fas fa-arrow-left"></i> Retour
+    </button>
+    <div class="page-title">QR Codes scannés</div>
   </div>
 
-  <h2>Compte rendu généré :</h2>
-  <textarea id="compteRendu" readonly rows="16" style="font-family:monospace; white-space:pre-wrap;"></textarea>
-
-  <div style="margin-top:12px;">
+  <div class="page-content">
     <h3>Résumé des ESR (scannés)</h3>
-    <textarea id="resumeEsr" readonly rows="6" style="font-family:monospace; white-space:pre-wrap;"></textarea>
-    <div class="small-note">Scannés: <span id="nbScans">0</span> | NIGEND: <span id="nigendList">—</span></div>
+    <textarea id="resumeEsr" readonly rows="6" style="font-family:Verdana; white-space:pre-wrap; overflow:hidden;"></textarea>
+    <div class="small-note">
+      Scannés: <span id="nbScans">0</span> | NIGEND: <span id="nigendList">—</span>
+    </div>
   </div>
-</section>
+</div>
 
-<!-- QR Modal (unchanged) -->
+
+<!-- QR Modal -->
 <div id="qrModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:1000; align-items:center; justify-content:center;">
   <div style="background:#fff; padding:20px; border-radius:10px; max-width:600px; width:90%;">
     <h2>Scanner un QR code</h2>
@@ -584,8 +1035,39 @@ nav button.active {
   </div>
 </div>
 
-<!-- ===== main script (j'avoue j'ai laissé ton code intact, juste l'organisation HTML change) ===== -->
+
 <script>
+// Navigation entre les pages
+  function showPage(pageId) {
+    // Cacher toutes les pages
+    document.querySelectorAll('.page, .home-page').forEach(page => {
+      page.style.display = 'none';
+      page.classList.remove('active');
+    });
+    
+    // Afficher la page demandée
+    const targetPage = document.getElementById(pageId);
+    if (targetPage) {
+      targetPage.style.display = pageId === 'homePage' ? 'flex' : 'block';
+      targetPage.classList.add('active');
+    }
+    // Redimensionner le textarea QR quand on affiche cette page
+  if (pageId === 'qrPage') {
+    // Attendre que la page soit complètement affichée
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const resumeEl = document.getElementById('resumeEsr');
+        if (resumeEl && resumeEl.value) {
+          resumeEl.style.height = 'auto';
+          resumeEl.style.height = resumeEl.scrollHeight + 'px';
+        }
+      });
+    });
+  }
+    // Scroll vers le haut
+    window.scrollTo(0, 0);
+  }
+
   (() => {
     // Données initiales
     const state = {
@@ -609,10 +1091,11 @@ nav button.active {
       observations: '',
       deroulement: '',
       pulsar: '',
-	  editingEsrIndex: null,
+      editingEsrIndex: null,
       editingEsiIndex: null,
       editingPasseurIndex: null,
     };
+    
     const siteConfig = {
       "La Turbie": ["vl", "bus", "pl"],
       "Breil": ["train", "bus"]
@@ -625,9 +1108,11 @@ nav button.active {
         saveToStorage();
       }, 3000);
     }
+    
     function saveToStorage() {
       localStorage.setItem('crGendarmerie', JSON.stringify(state));
     }
+    
     function loadFromStorage() {
       const data = localStorage.getItem('crGendarmerie');
       if(data) {
@@ -675,82 +1160,123 @@ nav button.active {
       renderPasseurList();
       document.getElementById('observations').value = state.observations || '';
       document.getElementById('deroulement').value = state.deroulement || '';
+      
+      // Mise à jour des boutons radio Pulsar
+      if(state.pulsar === 'oui') {
+        document.getElementById('pulsarOui').checked = true;
+      } else if(state.pulsar === 'non') {
+        document.getElementById('pulsarNon').checked = true;
+      }
+	    // Mise à jour du résumé des ESR scannés (QR Page)
+  const resumeEl = document.getElementById('resumeEsr');
+if (resumeEl) {
+  resumeEl.value = state.resumeEsr || '';
+}
+
+  const nbScansEl = document.getElementById('nbScans');
+  if (nbScansEl) {
+    nbScansEl.textContent = state.scannedNigends ? state.scannedNigends.length : 0;
+  }
+
+  const nigendListEl = document.getElementById('nigendList');
+  if (nigendListEl) {
+    nigendListEl.textContent = state.scannedNigends && state.scannedNigends.length > 0
+      ? state.scannedNigends.join(', ')
+      : '—';
+  }
+
     }
 
     // ESR functions
     function renderEsrList() {
-  const container = document.getElementById('esrList');
-  container.innerHTML = '';
-  if(!state.esrList || state.esrList.length === 0) {
-    container.textContent = 'Aucun ESR ajouté.';
-    return;
-  }
-  const ul = document.createElement('ul');
-  state.esrList.forEach((esr,i) => {
-    const li = document.createElement('li');
-    li.textContent = `${i+1} - ${esr.grade} ${esr.nom} - ${esr.nigend} - ${esr.crt} `;
-
-    // bouton Modifier
-    const editBtn = document.createElement('button');
-    editBtn.textContent = 'Modifier';
-    editBtn.className = 'blue';
-    editBtn.onclick = () => {
-      document.getElementById('esrGrade').value = esr.grade;
-      document.getElementById('esrNom').value = esr.nom;
-      document.getElementById('esrNigend').value = esr.nigend;
-      document.getElementById('esrCRT').value = esr.crt;
-      state.editingEsrIndex = i;
-      document.getElementById('addEsrBtn').textContent = "Enregistrer";
-    };
-
-    // bouton Supprimer
-    const delBtn = document.createElement('button');
-    delBtn.textContent = 'Supprimer';
-    delBtn.className = 'red';
-    delBtn.onclick = () => {
-      if(confirm(`Supprimer ${esr.grade} ${esr.nom} ?`)) {
-        state.esrList.splice(i,1);
-        populateEsrSelects();
-        renderEsrList();
-        debounceSave();
+      const container = document.getElementById('esrList');
+      container.innerHTML = '';
+      if(!state.esrList || state.esrList.length === 0) {
+        container.innerHTML = '<p>Aucun ESR ajouté.</p>';
+        return;
       }
-    };
+      const ul = document.createElement('ul');
+      ul.style.listStyle = 'none';
+      ul.style.padding = '0';
+      
+      state.esrList.forEach((esr,i) => {
+        const li = document.createElement('li');
+        li.style.background = '#f8f9fa';
+        li.style.padding = '10px';
+        li.style.margin = '8px 0';
+        li.style.borderRadius = '6px';
+        li.style.border = '1px solid #ddd';
+        
+        const info = document.createElement('div');
+        info.textContent = `${i+1} - ${esr.grade} ${esr.nom} - ${esr.nigend} - ${esr.crt}`;
+        info.style.marginBottom = '8px';
+        
+        const buttons = document.createElement('div');
+        
+        // bouton Modifier
+        const editBtn = document.createElement('button');
+        editBtn.textContent = 'Modifier';
+        editBtn.className = 'blue';
+        editBtn.style.marginRight = '8px';
+        editBtn.onclick = () => {
+          document.getElementById('esrGrade').value = esr.grade;
+          document.getElementById('esrNom').value = esr.nom;
+          document.getElementById('esrNigend').value = esr.nigend;
+          document.getElementById('esrCRT').value = esr.crt;
+          state.editingEsrIndex = i;
+          document.getElementById('addEsrBtn').textContent = "Enregistrer";
+        };
 
-    li.appendChild(editBtn);
-    li.appendChild(delBtn);
-    ul.appendChild(li);
-  });
-  container.appendChild(ul);
-}
+        // bouton Supprimer
+        const delBtn = document.createElement('button');
+        delBtn.textContent = 'Supprimer';
+        delBtn.className = 'red';
+        delBtn.onclick = () => {
+          if(confirm(`Supprimer ${esr.grade} ${esr.nom} ?`)) {
+            state.esrList.splice(i,1);
+            populateEsrSelects();
+            renderEsrList();
+            debounceSave();
+          }
+        };
 
-  function addEsr() {
-  const grade = document.getElementById('esrGrade').value.trim();
-  const nom = document.getElementById('esrNom').value.trim();
-  const nigend = document.getElementById('esrNigend').value.trim();
-  const crt = document.getElementById('esrCRT').value.trim();
-  if(!grade || !nom || !nigend || !crt) {
-    alert('Merci de remplir tous les champs ESR.');
-    return;
-  }
+        buttons.appendChild(editBtn);
+        buttons.appendChild(delBtn);
+        li.appendChild(info);
+        li.appendChild(buttons);
+        ul.appendChild(li);
+      });
+      container.appendChild(ul);
+    }
 
-  if(state.editingEsrIndex !== null && state.editingEsrIndex !== undefined) {
-    // Modification
-    state.esrList[state.editingEsrIndex] = {grade, nom, nigend, crt};
-    state.editingEsrIndex = null;
-    document.getElementById('addEsrBtn').textContent = "Ajouter ESR";
-  } else {
-    // Ajout
-    state.esrList.push({grade, nom, nigend, crt});
-  }
+    function addEsr() {
+      const grade = document.getElementById('esrGrade').value.trim();
+      const nom = document.getElementById('esrNom').value.trim();
+      const nigend = document.getElementById('esrNigend').value.trim();
+      const crt = document.getElementById('esrCRT').value.trim();
+      if(!grade || !nom || !nigend || !crt) {
+        alert('Merci de remplir tous les champs ESR.');
+        return;
+      }
 
-  document.getElementById('esrGrade').value = '';
-  document.getElementById('esrNom').value = '';
-  document.getElementById('esrNigend').value = '';
-  document.getElementById('esrCRT').value = '';
-  populateEsrSelects();
-  renderEsrList();
-  debounceSave();
-}
+      if(state.editingEsrIndex !== null && state.editingEsrIndex !== undefined) {
+        // Modification
+        state.esrList[state.editingEsrIndex] = {grade, nom, nigend, crt};
+        state.editingEsrIndex = null;
+        document.getElementById('addEsrBtn').textContent = "Ajouter ESR";
+      } else {
+        // Ajout
+        state.esrList.push({grade, nom, nigend, crt});
+      }
+
+      document.getElementById('esrGrade').value = '';
+      document.getElementById('esrNom').value = '';
+      document.getElementById('esrNigend').value = '';
+      document.getElementById('esrCRT').value = '';
+      populateEsrSelects();
+      renderEsrList();
+      debounceSave();
+    }
 
     function delEsr() {
       if(state.esrList && state.esrList.length > 0) {
@@ -760,6 +1286,7 @@ nav button.active {
         debounceSave();
       }
     }
+    
     function populateEsrSelects() {
       ['cameraESR','tablette1ESR','tablette2ESR'].forEach(id => {
         const sel = document.getElementById(id);
@@ -795,104 +1322,149 @@ nav button.active {
       updateUI();
       debounceSave();
     }
-    function addManualCv(type) {
-      const input = document.getElementById(type+'CvManual');
-      const val = parseInt(input.value);
-      if(isNaN(val) || val < 1) { alert('Veuillez saisir un nombre entier supérieur à 0.'); return; }
-      state.cv[type] += val;
-      input.value = 0;
-      updateUI();
-      debounceSave();
+    
+      // CV
+function addManualCv(type){
+  const input = document.getElementById(type+'CvManual');
+  if(!input) return;
+  const val = parseInt(input.value, 10);
+  if (!(val > 0)) { alert('Veuillez saisir un nombre entier > 0.'); input.focus(); input.select(); return; }
+  state.cv[type] += val;
+  updateUI(); debounceSave();
+  input.value = '';          // ← vide
+  input.placeholder = '0';   // ← indicatif
+  input.blur();              // (optionnel)
+}
+
+// CF
+function addManualCf(type){
+  const input = document.getElementById(type+'CfManual');
+  if(!input) return;
+  const val = parseInt(input.value, 10);
+  if (!(val > 0)) { alert('Veuillez saisir un nombre entier > 0.'); input.focus(); input.select(); return; }
+  state.cf[type] += val;
+  updateUI(); debounceSave();
+  input.value = '';
+  input.placeholder = '0';
+  input.blur();
+}
+['train','bus','vl','pl'].forEach(t=>{
+  ['Cv','Cf'].forEach(kind=>{
+    const inp = document.getElementById(`${t}${kind}Manual`);
+    if(!inp) return;
+
+    // Efface 0 au focus et sélectionne la valeur existante
+    inp.addEventListener('focus', () => {
+      if (inp.value === '0') inp.value = '';
+      if (inp.value) inp.select();
+    });
+
+    // Entrée = clic sur "Ajouter"
+    const btn = document.getElementById(`${t}${kind}AddManualBtn`);
+    if(btn){
+      inp.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter') btn.click();
+      });
     }
-    function addManualCf(type) {
-      const input = document.getElementById(type+'CfManual');
-      const val = parseInt(input.value);
-      if(isNaN(val) || val < 1) { alert('Veuillez saisir un nombre entier supérieur à 0.'); return; }
-      state.cf[type] += val;
-      input.value = 0;
-      updateUI();
-      debounceSave();
-    }
+  });
+});
+
 
     // ESI
     function renderEsiList() {
-  const container = document.getElementById('esiList');
-  container.innerHTML = '';
-  if(!state.esiList || state.esiList.length === 0) {
-    container.textContent = 'Aucun ESI ajouté.';
-    return;
-  }
-  const ul = document.createElement('ul');
-  state.esiList.forEach((esi,i) => {
-    const li = document.createElement('li');
-    li.textContent = `${i+1} - ${esi.heure} - ${esi.age} - ${esi.sexe} - ${esi.ageNum} ans - ${esi.nationalite} - ${esi.lieu} - ${esi.suites} `;
-
-    // bouton Modifier
-    const editBtn = document.createElement('button');
-    editBtn.textContent = 'Modifier';
-    editBtn.className = 'blue';
-    editBtn.onclick = () => {
-      document.getElementById('esiAge').value = esi.age;
-      document.getElementById('esiSexe').value = esi.sexe;
-      document.getElementById('esiAgeNum').value = esi.ageNum;
-      document.getElementById('esiNationalite').value = esi.nationalite;
-      document.getElementById('esiLieu').value = esi.lieu;
-      document.getElementById('esiHeure').value = esi.heure;
-      document.getElementById('esiSuites').value = esi.suites;
-      state.editingEsiIndex = i;
-      document.getElementById('addEsiBtn').textContent = "Enregistrer";
-    };
-
-    // bouton Supprimer
-    const delBtn = document.createElement('button');
-    delBtn.textContent = 'Supprimer';
-    delBtn.className = 'red';
-    delBtn.onclick = () => {
-      if(confirm("Supprimer cet ESI ?")) {
-        state.esiList.splice(i,1);
-        renderEsiList();
-        debounceSave();
+      const container = document.getElementById('esiList');
+      container.innerHTML = '';
+      if(!state.esiList || state.esiList.length === 0) {
+        container.innerHTML = '<p>Aucun ESI ajouté.</p>';
+        return;
       }
-    };
+      const ul = document.createElement('ul');
+      ul.style.listStyle = 'none';
+      ul.style.padding = '0';
+      
+      state.esiList.forEach((esi,i) => {
+        const li = document.createElement('li');
+        li.style.background = '#f8f9fa';
+        li.style.padding = '10px';
+        li.style.margin = '8px 0';
+        li.style.borderRadius = '6px';
+        li.style.border = '1px solid #ddd';
+        
+        const info = document.createElement('div');
+        info.textContent = `${i+1} - ${esi.heure} - ${esi.age} - ${esi.sexe} - ${esi.ageNum} ans - ${esi.nationalite} - ${esi.lieu} - ${esi.suites}`;
+        info.style.marginBottom = '8px';
+        
+        const buttons = document.createElement('div');
 
-    li.appendChild(editBtn);
-    li.appendChild(delBtn);
-    ul.appendChild(li);
-  });
-  container.appendChild(ul);
-}
+        // bouton Modifier
+        const editBtn = document.createElement('button');
+        editBtn.textContent = 'Modifier';
+        editBtn.className = 'blue';
+        editBtn.style.marginRight = '8px';
+        editBtn.onclick = () => {
+          document.getElementById('esiAge').value = esi.age;
+          document.getElementById('esiSexe').value = esi.sexe;
+          document.getElementById('esiAgeNum').value = esi.ageNum;
+          document.getElementById('esiNationalite').value = esi.nationalite;
+          document.getElementById('esiLieu').value = esi.lieu;
+          document.getElementById('esiHeure').value = esi.heure;
+          document.getElementById('esiSuites').value = esi.suites;
+          state.editingEsiIndex = i;
+          document.getElementById('addEsiBtn').textContent = "Enregistrer";
+        };
 
-function addEsi() {
-  const heure = document.getElementById('esiHeure').value.trim();
-  const age = document.getElementById('esiAge').value;
-  const sexe = document.getElementById('esiSexe').value;
-  const ageNum = document.getElementById('esiAgeNum').value.trim();
-  const nationalite = document.getElementById('esiNationalite').value.trim();
-  const lieu = document.getElementById('esiLieu').value.trim();
-  const suites = document.getElementById('esiSuites').value.trim();
-  if(!age || !sexe || !ageNum || !nationalite || !lieu || !suites) {
-    alert('Merci de remplir tous les champs ESI.');
-    return;
-  }
+        // bouton Supprimer
+        const delBtn = document.createElement('button');
+        delBtn.textContent = 'Supprimer';
+        delBtn.className = 'red';
+        delBtn.onclick = () => {
+          if(confirm("Supprimer cet ESI ?")) {
+            state.esiList.splice(i,1);
+            renderEsiList();
+            debounceSave();
+          }
+        };
 
-  if(state.editingEsiIndex !== null && state.editingEsiIndex !== undefined) {
-    state.esiList[state.editingEsiIndex] = {age,sexe,ageNum,nationalite,lieu,heure,suites};
-    state.editingEsiIndex = null;
-    document.getElementById('addEsiBtn').textContent = "Ajouter ESI";
-  } else {
-    state.esiList.push({age,sexe,ageNum,nationalite,lieu,heure,suites});
-  }
+        buttons.appendChild(editBtn);
+        buttons.appendChild(delBtn);
+        li.appendChild(info);
+        li.appendChild(buttons);
+        ul.appendChild(li);
+      });
+      container.appendChild(ul);
+    }
 
-  document.getElementById('esiAge').value = '';
-  document.getElementById('esiSexe').value = '';
-  document.getElementById('esiAgeNum').value = '';
-  document.getElementById('esiNationalite').value = '';
-  document.getElementById('esiLieu').value = '';
-  document.getElementById('esiHeure').value = '';
-  document.getElementById('esiSuites').value = '';
-  renderEsiList();
-  debounceSave();
-}
+    function addEsi() {
+      const heure = document.getElementById('esiHeure').value.trim();
+      const age = document.getElementById('esiAge').value;
+      const sexe = document.getElementById('esiSexe').value;
+      const ageNum = document.getElementById('esiAgeNum').value.trim();
+      const nationalite = document.getElementById('esiNationalite').value.trim();
+      const lieu = document.getElementById('esiLieu').value.trim();
+      const suites = document.getElementById('esiSuites').value.trim();
+      if(!age || !sexe || !ageNum || !nationalite || !lieu || !suites) {
+        alert('Merci de remplir tous les champs ESI.');
+        return;
+      }
+
+      if(state.editingEsiIndex !== null && state.editingEsiIndex !== undefined) {
+        state.esiList[state.editingEsiIndex] = {age,sexe,ageNum,nationalite,lieu,heure,suites};
+        state.editingEsiIndex = null;
+        document.getElementById('addEsiBtn').textContent = "Ajouter ESI";
+      } else {
+        state.esiList.push({age,sexe,ageNum,nationalite,lieu,heure,suites});
+      }
+
+      document.getElementById('esiAge').value = '';
+      document.getElementById('esiSexe').value = '';
+      document.getElementById('esiAgeNum').value = '';
+      document.getElementById('esiNationalite').value = '';
+      document.getElementById('esiLieu').value = '';
+      document.getElementById('esiHeure').value = '';
+      document.getElementById('esiSuites').value = '';
+      renderEsiList();
+      debounceSave();
+    }
 
     function delEsi() {
       if(state.esiList && state.esiList.length > 0) {
@@ -904,83 +1476,99 @@ function addEsi() {
 
     // PASSEUR
     function renderPasseurList() {
-  const container = document.getElementById('passeurList');
-  container.innerHTML = '';
-  if(!state.passeurList || state.passeurList.length === 0) {
-    container.textContent = 'Aucun passeur ajouté.';
-    return;
-  }
-  const ul = document.createElement('ul');
-  state.passeurList.forEach((passeur,i) => {
-    const li = document.createElement('li');
-    li.textContent = `${i+1} - ${passeur.heure} - ${passeur.age} - ${passeur.sexe} - ${passeur.ageNum} ans - ${passeur.nationalite} - ${passeur.lieu} - ${passeur.suites} `;
-
-    // bouton Modifier
-    const editBtn = document.createElement('button');
-    editBtn.textContent = 'Modifier';
-    editBtn.className = 'blue';
-    editBtn.onclick = () => {
-      document.getElementById('passeurAge').value = passeur.age;
-      document.getElementById('passeurSexe').value = passeur.sexe;
-      document.getElementById('passeurAgeNum').value = passeur.ageNum;
-      document.getElementById('passeurNationalite').value = passeur.nationalite;
-      document.getElementById('passeurLieu').value = passeur.lieu;
-      document.getElementById('passeurHeure').value = passeur.heure;
-      document.getElementById('passeurSuites').value = passeur.suites;
-      state.editingPasseurIndex = i;
-      document.getElementById('addPasseurBtn').textContent = "Enregistrer";
-    };
-
-    // bouton Supprimer
-    const delBtn = document.createElement('button');
-    delBtn.textContent = 'Supprimer';
-    delBtn.className = 'red';
-    delBtn.onclick = () => {
-      if(confirm("Supprimer ce passeur ?")) {
-        state.passeurList.splice(i,1);
-        renderPasseurList();
-        debounceSave();
+      const container = document.getElementById('passeurList');
+      container.innerHTML = '';
+      if(!state.passeurList || state.passeurList.length === 0) {
+        container.innerHTML = '<p>Aucun passeur ajouté.</p>';
+        return;
       }
-    };
+      const ul = document.createElement('ul');
+      ul.style.listStyle = 'none';
+      ul.style.padding = '0';
+      
+      state.passeurList.forEach((passeur,i) => {
+        const li = document.createElement('li');
+        li.style.background = '#f8f9fa';
+        li.style.padding = '10px';
+        li.style.margin = '8px 0';
+        li.style.borderRadius = '6px';
+        li.style.border = '1px solid #ddd';
+        
+        const info = document.createElement('div');
+        info.textContent = `${i+1} - ${passeur.heure} - ${passeur.age} - ${passeur.sexe} - ${passeur.ageNum} ans - ${passeur.nationalite} - ${passeur.lieu} - ${passeur.suites}`;
+        info.style.marginBottom = '8px';
+        
+        const buttons = document.createElement('div');
 
-    li.appendChild(editBtn);
-    li.appendChild(delBtn);
-    ul.appendChild(li);
-  });
-  container.appendChild(ul);
-}
+        // bouton Modifier
+        const editBtn = document.createElement('button');
+        editBtn.textContent = 'Modifier';
+        editBtn.className = 'blue';
+        editBtn.style.marginRight = '8px';
+        editBtn.onclick = () => {
+          document.getElementById('passeurAge').value = passeur.age;
+          document.getElementById('passeurSexe').value = passeur.sexe;
+          document.getElementById('passeurAgeNum').value = passeur.ageNum;
+          document.getElementById('passeurNationalite').value = passeur.nationalite;
+          document.getElementById('passeurLieu').value = passeur.lieu;
+          document.getElementById('passeurHeure').value = passeur.heure;
+          document.getElementById('passeurSuites').value = passeur.suites;
+          state.editingPasseurIndex = i;
+          document.getElementById('addPasseurBtn').textContent = "Enregistrer";
+        };
 
-function addPasseur() {
-  const heure = document.getElementById('passeurHeure').value.trim();
-  const age = document.getElementById('passeurAge').value;
-  const sexe = document.getElementById('passeurSexe').value;
-  const ageNum = document.getElementById('passeurAgeNum').value.trim();
-  const nationalite = document.getElementById('passeurNationalite').value.trim();
-  const lieu = document.getElementById('passeurLieu').value.trim();
-  const suites = document.getElementById('passeurSuites').value.trim();
-  if(!age || !sexe || !ageNum || !nationalite || !lieu || !suites) {
-    alert('Merci de remplir tous les champs Passeur.');
-    return;
-  }
+        // bouton Supprimer
+        const delBtn = document.createElement('button');
+        delBtn.textContent = 'Supprimer';
+        delBtn.className = 'red';
+        delBtn.onclick = () => {
+          if(confirm("Supprimer ce passeur ?")) {
+            state.passeurList.splice(i,1);
+            renderPasseurList();
+            debounceSave();
+          }
+        };
 
-  if(state.editingPasseurIndex !== null && state.editingPasseurIndex !== undefined) {
-    state.passeurList[state.editingPasseurIndex] = {age,sexe,ageNum,nationalite,lieu,heure,suites};
-    state.editingPasseurIndex = null;
-    document.getElementById('addPasseurBtn').textContent = "Ajouter Passeur";
-  } else {
-    state.passeurList.push({age,sexe,ageNum,nationalite,lieu,heure,suites});
-  }
+        buttons.appendChild(editBtn);
+        buttons.appendChild(delBtn);
+        li.appendChild(info);
+        li.appendChild(buttons);
+        ul.appendChild(li);
+      });
+      container.appendChild(ul);
+    }
 
-  document.getElementById('passeurAge').value = '';
-  document.getElementById('passeurSexe').value = '';
-  document.getElementById('passeurAgeNum').value = '';
-  document.getElementById('passeurNationalite').value = '';
-  document.getElementById('passeurLieu').value = '';
-  document.getElementById('passeurHeure').value = '';
-  document.getElementById('passeurSuites').value = '';
-  renderPasseurList();
-  debounceSave();
-}
+    function addPasseur() {
+      const heure = document.getElementById('passeurHeure').value.trim();
+      const age = document.getElementById('passeurAge').value;
+      const sexe = document.getElementById('passeurSexe').value;
+      const ageNum = document.getElementById('passeurAgeNum').value.trim();
+      const nationalite = document.getElementById('passeurNationalite').value.trim();
+      const lieu = document.getElementById('passeurLieu').value.trim();
+      const suites = document.getElementById('passeurSuites').value.trim();
+      if(!age || !sexe || !ageNum || !nationalite || !lieu || !suites) {
+        alert('Merci de remplir tous les champs Passeur.');
+        return;
+      }
+
+      if(state.editingPasseurIndex !== null && state.editingPasseurIndex !== undefined) {
+        state.passeurList[state.editingPasseurIndex] = {age,sexe,ageNum,nationalite,lieu,heure,suites};
+        state.editingPasseurIndex = null;
+        document.getElementById('addPasseurBtn').textContent = "Ajouter Passeur";
+      } else {
+        state.passeurList.push({age,sexe,ageNum,nationalite,lieu,heure,suites});
+      }
+
+      document.getElementById('passeurAge').value = '';
+      document.getElementById('passeurSexe').value = '';
+      document.getElementById('passeurAgeNum').value = '';
+      document.getElementById('passeurNationalite').value = '';
+      document.getElementById('passeurLieu').value = '';
+      document.getElementById('passeurHeure').value = '';
+      document.getElementById('passeurSuites').value = '';
+      renderPasseurList();
+      debounceSave();
+    }
 
     function delPasseur() {
       if(state.passeurList && state.passeurList.length > 0) {
@@ -1006,10 +1594,10 @@ function addPasseur() {
         cr += `${i+1} ${esr.grade} ${esr.nom} - ${esr.nigend} - CRT ${esr.crt}\n`;
       });
 
-      cr += `\nPorteur caméra nº ${state.cameraNum} : ${state.cameraESR || ''}\n`;
-      cr += `Tablette nº T${state.tablette1Num} : ${state.tablette1ESR || ''}\n`;
+      cr += `\nPorteur caméra n° ${state.cameraNum} : ${state.cameraESR || ''}\n`;
+      cr += `Tablette n° T${state.tablette1Num} : ${state.tablette1ESR || ''}\n`;
       if(state.tablette2Num && state.tablette2Num.trim() !== '') {
-        cr += `Tablette nº T${state.tablette2Num} : ${state.tablette2ESR || ''}\n`;
+        cr += `Tablette n° T${state.tablette2Num} : ${state.tablette2ESR || ''}\n`;
       }
       if(state.vehiculeService && state.vehiculeService.trim() !== '') {
         cr += `Véhicule de service : ${state.vehiculeService}\n`;
@@ -1047,19 +1635,25 @@ function addPasseur() {
       else if(state.pulsar === 'non') cr += `\n6 - PULSAR non fait\n`;
       else cr += `\n6 - PULSAR (non renseigné)\n`;
 
-      document.getElementById('compteRendu').value = cr;
+      document.getElementById("compteRendu").value = cr;
+autoResize(document.getElementById("compteRendu"));
     }
+function autoResize(el) {
+  el.style.height = "auto"; // reset
+  el.style.height = (el.scrollHeight) + "px"; // adapte
+}
 
     // Copier
     function copyToClipboard() {
       const textarea = document.getElementById('compteRendu');
-      if(!textarea.value) { alert('Générez d’abord le compte rendu.'); return; }
+      if(!textarea.value) { alert('Générez d\'abord le compte rendu.'); return; }
       try {
         navigator.clipboard.writeText(textarea.value).then(()=> alert('Compte rendu copié dans le presse-papiers !')).catch(()=> fallbackCopy(textarea));
       } catch {
         fallbackCopy(textarea);
       }
     }
+    
     function fallbackCopy(textarea) {
       try {
         textarea.select();
@@ -1085,6 +1679,7 @@ function addPasseur() {
       state.heureFin = document.getElementById('heureFinInput').value;
       debounceSave();
     }
+    
     function onMaterielChange() {
       state.cameraNum = document.getElementById('cameraNum').value.trim();
       state.cameraESR = document.getElementById('cameraESR').value;
@@ -1095,13 +1690,14 @@ function addPasseur() {
       state.vehiculeService = document.getElementById('vehiculeService').value.trim();
       debounceSave();
     }
+    
     function onTextAreaChange() {
       state.observations = document.getElementById('observations').value;
       state.deroulement = document.getElementById('deroulement').value;
       debounceSave();
     }
 
-    function onPulsarChange() {
+    window.onPulsarChange = function() {
       if(document.getElementById('pulsarOui') && document.getElementById('pulsarOui').checked) state.pulsar = 'oui';
       else if(document.getElementById('pulsarNon') && document.getElementById('pulsarNon').checked) state.pulsar = 'non';
       else state.pulsar = '';
@@ -1133,13 +1729,6 @@ function addPasseur() {
         (err) => { console.error("Erreur scan :", err); }
       );
       isScanning = true;
-    }
-
-    function closeQrModal() {
-      if (html5QrCode && isScanning) {
-        html5QrCode.stop().then(()=>{ isScanning=false; }).catch(()=>{});
-      }
-      document.getElementById('qrModal').style.display = 'none';
     }
 
     function onScanSuccess(decodedText) {
@@ -1220,10 +1809,14 @@ Pl: ${counts.pl.v} / ${counts.pl.cv} CV / ${counts.pl.cf} CF`;
     }
 
     function updateResumeEsrUI(){
-      document.getElementById('resumeEsr').value=state.resumeEsr || '';
-      document.getElementById('nbScans').textContent=(state.scannedNigends||[]).length;
-      document.getElementById('nigendList').textContent=(state.scannedNigends||[]).join(', ')||'—';
-    }
+  const resumeEl = document.getElementById('resumeEsr');
+  if (resumeEl) {
+    resumeEl.value = state.resumeEsr || ''; 
+	autoResize(resumeEl);// Auto-redimensionnement du textarea
+  }
+  document.getElementById('nbScans').textContent = (state.scannedNigends||[]).length;
+  document.getElementById('nigendList').textContent = (state.scannedNigends||[]).join(', ')||'—';
+}
 
     // patch generate to include scans
     const oldGenerate = generateCompteRendu;
@@ -1246,11 +1839,6 @@ Pl: ${counts.pl.v} / ${counts.pl.cv} CV / ${counts.pl.cf} CF`;
       else cr += "\n" + newSection;
       document.getElementById('compteRendu').value = cr;
     };
-
-    // init & events
-    document.addEventListener('DOMContentLoaded', ()=>{
-      document.getElementById('scanQrBtn').addEventListener('click', openQrModal);
-    });
 
     function init() {
       loadFromStorage();
@@ -1298,21 +1886,461 @@ Pl: ${counts.pl.v} / ${counts.pl.cv} CV / ${counts.pl.cf} CF`;
       document.getElementById('generateBtn').addEventListener('click', generateCompteRendu);
       document.getElementById('copyBtn').addEventListener('click', copyToClipboard);
       document.getElementById('resetBtn').addEventListener('click', resetData);
+      document.getElementById('scanQrBtn').addEventListener('click', openQrModal);
 
       const pulsarOui = document.getElementById('pulsarOui');
       const pulsarNon = document.getElementById('pulsarNon');
-      if(pulsarOui) pulsarOui.addEventListener('change', onPulsarChange);
-      if(pulsarNon) pulsarNon.addEventListener('change', onPulsarChange);
+      if(pulsarOui) pulsarOui.addEventListener('change', window.onPulsarChange);
+      if(pulsarNon) pulsarNon.addEventListener('change', window.onPulsarChange);
     }
 
-    init();
+    // Initialisation au chargement de la page
+    document.addEventListener('DOMContentLoaded', () => {
+      showPage('homePage'); // Afficher la page d'accueil par défaut
+      init();
+    });
+
+    // Service Worker pour PWA
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js').then(()=>console.log("Service Worker enregistré")).catch(err=>console.error("Erreur SW:",err));
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log("Service Worker enregistré"))
+        .catch(err => console.error("Erreur SW:", err));
     }
   })();
+  // --------- NAVIGATION ----------
+function showSection(id) {
+  document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  document.querySelectorAll("nav button").forEach(btn => btn.classList.remove("active"));
+  document.getElementById("btn" + id.charAt(0).toUpperCase() + id.slice(1)).classList.add("active");
+}
+
+// --------- SCRIPT FICHE ESI ----------
+function setCurrentDateTime() {
+    const now = new Date();
+    const timeString = now.toTimeString().slice(0, 5);
+    const dateString = now.toISOString().split('T')[0];
+    
+    document.getElementById('heure').value = timeString;
+    document.getElementById('dateIntervention').value = dateString;
+}
+
+// Initialiser avec la date/heure actuelle
+setCurrentDateTime();
+
+function calculerAge() {
+    const jour = parseInt(document.getElementById("jour").value);
+    const mois = parseInt(document.getElementById("mois").value) - 1;
+    const annee = parseInt(document.getElementById("annee").value);
+    if (!jour || mois < 0 || !annee) return;
+    const today = new Date();
+    const naissance = new Date(annee, mois, jour);
+    let age = today.getFullYear() - naissance.getFullYear();
+    const m = today.getMonth() - naissance.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < naissance.getDate())) age--;
+    document.getElementById("age").value = age;
+}
+
+function autoNext(input, nextInputId, maxLength) {
+    input.addEventListener('input', function() {
+        if (this.value.length >= maxLength) {
+            document.getElementById(nextInputId).focus();
+        }
+        calculerAge();
+    });
+}
+
+autoNext(document.getElementById('jour'), 'mois', 2);
+autoNext(document.getElementById('mois'), 'annee', 2);
+document.getElementById('annee').addEventListener('input', calculerAge);
+
+document.getElementById('immatriculation').addEventListener('input', function() {
+    this.value = this.value.toUpperCase();
+});
+
+// Gestion du champ "Autre" pour les pièces d'identité
+document.getElementById('autreCheck').addEventListener('change', function() {
+    const autreTexte = document.getElementById('autreTexte');
+    if (this.checked) {
+        autreTexte.disabled = false;
+        autreTexte.focus();
+    } else {
+        autreTexte.disabled = true;
+        autreTexte.value = '';
+        this.value = '';
+    }
+});
+
+document.getElementById('autreTexte').addEventListener('input', function() {
+    const autreCheck = document.getElementById('autreCheck');
+    if (this.value.trim()) {
+        autreCheck.value = 'Autre : ' + this.value.trim();
+    } else {
+        autreCheck.value = '';
+    }
+});
+
+function formatDateNaissance(jour, mois, annee) {
+    return `${jour.toString().padStart(2, '0')}/${mois.toString().padStart(2, '0')}/${annee}`;
+}
+
+function formatDateIntervention(dateStr) {
+    if (!dateStr) return '';
+    const [annee, mois, jour] = dateStr.split("-");
+    return `${jour}/${mois}/${annee}`;
+}
+
+document.getElementById('ficheForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const pieces = Array.from(document.querySelectorAll('input[name="piece"]:checked')).map(cb => cb.value);
+    
+    const jourVal = document.getElementById('jour').value;
+    const moisVal = document.getElementById('mois').value;
+    const anneeVal = document.getElementById('annee').value;
+    
+    const fiche = {
+        categorie: document.getElementById('categorie').value,
+        nom: document.getElementById('nom').value,
+        prenom: document.getElementById('prenom').value,
+        sexe: document.getElementById('sexe').value,
+        nationalite: document.getElementById('nationalite').value,
+        jour: jourVal,
+        mois: moisVal,
+        annee: anneeVal,
+        dateNaissance: formatDateNaissance(jourVal, moisVal, anneeVal),
+        age: document.getElementById('age').value,
+        heure: document.getElementById('heure').value,
+        dateIntervention: document.getElementById('dateIntervention').value,
+        lieuInterpellation: document.getElementById('lieuInterpellation').value,
+suitesDonnees: document.getElementById('suitesDonnees').value,
+ villeDepart: document.getElementById('villeDepart').value,
+        paysDepart: document.getElementById('paysDepart').value,
+        villeDestination: document.getElementById('villeDestination').value,
+        paysDestination: document.getElementById('paysDestination').value,
+        vehicule: document.getElementById('vehicule').value,
+        immatriculation: document.getElementById('immatriculation').value,
+        piecesIdentite: pieces
+    };
+    
+    const fiches = JSON.parse(localStorage.getItem('fichesESI') || '[]');
+    fiches.push(fiche);
+    localStorage.setItem('fichesESI', JSON.stringify(fiches));
+    this.reset();
+    setCurrentDateTime();
+    afficherHistorique();
+});
+
+function afficherHistorique() {
+    const historiqueDiv = document.getElementById('historique');
+    historiqueDiv.innerHTML = '';
+    const fiches = JSON.parse(localStorage.getItem('fichesESI') || '[]');
+    fiches.forEach((fiche, index) => {
+        const ficheDiv = document.createElement('div');
+        ficheDiv.className = 'fiche';
+        ficheDiv.innerHTML = `
+            <strong>Fiche #${index+1} ${fiche.categorie}</strong><br>
+            Nom: ${fiche.nom} ${fiche.prenom} | Sexe: ${fiche.sexe} | Nationalité: ${fiche.nationalite}<br>
+            Date de naissance: ${fiche.dateNaissance || 'Non renseignée'} | Âge: ${fiche.age} ans<br>
+           Intervention: ${fiche.heure || fiche.heureDate} le ${formatDateIntervention(fiche.dateIntervention)} 
+Lieu: ${fiche.lieuInterpellation} | Suites données: ${fiche.suitesDonnees || ''}<br>
+           Départ: ${fiche.villeDepart}, ${fiche.paysDepart} | Destination: ${fiche.villeDestination}, ${fiche.paysDestination}<br>
+            Véhicule: ${fiche.vehicule} | Immatriculation: ${fiche.immatriculation}<br>
+            Pièces d'identité: ${fiche.piecesIdentite.join(", ")}<br>
+            <button onclick="modifierFiche(${index})" class="green">Modifier</button>
+            <button onclick="supprimerFiche(${index})" class="red">Supprimer</button>
+        `;
+        historiqueDiv.appendChild(ficheDiv);
+    });
+}
+
+function supprimerFiche(index) {
+    if (confirm("Voulez-vous vraiment supprimer cette fiche ?")) {
+        const fiches = JSON.parse(localStorage.getItem('fichesESI') || '[]');
+        fiches.splice(index, 1);
+        localStorage.setItem('fichesESI', JSON.stringify(fiches));
+        afficherHistorique();
+    }
+}
+
+function modifierFiche(index) {
+    const fiches = JSON.parse(localStorage.getItem('fichesESI') || '[]');
+    const fiche = fiches[index];
+document.getElementById('categorie').value = fiche.categorie;
+    document.getElementById('nom').value = fiche.nom;
+    document.getElementById('prenom').value = fiche.prenom;
+    document.getElementById('sexe').value = fiche.sexe;
+    document.getElementById('nationalite').value = fiche.nationalite;
+    document.getElementById('jour').value = fiche.jour;
+    document.getElementById('mois').value = fiche.mois;
+    document.getElementById('annee').value = fiche.annee;
+    document.getElementById('age').value = fiche.age;
+    document.getElementById('villeDepart').value = fiche.villeDepart;
+    document.getElementById('paysDepart').value = fiche.paysDepart;
+    document.getElementById('villeDestination').value = fiche.villeDestination;
+    document.getElementById('paysDestination').value = fiche.paysDestination;
+    document.getElementById('heure').value = fiche.heure || '';
+    document.getElementById('dateIntervention').value = fiche.dateIntervention || '';
+    document.getElementById('lieuInterpellation').value = fiche.lieuInterpellation;
+document.getElementById('suitesDonnees').value = fiche.suitesDonnees || '';
+    document.getElementById('vehicule').value = fiche.vehicule;
+    document.getElementById('immatriculation').value = fiche.immatriculation;
+    
+    // Réinitialiser toutes les cases à cocher
+    document.querySelectorAll('input[name="piece"]').forEach(cb => cb.checked = false);
+    document.getElementById('autreTexte').value = '';
+    document.getElementById('autreTexte').disabled = true;
+    
+    // Cocher les pièces d'identité correspondantes
+    fiche.piecesIdentite.forEach(val => {
+        if (val.startsWith('Autre : ')) {
+            document.getElementById('autreCheck').checked = true;
+            document.getElementById('autreTexte').disabled = false;
+            document.getElementById('autreTexte').value = val.replace('Autre : ', '');
+            document.getElementById('autreCheck').value = val;
+        } else {
+            const cb = Array.from(document.querySelectorAll('input[name="piece"]')).find(c => c.value === val);
+            if (cb) cb.checked = true;
+        }
+    });
+    
+    fiches.splice(index, 1);
+    localStorage.setItem('fichesESI', JSON.stringify(fiches));
+    afficherHistorique();
+}
+
+document.getElementById('effacerFiches').addEventListener('click', function() {
+    if (confirm("Voulez-vous vraiment effacer toutes les fiches ?")) {
+        localStorage.removeItem('fichesESI');
+        afficherHistorique();
+        alert("Toutes les fiches ont été effacées !");
+    }
+});
+
+afficherHistorique();
+
+/* ---------- BLOC JS COMPLET POUR ESI+VISA (195 pays) ---------- */
+(function(){
+  // 1) Liste d'environ 195 pays
+  const allCountries = [
+    "Afghanistan","Albanie","Algérie","Allemagne","Andorre","Angola","Antigua-et-Barbuda","Argentine","Arménie","Australie",
+    "Autriche","Azerbaïdjan","Bahamas","Bahreïn","Bangladesh","Barbade","Biélorussie","Belgique","Belize","Bénin",
+    "Bhoutan","Bolivie","Bosnie-Herzégovine","Botswana","Brésil","Brunei","Bulgarie","Burkina Faso","Burundi","Cabo Verde",
+    "Cambodge","Cameroun","Canada","République centrafricaine","Tchad","Chili","Chine","Colombie","Comores","Congo",
+    "République démocratique du Congo","Costa Rica","Côte d'Ivoire","Croatie","Cuba","Chypre","République tchèque","Danemark","Djibouti","Dominique",
+    "République dominicaine","Équateur","Égypte","El Salvador","Guinée équatoriale","Érythrée","Estonie","Eswatini","Éthiopie","Fidji",
+    "Finlande","France","Gabon","Gambie","Géorgie","Ghana","Grèce","Grenade","Guatemala",
+    "Guinée","Guinée-Bissau","Guyana","Haïti","Honduras","Hongrie","Islande","Inde","Indonésie","Iran",
+    "Irak","Irlande","Israël","Italie","Jamaïque","Japon","Jordanie","Kazakhstan","Kenya","Kiribati",
+    "Koweït","Kirghizistan","Laos","Lettonie","Liban","Lesotho","Liberia","Libye","Liechtenstein","Lituanie",
+    "Luxembourg","Macédoine du Nord","Madagascar","Malawi","Malaisie","Maldives","Mali","Malte","Îles Marshall","Mauritanie",
+    "Maurice","Mexique","Micronésie","Moldavie","Monaco","Mongolie","Monténégro","Maroc","Mozambique","Myanmar",
+    "Namibie","Nauru","Népal","Pays-Bas","Nouvelle-Zélande","Nicaragua","Niger","Nigéria","Corée du Nord","Norvège",
+    "Oman","Pakistan","Palaos","Panama","Papouasie-Nouvelle-Guinée","Paraguay","Pérou","Philippines","Pologne","Portugal",
+    "Qatar","Roumanie","Russie","Rwanda","Saint-Kitts-et-Nevis","Sainte-Lucie","Saint-Vincent-et-les-Grenadines","Samoa","Saint-Marin","Sao Tomé-et-Principe",
+    "Arabie Saoudite","Sénégal","Serbie","Seychelles","Sierra Leone","Singapour","Slovaquie","Slovénie","Îles Salomon","Somalie",
+    "Afrique du Sud","Corée du Sud","Soudan du Sud","Espagne","Sri Lanka","Soudan","Suriname","Suède","Suisse","Syrie",
+    "Taïwan","Tadjikistan","Tanzanie","Thaïlande","Timor-Leste","Togo","Tonga","Trinité-et-Tobago","Tunisie","Turquie",
+    "Turkménistan","Tuvalu","Ouganda","Ukraine","Émirats arabes unis","Royaume-Uni","États-Unis","Uruguay","Ouzbékistan","Vanuatu",
+    "Vatican","Venezuela","Vietnam","Yémen","Zambie","Zimbabwe","Kosovo"
+  ];
+
+  // 2) Pays sans visa court ni long
+  const neverNeed = [
+    "Autriche","Belgique","Bulgarie","Chypre","République tchèque","Croatie","Danemark","Estonie","Finlande","France",
+    "Allemagne","Grèce","Hongrie","Irlande","Italie","Lettonie","Lituanie","Luxembourg","Malte","Pays-Bas",
+    "Pologne","Portugal","Roumanie","Slovaquie","Slovénie","Espagne","Suède",
+    "Islande","Liechtenstein","Norvège","Suisse","Monaco","Andorre","Saint-Marin","Vatican"
+  ];
+
+  // 3) Pays exemptés de visa court séjour
+  const shortExempt = [
+    "Albanie","Bosnie-Herzégovine","Monténégro","Macédoine du Nord","Serbie","Moldavie","Ukraine","Géorgie",
+    "Argentine","Bahamas","Barbade","Bolivie","Brésil","Canada","Chili","Colombie","Costa Rica",
+    "Dominique","Équateur","El Salvador","Grenade","Guatemala","Guyana","Honduras","Jamaïque","Mexique",
+    "Nicaragua","Panama","Paraguay","Pérou","Suriname","Trinité-et-Tobago","Uruguay","Venezuela",
+    "Australie","Brunei","Japon","Malaisie","Nouvelle-Zélande","Singapour","Corée du Sud","Israël","Taïwan",
+    "Émirats arabes unis","Kiribati","Îles Marshall","Micronésie","Nauru","Palaos","Samoa","Îles Salomon","Tonga","Tuvalu","Vanuatu",
+    "Maurice","Seychelles","États-Unis"
+  ];
+
+  // 4) Construction de visaData
+  const visaData = { court: {}, long: {} };
+  allCountries.forEach(country => {
+    if (neverNeed.includes(country)) {
+      visaData.court[country] = false;
+      visaData.long[country] = false;
+    } else if (shortExempt.includes(country)) {
+      visaData.court[country] = false;
+      visaData.long[country] = true;
+    } else {
+      visaData.court[country] = true;
+      visaData.long[country] = true;
+    }
+  });
+
+  // 5) Pays avec exemption biométrique
+  const biometricExemptions = ["Albanie","Bosnie-Herzégovine","Macédoine du Nord","Monténégro","Serbie","Moldavie","Ukraine","Géorgie"];
+
+  // 6) Système d'autocomplétion
+  let selectedCountry = '';
+  let currentSelection = -1;
+  const paysInput = document.getElementById('paysInput');
+  const paysDropdown = document.getElementById('paysDropdown');
+  
+  const sortedCountries = allCountries.slice().sort((a,b) => a.localeCompare(b, 'fr', {ignorePunctuation: true}));
+
+  function normalizeText(text) {
+    return text
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') // Supprime les accents
+      .replace(/[-\s]/g, ''); // Supprime tirets et espaces
+  }
+
+  function filterCountries(searchTerm) {
+    const normalizedSearch = normalizeText(searchTerm);
+    return sortedCountries.filter(country => 
+      normalizeText(country).includes(normalizedSearch)
+    ).slice(0, 10);
+  }
+
+  function showDropdown(countries) {
+    paysDropdown.innerHTML = '';
+    if (countries.length === 0) {
+      paysDropdown.style.display = 'none';
+      return;
+    }
+    
+    countries.forEach((country, index) => {
+      const option = document.createElement('div');
+      option.className = 'pays-option';
+      option.textContent = country;
+      option.addEventListener('click', () => selectCountry(country));
+      paysDropdown.appendChild(option);
+    });
+    
+    paysDropdown.style.display = 'block';
+    currentSelection = -1;
+  }
+
+  function selectCountry(country) {
+    selectedCountry = country;
+    paysInput.value = country;
+    paysDropdown.style.display = 'none';
+    checkVisa(); // Vérification automatique
+  }
+
+  function hideDropdown() {
+    setTimeout(() => {
+      paysDropdown.style.display = 'none';
+    }, 200);
+  }
+
+  function updateSelection(direction) {
+    const options = paysDropdown.querySelectorAll('.pays-option');
+    if (options.length === 0) return;
+    
+    if (currentSelection >= 0) {
+      options[currentSelection].classList.remove('selected');
+    }
+    
+    currentSelection += direction;
+    if (currentSelection < 0) currentSelection = options.length - 1;
+    if (currentSelection >= options.length) currentSelection = 0;
+    
+    options[currentSelection].classList.add('selected');
+    options[currentSelection].scrollIntoView({ block: 'nearest' });
+  }
+
+  // Fonction de vérification automatique
+  function checkVisa() {
+    const pays = selectedCountry || paysInput.value.trim();
+    const duree = document.getElementById('duree').value;
+    const resultat = document.getElementById('resultat');
+    
+    if (!pays || !allCountries.includes(pays)) {
+      resultat.innerHTML = '';
+      return;
+    }
+    
+    const needsVisa = visaData[duree][pays];
+    let html = '';
+    
+    if (needsVisa) {
+      html = `<span style="color: #cc0000;">Visa requis</span> pour ce séjour (${duree === 'court' ? 'court (<90j)' : 'long (>90j)'}). ` +
+             `Voir la procédure sur <a href="https://france-visas.gouv.fr/web/france-visas/assistant-visa" target="_blank" rel="noopener">France-Visas</a>.`;
+    } else {
+      html = `<span style="color: #008000;">Pas de visa requis</span> pour ce séjour (${duree === 'court' ? 'court (<90j)' : 'long (>90j)'}). ` +
+             `Vérifier conditions particulières sur <a href="https://france-visas.gouv.fr/web/france-visas/assistant-visa" target="_blank" rel="noopener">France-Visas</a>.`;
+    }
+
+    if (!needsVisa && duree === 'court' && biometricExemptions.includes(pays)) {
+      html += ` <br><small>Note : l'exemption peut demander un passeport biométrique.</small>`;
+    }
+    
+    resultat.innerHTML = html;
+  }
+
+  // Event listeners
+  paysInput.addEventListener('input', (e) => {
+    const searchTerm = e.target.value.trim();
+    selectedCountry = '';
+    
+    if (searchTerm.length === 0) {
+      paysDropdown.style.display = 'none';
+      document.getElementById('resultat').innerHTML = '';
+      return;
+    }
+    
+    const filtered = filterCountries(searchTerm);
+    showDropdown(filtered);
+  });
+
+  paysInput.addEventListener('keydown', (e) => {
+    const dropdown = paysDropdown;
+    const options = dropdown.querySelectorAll('.pays-option');
+    
+    if (dropdown.style.display === 'none' || options.length === 0) return;
+    
+    switch(e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        updateSelection(1);
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        updateSelection(-1);
+        break;
+      case 'Enter':
+        e.preventDefault();
+        if (currentSelection >= 0) {
+          selectCountry(options[currentSelection].textContent);
+        }
+        break;
+      case 'Escape':
+        paysDropdown.style.display = 'none';
+        break;
+    }
+  });
+
+  paysInput.addEventListener('blur', hideDropdown);
+  paysInput.addEventListener('focus', (e) => {
+    if (e.target.value.trim()) {
+      const filtered = filterCountries(e.target.value);
+      showDropdown(filtered);
+    }
+  });
+
+  // Event listener pour le changement de durée
+  document.getElementById('duree').addEventListener('change', checkVisa);
+
+  // Fonction globale pour rétrocompatibilité (au cas où)
+  window.verifierVisa = checkVisa;
+
+  window._esiVisaData = { allCountries, neverNeed, shortExempt, visaData, biometricExemptions };
+  console.debug("ESI+Visa: visaData initialisé pour", allCountries.length, "pays. Voir window._esiVisaData.");
+})();
 </script>
 
 </body>
-
 </html>
-
