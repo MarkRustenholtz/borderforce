@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
+ 
   body {
     font-family: verdana, sans-serif;
     margin: 0;
@@ -21,6 +22,7 @@
     color: #222;
     min-height: 100vh;
     box-sizing: border-box;
+	touch-action: manipulation;
   }
 
   /* Page d'accueil */
@@ -180,7 +182,14 @@
     font-size: 1em;
     margin-bottom: 8px;
   }
-
+  
+/* Empêche le zoom automatique sur iOS */
+  @supports (-webkit-touch-callout: none) {
+    input[type=text], input[type=date], input[type=time], input[type=number], select {
+      font-size: 16px;
+    }
+  }
+  
   button {
     cursor: pointer;
     font-weight: bold;
@@ -307,6 +316,35 @@
   #ficheIdentitePage .blue { background-color: #3498db; color: white; }
   #ficheIdentitePage .blue:hover { background-color: #2980b9; }
 
+/* Carte centrée et resserrée pour la page Informations */
+#infosPage .page-content{
+  max-width: 520px;          /* largeur du bloc */
+  margin: 16px auto;         /* centré */
+  padding: 16px;
+  border: 2px solid #1f6fb2; /* bordure */
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+/* Ajuste la présentation des champs dans Infos */
+#infosPage .flex-row {
+  display: flex;
+  flex-direction: column;   /* toujours vertical */
+  align-items: stretch;     /* occupe toute la largeur au lieu d'être centrés */
+  gap: 6px;                 /* espace réduit entre champs */
+  margin-bottom: 10px;
+}
+
+#infosPage .flex-col {
+  min-width: auto;          /* plus de largeur minimum inutile */
+  flex: none;               /* évite l'étirement bizarre */
+}
+
+#infosPage .flex-col label {
+  margin-bottom: 4px;
+}
+
   
 #homePage {
   display: flex;
@@ -392,7 +430,13 @@ html, body {
   color: #fff;
   border-color: #c0392b;
 }
-
+ /* Responsive mobile pour Pulsar */
+  @media (max-width: 480px) {
+    #pulsarPage label span {
+      padding: 18px 40px;
+      font-size: 1.2em;
+    }
+  }
 
 
 </style>
@@ -507,9 +551,10 @@ html, body {
         <label for="heureFinInput">Heure fin :</label>
         <input type="time" id="heureFinInput" />
       </div>
-    </div>
-  </div>
 </div>
+</div>
+</div>
+ 
 <!-- Page ESR -->
 <div id="esrPage" class="page">
   <div class="page-header">
