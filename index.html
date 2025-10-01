@@ -791,19 +791,16 @@ html, body {
   <div class="page-content">
     <div id="esiList"></div>
     <div style="margin-top: 20px;">
-      <select id="esiAge" aria-label="Majeur ou mineur">
+      <input type="text" id="esiAge" placeholder="Majeur ou mineur" readonly />
         <option value="">Majeur(e)/Mineur(e)</option>
-        <option value="Majeur">Majeur</option>
-        <option value="Mineur">Mineur</option>
-        <option value="Majeure">Majeure</option>
-        <option value="Mineure">Mineure</option>
-      </select>
+
       <select id="esiSexe" aria-label="Sexe H/F">
         <option value="">Homme/Femme</option>
         <option value="Homme">Homme</option>
         <option value="Femme">Femme</option>
       </select>
-      <input type="number" id="esiAgeNum" placeholder="Âge (chiffre)" min="0" style="width: 100px;" />
+      <input type="number" id="esiAgeNum" placeholder="Âge (chiffre)" min="0" style="width: 100px;" 
+		oninput="majEsiStatut()" />
       <input type="text" id="esiNationalite" placeholder="Nationalité" />
       <input type="text" id="esiLieu" placeholder="Lieu interpellation" />
       <label for="esiHeure">Heure interpellation :</label>
@@ -827,13 +824,9 @@ html, body {
   <div class="page-content">
     <div id="passeurList"></div>
     <div style="margin-top: 20px;">
-      <select id="passeurAge" aria-label="Majeur ou mineur">
+      <input type="text" id="passeurAge" placeholder="Majeur ou mineur" readonly />
         <option value="">Majeur(e)/Mineur(e)</option>
-        <option value="Majeur">Majeur</option>
-        <option value="Mineur">Mineur</option>
-        <option value="Majeure">Majeure</option>
-        <option value="Mineure">Mineure</option>
-      </select>
+      
       <select id="passeurSexe" aria-label="Sexe H/F">
         <option value="">Homme/Femme</option>
         <option value="Homme">Homme</option>
@@ -2382,6 +2375,43 @@ afficherHistorique();
   window._esiVisaData = { allCountries, neverNeed, shortExempt, visaData, biometricExemptions };
   console.debug("ESI+Visa: visaData initialisé pour", allCountries.length, "pays. Voir window._esiVisaData.");
 })();
+	function computeStatut(age, sexe) {
+  if (isNaN(age) || !sexe) return "";
+  if (age >= 18) return (sexe === "Femme") ? "Majeure" : "Majeur";
+  return (sexe === "Femme") ? "Mineure" : "Mineur";
+}
+
+function majEsiStatut() {
+  const age = parseInt(document.getElementById("esiAgeNum").value, 10);
+  const sexe = document.getElementById("esiSexe").value;
+  const champStatut = document.getElementById("esiAge");
+
+  champStatut.value = computeStatut(age, sexe);
+}
+
+// on "écoute" les 2 champs en même temps
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("esiAgeNum").addEventListener("input", majEsiStatut);
+  document.getElementById("esiSexe").addEventListener("change", majEsiStatut);
+});
+	function computePasseurStatut(age, sexe) {
+  if (isNaN(age) || !sexe) return "";
+  if (age >= 18) return (sexe === "Femme") ? "Majeure" : "Majeur";
+  return (sexe === "Femme") ? "Mineure" : "Mineur";
+}
+
+function majPasseurStatut() {
+  const age = parseInt(document.getElementById("passeurAgeNum").value, 10);
+  const sexe = document.getElementById("passeurSexe").value;
+  const champStatut = document.getElementById("passeurAge");
+
+  champStatut.value = computePasseurStatut(age, sexe);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("passeurAgeNum").addEventListener("input", majPasseurStatut);
+  document.getElementById("passeurSexe").addEventListener("change", majPasseurStatut);
+});
 </script>
 
 </body>
