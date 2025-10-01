@@ -791,8 +791,8 @@ html, body {
   <div class="page-content">
     <div id="esiList"></div>
     <div style="margin-top: 20px;">
-      <input type="text" id="esiAge" placeholder="Majeur ou mineur" readonly />
-        <option value="">Majeur(e)/Mineur(e)</option>
+      <input type="text" id="esiAge" placeholder="Majeur(e) ou mineur(e) automatique" readonly />
+        
 
       <select id="esiSexe" aria-label="Sexe H/F">
         <option value="">Homme/Femme</option>
@@ -824,8 +824,7 @@ html, body {
   <div class="page-content">
     <div id="passeurList"></div>
     <div style="margin-top: 20px;">
-      <input type="text" id="passeurAge" placeholder="Majeur ou mineur" readonly />
-        <option value="">Majeur(e)/Mineur(e)</option>
+      <input type="text" id="passeurAge" placeholder="Majeur(e) ou mineur(e) automatique" readonly />
       
       <select id="passeurSexe" aria-label="Sexe H/F">
         <option value="">Homme/Femme</option>
@@ -2365,7 +2364,9 @@ afficherHistorique();
   window.verifierVisa = checkVisa;
 
   window._esiVisaData = { allCountries, neverNeed, shortExempt, visaData, biometricExemptions };
-  console.debug("ESI+Visa: visaData initialisé pour", allCountries.length, "pays. Voir window._esiVisaData.");
+  console.debug("ESI+Visa: visaData initialisé pour", allCountries.length, "pays. Voir window._
+  
+  VisaData.");
 })();
 	function computeStatut(age, sexe) {
   if (isNaN(age) || !sexe) return "";
