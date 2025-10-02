@@ -791,8 +791,7 @@ html, body {
   <div class="page-content">
     <div id="esiList"></div>
     <div style="margin-top: 20px;">
-      <input type="text" id="esiAge" placeholder="Majeur(e) ou Mineur(e) automatique" readonly />
-        
+      <input type="text" id="esiAge" placeholder="Majeur(e) ou mineur(e) automatique" readonly />
 
       <select id="esiSexe" aria-label="Sexe H/F">
         <option value="">Homme/Femme</option>
@@ -824,8 +823,8 @@ html, body {
   <div class="page-content">
     <div id="passeurList"></div>
     <div style="margin-top: 20px;">
-      <input type="text" id="passeurAge" placeholder="Majeur(e) ou Mineur(e) automatique" readonly />
-      
+      <input type="text" id="passeurAge" placeholder="Majeur(e) ou mineur(e) automatique" readonly />
+  
       <select id="passeurSexe" aria-label="Sexe H/F">
         <option value="">Homme/Femme</option>
         <option value="Homme">Homme</option>
@@ -1698,14 +1697,6 @@ function autoResize(el) {
       }
     }
 
-    // Reset
-    function resetData() {
-      if(confirm('Voulez-vous vraiment effacer toutes les données sauvegardées ?')) {
-        localStorage.removeItem('crGendarmerie');
-        location.reload();
-      }
-    }
-
     function onGeneralChange() {
       state.site = document.getElementById('siteSelect').value;
       state.date = document.getElementById('dateInput').value;
@@ -2411,6 +2402,62 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("passeurAgeNum").addEventListener("input", majPasseurStatut);
   document.getElementById("passeurSexe").addEventListener("change", majPasseurStatut);
 });
+// Reset qui conserve le premier ESR mais réinitialise aussi le site
+function resetData() {
+  if (confirm("Voulez-vous vraiment effacer toutes les données sauf le premier ESR ?")) {
+    
+    // Charger l'état actuel depuis le localStorage
+    const data = localStorage.getItem('crGendarmerie');
+    let premierEsr = null;
+    if (data) {
+      const parsed = JSON.parse(data);
+      if (parsed.esrList && parsed.esrList.length > 0) {
+        premierEsr = parsed.esrList[0]; // on garde le 1er ESR
+      }
+    }
+
+    // Nouveau state réinitialisé
+    const newState = {
+      site: '',   // <= le site est vidé
+      date: '',
+      heureDebut: '',
+      heureFin: '',
+      esrList: [],
+      cameraNum: '',
+      cameraESR: '',
+      tablette1Num: '',
+      tablette1ESR: '',
+      tablette2Num: '',
+      tablette2ESR: '',
+      vehiculeService: '',
+      vehicules: { train: 0, bus: 0, vl: 0, pl: 0 },
+      cv: { train: 0, bus: 0, vl: 0, pl: 0 },
+      cf: { train: 0, bus: 0, vl: 0, pl: 0 },
+      esiList: [],
+      passeurList: [],
+      observations: '',
+      deroulement: '',
+      pulsar: '',
+      editingEsrIndex: null,
+      editingEsiIndex: null,
+      editingPasseurIndex: null,
+      resumeEsr: '',
+      scannedNigends: []
+    };
+
+    // On remet le premier ESR s’il existait
+    if (premierEsr) {
+      newState.esrList.push(premierEsr);
+    }
+
+    // Sauvegarde et rechargement
+    localStorage.setItem('crGendarmerie', JSON.stringify(newState));
+    location.reload();
+
+    alert("Données effacées. Le premier ESR a été conservé.");
+  }
+}
+      
 </script>
 
 </body>
