@@ -1143,11 +1143,11 @@ html, body {
     }
     
     function saveToStorage() {
-      localStorage.setItem('crGendarmerie', JSON.stringify(state));
+      localStorage.setItem('borderforce', JSON.stringify(state));
     }
     
     function loadFromStorage() {
-      const data = localStorage.getItem('crGendarmerie');
+      const data = localStorage.getItem('borderforce');
       if(data) {
         const parsed = JSON.parse(data);
         Object.assign(state, parsed);
@@ -2047,9 +2047,9 @@ suitesDonnees: document.getElementById('suitesDonnees').value,
         piecesIdentite: pieces
     };
     
-    const fiches = JSON.parse(localStorage.getItem('fichesESI') || '[]');
+    const fiches = JSON.parse(localStorage.getItem('fichesBorderforce') || '[]');
     fiches.push(fiche);
-    localStorage.setItem('fichesESI', JSON.stringify(fiches));
+    localStorage.setItem('fichesBorderforce', JSON.stringify(fiches));
     this.reset();
     setCurrentDateTime();
     afficherHistorique();
@@ -2058,7 +2058,7 @@ suitesDonnees: document.getElementById('suitesDonnees').value,
 function afficherHistorique() {
     const historiqueDiv = document.getElementById('historique');
     historiqueDiv.innerHTML = '';
-    const fiches = JSON.parse(localStorage.getItem('fichesESI') || '[]');
+    const fiches = JSON.parse(localStorage.getItem('fichesBorderforce') || '[]');
     fiches.forEach((fiche, index) => {
         const ficheDiv = document.createElement('div');
         ficheDiv.className = 'fiche';
@@ -2080,15 +2080,15 @@ Lieu: ${fiche.lieuInterpellation} | Suites données: ${fiche.suitesDonnees || ''
 
 function supprimerFiche(index) {
     if (confirm("Voulez-vous vraiment supprimer cette fiche ?")) {
-        const fiches = JSON.parse(localStorage.getItem('fichesESI') || '[]');
+        const fiches = JSON.parse(localStorage.getItem('fichesBorderforce') || '[]');
         fiches.splice(index, 1);
-        localStorage.setItem('fichesESI', JSON.stringify(fiches));
+        localStorage.setItem('fichesBorderforce', JSON.stringify(fiches));
         afficherHistorique();
     }
 }
 
 function modifierFiche(index) {
-    const fiches = JSON.parse(localStorage.getItem('fichesESI') || '[]');
+    const fiches = JSON.parse(localStorage.getItem('fichesBorderforce') || '[]');
     const fiche = fiches[index];
 document.getElementById('categorie').value = fiche.categorie;
     document.getElementById('nom').value = fiche.nom;
@@ -2129,13 +2129,13 @@ document.getElementById('suitesDonnees').value = fiche.suitesDonnees || '';
     });
     
     fiches.splice(index, 1);
-    localStorage.setItem('fichesESI', JSON.stringify(fiches));
+    localStorage.setItem('fichesBorderforce', JSON.stringify(fiches));
     afficherHistorique();
 }
 
 document.getElementById('effacerFiches').addEventListener('click', function() {
     if (confirm("Voulez-vous vraiment effacer toutes les fiches ?")) {
-        localStorage.removeItem('fichesESI');
+        localStorage.removeItem('fichesBorderforce');
         afficherHistorique();
         alert("Toutes les fiches ont été effacées !");
     }
@@ -2407,7 +2407,7 @@ function resetData() {
   if (confirm("Voulez-vous vraiment effacer toutes les données sauf le premier ESR ?")) {
     
     // Charger l'état actuel depuis le localStorage
-    const data = localStorage.getItem('crGendarmerie');
+    const data = localStorage.getItem('borderforce');
     let premierEsr = null;
     if (data) {
       const parsed = JSON.parse(data);
@@ -2451,7 +2451,7 @@ function resetData() {
     }
 
     // Sauvegarde et rechargement
-    localStorage.setItem('crGendarmerie', JSON.stringify(newState));
+    localStorage.setItem('borderforce', JSON.stringify(newState));
     location.reload();
 
     alert("Données effacées. Le premier ESR a été conservé.");
