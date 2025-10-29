@@ -1852,11 +1852,15 @@ function autoResize(el) {
           return;
         }
         state.scannedNigends.push(nigend);
-        ['train','bus','vl','pl'].forEach(k=>{
-          state.scansAgg[k].v  += counts[k].v;
-          state.scansAgg[k].cv += counts[k].cv;
-          state.scansAgg[k].cf += counts[k].cf;
-        });
+		  
+        Object.keys(counts).forEach(k => {
+  // Initialise si besoin
+  if (!state.scansAgg[k]) state.scansAgg[k] = { v: 0, cv: 0, cf: 0 };
+
+  state.scansAgg[k].v  += counts[k].v;
+  state.scansAgg[k].cv += counts[k].cv;
+  state.scansAgg[k].cf += counts[k].cf;
+});
         const dejaEsr = (state.esrList || []).some(e => e.nigend === parsed.nigend);
         if (!dejaEsr && parsed.grade && parsed.nom && parsed.nigend && parsed.crt) {
           state.esrList.push({
@@ -1894,24 +1898,36 @@ function autoResize(el) {
       }
     }
 
-    function parseQrPayload(raw){
-      const lines = String(raw).split(/\n+/).map(l=>l.trim()).filter(Boolean);
-      let nigend='', grade='', nom='', crt='';
-      const counts={train:{v:0,cv:0,cf:0}, bus:{v:0,cv:0,cf:0}, vl:{v:0,cv:0,cf:0}, pl:{v:0,cv:0,cf:0}};
-      lines.forEach(l=>{
-        if(/^NIGEND/i.test(l)) nigend = (l.split(':')[1]||'').trim();
-        else if(/^GRADE/i.test(l)) grade = (l.split(':')[1]||'').trim();
-        else if(/^NOM/i.test(l)) nom = (l.split(':')[1]||'').trim();
-        else if(/^CRT/i.test(l)) crt = (l.split(':')[1]||'').trim();
-        const m = l.match(/^(Train|Bus|Vl|Pl)\s*:\s*(\d+)\s*\/\s*(\d+)\s*CV\s*\/\s*(\d+)\s*CF/i);
-        if(m){ const key=m[1].toLowerCase(); counts[key].v+=+m[2]; counts[key].cv+=+m[3]; counts[key].cf+=+m[4]; }
-      });
-      const pretty = `Train: ${counts.train.v} / ${counts.train.cv} CV / ${counts.train.cf} CF
-Bus: ${counts.bus.v} / ${counts.bus.cv} CV / ${counts.bus.cf} CF
-Vl: ${counts.vl.v} / ${counts.vl.cv} CV / ${counts.vl.cf} CF
-Pl: ${counts.pl.v} / ${counts.pl.cv} CV / ${counts.pl.cf} CF`;
-      return {nigend, grade, nom, crt, counts, pretty};
+    function parseQrPayload(raw) {
+  const lines = String(raw).split(/\n+/).map(l => l.trim()).filter(Boolean);
+  let nigend = '', grade = '', nom = '', crt = '';
+  const counts = {};
+
+  lines.forEach(l => {
+    if (/^NIGEND/i.test(l)) nigend = (l.split(':')[1] || '').trim();
+    else if (/^GRADE/i.test(l)) grade = (l.split(':')[1] || '').trim();
+    else if (/^NOM/i.test(l)) nom = (l.split(':')[1] || '').trim();
+    else if (/^CRT/i.test(l)) crt = (l.split(':')[1] || '').trim();
+
+    const m = l.match(/^(Train|Bus|Vl|Pl)\s*:\s*(\d+)\s*\/\s*(\d+)\s*CV\s*\/\s*(\d+)\s*CF/i);
+    if (m) {
+      const key = m[1].toLowerCase();
+      counts[key] = {
+        v: +m[2],
+        cv: +m[3],
+        cf: +m[4]
+      };
     }
+  });
+
+  const prettyLines = Object.keys(counts).map(k =>
+    `${k.charAt(0).toUpperCase() + k.slice(1)}: ${counts[k].v} / ${counts[k].cv} CV / ${counts[k].cf} CF`
+  );
+
+  const pretty = prettyLines.join('\n');
+
+  return { nigend, grade, nom, crt, counts, pretty };
+	}
 
     function logScan(msg){
       const div=document.getElementById('scanLog');
