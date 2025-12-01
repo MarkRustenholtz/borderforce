@@ -516,6 +516,16 @@ html, body {
   from { transform: scale(0.9); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+#deroulementPage input,
+#deroulementPage select {
+  width: 100%;
+  height: 48px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
 
 </style>
 
@@ -526,7 +536,7 @@ html, body {
 <!-- Page d'accueil avec nouvelle présentation -->
 <div id="homePage" class="home-page">
   <h1 class="home-title">
-    CR GENDARMERIE<br>
+    CR BORDERFORCE<br>
     <span class="sous-titre">LIMES Breil La Turbie DSI Tende</span>
   </h1>
 
@@ -681,8 +691,16 @@ html, body {
     <div class="flex-row">
       <div style="flex:2;">
         <label>Caméra n° :
-          <input type="text" id="cameraNum" placeholder="Numéro caméra" />
-        </label>
+  <input
+    type="number"
+    id="cameraNum"
+    placeholder="Numéro caméra"
+    inputmode="numeric"
+    pattern="[0-9]*"
+    min="0"
+    step="1"
+  />
+</label>
       </div>
       <div style="flex:3;">
         <label>Porteur caméra (ESR) :
@@ -693,8 +711,16 @@ html, body {
     <div class="flex-row">
       <div style="flex:2;">
         <label>Tablette n° 1 :
-          <input type="text" id="tablette1Num" placeholder="N°(ex: 6)" />
-        </label>
+  <input
+    type="number"
+    id="tablette1Num"
+    placeholder="N°(ex: 6)"
+    inputmode="numeric"
+    pattern="[0-9]*"
+    min="0"
+    step="1"
+  />
+</label>
       </div>
       <div style="flex:3;">
         <label>Utilisateur tablette 1 (ESR) :
@@ -705,8 +731,16 @@ html, body {
     <div class="flex-row">
       <div style="flex:2;">
         <label>Tablette n° 2 (optionnel) :
-          <input type="text" id="tablette2Num" placeholder="N°(ex: 7)" />
-        </label>
+  <input
+    type="number"
+    id="tablette2Num"
+    placeholder="N°(ex: 7)"
+    inputmode="numeric"
+    pattern="[0-9]*"
+    min="0"
+    step="1"
+  />
+</label>
       </div>
       <div style="flex:3;">
         <label>Utilisateur tablette 2 (ESR) :
@@ -716,7 +750,13 @@ html, body {
     </div>
     <div style="margin-top:15px;">
       <label>Véhicule de service (immatriculation) :
-        <input type="text" id="vehiculeService" placeholder="Ex: AB-123-CD" />
+        <input
+  type="text"
+  id="vehiculeService"
+  placeholder="Ex: AB-123-CD"
+  style="text-transform: uppercase;"
+  oninput="this.value = this.value.toUpperCase();"
+/>
       </label>
     </div>
   </div>
@@ -883,9 +923,34 @@ html, body {
         <option value="Homme">Homme</option>
         <option value="Femme">Femme</option>
       </select>
-      <input type="number" id="esiAgeNum" placeholder="Âge (chiffre)" min="0" style="width: 100px;" 
-		oninput="majEsiStatut()" />
-      <input type="text" id="esiNationalite" placeholder="Nationalité" />
+     <div style="display:flex; gap:8px; margin-top:8px;">
+  <input
+    id="esiDob"
+    placeholder="JJ/MM/AAAA"
+    maxlength="10"
+    oninput="formatDOB(this); majEsiStatut();"
+
+    type="text"
+    inputmode="numeric"
+    pattern="[0-9]*"
+    autocomplete="off"
+    enterkeyhint="next"
+  />
+  <input
+    id="esiAgeNum"
+    min="0"
+    oninput="majEsiStatut()"
+    placeholder="Âge"
+    type="number"
+    style="width:60px;"
+  />
+</div>
+
+      <input id="esiNationalite"
+       class="nat-autocomplete"
+       placeholder="Nationalité"
+       type="text"
+       autocomplete="off">
       <input type="text" id="esiLieu" placeholder="Lieu interpellation" />
       <label for="esiHeure">Heure interpellation :</label>
       <input type="time" id="esiHeure" />
@@ -915,10 +980,35 @@ html, body {
         <option value="Homme">Homme</option>
         <option value="Femme">Femme</option>
       </select>
-      <input type="number" id="passeurAgeNum" placeholder="Âge (chiffre)" min="0" style="width: 100px;" />
-      <input type="text" id="passeurNationalite" placeholder="Nationalité" />
+     <div style="display:flex; gap:8px; margin-top:8px;">
+  <input
+    id="passeurDob"
+    placeholder="JJ/MM/AAAA"
+    maxlength="10"
+    oninput="formatDOB(this); majEsiStatut();"
+	type="text"
+    inputmode="numeric"
+    pattern="[0-9]*"
+    autocomplete="off"
+  />
+  <input
+    id="passeurAgeNum"
+    min="0"
+    placeholder="Âge"
+    type="number"
+    style="width:60px;"
+    oninput="majPasseurStatut()"
+  />
+</div>
+
+           <input id="passeurNationalite"
+       class="nat-autocomplete"
+       placeholder="Nationalité"
+       type="text"
+       autocomplete="off">
       <input type="text" id="passeurLieu" placeholder="Lieu interpellation" />
-      <label for="passeurHeure">Heure interpellation :</label>
+      <label for="passeurHeure">Heure interpellation :
+</label>
       <input type="time" id="passeurHeure" />
       <input type="text" id="passeurSuites" placeholder="Suites données" />
       <button id="addPasseurBtn" class="blue">Ajouter Passeur</button>
@@ -953,32 +1043,90 @@ html, body {
     <div class="page-title">Déroulement de la mission</div>
   </div>
   <div class="page-content">
-    <textarea id="deroulement"
-              placeholder="Déroulement détaillé..."
-              oninput="this.style.height='auto'; this.style.height=this.scrollHeight+'px';"></textarea>
-  </div>
-</div>
+  
+ <!-- Saisie rapide Heure + Actions -->
+<section id="temps_action" style="margin-bottom:12px">
+  <fieldset style="border:2px solid var(--bleuFonce,#003366);border-radius:10px;padding:10px">
+    <legend style="padding:0 6px">Heure & actions</legend>
 
-<!-- Page Pulsar -->
-<div id="pulsarPage" class="page">
-  <div class="page-header">
-    <button class="back-button" onclick="showPage('homePage')">
-      <i class="fas fa-arrow-left"></i> Retour
+    <label style="display:block;margin-top:6px">Heure</label>
+    <input type="time" id="heure_action" />
+
+    <label style="display:block;margin-top:6px">Action prédéfinie</label>
+    <select id="type_action" onchange="majAffichageComptage()">
+      <option value="">— Sélectionner —</option>
+
+      <optgroup label="Déplacements / mission">
+        <option>Départ de la caserne Ausseur</option>
+        <option>Arrivée à la caserne Ausseur</option>
+        <option>Départ en mission</option>
+        <option>Retour de mission</option>
+        <option>Arrivée sur site d'emploi — Début de mission</option>
+        <option>Départ du site d'emploi — Fin de mission</option>
+        <option>Contrôle routier</option>
+        <option>Train</option>
+        <option>Bus</option>
+      </optgroup>
+    </select>
+	
+ <!-- 🔻 NOUVEAU : infos supplémentaires (à la place de ESI 1,2,3…) -->
+    <label style="display:block;margin-top:6px">Infos supplémentaires</label>
+    <select id="esi_select">
+      <option value="">— Aucune —</option>
+      <option>Début de mission</option>
+      <option>Fin de mission</option>
+      <option>Début de service</option>
+      <option>Fin de service</option>
+      <option>Prise en compte armement, matériels et véhicule(s)</option>
+      <option>Restitution armement, matériels et véhicule(s)</option>
+      <option>Retour domiciles respectifs</option>
+      <option>FINEX</option>
+    </select>
+    <label style="display:block;margin-top:6px">Texte libre</label>
+    <input id="texte_libre" placeholder="Ex. Bus / Patrouille pédestre…" oninput="majAffichageComptage()" />
+
+    <div id="bloc_comptage" style="display:none;margin-top:8px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div>
+          <label>Personnes contrôlées</label>
+          <input type="number" id="nb_controles" min="0" placeholder="Ex. 48" />
+        </div>
+        <div>
+          <label>Descendus</label>
+          <input type="number" id="nb_descendus" min="0" placeholder="Ex. 18" />
+        </div>
+      </div>
+    </div>
+
+    <button type="button" onclick="ajouterDeroulementFlex()" style="margin-top:10px;background:#003366;color:#fff;border:none;padding:6px 12px;border-radius:6px;cursor:pointer">
+      Ajouter au déroulement
     </button>
-    <div class="page-title">PULSAR</div>
-  </div>
-  <div class="page-content">
-  <div style="text-align: center; margin-top: 50px;">
-    <label>
-      <input type="radio" name="pulsar" id="pulsarOui" onclick="onPulsarChange()">
-      <span class="yes">OUI</span>
-    </label>
+  </fieldset>
+</section>
+ 
+<textarea id="deroulement" oninput="this.style.height='auto'; this.style.height=this.scrollHeight+'px';" placeholder="Déroulement détaillé..."></textarea>
 
-    <label>
-      <input type="radio" name="pulsar" id="pulsarNon" onclick="onPulsarChange()">
-      <span class="no">NON</span>
-    </label>
-  </div>
+</div>
+</div>
+<!-- Page Pulsar -->
+<div class="page" id="pulsarPage">
+<div class="page-header">
+<button class="back-button" onclick="showPage('homePage')">
+<i class="fas fa-arrow-left"></i> Retour
+    </button>
+<div class="page-title">PULSAR</div>
+</div>
+<div class="page-content">
+<div style="text-align: center; margin-top: 50px;">
+<label>
+<input id="pulsarOui" name="pulsar" onclick="onPulsarChange()" type="radio"/>
+<span class="yes">OUI</span>
+</label>
+<label>
+<input id="pulsarNon" name="pulsar" onclick="onPulsarChange()" type="radio"/>
+<span class="no">NON</span>
+</label>
+</div>
 </div>
 </div>
 
@@ -991,7 +1139,6 @@ html, body {
     <div class="page-title">Fiche identité</div>
   </div>
   <div class="page-content">
-    <!-- Ici on intégrera le formulaire complet ESI (prochaine étape) -->
     <div id="ficheIdentiteApp">
   <form id="ficheForm">
     <label>Catégorie :
@@ -1012,7 +1159,7 @@ html, body {
         <option value="Autre">Autre</option>
       </select>
     </label>
-    <label>Nationalité<input type="text" id="nationalite" autocomplete="off"></label>
+    <label>Nationalité<input type="text"      class="nat-autocomplete" id="nationalite" autocomplete="off"></label>
 
     <label>Date de naissance :</label>
     <div class="date-naissance">
@@ -1038,7 +1185,7 @@ html, body {
     <label>Pays de destination<input type="text" id="paysDestination" autocomplete="off"></label>
 
     <h2>Véhicule</h2>
-    <label>Type de véhicule<input type="text" id="vehicule" autocomplete="off"></label>
+    <label>Marque du véhicule<input type="text" id="vehicule" autocomplete="off"></label>
     <label>Immatriculation<input type="text" id="immatriculation" autocomplete="off"></label>
 
     <h2>Pièces d'identité présentées</h2>
@@ -1076,7 +1223,6 @@ html, body {
     <div class="page-title">Assistant Visas</div>
   </div>
   <div class="page-content">
-    <!-- Ici on intégrera l'Assistant Visa France (prochaine étape) -->
     <div id="assistantVisaApp">
   <h2>Mini Assistant Visa France</h2>
   <label for="paysInput">Sélectionnez votre pays :</label><br>
@@ -1528,6 +1674,7 @@ function addManualCf(type){
           document.getElementById('esiLieu').value = esi.lieu;
           document.getElementById('esiHeure').value = esi.heure;
           document.getElementById('esiSuites').value = esi.suites;
+		   document.getElementById('esiDob').value = esi.dob || "";
           state.editingEsiIndex = i;
           document.getElementById('addEsiBtn').textContent = "Enregistrer";
         };
@@ -1540,6 +1687,7 @@ function addManualCf(type){
           if(confirm("Supprimer cet ESI ?")) {
             state.esiList.splice(i,1);
             renderEsiList();
+			rebuildDeroulementAuto();
             debounceSave();
           }
         };
@@ -1553,42 +1701,81 @@ function addManualCf(type){
       container.appendChild(ul);
     }
 
-    function addEsi() {
-      const heure = document.getElementById('esiHeure').value.trim();
-      const age = document.getElementById('esiAge').value;
-      const sexe = document.getElementById('esiSexe').value;
-      const ageNum = document.getElementById('esiAgeNum').value.trim();
-      const nationalite = document.getElementById('esiNationalite').value.trim();
-      const lieu = document.getElementById('esiLieu').value.trim();
-      const suites = document.getElementById('esiSuites').value.trim();
-      if(!age || !sexe || !ageNum || !nationalite || !lieu || !suites) {
-        alert('Merci de remplir tous les champs ESI.');
-        return;
-      }
+   function addEsi() {
+  const heure = document.getElementById('esiHeure').value.trim();
+  const age = document.getElementById('esiAge').value;
+  const sexe = document.getElementById('esiSexe').value;
+  const ageNum = document.getElementById('esiAgeNum').value.trim();
+  const nationalite = document.getElementById('esiNationalite').value.trim();
+  const lieu = document.getElementById('esiLieu').value.trim();
+  const suites = document.getElementById('esiSuites').value.trim();
+  const dob = document.getElementById('esiDob').value.trim(); // ✅ date de naissance
 
-      if(state.editingEsiIndex !== null && state.editingEsiIndex !== undefined) {
-        state.esiList[state.editingEsiIndex] = {age,sexe,ageNum,nationalite,lieu,heure,suites};
-        state.editingEsiIndex = null;
-        document.getElementById('addEsiBtn').textContent = "Ajouter ESI";
-      } else {
-        state.esiList.push({age,sexe,ageNum,nationalite,lieu,heure,suites});
-      }
+  if (!age || !sexe || !ageNum || !nationalite || !lieu || !suites) {
+    alert('Merci de remplir tous les champs ESI.');
+    return;
+  }
 
-      document.getElementById('esiAge').value = '';
-      document.getElementById('esiSexe').value = '';
-      document.getElementById('esiAgeNum').value = '';
-      document.getElementById('esiNationalite').value = '';
-      document.getElementById('esiLieu').value = '';
-      document.getElementById('esiHeure').value = '';
-      document.getElementById('esiSuites').value = '';
-      renderEsiList();
-      debounceSave();
-    }
+  // ✅ objet ESI complet (avec DOB)
+  const esiData = {
+    age,
+    sexe,
+    ageNum,
+    nationalite,
+    lieu,
+    heure,
+    suites,
+    dob
+  };
+
+  if (state.editingEsiIndex !== null && state.editingEsiIndex !== undefined) {
+    // 🔁 MODE MODIFICATION : on met à jour la liste + le déroulement
+    const idx = state.editingEsiIndex;
+    state.esiList[idx] = esiData;
+    state.editingEsiIndex = null;
+    document.getElementById('addEsiBtn').textContent = "Ajouter ESI";
+
+    // 🔄 met à jour la ligne correspondante dans le déroulement
+    majLigneDeroulementPourEsi(idx);
+  } else {
+    // ➕ MODE AJOUT : on ajoute à la liste
+    state.esiList.push(esiData);
+
+    // 🔹 Ajout automatique dans le déroulement (option B)
+    const der = document.getElementById('deroulement');
+    const num = state.esiList.length; // ESI n°
+    const ligne = `${heure ? heure + " — " : ""}ESI ${num} — ${sexe} — ${ageNum} ans — Nationalité: ${nationalite} — Ordre OPJ PAF : ${suites}`;
+
+    der.value = der.value.trim()
+      ? der.value + "\n" + ligne
+      : ligne;
+
+    // pour déclencher la sauvegarde/auto-resize
+    der.dispatchEvent(new Event('input'));
+  }
+
+  // ✅ on vide tous les champs
+  document.getElementById('esiAge').value = '';
+  document.getElementById('esiSexe').value = '';
+  document.getElementById('esiAgeNum').value = '';
+  document.getElementById('esiNationalite').value = '';
+  document.getElementById('esiLieu').value = '';
+  document.getElementById('esiHeure').value = '';
+  document.getElementById('esiSuites').value = '';
+  document.getElementById('esiDob').value = '';
+
+  renderEsiList();
+  debounceSave();
+}
+
+
+
 
     function delEsi() {
       if(state.esiList && state.esiList.length > 0) {
         state.esiList.pop();
         renderEsiList();
+		rebuildDeroulementAuto();
         debounceSave();
       }
     }
@@ -1632,7 +1819,8 @@ function addManualCf(type){
           document.getElementById('passeurLieu').value = passeur.lieu;
           document.getElementById('passeurHeure').value = passeur.heure;
           document.getElementById('passeurSuites').value = passeur.suites;
-          state.editingPasseurIndex = i;
+          document.getElementById('passeurDob').value = passeur.dob || "";
+		  state.editingPasseurIndex = i;
           document.getElementById('addPasseurBtn').textContent = "Enregistrer";
         };
 
@@ -1644,6 +1832,7 @@ function addManualCf(type){
           if(confirm("Supprimer ce passeur ?")) {
             state.passeurList.splice(i,1);
             renderPasseurList();
+			rebuildDeroulementAuto();
             debounceSave();
           }
         };
@@ -1657,45 +1846,216 @@ function addManualCf(type){
       container.appendChild(ul);
     }
 
-    function addPasseur() {
-      const heure = document.getElementById('passeurHeure').value.trim();
-      const age = document.getElementById('passeurAge').value;
-      const sexe = document.getElementById('passeurSexe').value;
-      const ageNum = document.getElementById('passeurAgeNum').value.trim();
-      const nationalite = document.getElementById('passeurNationalite').value.trim();
-      const lieu = document.getElementById('passeurLieu').value.trim();
-      const suites = document.getElementById('passeurSuites').value.trim();
-      if(!age || !sexe || !ageNum || !nationalite || !lieu || !suites) {
-        alert('Merci de remplir tous les champs Passeur.');
-        return;
-      }
+  function addPasseur() {
+  const heure = document.getElementById('passeurHeure').value.trim();
+  const age = document.getElementById('passeurAge').value;
+  const sexe = document.getElementById('passeurSexe').value;
+  const ageNum = document.getElementById('passeurAgeNum').value.trim();
+  const nationalite = document.getElementById('passeurNationalite').value.trim();
+  const lieu = document.getElementById('passeurLieu').value.trim();
+  const suites = document.getElementById('passeurSuites').value.trim();
+  const dob = document.getElementById('passeurDob').value.trim(); // ✅ date de naissance
 
-      if(state.editingPasseurIndex !== null && state.editingPasseurIndex !== undefined) {
-        state.passeurList[state.editingPasseurIndex] = {age,sexe,ageNum,nationalite,lieu,heure,suites};
-        state.editingPasseurIndex = null;
-        document.getElementById('addPasseurBtn').textContent = "Ajouter Passeur";
-      } else {
-        state.passeurList.push({age,sexe,ageNum,nationalite,lieu,heure,suites});
-      }
+  if (!age || !sexe || !ageNum || !nationalite || !lieu || !suites) {
+    alert('Merci de remplir tous les champs Passeur.');
+    return;
+  }
 
-      document.getElementById('passeurAge').value = '';
-      document.getElementById('passeurSexe').value = '';
-      document.getElementById('passeurAgeNum').value = '';
-      document.getElementById('passeurNationalite').value = '';
-      document.getElementById('passeurLieu').value = '';
-      document.getElementById('passeurHeure').value = '';
-      document.getElementById('passeurSuites').value = '';
-      renderPasseurList();
-      debounceSave();
+  // ✅ objet Passeur complet
+  const passeurData = {
+    age,
+    sexe,
+    ageNum,
+    nationalite,
+    lieu,
+    heure,
+    suites,
+    dob
+  };
+
+  if (state.editingPasseurIndex !== null && state.editingPasseurIndex !== undefined) {
+    // 🔁 MODE MODIFICATION : on met à jour la liste + le déroulement
+    const idx = state.editingPasseurIndex;
+    state.passeurList[idx] = passeurData;
+    state.editingPasseurIndex = null;
+    document.getElementById('addPasseurBtn').textContent = "Ajouter Passeur";
+
+    // 🔄 met à jour la ligne correspondante dans le déroulement
+    majLigneDeroulementPourPasseur(idx);
+  } else {
+    // ➕ MODE AJOUT : on ajoute à la liste
+    state.passeurList.push(passeurData);
+
+    // 🔹 Ajout automatique dans le déroulement (option B)
+    const der = document.getElementById('deroulement');
+    const num = state.passeurList.length; // PASSEUR n°
+    const ligne = `${heure ? heure + " — " : ""}PASSEUR ${num} — ${sexe} — ${ageNum} ans — Nationalité: ${nationalite} — Ordre OPJ PAF : ${suites}`;
+
+    der.value = der.value.trim()
+      ? der.value + "\n" + ligne
+      : ligne;
+
+    der.dispatchEvent(new Event('input'));
+  }
+
+  // on vide les champs
+  document.getElementById('passeurAge').value = '';
+  document.getElementById('passeurSexe').value = '';
+  document.getElementById('passeurAgeNum').value = '';
+  document.getElementById('passeurNationalite').value = '';
+  document.getElementById('passeurLieu').value = '';
+  document.getElementById('passeurHeure').value = '';
+  document.getElementById('passeurSuites').value = '';
+  document.getElementById('passeurDob').value = '';
+
+  renderPasseurList();
+  debounceSave();
+}
+
+ function majLigneDeroulementPourEsi(index) {
+  const der = document.getElementById('deroulement');
+  if (!der) return;
+
+  const esi = state.esiList[index];
+  if (!esi) return;
+
+  const num = index + 1;
+  const heure = esi.heure || "";
+  const sexe = esi.sexe || "";
+  const ageNum = esi.ageNum || "";
+  const nat = esi.nationalite || "";
+  const suites = esi.suites || "";
+
+  const nouvelleLigne =
+    `${heure ? heure + " — " : ""}ESI ${num} — ${sexe} — ${ageNum} ans — ${nat} — Ordre OPJ PAF : ${suites}`;
+
+  const lignes = der.value.split('\n');
+  let trouve = false;
+
+  for (let i = 0; i < lignes.length; i++) {
+    if (lignes[i].includes(`ESI ${num} —`)) {
+      lignes[i] = nouvelleLigne;
+      trouve = true;
+      break;
     }
+  }
+
+  if (!trouve) {
+    lignes.push(nouvelleLigne);
+  }
+
+  der.value = lignes.join('\n');
+  der.dispatchEvent(new Event('input'));
+}
+
 
     function delPasseur() {
       if(state.passeurList && state.passeurList.length > 0) {
         state.passeurList.pop();
         renderPasseurList();
+		 rebuildDeroulementAuto();
         debounceSave();
       }
     }
+
+function majLigneDeroulementPourPasseur(index) {
+  const der = document.getElementById('deroulement');
+  if (!der) return;
+
+  const passeur = state.passeurList[index];
+  if (!passeur) return;
+
+  const num = index + 1;
+  const heure = passeur.heure || "";
+  const sexe = passeur.sexe || "";
+  const ageNum = passeur.ageNum || "";
+  const nat = passeur.nationalite || "";
+  const suites = passeur.suites || "";
+
+  const nouvelleLigne =
+    `${heure ? heure + " — " : ""}PASSEUR ${num} — ${sexe} — ${ageNum} ans — ${nat} — Ordre OPJ PAF : ${suites}`;
+
+  const lignes = der.value.split('\n');
+  let trouve = false;
+
+  for (let i = 0; i < lignes.length; i++) {
+    if (lignes[i].includes(`PASSEUR ${num} —`)) {
+      lignes[i] = nouvelleLigne;
+      trouve = true;
+      break;
+    }
+  }
+
+  if (!trouve) {
+    lignes.push(nouvelleLigne);
+  }
+
+  der.value = lignes.join('\n');
+  der.dispatchEvent(new Event('input'));
+}
+
+function rebuildDeroulementAuto() {
+  const der = document.getElementById('deroulement');
+  if (!der) return;
+
+  const lignesExistantes = (der.value || '').split('\n');
+
+  // On garde les lignes "manuelles" (qui ne sont pas les lignes auto ESI/PASSEUR)
+  const lignesManuelles = lignesExistantes.filter(l => {
+    const t = l.trim();
+    if (!t) return false;
+    // on considère auto si ça commence par "ESI X —" ou "PASSEUR X —" (avec éventuellement l'heure avant)
+    return !/^(\d{1,2}:\d{2}\s*—\s*)?(ESI|PASSEUR)\s+\d+\s*—/.test(t);
+  });
+
+  const lignesAuto = [];
+
+  // 🔹 Reconstruire toutes les lignes ESI
+  if (Array.isArray(state.esiList)) {
+    state.esiList.forEach((esi, idx) => {
+      const num   = idx + 1;
+      const heure = esi.heure || "";
+      const sexe  = esi.sexe || "";
+      const age   = esi.ageNum ? esi.ageNum + " ans" : "";
+      const nat   = esi.nationalite || "";
+      const suites = esi.suites || "";
+      const prefix = heure ? heure + " — " : "";
+
+      lignesAuto.push(
+        `${prefix}ESI ${num} — ${sexe} — ${age} — ${nat} — Ordre OPJ PAF : ${suites}`
+      );
+    });
+  }
+
+  // 🔹 Reconstruire toutes les lignes PASSEUR
+  if (Array.isArray(state.passeurList)) {
+    state.passeurList.forEach((passeur, idx) => {
+      const num   = idx + 1;
+      const heure = passeur.heure || "";
+      const sexe  = passeur.sexe || "";
+      const age   = passeur.ageNum ? passeur.ageNum + " ans" : "";
+      const nat   = passeur.nationalite || "";
+      const suites = passeur.suites || "";
+      const prefix = heure ? heure + " — " : "";
+
+      lignesAuto.push(
+        `${prefix}PASSEUR ${num} — ${sexe} — ${age} — ${nat} — Ordre OPJ PAF : ${suites}`
+      );
+    });
+  }
+
+  const final = [...lignesManuelles];
+
+  if (lignesAuto.length) {
+    if (final.length) final.push(''); // petite ligne vide de séparation
+    final.push(...lignesAuto);
+  }
+
+  der.value = final.join('\n');
+  der.dispatchEvent(new Event('input'));
+}
+
+
 
     // Compte rendu generator (utilise state)
     function generateCompteRendu() {
@@ -1842,61 +2202,180 @@ function autoResize(el) {
       isScanning = true;
     }
 
-    function onScanSuccess(decodedText) {
-      try {
-        const parsed = parseQrPayload(decodedText);
-        if (!parsed) return;
-        const { nigend, counts, pretty } = parsed;
-        if (state.scannedNigends.includes(nigend)) {
-          logScan('NIGEND ' + nigend + ' déjà scanné, ignoré.');
-          return;
-        }
-        state.scannedNigends.push(nigend);
-		  
-        Object.keys(counts).forEach(k => {
-  // Initialise si besoin
-  if (!state.scansAgg[k]) state.scansAgg[k] = { v: 0, cv: 0, cf: 0 };
+   function onScanSuccess(decodedText) {
+  try {
+    // 🧩 Décodage universel pour gérer accents, tirets, retours à la ligne
+    let texteDecode = decodedText;
+    try {
+      texteDecode = decodeURIComponent(decodedText);
+    } catch (e) {
+      console.warn("QR non encodé URI, utilisation brute");
+    }
 
-  state.scansAgg[k].v  += counts[k].v;
-  state.scansAgg[k].cv += counts[k].cv;
-  state.scansAgg[k].cf += counts[k].cf;
-});
-        const dejaEsr = (state.esrList || []).some(e => e.nigend === parsed.nigend);
-        if (!dejaEsr && parsed.grade && parsed.nom && parsed.nigend && parsed.crt) {
-          state.esrList.push({
-            grade: parsed.grade,
-            nom: parsed.nom,
-            nigend: parsed.nigend,
-            crt: parsed.crt
-          });
-          renderEsrList();
-          populateEsrSelects();
-          debounceSave();
-        }
-        state.resumeEsr += `NIGEND ${nigend}\n${pretty}\n\n`;
-        updateResumeEsrUI();
-        debounceSave();
-        logScan('QR ajouté : ' + nigend);
+    console.log("QR décodé :", texteDecode);
 
-        // pause 2s then resume
-        if (html5QrCode && isScanning) {
+    /* 1️⃣ CAS FICHE IDENTITÉ (Compteur)
+       Format : ID;cat;heure;dateNaissance;lieu;suites;nat;sexe
+    */
+    if (texteDecode.startsWith("ID;")) {
+      const parts = texteDecode.split(";");
+
+      const catBrute = (parts[1] || "").trim().toUpperCase();
+      const heure       = (parts[2] || "").trim();
+      const dateNaiss   = (parts[3] || "").trim();
+      const lieu        = (parts[4] || "").trim();
+      const suites      = (parts[5] || "").trim();
+      const nat         = (parts[6] || "").trim();
+      let   sexeBrut    = (parts[7] || "").trim();
+
+      // Normalisation du sexe vers Homme/Femme
+      const s = sexeBrut.toLowerCase();
+      if (s.startsWith("m")) sexeBrut = "Homme";
+      else if (s.startsWith("f")) sexeBrut = "Femme";
+
+      if (catBrute === "PASSEUR") {
+        // 👉 Remplir directement la section PASSEUR
+        const pSexe   = document.getElementById("passeurSexe");
+        const pDob    = document.getElementById("passeurDob");
+        const pNat    = document.getElementById("passeurNationalite");
+        const pLieu   = document.getElementById("passeurLieu");
+        const pHeure  = document.getElementById("passeurHeure");
+        const pSuites = document.getElementById("passeurSuites");
+	    const pAgeNum  = document.getElementById("passeurAgeNum");
+		
+        if (pSexe)   pSexe.value   = sexeBrut;
+        if (pDob)    pDob.value    = dateNaiss;
+        if (pNat)    pNat.value    = nat;
+        if (pLieu)   pLieu.value   = lieu;
+        if (pHeure)  pHeure.value  = heure;
+        if (pSuites) pSuites.value = suites;
+		
+		// 🧮 Calcul automatique de l'âge à partir de la date de naissance JJ/MM/AAAA
+  if (typeof calculateAge === "function" && dateNaiss && dateNaiss.length === 10 && pAgeNum) {
+    const age = calculateAge(dateNaiss);
+    if (age !== null) {
+      pAgeNum.value = age;
+    }
+  }
+        // statut majeur/mineur si besoin
+        if (typeof majPasseurStatut === "function") {
+          majPasseurStatut();
+        }
+
+        showPage("passeurPage");
+        alert('Fiche PASSEUR importée via QR.\nVérifie puis clique sur "Ajouter Passeur".');
+
+      } else {
+        // 👉 Par défaut : ESI
+        const eSexe   = document.getElementById("esiSexe");
+        const eDob    = document.getElementById("esiDob");
+        const eNat    = document.getElementById("esiNationalite");
+        const eLieu   = document.getElementById("esiLieu");
+        const eHeure  = document.getElementById("esiHeure");
+        const eSuites = document.getElementById("esiSuites");
+
+        if (eSexe)   eSexe.value   = sexeBrut;
+        if (eDob)    eDob.value    = dateNaiss;
+        if (eNat)    eNat.value    = nat;
+        if (eLieu)   eLieu.value   = lieu;
+        if (eHeure)  eHeure.value  = heure;
+        if (eSuites) eSuites.value = suites;
+
+
+if (typeof calculateAge === "function" && eDob && dateNaiss.length === 10) {
+  const age = calculateAge(dateNaiss);
+  if (age !== null) {
+    const ageNumInput = document.getElementById("esiAgeNum");
+    if (ageNumInput) {
+      ageNumInput.value = age;
+    }
+  }
+}
+        if (typeof majEsiStatut === "function") {
+          majEsiStatut();
+        }
+
+        showPage("esiPage");
+        alert('Fiche ESI importée via QR.\nVérifie puis clique sur "Ajouter ESI".');
+      }
+
+      // On arrête le scan et on ferme le modal pour voir la page ESI/PASSEUR
+      if (html5QrCode && isScanning) {
+        html5QrCode.stop().then(() => {
           isScanning = false;
-          html5QrCode.stop().then(() => {
-            setTimeout(() => {
-              if (document.getElementById('qrModal').style.display !== 'none') {
-                html5QrCode.start(
+        }).catch(() => {});
+      }
+      const modal = document.getElementById("qrModal");
+      if (modal) modal.style.display = "none";
+
+      return; // ✅ on ne traite PAS ce QR comme un QR ESR
+    }
+
+    /* 2️⃣ CAS ESR (NIGEND + comptages) : on garde ton comportement existant */
+    const parsed = parseQrPayload(texteDecode);
+    if (!parsed) return;
+    const { nigend, counts, pretty } = parsed;
+
+    if (state.scannedNigends.includes(nigend)) {
+      logScan("NIGEND " + nigend + " déjà scanné, ignoré.");
+      return;
+    }
+    state.scannedNigends.push(nigend);
+
+    Object.keys(counts).forEach((k) => {
+      if (!state.scansAgg[k]) state.scansAgg[k] = { v: 0, cv: 0, cf: 0 };
+      state.scansAgg[k].v  += counts[k].v;
+      state.scansAgg[k].cv += counts[k].cv;
+      state.scansAgg[k].cf += counts[k].cf;
+    });
+
+    const dejaEsr = (state.esrList || []).some((e) => e.nigend === parsed.nigend);
+    if (!dejaEsr && parsed.grade && parsed.nom && parsed.nigend && parsed.crt) {
+      state.esrList.push({
+        grade: parsed.grade,
+        nom:   parsed.nom,
+        nigend: parsed.nigend,
+        crt:   parsed.crt,
+      });
+      renderEsrList();
+      populateEsrSelects();
+      debounceSave();
+    }
+
+    state.resumeEsr += `NIGEND ${nigend}\n${pretty}\n\n`;
+    updateResumeEsrUI();
+    debounceSave();
+    logScan("QR ajouté : " + nigend);
+
+    // ⏸ pause 2s puis reprise auto comme avant
+    if (html5QrCode && isScanning) {
+      isScanning = false;
+      html5QrCode
+        .stop()
+        .then(() => {
+          setTimeout(() => {
+            if (document.getElementById("qrModal").style.display !== "none") {
+              html5QrCode
+                .start(
                   { facingMode: "environment" },
                   { fps: 10, qrbox: 250 },
                   onScanSuccess
-                ).then(()=>{ isScanning=true; }).catch(()=>{});
-              }
-            }, 2000);
-          }).catch(()=>{});
-        }
-      } catch(e) {
-        console.error(e);
-      }
+                )
+                .then(() => {
+                  isScanning = true;
+                })
+                .catch(() => {});
+            }
+          }, 2000);
+        })
+        .catch(() => {});
     }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+
 
     function parseQrPayload(raw) {
   const lines = String(raw).split(/\n+/).map(l => l.trim()).filter(Boolean);
@@ -2125,6 +2604,40 @@ function formatDateIntervention(dateStr) {
     return `${jour}/${mois}/${annee}`;
 }
 
+// Compteurs pour ESI 1, ESI 2... et PASSEUR 1, 2...
+let compteurEsi = 0;
+let compteurPasseur = 0;
+
+// Ajoute une ligne directement dans le champ "Texte libre" de déroulement
+function ajouterLigneDeroulementDepuisFiche(fiche) {
+  const champTexteLibre = document.getElementById('texte_libre');
+  if (!champTexteLibre) return; // sécurité
+
+  const heure = fiche.heure || "";
+  const nat = fiche.nationalite || "NC";
+  const suite = fiche.suitesDonnees || "NC";
+
+  let label;
+  if (fiche.categorie === "ESI") {
+    compteurEsi++;
+    label = `ESI ${compteurEsi}`;
+  } else if (fiche.categorie === "PASSEUR") {
+    compteurPasseur++;
+    label = `PASSEUR ${compteurPasseur}`;
+  } else {
+    return;
+  }
+
+  // Met directement le texte dans le champ
+  champTexteLibre.value =
+    `${heure ? heure + " – " : ""}${label} – Nationalité : ${nat} – Suite donnée : ${suite} sur ordre OPJ PAF.`;
+
+  // Facultatif : rafraîchir si nécessaire
+  if (typeof majAffichageComptage === "function") {
+    majAffichageComptage();
+  }
+}
+
 document.getElementById('ficheForm').addEventListener('submit', function(e){
     e.preventDefault();
     const pieces = Array.from(document.querySelectorAll('input[name="piece"]:checked')).map(cb => cb.value);
@@ -2160,7 +2673,12 @@ suitesDonnees: document.getElementById('suitesDonnees').value,
     const fiches = JSON.parse(localStorage.getItem('fichesBorderforce') || '[]');
     fiches.push(fiche);
     localStorage.setItem('fichesBorderforce', JSON.stringify(fiches));
-    this.reset();
+      
+	  // 🔹 NOUVELLE LIGNE : envoie les infos vers la section ESI / Passeur
+    remplirDepuisFicheDansEsiOuPasseur(fiche);
+  
+
+  this.reset();
     setCurrentDateTime();
     afficherHistorique();
 });
@@ -2252,6 +2770,77 @@ document.getElementById('effacerFiches').addEventListener('click', function() {
 });
 
 afficherHistorique();
+
+// 🔹 Envoie les infos utiles de la fiche vers la section ESI ou Passeur
+function remplirDepuisFicheDansEsiOuPasseur(fiche) {
+  // On ne récupère QUE ce que tu as demandé :
+  // sexe, date de naissance, âge num, nationalité, lieu, heure, suites données
+
+  if (fiche.categorie === 'ESI') {
+    // Sexe : on convertit Masculin/Féminin → Homme/Femme
+    const esiSexe = document.getElementById('esiSexe');
+    if (esiSexe) {
+      if (fiche.sexe === 'Masculin') esiSexe.value = 'Homme';
+      else if (fiche.sexe === 'Féminin') esiSexe.value = 'Femme';
+      else esiSexe.value = '';
+    }
+
+    const esiDob = document.getElementById('esiDob');
+    if (esiDob) esiDob.value = fiche.dateNaissance || '';
+
+    const esiAgeNum = document.getElementById('esiAgeNum');
+    if (esiAgeNum) esiAgeNum.value = fiche.age || '';
+
+    const esiNat = document.getElementById('esiNationalite');
+    if (esiNat) esiNat.value = fiche.nationalite || '';
+
+    const esiLieu = document.getElementById('esiLieu');
+    if (esiLieu) esiLieu.value = fiche.lieuInterpellation || '';
+
+    const esiHeure = document.getElementById('esiHeure');
+    if (esiHeure) esiHeure.value = fiche.heure || '';
+
+    const esiSuites = document.getElementById('esiSuites');
+    if (esiSuites) esiSuites.value = fiche.suitesDonnees || '';
+
+    // On laisse ta fonction gérer "Majeur(e)/Mineur(e)" si elle existe
+    if (typeof majEsiStatut === 'function') {
+      majEsiStatut();
+    }
+  }
+
+  if (fiche.categorie === 'PASSEUR') {
+    const pSexe = document.getElementById('passeurSexe');
+    if (pSexe) {
+      if (fiche.sexe === 'Masculin') pSexe.value = 'Homme';
+      else if (fiche.sexe === 'Féminin') pSexe.value = 'Femme';
+      else pSexe.value = '';
+    }
+
+    const pDob = document.getElementById('passeurDob');
+    if (pDob) pDob.value = fiche.dateNaissance || '';
+
+    const pAgeNum = document.getElementById('passeurAgeNum');
+    if (pAgeNum) pAgeNum.value = fiche.age || '';
+
+    const pNat = document.getElementById('passeurNationalite');
+    if (pNat) pNat.value = fiche.nationalite || '';
+
+    const pLieu = document.getElementById('passeurLieu');
+    if (pLieu) pLieu.value = fiche.lieuInterpellation || '';
+
+    const pHeure = document.getElementById('passeurHeure');
+    if (pHeure) pHeure.value = fiche.heure || '';
+
+    const pSuites = document.getElementById('passeurSuites');
+    if (pSuites) pSuites.value = fiche.suitesDonnees || '';
+
+    if (typeof majPasseurStatut === 'function') {
+      majPasseurStatut();
+    }
+  }
+}
+
 
 /* ---------- BLOC JS COMPLET POUR ESI+VISA (195 pays) ---------- */
 (function(){
@@ -2526,6 +3115,12 @@ function resetData() {
       }
     }
 
+// 🔥🔥🔥 AJOUT À FAIRE : effacer les fiches ESI / PASSEUR 🔥🔥🔥
+    localStorage.removeItem('fichesBorderforce');     // toutes les fiches identité enregistrées
+    localStorage.removeItem('borderforce_esi');       // si tu stockes les ESI ailleurs
+    localStorage.removeItem('borderforce_passeurs');  // si tu stockes les passeurs ailleurs
+    // 🔥🔥🔥 FIN DE L’AJOUT 🔥🔥🔥
+
     // Nouveau state réinitialisé
     const newState = {
       site: '',   // <= le site est vidé
@@ -2586,6 +3181,451 @@ function confirmCallCORG() {
     popup.style.display = 'none';
   };
 }
+
+// Formate JJ/MM/AAAA et met à jour l'âge automatiquement
+function formatDOB(input) {
+  let numbers = input.value.replace(/\D/g, ''); // on garde seulement les chiffres
+
+  // Auto-formatage JJ/MM/AAAA
+  if (numbers.length >= 5) {
+    input.value = numbers.slice(0, 2) + "/" +
+                  numbers.slice(2, 4) + "/" +
+                  numbers.slice(4, 8);
+  } else if (numbers.length >= 3) {
+    input.value = numbers.slice(0, 2) + "/" + numbers.slice(2, 4);
+  } else {
+    input.value = numbers;
+  }
+
+  // Si la date n'est pas complète → on ne fait rien
+  if (input.value.length !== 10) return;
+
+  // On calcule l'âge à partir de la date complète
+  const age = calculateAge(input.value);
+  if (age === null) return;
+
+  // ESI
+  if (input.id === "esiDob") {
+    const ageNumInput = document.getElementById("esiAgeNum");
+    ageNumInput.value = age;
+    // on met à jour Majeur/Mineur
+    if (typeof majEsiStatut === "function") {
+      majEsiStatut();
+    }
+  }
+
+  // PASSEUR
+  if (input.id === "passeurDob") {
+    const ageNumInput = document.getElementById("passeurAgeNum");
+    ageNumInput.value = age;
+    if (typeof majPasseurStatut === "function") {
+      majPasseurStatut();
+    }
+  }
+}
+
+// Formate JJ/MM/AAAA et met à jour l'âge automatiquement
+function formatDOB(input) {
+  let numbers = input.value.replace(/\D/g, ''); // on garde seulement les chiffres
+
+  // Auto-formatage JJ/MM/AAAA
+  if (numbers.length >= 5) {
+    input.value = numbers.slice(0, 2) + "/" +
+                  numbers.slice(2, 4) + "/" +
+                  numbers.slice(4, 8);
+  } else if (numbers.length >= 3) {
+    input.value = numbers.slice(0, 2) + "/" + numbers.slice(2, 4);
+  } else {
+    input.value = numbers;
+  }
+
+  // Si la date n'est pas complète → on ne fait rien
+  if (input.value.length !== 10) return;
+
+  // On calcule l'âge à partir de la date complète
+  const age = calculateAge(input.value);
+  if (age === null) return;
+
+  // ESI
+  if (input.id === "esiDob") {
+    const ageNumInput = document.getElementById("esiAgeNum");
+    ageNumInput.value = age;
+    // on met à jour Majeur/Mineur
+    if (typeof majEsiStatut === "function") {
+      majEsiStatut();
+    }
+  }
+
+  // PASSEUR
+  if (input.id === "passeurDob") {
+    const ageNumInput = document.getElementById("passeurAgeNum");
+    ageNumInput.value = age;
+    if (typeof majPasseurStatut === "function") {
+      majPasseurStatut();
+    }
+  }
+}
+
+// Calcule l'âge à partir de "JJ/MM/AAAA"
+function calculateAge(dob) {
+  if (!dob || dob.length !== 10) return null;
+  const [day, month, year] = dob.split("/");
+  const birthDate = new Date(`${year}-${month}-${day}`);
+  if (isNaN(birthDate)) return null;
+
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const m = today.getMonth() - birthDate.getMonth();
+
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  return age;
+}
+
+
+
+
+const NATIONALITES = [
+  "Afghane","Albanaise","Algérienne","Allemande","Américaine","Andorrane","Angolaise","Argentine",
+  "Arménienne","Australienne","Autrichienne","Azerbaïdjanaise",
+  "Belge","Béninoise","Biélorusse","Bolivienne","Bosnienne","Botswanaise","Brésilienne","Britannique","Bulgare","Burkinabè","Burundaise",
+  "Cambodgienne","Camerounaise","Canadienne","Cap-verdienne","Centrafricaine","Chilienne","Chinoise","Colombienne","Comorienne","Congolaise",
+  "Croate","Cubaine","Chypriote","Tchèque",
+  "Danoise","Djiboutienne","Dominicaine","Dominiquaise",
+  "Égyptienne","Émirienne","Équatorienne","Érythréenne","Espagnole","Estonienne","Éthiopienne",
+  "Finlandaise","Française",
+  "Gabonaise","Gambienne","Géorgienne","Ghanéenne","Grecque","Guatémaltèque","Guinéenne","Guinéenne-Bissau","Guyanaise",
+  "Haïtienne","Hondurienne","Hongroise",
+  "Indienne","Indonésienne","Irakienne","Iranienne","Irlandaise","Islandaise","Israélienne","Italienne",
+  "Ivoirienne",
+  "Japonaise","Jordanienne",
+  "Kazakhstanaise","Kenyane","Kirghize","Kosovare","Koweïtienne",
+  "Laotienne","Libanaise","Libérienne","Libyenne","Liechtensteinoise","Lituanienne","Luxembourgeoise",
+  "Macédonienne","Malagasy","Malaisienne","Malawienne","Malienne","Maltaise","Marocaine","Mauricienne","Mauritanienne","Mexicaine",
+  "Moldave","Monégasque","Mongole","Monténégrine","Mozambicaine",
+  "Namibienne","Néerlandaise","Néo-zélandaise","Népalaise","Nigériane","Nigérienne","Nord-coréenne","Norvégienne",
+  "Omanaise",
+  "Pakistanaise","Palestinienne","Panaméenne","Paraguayenne","Péruvienne","Philippine","Polonaise","Portugaise",
+  "Qatarienne",
+  "Roumaine","Russe","Rwandaise",
+  "Saoudienne","Sénégalaise","Serbe","Singapourienne","Slovaque","Slovène","Somalienne","Soudanaise","Sri-lankaise",
+  "Sud-africaine","Sud-coréenne","Sud-soudanaise","Suédoise","Suisse","Syrienne",
+  "Tadjike","Tanzanienne","Tchadienne","Thaïlandaise","Togolaise","Tunisienne","Turque",
+  "Ukrainienne","Uruguayenne","Uzbekistanaise",
+  "Vénézuélienne","Vietnamienne",
+  "Yéménite",
+  "Zambienne","Zimbabwéenne"
+];
+
+function attachNatAutocomplete(input) {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'nat-wrapper';
+  input.parentNode.insertBefore(wrapper, input);
+  wrapper.appendChild(input);
+
+  const list = document.createElement('div');
+  list.className = 'nat-list';
+  list.style.display = 'none';
+  wrapper.appendChild(list);
+
+  // Normalisation : minuscules + suppression accents + trim
+  const normalize = (s) =>
+    (s || "")
+      .toString()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .trim();
+
+  input.addEventListener('input', () => {
+    const search = normalize(input.value);
+    list.innerHTML = '';
+
+    if (!search) {
+      list.style.display = 'none';
+      return;
+    }
+
+    // Prépare une liste [label + version normalisée]
+    const matches = NATIONALITES
+      .map(label => ({
+        label,
+        norm: normalize(label)
+      }))
+      // garde celles qui CONTIENNENT le texte tapé
+      .filter(item => item.norm.includes(search))
+      // priorité à celles qui COMMENCENT par ce que tu tapes
+      .sort((a, b) => {
+        const aStarts = a.norm.startsWith(search);
+        const bStarts = b.norm.startsWith(search);
+        if (aStarts && !bStarts) return -1;
+        if (!aStarts && bStarts) return 1;
+        return a.label.localeCompare(b.label);
+      })
+      .slice(0, 20);
+
+    if (!matches.length) {
+      list.style.display = 'none';
+      return;
+    }
+
+    matches.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'nat-item';
+      div.textContent = item.label;
+      div.addEventListener('click', () => {
+        input.value = item.label;
+        list.innerHTML = '';
+        list.style.display = 'none';
+      });
+      list.appendChild(div);
+    });
+
+    list.style.display = 'block';
+  });
+
+  // ferme si clic à l'extérieur
+  document.addEventListener('click', (e) => {
+    if (!wrapper.contains(e.target)) {
+      list.style.display = 'none';
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.nat-autocomplete').forEach(attachNatAutocomplete);
+});
+function formatHeureHhmm(heureValue){
+  if(!heureValue) return "";
+  const [h, m] = heureValue.split(":");
+  return `${parseInt(h,10)}h${m}`;
+}
+function plural(nb, s, p){
+  const n = Number(nb);
+  return (n === 1) ? s : p;
+}
+function buildSuffixComptage(nbCtrl, nbDesc){
+  const parts = [];
+  const n1 = nbCtrl === "" ? NaN : parseInt(nbCtrl, 10);
+  const n2 = nbDesc === "" ? NaN : parseInt(nbDesc, 10);
+  if(!Number.isNaN(n1)) parts.push(`${n1} ${plural(n1,"personne contrôlée","personnes contrôlées")}`);
+  if(!Number.isNaN(n2)) parts.push(`${n2} ${plural(n2,"descendu","descendus")}`);
+  return parts.length ? " — " + parts.join(", ") : "";
+}
+function triJoin(parts){ return parts.filter(Boolean).join(" — "); }
+
+function majAffichageComptage(){
+  const action = (document.getElementById("type_action").value || "").toLowerCase();
+  const libre  = (document.getElementById("texte_libre").value || "").toLowerCase();
+  // ✅ Affiche les champs de comptage pour "bus" ou "train"
+  const show = action.includes("bus") || libre.includes("bus") || action.includes("train") || libre.includes("train");
+  const bloc = document.getElementById("bloc_comptage");
+  if(bloc) bloc.style.display = show ? "block" : "none";
+}
+
+function ajouterDeroulementFlex(){
+  const zone = document.getElementById("deroulement");
+  if(!zone){ alert("⚠️ Zone 'Déroulement' introuvable."); return; }
+
+  const heure = document.getElementById("heure_action").value;
+  const act   = (document.getElementById("type_action").value || "").trim();
+  const infosupp = (document.getElementById("esi_select").value || "").trim();
+  const libre = (document.getElementById("texte_libre").value || "").trim();
+  const nbCtrl = document.getElementById("nb_controles").value;
+  const nbDesc = document.getElementById("nb_descendus").value;
+
+  const hStr = formatHeureHhmm(heure);
+  const corps = triJoin([act, infosupp , libre]);
+  const suffix = buildSuffixComptage(nbCtrl, nbDesc);
+
+  if(!hStr && !corps && !suffix){
+    alert("Renseignez au moins l’heure ou une action (prédéfinie, infos supplémentaires ou texte libre).");
+    return;
+  }
+
+  const ligne = triJoin([hStr, corps]) + suffix;
+
+  zone.value = zone.value.trim() ? (zone.value + "\n" + ligne) : ligne;
+  zone.dispatchEvent(new Event('input')); // garde ton auto-redimensionnement
+
+  document.getElementById("heure_action").value = "";
+  document.getElementById("type_action").value = "";
+  document.getElementById("esi_select").value = "";
+  document.getElementById("texte_libre").value = "";
+  document.getElementById("nb_controles").value = "";
+  document.getElementById("nb_descendus").value = "";
+
+  majAffichageComptage();
+}	
+
+// === TRI AUTO INSTANTANÉ DU DÉROULEMENT (ajouté, ne remplace rien) ===
+
+// petit garde-fou pour éviter une boucle infinie d'événements input
+let BF_IS_SORTING_DEROULEMENT = false;
+
+// Convertit "HH:MM" ou "HHhMM" en minutes depuis minuit
+function bf_parseHeureToMinutes(hstr) {
+  if (!hstr) return null;
+  const m = String(hstr).trim().match(/^(\d{1,2})\s*[:hH]\s*(\d{2})/);
+  if (!m) return null;
+  const h = parseInt(m[1], 10);
+  const min = parseInt(m[2], 10);
+  if (isNaN(h) || isNaN(min)) return null;
+  return h * 60 + min;
+}
+
+// Récupère l'heure au début d'une ligne du déroulement
+function bf_minutesFromLine(line) {
+  if (!line) return null;
+  const m = String(line).trim().match(/^(\d{1,2})\s*[:hH]\s*(\d{2})/);
+  if (!m) return null;
+  const h = parseInt(m[1], 10);
+  const min = parseInt(m[2], 10);
+  if (isNaN(h) || isNaN(min)) return null;
+  return h * 60 + min;
+}
+
+// Trie le textarea #deroulement en tenant compte :
+// - des horaires
+// - d'une vacation de nuit (22h → 7h) avec marge de 1h avant le début
+// - des lignes SANS heure qui restent collées à la ligne d'heure précédente
+function bf_trierDeroulement() {
+  const der = document.getElementById('deroulement');
+  if (!der) return;
+
+  const lignesBrutes = der.value
+    .split('\n')
+    .map(l => l.trim())
+    .filter(l => l !== '');
+
+  if (!lignesBrutes.length) {
+    return;
+  }
+
+  // On lit l'heure de début / fin directement dans les champs de l'appli
+  const debutStr = document.getElementById('heureDebutInput')
+    ? document.getElementById('heureDebutInput').value
+    : '';
+  const finStr = document.getElementById('heureFinInput')
+    ? document.getElementById('heureFinInput').value
+    : '';
+
+  const debutMinutes = bf_parseHeureToMinutes(debutStr);
+  const finMinutes   = bf_parseHeureToMinutes(finStr);
+  const traverseMinuit =
+    (debutMinutes !== null && finMinutes !== null && finMinutes < debutMinutes);
+
+  // 🔹 On découpe en groupes :
+  // 1 groupe = 1 ligne avec heure + toutes les lignes SANS heure qui suivent
+  const groups = [];
+  let currentGroup = null;
+  let index = 0;
+
+  lignesBrutes.forEach(line => {
+    const minutes = bf_minutesFromLine(line);
+
+    if (minutes !== null) {
+      // nouvelle ligne avec heure → nouveau groupe
+      currentGroup = {
+        lines: [line],
+        baseMinutes: minutes,
+        sortMinutes: null,
+        originalIndex: index++
+      };
+      groups.push(currentGroup);
+    } else {
+      // ligne SANS heure
+      if (!currentGroup) {
+        // aucune heure avant → groupe "sans heure au début"
+        currentGroup = {
+          lines: [line],
+          baseMinutes: null,
+          sortMinutes: null,
+          originalIndex: index++
+        };
+        groups.push(currentGroup);
+      } else {
+        // on l'attache au groupe en cours
+        currentGroup.lines.push(line);
+      }
+    }
+  });
+
+  const MARGE = 60; // 1h de marge avant l'heure de début
+
+  // 🔹 On calcule la minute de tri pour chaque groupe
+  groups.forEach(g => {
+    if (g.baseMinutes === null) {
+      g.sortMinutes = null; // groupe sans heure → ordre d'origine
+      return;
+    }
+
+    let key = g.baseMinutes;
+
+    if (traverseMinuit && debutMinutes !== null) {
+      const seuil = Math.max(0, debutMinutes - MARGE);
+      if (key < seuil) key += 24 * 60;
+    }
+
+    g.sortMinutes = key;
+  });
+
+  // 🔹 Tri des groupes par heure, en gardant l'ordre d'origine en cas d'égalité
+  groups.sort((ga, gb) => {
+    const a = ga.sortMinutes;
+    const b = gb.sortMinutes;
+
+    if (a === null && b === null) {
+      // deux groupes sans heure → on respecte l'ordre de création
+      return ga.originalIndex - gb.originalIndex;
+    }
+    if (a === null) return -1; // groupes sans heure avant les autres
+    if (b === null) return 1;
+    if (a !== b) return a - b;
+    // même heure → on garde l'ordre d'origine
+    return ga.originalIndex - gb.originalIndex;
+  });
+
+  // 🔹 Reconstruction des lignes dans le bon ordre
+  const nouvellesLignes = [];
+  groups.forEach(g => {
+    g.lines.forEach(l => nouvellesLignes.push(l));
+  });
+
+  der.value = nouvellesLignes.join('\n');
+}
+
+// On branche le tri sur les modifs du textarea déroulement (avec délai)
+document.addEventListener('DOMContentLoaded', () => {
+  const der = document.getElementById('deroulement');
+  if (!der) return;
+
+  let bf_triTimeout = null;
+
+  der.addEventListener('input', () => {
+    // si c'est nous qui sommes en train de trier, on ignore
+    if (BF_IS_SORTING_DEROULEMENT) return;
+
+    // on annule un éventuel tri déjà planifié
+    clearTimeout(bf_triTimeout);
+
+    // on lance le tri 1,5 seconde après la dernière frappe
+    bf_triTimeout = setTimeout(() => {
+      BF_IS_SORTING_DEROULEMENT = true;
+
+      // 1) on trie le texte affiché
+      bf_trierDeroulement();
+
+      // 2) on force la sauvegarde/resize comme d'habitude
+      if (typeof onTextAreaChange === 'function') {
+        onTextAreaChange('deroulement');
+      }
+      BF_IS_SORTING_DEROULEMENT = false;
+    }, 2500); // ⏱️ 2500 ms = 2,5 s d'inactivité avant tri
+  });
+});
+
 </script>
 </body>
 </html>
