@@ -1202,7 +1202,17 @@ html, body {
     </div>
     <input type="text" id="autreTexte" placeholder="Précisez..." style="width:100%;margin-top:5px;padding:8px;" disabled>
 
-    <button type="submit" class="blue">Enregistrer la fiche</button>
+    <div class="btn-row">
+  <!-- Bouton : enregistre seulement -->
+  <button type="button" class="blue" onclick="soumettreFiche(false)">
+    Enregistrer la fiche
+  </button>
+
+  <!-- Bouton : enregistre + redirige -->
+  <button type="button" class="green" onclick="soumettreFiche(true)">
+    Enregistrer et ouvrir ESI/PASSEUR
+  </button>
+</div>
 
   </form>
 
@@ -2638,50 +2648,65 @@ function ajouterLigneDeroulementDepuisFiche(fiche) {
   }
 }
 
-document.getElementById('ficheForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    const pieces = Array.from(document.querySelectorAll('input[name="piece"]:checked')).map(cb => cb.value);
-    
-    const jourVal = document.getElementById('jour').value;
-    const moisVal = document.getElementById('mois').value;
-    const anneeVal = document.getElementById('annee').value;
-    
-    const fiche = {
-        categorie: document.getElementById('categorie').value,
-        nom: document.getElementById('nom').value,
-        prenom: document.getElementById('prenom').value,
-        sexe: document.getElementById('sexe').value,
-        nationalite: document.getElementById('nationalite').value,
-        jour: jourVal,
-        mois: moisVal,
-        annee: anneeVal,
-        dateNaissance: formatDateNaissance(jourVal, moisVal, anneeVal),
-        age: document.getElementById('age').value,
-        heure: document.getElementById('heure').value,
-        dateIntervention: document.getElementById('dateIntervention').value,
-        lieuInterpellation: document.getElementById('lieuInterpellation').value,
-suitesDonnees: document.getElementById('suitesDonnees').value,
- villeDepart: document.getElementById('villeDepart').value,
-        paysDepart: document.getElementById('paysDepart').value,
-        villeDestination: document.getElementById('villeDestination').value,
-        paysDestination: document.getElementById('paysDestination').value,
-        vehicule: document.getElementById('vehicule').value,
-        immatriculation: document.getElementById('immatriculation').value,
-        piecesIdentite: pieces
-    };
-    
-    const fiches = JSON.parse(localStorage.getItem('fichesBorderforce') || '[]');
-    fiches.push(fiche);
-    localStorage.setItem('fichesBorderforce', JSON.stringify(fiches));
-      
-	  // 🔹 NOUVELLE LIGNE : envoie les infos vers la section ESI / Passeur
-    remplirDepuisFicheDansEsiOuPasseur(fiche);
-  
+function soumettreFiche(rediriger) {
+  const form = document.getElementById('ficheForm');
+  if (!form) return;
 
-  this.reset();
-    setCurrentDateTime();
-    afficherHistorique();
-});
+  // Vérifie les champs "required" du formulaire (comme un submit normal)
+  if (!form.reportValidity()) {
+    return;
+  }
+
+  const pieces = Array.from(document.querySelectorAll('input[name="piece"]:checked')).map(cb => cb.value);
+  
+  const jourVal = document.getElementById('jour').value;
+  const moisVal = document.getElementById('mois').value;
+  const anneeVal = document.getElementById('annee').value;
+  
+  const fiche = {
+      categorie: document.getElementById('categorie').value,
+      nom: document.getElementById('nom').value,
+      prenom: document.getElementById('prenom').value,
+      sexe: document.getElementById('sexe').value,
+      nationalite: document.getElementById('nationalite').value,
+      jour: jourVal,
+      mois: moisVal,
+      annee: anneeVal,
+      dateNaissance: formatDateNaissance(jourVal, moisVal, anneeVal),
+      age: document.getElementById('age').value,
+      heure: document.getElementById('heure').value,
+      dateIntervention: document.getElementById('dateIntervention').value,
+      lieuInterpellation: document.getElementById('lieuInterpellation').value,
+      suitesDonnees: document.getElementById('suitesDonnees').value,
+      villeDepart: document.getElementById('villeDepart').value,
+      paysDepart: document.getElementById('paysDepart').value,
+      villeDestination: document.getElementById('villeDestination').value,
+      paysDestination: document.getElementById('paysDestination').value,
+      vehicule: document.getElementById('vehicule').value,
+      immatriculation: document.getElementById('immatriculation').value,
+      piecesIdentite: pieces
+  };
+  
+  const fiches = JSON.parse(localStorage.getItem('fichesBorderforce') || '[]');
+  fiches.push(fiche);
+  localStorage.setItem('fichesBorderforce', JSON.stringify(fiches));
+    
+  // Envoie les infos vers ESI / Passeur (comme avant)
+  remplirDepuisFicheDansEsiOuPasseur(fiche);
+
+  // 👉 Si on a cliqué sur "Enregistrer et ouvrir ESI/PASSEUR"
+  if (rediriger) {
+    if (fiche.categorie === 'ESI') {
+      showPage('esiPage');
+    } else if (fiche.categorie === 'PASSEUR') {
+      showPage('passeurPage');
+    }
+  }
+
+  form.reset();
+  setCurrentDateTime();
+  afficherHistorique();
+}
 
 function afficherHistorique() {
     const historiqueDiv = document.getElementById('historique');
