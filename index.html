@@ -665,16 +665,28 @@ html, body {
     </button>
     <div class="page-title">ESR (Effectif)</div>
   </div>
+
   <div class="page-content">
     <div id="esrList"></div>
+
     <div style="margin-top: 20px;">
-      <input type="text" id="esrGrade" placeholder="Grade" />
-      <input type="text" id="esrNom" placeholder="Nom Prénom" />
-      <input type="text" id="esrNigend" placeholder="Nigend" />
-      <input type="text" id="esrCRT" placeholder="CRT (ex: 06/1 Nice)" />
+      <!-- Grade en majuscules -->
+      <input type="text" id="esrGrade" placeholder="Grade"
+             style="text-transform:uppercase;"
+             oninput="this.value = this.value.toUpperCase();">
+
+      <input type="text" id="esrNom" placeholder="Nom Prénom">
+
+      <!-- Nigend = clavier numérique -->
+      <input type="number" id="esrNigend" placeholder="Nigend"
+             inputmode="numeric" pattern="[0-9]*">
+
+      <input type="text" id="esrCRT" placeholder="CRT (ex: 06/1 Nice)">
+
       <button id="addEsrBtn" class="blue">Ajouter ESR</button>
       <button id="delEsrBtn" class="red">Supprimer dernier ESR</button>
     </div>
+
     <div class="small-note">Tous les champs doivent être remplis pour ajouter un ESR</div>
   </div>
 </div>
