@@ -1059,7 +1059,7 @@ html, body {
  <!-- Saisie rapide Heure + Actions -->
 <section id="temps_action" style="margin-bottom:12px">
   <fieldset style="border:2px solid var(--bleuFonce,#003366);border-radius:10px;padding:10px">
-    <legend style="padding:0 6px">Heure & actions</legend>
+    <legend style="padding:0 6px">Heures & actions</legend>
 
     <label style="display:block;margin-top:6px">Heure</label>
     <input type="time" id="heure_action" />
@@ -1081,7 +1081,7 @@ html, body {
       </optgroup>
     </select>
 	
- <!-- 🔻 NOUVEAU : infos supplémentaires (à la place de ESI 1,2,3…) -->
+ <!-- 🔻 : infos supplémentaires  -->
     <label style="display:block;margin-top:6px">Infos supplémentaires</label>
     <select id="esi_select">
       <option value="">— Aucune —</option>
@@ -1320,8 +1320,6 @@ html, body {
     <button onclick="closeQrModal()" style="margin-top:10px; padding:8px 16px;">Fermer</button>
   </div>
 </div>
-
-
 <script>
 // Navigation entre les pages
   function showPage(pageId) {
@@ -1655,75 +1653,125 @@ function addManualCf(type){
     }
   });
 });
+// --- Outils heure pour ESI ---
 
+// Convertit "HH:MM" en minutes (retourne null si vide ou invalide)
+function bf_parseHeureToMinutesSimple(h) {
+  if (!h || typeof h !== 'string' || !h.includes(':')) return null;
+  const [hh, mm] = h.split(':').map(v => parseInt(v, 10));
+  if (isNaN(hh) || isNaN(mm)) return null;
+  return hh * 60 + mm;
+}
 
-    // ESI
-    function renderEsiList() {
-      const container = document.getElementById('esiList');
-      container.innerHTML = '';
-      if(!state.esiList || state.esiList.length === 0) {
-        container.innerHTML = '<p>Aucun ESI ajouté.</p>';
-        return;
-      }
-      const ul = document.createElement('ul');
-      ul.style.listStyle = 'none';
-      ul.style.padding = '0';
-      
-      state.esiList.forEach((esi,i) => {
-        const li = document.createElement('li');
-        li.style.background = '#f8f9fa';
-        li.style.padding = '10px';
-        li.style.margin = '8px 0';
-        li.style.borderRadius = '6px';
-        li.style.border = '1px solid #ddd';
-        
-        const info = document.createElement('div');
-        info.textContent = `${i+1} - ${esi.heure} - ${esi.age} - ${esi.sexe} - ${esi.ageNum} ans - ${esi.nationalite} - ${esi.lieu} - ${esi.suites}`;
-        info.style.marginBottom = '8px';
-        
-        const buttons = document.createElement('div');
+// Trie state.esiList selon l'heure de mission (gère les services de nuit)
+function bf_trierEsiState() {
+  if (!Array.isArray(state.esiList) || state.esiList.length <= 1) return;
 
-        // bouton Modifier
-        const editBtn = document.createElement('button');
-        editBtn.textContent = 'Modifier';
-        editBtn.className = 'blue';
-        editBtn.style.marginRight = '8px';
-        editBtn.onclick = () => {
-          document.getElementById('esiAge').value = esi.age;
-          document.getElementById('esiSexe').value = esi.sexe;
-          document.getElementById('esiAgeNum').value = esi.ageNum;
-          document.getElementById('esiNationalite').value = esi.nationalite;
-          document.getElementById('esiLieu').value = esi.lieu;
-          document.getElementById('esiHeure').value = esi.heure;
-          document.getElementById('esiSuites').value = esi.suites;
-		   document.getElementById('esiDob').value = esi.dob || "";
-          state.editingEsiIndex = i;
-          document.getElementById('addEsiBtn').textContent = "Enregistrer";
-        };
+  const debutInput = document.getElementById('heureDebutInput');
+  const finInput   = document.getElementById('heureFinInput');
 
-        // bouton Supprimer
-        const delBtn = document.createElement('button');
-        delBtn.textContent = 'Supprimer';
-        delBtn.className = 'red';
-        delBtn.onclick = () => {
-          if(confirm("Supprimer cet ESI ?")) {
-            state.esiList.splice(i,1);
-            renderEsiList();
-			rebuildDeroulementAuto();
-            debounceSave();
-          }
-        };
+  const debutMinutes = bf_parseHeureToMinutesSimple(debutInput ? debutInput.value : '');
+  const finMinutes   = bf_parseHeureToMinutesSimple(finInput ? finInput.value : '');
 
-        buttons.appendChild(editBtn);
-        buttons.appendChild(delBtn);
-        li.appendChild(info);
-        li.appendChild(buttons);
-        ul.appendChild(li);
-      });
-      container.appendChild(ul);
+  const traverseMinuit =
+    (debutMinutes !== null && finMinutes !== null && finMinutes < debutMinutes);
+
+  const MARGE = 60; // 1h avant le début de mission
+
+  state.esiList.sort((a, b) => {
+    let ma = bf_parseHeureToMinutesSimple((a.heure || '').trim());
+    let mb = bf_parseHeureToMinutesSimple((b.heure || '').trim());
+
+    // Sans heure → en dernier
+    if (ma === null && mb === null) return 0;
+    if (ma === null) return 1;
+    if (mb === null) return -1;
+
+    if (traverseMinuit && debutMinutes !== null) {
+      const seuil = Math.max(0, debutMinutes - MARGE);
+      if (ma < seuil) ma += 24 * 60;
+      if (mb < seuil) mb += 24 * 60;
     }
 
-   function addEsi() {
+    return ma - mb;
+  });
+}
+
+// ESI
+function renderEsiList() {
+  const container = document.getElementById('esiList');
+  container.innerHTML = '';
+  if (!state.esiList || state.esiList.length === 0) {
+    container.innerHTML = '<p>Aucun ESI ajouté.</p>';
+    return;
+  }
+
+  // Toujours afficher dans l'ordre chronologique
+  bf_trierEsiState();
+
+  const ul = document.createElement('ul');
+  ul.style.listStyle = 'none';
+  ul.style.padding = '0';
+
+  state.esiList.forEach((esi, i) => {
+    const li = document.createElement('li');
+    li.style.background = '#f8f9fa';
+    li.style.padding = '10px';
+    li.style.margin = '8px 0';
+    li.style.borderRadius = '6px';
+    li.style.border = '1px solid #ddd';
+
+    const info = document.createElement('div');
+    info.textContent =
+      `${i + 1} - ${esi.heure} - ${esi.age} - ${esi.sexe} - ${esi.ageNum} ans - ${esi.nationalite} - ${esi.lieu} - ${esi.suites}`;
+    info.style.marginBottom = '8px';
+
+    const buttons = document.createElement('div');
+
+    // bouton Modifier
+    const editBtn = document.createElement('button');
+    editBtn.textContent = 'Modifier';
+    editBtn.className = 'blue';
+    editBtn.style.marginRight = '8px';
+    editBtn.onclick = () => {
+      document.getElementById('esiAge').value = esi.age;
+      document.getElementById('esiSexe').value = esi.sexe;
+      document.getElementById('esiAgeNum').value = esi.ageNum;
+      document.getElementById('esiNationalite').value = esi.nationalite;
+      document.getElementById('esiLieu').value = esi.lieu;
+      document.getElementById('esiHeure').value = esi.heure;
+      document.getElementById('esiSuites').value = esi.suites;
+      document.getElementById('esiDob').value = esi.dob || "";
+      state.editingEsiIndex = i;
+      document.getElementById('addEsiBtn').textContent = "Enregistrer";
+    };
+
+    // bouton Supprimer
+    const delBtn = document.createElement('button');
+    delBtn.textContent = 'Supprimer';
+    delBtn.className = 'red';
+    delBtn.onclick = () => {
+      if (confirm("Supprimer cet ESI ?")) {
+        state.esiList.splice(i, 1);
+        // On reconstruit les lignes auto (ESI/PASSEUR) dans le déroulement
+        if (typeof rebuildDeroulementAuto === 'function') {
+          rebuildDeroulementAuto();
+        }
+        renderEsiList();
+        debounceSave();
+      }
+    };
+
+    buttons.appendChild(editBtn);
+    buttons.appendChild(delBtn);
+    li.appendChild(info);
+    li.appendChild(buttons);
+    ul.appendChild(li);
+  });
+  container.appendChild(ul);
+}
+
+function addEsi() {
   const heure = document.getElementById('esiHeure').value.trim();
   const age = document.getElementById('esiAge').value;
   const sexe = document.getElementById('esiSexe').value;
@@ -1731,52 +1779,35 @@ function addManualCf(type){
   const nationalite = document.getElementById('esiNationalite').value.trim();
   const lieu = document.getElementById('esiLieu').value.trim();
   const suites = document.getElementById('esiSuites').value.trim();
-  const dob = document.getElementById('esiDob').value.trim(); // ✅ date de naissance
+  const dob = document.getElementById('esiDob').value.trim(); // date de naissance
 
   if (!age || !sexe || !ageNum || !nationalite || !lieu || !suites) {
     alert('Merci de remplir tous les champs ESI.');
     return;
   }
 
-  // ✅ objet ESI complet (avec DOB)
-  const esiData = {
-    age,
-    sexe,
-    ageNum,
-    nationalite,
-    lieu,
-    heure,
-    suites,
-    dob
-  };
+  const esiData = { age, sexe, ageNum, nationalite, lieu, heure, suites, dob };
 
   if (state.editingEsiIndex !== null && state.editingEsiIndex !== undefined) {
-    // 🔁 MODE MODIFICATION : on met à jour la liste + le déroulement
+    // 🔁 MODIFICATION
     const idx = state.editingEsiIndex;
     state.esiList[idx] = esiData;
     state.editingEsiIndex = null;
     document.getElementById('addEsiBtn').textContent = "Ajouter ESI";
-
-    // 🔄 met à jour la ligne correspondante dans le déroulement
-    majLigneDeroulementPourEsi(idx);
   } else {
-    // ➕ MODE AJOUT : on ajoute à la liste
+    // ➕ AJOUT
     state.esiList.push(esiData);
-
-    // 🔹 Ajout automatique dans le déroulement (option B)
-    const der = document.getElementById('deroulement');
-    const num = state.esiList.length; // ESI n°
-    const ligne = `${heure ? heure + " — " : ""}ESI ${num} — ${sexe} — ${ageNum} ans — Nationalité: ${nationalite} — Ordre OPJ PAF : ${suites}`;
-
-    der.value = der.value.trim()
-      ? der.value + "\n" + ligne
-      : ligne;
-
-    // pour déclencher la sauvegarde/auto-resize
-    der.dispatchEvent(new Event('input'));
   }
 
-  // ✅ on vide tous les champs
+  // Tri en mémoire
+  bf_trierEsiState();
+
+  // On laisse rebuildDeroulementAuto reconstruire toutes les lignes auto ESI/PASSEUR
+  if (typeof rebuildDeroulementAuto === 'function') {
+    rebuildDeroulementAuto();
+  }
+
+  // Nettoyage des champs
   document.getElementById('esiAge').value = '';
   document.getElementById('esiSexe').value = '';
   document.getElementById('esiAgeNum').value = '';
@@ -1790,85 +1821,126 @@ function addManualCf(type){
   debounceSave();
 }
 
+function delEsi() {
+  if (state.esiList && state.esiList.length > 0) {
+    state.esiList.pop();
+    bf_trierEsiState();
+    if (typeof rebuildDeroulementAuto === 'function') {
+      rebuildDeroulementAuto();
+    }
+    renderEsiList();
+    debounceSave();
+  }
+}
 
+   // --- Tri des PASSEURS selon l'heure de mission (même logique que ESI) ---
+function bf_trierPasseurState() {
+  if (!Array.isArray(state.passeurList) || state.passeurList.length <= 1) return;
 
+  const debutInput = document.getElementById('heureDebutInput');
+  const finInput   = document.getElementById('heureFinInput');
 
-    function delEsi() {
-      if(state.esiList && state.esiList.length > 0) {
-        state.esiList.pop();
-        renderEsiList();
-		rebuildDeroulementAuto();
+  const debutMinutes = bf_parseHeureToMinutesSimple(debutInput ? debutInput.value : '');
+  const finMinutes   = bf_parseHeureToMinutesSimple(finInput ? finInput.value : '');
+
+  const traverseMinuit =
+    (debutMinutes !== null && finMinutes !== null && finMinutes < debutMinutes);
+
+  const MARGE = 60; // 1h avant le début de mission
+
+  state.passeurList.sort((a, b) => {
+    let ma = bf_parseHeureToMinutesSimple((a.heure || '').trim());
+    let mb = bf_parseHeureToMinutesSimple((b.heure || '').trim());
+
+    // Sans heure → en dernier
+    if (ma === null && mb === null) return 0;
+    if (ma === null) return 1;
+    if (mb === null) return -1;
+
+    if (traverseMinuit && debutMinutes !== null) {
+      const seuil = Math.max(0, debutMinutes - MARGE);
+      if (ma < seuil) ma += 24 * 60;
+      if (mb < seuil) mb += 24 * 60;
+    }
+
+    return ma - mb;
+  });
+}
+ 
+// PASSEUR
+function renderPasseurList() {
+  const container = document.getElementById('passeurList');
+  container.innerHTML = '';
+  if (!state.passeurList || state.passeurList.length === 0) {
+    container.innerHTML = '<p>Aucun passeur ajouté.</p>';
+    return;
+  }
+
+  // Tri auto
+  bf_trierPasseurState();
+
+  const ul = document.createElement('ul');
+  ul.style.listStyle = 'none';
+  ul.style.padding = '0';
+
+  state.passeurList.forEach((passeur, i) => {
+    const li = document.createElement('li');
+    li.style.background = '#f8f9fa';
+    li.style.padding = '10px';
+    li.style.margin = '8px 0';
+    li.style.borderRadius = '6px';
+    li.style.border = '1px solid #ddd';
+
+    const info = document.createElement('div');
+    info.textContent =
+      `${i + 1} - ${passeur.heure} - ${passeur.age} - ${passeur.sexe} - ${passeur.ageNum} ans - ${passeur.nationalite} - ${passeur.lieu} - ${passeur.suites}`;
+    info.style.marginBottom = '8px';
+
+    const buttons = document.createElement('div');
+
+    // bouton Modifier
+    const editBtn = document.createElement('button');
+    editBtn.textContent = 'Modifier';
+    editBtn.className = 'blue';
+    editBtn.style.marginRight = '8px';
+    editBtn.onclick = () => {
+      document.getElementById('passeurAge').value = passeur.age;
+      document.getElementById('passeurSexe').value = passeur.sexe;
+      document.getElementById('passeurAgeNum').value = passeur.ageNum;
+      document.getElementById('passeurNationalite').value = passeur.nationalite;
+      document.getElementById('passeurLieu').value = passeur.lieu;
+      document.getElementById('passeurHeure').value = passeur.heure;
+      document.getElementById('passeurSuites').value = passeur.suites;
+      document.getElementById('passeurDob').value = passeur.dob || "";
+      state.editingPasseurIndex = i;
+      document.getElementById('addPasseurBtn').textContent = "Enregistrer";
+    };
+
+    // bouton Supprimer
+    const delBtn = document.createElement('button');
+    delBtn.textContent = 'Supprimer';
+    delBtn.className = 'red';
+    delBtn.onclick = () => {
+      if (confirm("Supprimer ce passeur ?")) {
+        state.passeurList.splice(i, 1);
+        if (typeof rebuildDeroulementAuto === 'function') {
+          rebuildDeroulementAuto();
+        }
+        renderPasseurList();
         debounceSave();
       }
-    }
+    };
 
-    // PASSEUR
-    function renderPasseurList() {
-      const container = document.getElementById('passeurList');
-      container.innerHTML = '';
-      if(!state.passeurList || state.passeurList.length === 0) {
-        container.innerHTML = '<p>Aucun passeur ajouté.</p>';
-        return;
-      }
-      const ul = document.createElement('ul');
-      ul.style.listStyle = 'none';
-      ul.style.padding = '0';
-      
-      state.passeurList.forEach((passeur,i) => {
-        const li = document.createElement('li');
-        li.style.background = '#f8f9fa';
-        li.style.padding = '10px';
-        li.style.margin = '8px 0';
-        li.style.borderRadius = '6px';
-        li.style.border = '1px solid #ddd';
-        
-        const info = document.createElement('div');
-        info.textContent = `${i+1} - ${passeur.heure} - ${passeur.age} - ${passeur.sexe} - ${passeur.ageNum} ans - ${passeur.nationalite} - ${passeur.lieu} - ${passeur.suites}`;
-        info.style.marginBottom = '8px';
-        
-        const buttons = document.createElement('div');
+    buttons.appendChild(editBtn);
+    buttons.appendChild(delBtn);
+    li.appendChild(info);
+    li.appendChild(buttons);
+    ul.appendChild(li);
+  });
+  container.appendChild(ul);
+}
 
-        // bouton Modifier
-        const editBtn = document.createElement('button');
-        editBtn.textContent = 'Modifier';
-        editBtn.className = 'blue';
-        editBtn.style.marginRight = '8px';
-        editBtn.onclick = () => {
-          document.getElementById('passeurAge').value = passeur.age;
-          document.getElementById('passeurSexe').value = passeur.sexe;
-          document.getElementById('passeurAgeNum').value = passeur.ageNum;
-          document.getElementById('passeurNationalite').value = passeur.nationalite;
-          document.getElementById('passeurLieu').value = passeur.lieu;
-          document.getElementById('passeurHeure').value = passeur.heure;
-          document.getElementById('passeurSuites').value = passeur.suites;
-          document.getElementById('passeurDob').value = passeur.dob || "";
-		  state.editingPasseurIndex = i;
-          document.getElementById('addPasseurBtn').textContent = "Enregistrer";
-        };
-
-        // bouton Supprimer
-        const delBtn = document.createElement('button');
-        delBtn.textContent = 'Supprimer';
-        delBtn.className = 'red';
-        delBtn.onclick = () => {
-          if(confirm("Supprimer ce passeur ?")) {
-            state.passeurList.splice(i,1);
-            renderPasseurList();
-			rebuildDeroulementAuto();
-            debounceSave();
-          }
-        };
-
-        buttons.appendChild(editBtn);
-        buttons.appendChild(delBtn);
-        li.appendChild(info);
-        li.appendChild(buttons);
-        ul.appendChild(li);
-      });
-      container.appendChild(ul);
-    }
-
-  function addPasseur() {
+function addPasseur() {
   const heure = document.getElementById('passeurHeure').value.trim();
   const age = document.getElementById('passeurAge').value;
   const sexe = document.getElementById('passeurSexe').value;
@@ -1876,51 +1948,35 @@ function addManualCf(type){
   const nationalite = document.getElementById('passeurNationalite').value.trim();
   const lieu = document.getElementById('passeurLieu').value.trim();
   const suites = document.getElementById('passeurSuites').value.trim();
-  const dob = document.getElementById('passeurDob').value.trim(); // ✅ date de naissance
+  const dob = document.getElementById('passeurDob').value.trim(); // date de naissance
 
   if (!age || !sexe || !ageNum || !nationalite || !lieu || !suites) {
-    alert('Merci de remplir tous les champs Passeur.');
+    alert('Merci de remplir tous les champs PASSEUR.');
     return;
   }
 
-  // ✅ objet Passeur complet
-  const passeurData = {
-    age,
-    sexe,
-    ageNum,
-    nationalite,
-    lieu,
-    heure,
-    suites,
-    dob
-  };
+  const passeurData = { age, sexe, ageNum, nationalite, lieu, heure, suites, dob };
 
   if (state.editingPasseurIndex !== null && state.editingPasseurIndex !== undefined) {
-    // 🔁 MODE MODIFICATION : on met à jour la liste + le déroulement
+    // 🔁 MODIFICATION
     const idx = state.editingPasseurIndex;
     state.passeurList[idx] = passeurData;
     state.editingPasseurIndex = null;
-    document.getElementById('addPasseurBtn').textContent = "Ajouter Passeur";
-
-    // 🔄 met à jour la ligne correspondante dans le déroulement
-    majLigneDeroulementPourPasseur(idx);
+    document.getElementById('addPasseurBtn').textContent = "Ajouter PASSEUR";
   } else {
-    // ➕ MODE AJOUT : on ajoute à la liste
+    // ➕ AJOUT
     state.passeurList.push(passeurData);
-
-    // 🔹 Ajout automatique dans le déroulement (option B)
-    const der = document.getElementById('deroulement');
-    const num = state.passeurList.length; // PASSEUR n°
-    const ligne = `${heure ? heure + " — " : ""}PASSEUR ${num} — ${sexe} — ${ageNum} ans — Nationalité: ${nationalite} — Ordre OPJ PAF : ${suites}`;
-
-    der.value = der.value.trim()
-      ? der.value + "\n" + ligne
-      : ligne;
-
-    der.dispatchEvent(new Event('input'));
   }
 
-  // on vide les champs
+  // Tri
+  bf_trierPasseurState();
+
+  // Reconstruit déroulement
+  if (typeof rebuildDeroulementAuto === 'function') {
+    rebuildDeroulementAuto();
+  }
+
+  // Vide les champs
   document.getElementById('passeurAge').value = '';
   document.getElementById('passeurSexe').value = '';
   document.getElementById('passeurAgeNum').value = '';
@@ -1933,6 +1989,20 @@ function addManualCf(type){
   renderPasseurList();
   debounceSave();
 }
+
+function delPasseur() {
+  if (state.passeurList && state.passeurList.length > 0) {
+    state.passeurList.pop();
+    bf_trierPasseurState();
+    if (typeof rebuildDeroulementAuto === 'function') {
+      rebuildDeroulementAuto();
+    }
+    renderPasseurList();
+    debounceSave();
+  }
+}
+
+   
 
  function majLigneDeroulementPourEsi(index) {
   const der = document.getElementById('deroulement');
@@ -2081,6 +2151,18 @@ function rebuildDeroulementAuto() {
 
     // Compte rendu generator (utilise state)
     function generateCompteRendu() {
+	// 🔹 1) On force le tri du DÉROULEMENT tout de suite
+  const derEl = document.getElementById('deroulement');
+  if (derEl && typeof bf_trierDeroulement === 'function') {
+    BF_IS_SORTING_DEROULEMENT = true;
+    bf_trierDeroulement();   // trie le contenu du textarea d'après les heures
+    BF_IS_SORTING_DEROULEMENT = false;
+  }
+
+  // 🔹 2) On lit le texte trié du textarea
+  const deroulementTexte = derEl && derEl.value.trim()
+    ? derEl.value.trim()
+    : '(Aucun détail)';
       if(!state.date) { alert('Merci de sélectionner une date.'); return; }
       const site = state.site;
       const date = state.date.split('-').reverse().join('/');
@@ -2120,18 +2202,29 @@ function rebuildDeroulementAuto() {
       cr += `\nTOTAL MOYENS : ${totalVehicules}\n`;
       cr += `TOTAL PERSONNES : ${totalPersonnes}\n`;
 
-      cr += `\n2 - ESI INTERCEPTÉ(S): ${ (state.esiList || []).length }\n`;
-      (state.esiList || []).forEach((esi,i) => {
-        cr += `ESI ${i+1} - ${esi.heure} - ${esi.age} - ${esi.sexe} - ${esi.ageNum} ans - ${esi.nationalite} - ${esi.lieu} - ${esi.suites}\n`;
-      });
+      // On s'assure que la liste ESI est triée comme dans l'appli
+if (typeof bf_trierEsiState === 'function') {
+  bf_trierEsiState();
+}
+const esiListCr = state.esiList || [];
 
-      cr += `\n3 - PASSEUR(S) INTERCEPTÉ(S): ${ (state.passeurList || []).length }\n`;
-      (state.passeurList || []).forEach((passeur,i) => {
-        cr += `PASSEUR ${i+1} - ${passeur.heure} - ${passeur.age} - ${passeur.sexe} - ${passeur.ageNum} ans - ${passeur.nationalite} - ${passeur.lieu} - ${passeur.suites}\n`;
-      });
+cr += `\n2 - ESI INTERCEPTÉ(S): ${esiListCr.length}\n`;
+esiListCr.forEach((esi, i) => {
+  cr += `ESI ${i + 1} - ${esi.heure} - ${esi.age} - ${esi.sexe} - ${esi.ageNum} ans - ${esi.nationalite} - ${esi.lieu} - ${esi.suites}\n`;
+});
+// 3 - PASSEUR(S) INTERCEPTÉ(S)
+if (typeof bf_trierPasseurState === 'function') {
+  bf_trierPasseurState();
+}
+const passeurs = state.passeurList || [];
 
+cr += `\n3 - PASSEUR(S) INTERCEPTÉ(S): ${passeurs.length}\n`;
+passeurs.forEach((passeur, i) => {
+  cr += `PASSEUR ${i + 1} - ${passeur.heure} - ${passeur.age} - ${passeur.sexe} - ${passeur.ageNum} ans - ${passeur.nationalite} - ${passeur.lieu} - ${passeur.suites}\n`;
+});
       cr += `\n4 - OBSERVATIONS\n${state.observations ? state.observations.trim() : '(Aucune)'}\n`;
-      cr += `\n5 - DÉROULEMENT DE LA MISSION\n${state.deroulement ? state.deroulement.trim() : '(Aucun détail)'}\n`;
+     
+	  cr += `\n5 - DÉROULEMENT DE LA MISSION\n${deroulementTexte}\n`;
       if(state.pulsar === 'oui') cr += `\n6 - PULSAR fait\n`;
       else if(state.pulsar === 'non') cr += `\n6 - PULSAR non fait\n`;
       else cr += `\n6 - PULSAR (non renseigné)\n`;
@@ -2479,7 +2572,19 @@ generateCompteRendu = function() {
     function init() {
       loadFromStorage();
       updateUI();
+	  
+      // 🔹 Au chargement : trier le déroulement une fois
+      const der = document.getElementById('deroulement');
+      if (der && der.value.trim()) {
+        BF_IS_SORTING_DEROULEMENT = true;
+        bf_trierDeroulement();          // trie le texte du textarea
+        BF_IS_SORTING_DEROULEMENT = false;
 
+        // on resynchronise state.deroulement avec le texte trié
+        if (typeof onTextAreaChange === 'function') {
+          onTextAreaChange();
+        }
+      }
       // bind events
       document.getElementById('addEsrBtn').addEventListener('click', addEsr);
       document.getElementById('delEsrBtn').addEventListener('click', delEsr);
@@ -2660,6 +2765,8 @@ function ajouterLigneDeroulementDepuisFiche(fiche) {
   }
 }
 
+const DELAI_EFFACEMENT_MS = 4 * 60 * 60 * 1000; // 4 heures
+
 function soumettreFiche(rediriger) {
   const form = document.getElementById('ficheForm');
   if (!form) return;
@@ -2696,13 +2803,19 @@ function soumettreFiche(rediriger) {
       paysDestination: document.getElementById('paysDestination').value,
       vehicule: document.getElementById('vehicule').value,
       immatriculation: document.getElementById('immatriculation').value,
-      piecesIdentite: pieces
+      piecesIdentite: pieces,
+
+      // ⏱️ on ajoute l'heure d'enregistrement pour gérer l'effacement auto
+      heureEnregistrement: Date.now()
   };
   
   const fiches = JSON.parse(localStorage.getItem('fichesBorderforce') || '[]');
   fiches.push(fiche);
   localStorage.setItem('fichesBorderforce', JSON.stringify(fiches));
-    
+
+  // 👉 on programme l'effacement de cette fiche dans 4h
+  planifierEffacementFiche(fiche.heureEnregistrement);
+
   // Envoie les infos vers ESI / Passeur (comme avant)
   remplirDepuisFicheDansEsiOuPasseur(fiche);
 
@@ -2720,28 +2833,152 @@ function soumettreFiche(rediriger) {
   afficherHistorique();
 }
 
+function effacerFicheAvecHeure(heureEnregistrement) {
+  const fiches = JSON.parse(localStorage.getItem('fichesBorderforce') || '[]');
+
+  // On supprime la (ou les) fiche(s) qui ont cette heure d'enregistrement
+  const nouvellesFiches = fiches.filter(f => f.heureEnregistrement !== heureEnregistrement);
+
+  // Si rien n'a changé, on sort
+  if (nouvellesFiches.length === fiches.length) return;
+
+  localStorage.setItem('fichesBorderforce', JSON.stringify(nouvellesFiches));
+
+  // Si tu as un affichage d'historique à l'écran
+  if (typeof afficherHistorique === 'function') {
+    afficherHistorique();
+  }
+
+  console.log("Fiche effacée automatiquement (4h écoulées).");
+}
+
+function planifierEffacementFiche(heureEnregistrement) {
+  const maintenant = Date.now();
+  const expireA = heureEnregistrement + DELAI_EFFACEMENT_MS;
+  const reste = expireA - maintenant;
+
+  if (reste <= 0) {
+    // Si c'est déjà expiré pour une raison quelconque, on efface tout de suite
+    effacerFicheAvecHeure(heureEnregistrement);
+  } else {
+    setTimeout(() => {
+      effacerFicheAvecHeure(heureEnregistrement);
+    }, reste);
+  }
+}
+
+function purgerFichesExpirees() {
+  const fiches = JSON.parse(localStorage.getItem('fichesBorderforce') || '[]');
+  const maintenant = Date.now();
+
+  const fichesValides = fiches.filter(f => {
+    if (!f.heureEnregistrement) return true; // anciennes fiches sans timestamp
+    return f.heureEnregistrement + DELAI_EFFACEMENT_MS > maintenant;
+  });
+
+  if (fichesValides.length !== fiches.length) {
+    localStorage.setItem('fichesBorderforce', JSON.stringify(fichesValides));
+    if (typeof afficherHistorique === 'function') {
+      afficherHistorique();
+    }
+    console.log("Purge des fiches expirées au chargement.");
+  }
+
+  // Replanifier les timers pour celles qui restent
+  fichesValides.forEach(f => {
+    if (f.heureEnregistrement) {
+      planifierEffacementFiche(f.heureEnregistrement);
+    }
+  });
+}
+
+// À appeler au démarrage :
+document.addEventListener('DOMContentLoaded', () => {
+  purgerFichesExpirees();
+});
+
 function afficherHistorique() {
     const historiqueDiv = document.getElementById('historique');
     historiqueDiv.innerHTML = '';
     const fiches = JSON.parse(localStorage.getItem('fichesBorderforce') || '[]');
+
+    if (fiches.length === 0) {
+        historiqueDiv.innerHTML = "<p>Aucune fiche enregistrée.</p>";
+        return;
+    }
+
     fiches.forEach((fiche, index) => {
         const ficheDiv = document.createElement('div');
         ficheDiv.className = 'fiche';
+        ficheDiv.style.position = 'relative';
+        ficheDiv.style.border = '1px solid #ccc';
+        ficheDiv.style.borderRadius = '8px';
+        ficheDiv.style.padding = '8px';
+        ficheDiv.style.marginBottom = '8px';
+
+        // Crée un petit conteneur timer à droite du titre
+        const timerSpan = document.createElement('span');
+        timerSpan.className = 'timer-fiche';
+        timerSpan.style.position = 'absolute';
+        timerSpan.style.top = '8px';
+        timerSpan.style.right = '8px';
+        timerSpan.style.color = '#3498db';
+        timerSpan.style.fontFamily = 'monospace';
+        timerSpan.style.fontWeight = 'bold';
+
         ficheDiv.innerHTML = `
-            <strong>Fiche #${index+1} ${fiche.categorie}</strong><br>
+            <strong>Fiche #${index + 1} ${fiche.categorie}</strong><br>
             Nom: ${fiche.nom} ${fiche.prenom} | Sexe: ${fiche.sexe} | Nationalité: ${fiche.nationalite}<br>
             Date de naissance: ${fiche.dateNaissance || 'Non renseignée'} | Âge: ${fiche.age} ans<br>
-           Intervention: ${fiche.heure || fiche.heureDate} le ${formatDateIntervention(fiche.dateIntervention)} 
-Lieu: ${fiche.lieuInterpellation} | Suites données: ${fiche.suitesDonnees || ''}<br>
-           Départ: ${fiche.villeDepart}, ${fiche.paysDepart} | Destination: ${fiche.villeDestination}, ${fiche.paysDestination}<br>
+            Intervention: ${fiche.heure || fiche.heureDate} le ${formatDateIntervention(fiche.dateIntervention)}<br>
+            Lieu: ${fiche.lieuInterpellation} | Suites données: ${fiche.suitesDonnees || ''}<br>
+            Départ: ${fiche.villeDepart}, ${fiche.paysDepart} | Destination: ${fiche.villeDestination}, ${fiche.paysDestination}<br>
             Véhicule: ${fiche.vehicule} | Immatriculation: ${fiche.immatriculation}<br>
             Pièces d'identité: ${fiche.piecesIdentite.join(", ")}<br>
             <button onclick="modifierFiche(${index})" class="green">Modifier</button>
             <button onclick="supprimerFiche(${index})" class="red">Supprimer</button>
         `;
+
+        ficheDiv.appendChild(timerSpan);
         historiqueDiv.appendChild(ficheDiv);
+
+        // 🔥 Si la fiche a une heure d’enregistrement, on affiche le timer
+        if (fiche.heureEnregistrement) {
+            majTimerVisuel(fiche.heureEnregistrement, timerSpan, index);
+        } else {
+            timerSpan.textContent = "—";
+        }
     });
 }
+function majTimerVisuel(heureEnregistrement, elementTimer, index) {
+    const interval = setInterval(() => {
+        const reste = (heureEnregistrement + DELAI_EFFACEMENT_MS) - Date.now();
+
+        if (reste <= 0) {
+            clearInterval(interval);
+            elementTimer.textContent = "Expirée";
+            elementTimer.style.color = "red";
+            effacerFicheAvecHeure(heureEnregistrement);
+            afficherHistorique();
+            return;
+        }
+
+        const heures = Math.floor(reste / (1000 * 60 * 60));
+        const minutes = Math.floor((reste % (1000 * 60 * 60)) / (1000 * 60));
+        const secondes = Math.floor((reste % (1000 * 60)) / 1000);
+
+        if (heures > 0) {
+            elementTimer.textContent = `${heures}h ${minutes}m`;
+        } else if (minutes > 0) {
+            elementTimer.textContent = `${minutes}m ${secondes}s`;
+        } else {
+            elementTimer.textContent = `${secondes}s`;
+        }
+		elementTimer.style.fontSize = '1.4em';
+elementTimer.style.fontWeight = 'bold';
+    }, 1000);
+}
+
 
 function supprimerFiche(index) {
     if (confirm("Voulez-vous vraiment supprimer cette fiche ?")) {
@@ -3472,7 +3709,7 @@ function ajouterDeroulementFlex(){
   const nbCtrl = document.getElementById("nb_controles").value;
   const nbDesc = document.getElementById("nb_descendus").value;
 
-  const hStr = formatHeureHhmm(heure);
+  const hStr = heure;
   const corps = triJoin([act, infosupp , libre]);
   const suffix = buildSuffixComptage(nbCtrl, nbDesc);
 
@@ -3534,6 +3771,11 @@ function bf_trierDeroulement() {
   const lignesBrutes = der.value
     .split('\n')
     .map(l => l.trim())
+	// 🔹 ICI on convertit "23h00" / "7h05" / "07H30" → "23:00" / "07:05" / "07:30"
+    .map(l => l.replace(/\b(\d{1,2})[hH](\d{2})\b/g, (match, h, m) => {
+      h = h.padStart(2, '0');   // force 2 chiffres pour l’heure
+      return `${h}:${m}`;
+    }))
     .filter(l => l !== '');
 
   if (!lignesBrutes.length) {
@@ -3589,7 +3831,7 @@ function bf_trierDeroulement() {
     }
   });
 
-  const MARGE = 60; // 1h de marge avant l'heure de début
+  const MARGE = 60; // 1h30 de marge avant l'heure de début
 
   // 🔹 On calcule la minute de tri pour chaque groupe
   groups.forEach(g => {
