@@ -2755,27 +2755,62 @@ function formatDateIntervention(dateStr) {
   const [annee, mois, jour] = parts;
   return `${jour}/${mois}/${annee}`;
 }
+// Clés de stockage pour les fiches identité de BorderForce SOLO
+const BF_FICHES_KEY = 'bf_solo_fiches_v1';
+const BF_OLD_FICHES_KEY = 'fichesBorderforce'; // ancienne clé partagée avec PV-ESI
 
 // ---------- Accès localStorage sécurisé ----------
 function chargerFiches() {
   try {
-    const raw = localStorage.getItem('fichesBorderforce');
-    if (!raw) return [];
-    const data = JSON.parse(raw);
-    return Array.isArray(data) ? data : [];
+    // 🔁 Migration douce : si l'ancienne clé existe encore,
+    // on tente de la lire UNE fois, puis on bascule sur la nouvelle clé.
+    const rawNew = localStorage.getItem(BF_FICHES_KEY);
+    const rawOld = localStorage.getItem(BF_OLD_FICHES_KEY);
+
+    // Cas 1 : nouvelle clé déjà utilisée → on lit ça et on ignore l'ancienne
+    if (rawNew) {
+      const data = JSON.parse(rawNew);
+      return Array.isArray(data) ? data : [];
+    }
+
+    // Cas 2 : pas de nouvelle clé, mais ancienne présente → tentative de migration
+    if (rawOld) {
+      try {
+        const dataOld = JSON.parse(rawOld);
+        if (Array.isArray(dataOld)) {
+          // On sauvegarde sous la nouvelle clé
+          localStorage.setItem(BF_FICHES_KEY, JSON.stringify(dataOld));
+        }
+      } catch (e) {
+        console.error('Erreur JSON sur ancienne clé fichesBorderforce :', e);
+      }
+      // Dans tous les cas on supprime l'ancienne clé pour ne plus gêner PV-ESI
+      localStorage.removeItem(BF_OLD_FICHES_KEY);
+      // On relit proprement la nouvelle clé (ou tableau vide si rien)
+      const rawAfter = localStorage.getItem(BF_FICHES_KEY);
+      if (!rawAfter) return [];
+      const dataAfter = JSON.parse(rawAfter);
+      return Array.isArray(dataAfter) ? dataAfter : [];
+    }
+
+    // Cas 3 : aucune des deux clés n'existe
+    return [];
   } catch (e) {
-    console.error('Erreur JSON fichesBorderforce :', e);
+    console.error('Erreur JSON fiches BorderForce SOLO :', e);
+    // En cas de corruption → on nettoie la nouvelle clé pour repartir propre
+    localStorage.removeItem(BF_FICHES_KEY);
     return [];
   }
 }
 
 function sauverFiches(fiches) {
   try {
-    localStorage.setItem('fichesBorderforce', JSON.stringify(fiches || []));
+    localStorage.setItem(BF_FICHES_KEY, JSON.stringify(fiches || []));
   } catch (e) {
-    console.error('Erreur sauvegarde fichesBorderforce :', e);
+    console.error('Erreur sauvegarde fiches BorderForce SOLO :', e);
   }
 }
+
 
 // ---------- Ajout dans déroulement ----------
 function ajouterLigneDeroulementDepuisFiche(fiche) {
@@ -3479,7 +3514,9 @@ function resetData() {
     localStorage.removeItem('fichesBorderforce');     // toutes les fiches identité enregistrées
     localStorage.removeItem('borderforce_esi');       // si tu stockes les ESI ailleurs
     localStorage.removeItem('borderforce_passeurs');  // si tu stockes les passeurs ailleurs
-    // 🔥🔥🔥 FIN DE L’AJOUT 🔥🔥🔥
+    localStorage.removeItem(BF_FICHES_KEY);
+
+	// 🔥🔥🔥 FIN DE L’AJOUT 🔥🔥🔥
 
     // Nouveau state réinitialisé
     const newState = {
