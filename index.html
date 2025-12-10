@@ -2657,91 +2657,98 @@ function showSection(id) {
 }
 
 // --------- SCRIPT FICHE ESI ----------
-function setCurrentDateTime() {
-    const now = new Date();
-    const timeString = now.toTimeString().slice(0, 5);
-    const dateString = now.toISOString().split('T')[0];
-    
-    document.getElementById('heure').value = timeString;
-    document.getElementById('dateIntervention').value = dateString;
-}
 
-// Initialiser avec la date/heure actuelle
-setCurrentDateTime();
+// Constantes
+const DELAI_EFFACEMENT_MS = 4 * 60 * 60 * 1000; // 4 heures
 
-function calculerAge() {
-    const jour = parseInt(document.getElementById("jour").value);
-    const mois = parseInt(document.getElementById("mois").value) - 1;
-    const annee = parseInt(document.getElementById("annee").value);
-    if (!jour || mois < 0 || !annee) return;
-    const today = new Date();
-    const naissance = new Date(annee, mois, jour);
-    let age = today.getFullYear() - naissance.getFullYear();
-    const m = today.getMonth() - naissance.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < naissance.getDate())) age--;
-    document.getElementById("age").value = age;
-}
-
-function autoNext(input, nextInputId, maxLength) {
-    input.addEventListener('input', function() {
-        if (this.value.length >= maxLength) {
-            document.getElementById(nextInputId).focus();
-        }
-        calculerAge();
-    });
-}
-
-autoNext(document.getElementById('jour'), 'mois', 2);
-autoNext(document.getElementById('mois'), 'annee', 2);
-document.getElementById('annee').addEventListener('input', calculerAge);
-
-document.getElementById('immatriculation').addEventListener('input', function() {
-    this.value = this.value.toUpperCase();
-});
-
-// Gestion du champ "Autre" pour les pièces d'identité
-document.getElementById('autreCheck').addEventListener('change', function() {
-    const autreTexte = document.getElementById('autreTexte');
-    if (this.checked) {
-        autreTexte.disabled = false;
-        autreTexte.focus();
-    } else {
-        autreTexte.disabled = true;
-        autreTexte.value = '';
-        this.value = '';
-    }
-});
-
-document.getElementById('autreTexte').addEventListener('input', function() {
-    const autreCheck = document.getElementById('autreCheck');
-    if (this.value.trim()) {
-        autreCheck.value = 'Autre : ' + this.value.trim();
-    } else {
-        autreCheck.value = '';
-    }
-});
-
-function formatDateNaissance(jour, mois, annee) {
-    return `${jour.toString().padStart(2, '0')}/${mois.toString().padStart(2, '0')}/${annee}`;
-}
-
-function formatDateIntervention(dateStr) {
-    if (!dateStr) return '';
-    const [annee, mois, jour] = dateStr.split("-");
-    return `${jour}/${mois}/${annee}`;
-}
-
-// Compteurs pour ESI 1, ESI 2... et PASSEUR 1, 2...
 let compteurEsi = 0;
 let compteurPasseur = 0;
 
-// Ajoute une ligne directement dans le champ "Texte libre" de déroulement
+// ---------- Helpers date / heure ----------
+function setCurrentDateTime() {
+  const now = new Date();
+  const timeString = now.toTimeString().slice(0, 5);
+  const dateString = now.toISOString().split('T')[0];
+
+  const heureEl = document.getElementById('heure');
+  const dateEl  = document.getElementById('dateIntervention');
+  if (heureEl) heureEl.value = timeString;
+  if (dateEl)  dateEl.value  = dateString;
+}
+
+function calculerAge() {
+  const jourEl  = document.getElementById("jour");
+  const moisEl  = document.getElementById("mois");
+  const anneeEl = document.getElementById("annee");
+  const ageEl   = document.getElementById("age");
+
+  if (!jourEl || !moisEl || !anneeEl || !ageEl) return;
+
+  const jour  = parseInt(jourEl.value);
+  const mois  = parseInt(moisEl.value) - 1;
+  const annee = parseInt(anneeEl.value);
+  if (!jour || mois < 0 || !annee) return;
+
+  const today     = new Date();
+  const naissance = new Date(annee, mois, jour);
+  let age = today.getFullYear() - naissance.getFullYear();
+  const m = today.getMonth() - naissance.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < naissance.getDate())) age--;
+
+  ageEl.value = age;
+}
+
+function autoNext(input, nextInputId, maxLength) {
+  if (!input) return;
+  input.addEventListener('input', function () {
+    if (this.value.length >= maxLength) {
+      const next = document.getElementById(nextInputId);
+      if (next) next.focus();
+    }
+    calculerAge();
+  });
+}
+
+function formatDateNaissance(jour, mois, annee) {
+  return `${jour.toString().padStart(2, '0')}/${mois.toString().padStart(2, '0')}/${annee}`;
+}
+
+function formatDateIntervention(dateStr) {
+  if (!dateStr) return '';
+  const parts = dateStr.split("-");
+  if (parts.length !== 3) return dateStr;
+  const [annee, mois, jour] = parts;
+  return `${jour}/${mois}/${annee}`;
+}
+
+// ---------- Accès localStorage sécurisé ----------
+function chargerFiches() {
+  try {
+    const raw = localStorage.getItem('fichesBorderforce');
+    if (!raw) return [];
+    const data = JSON.parse(raw);
+    return Array.isArray(data) ? data : [];
+  } catch (e) {
+    console.error('Erreur JSON fichesBorderforce :', e);
+    return [];
+  }
+}
+
+function sauverFiches(fiches) {
+  try {
+    localStorage.setItem('fichesBorderforce', JSON.stringify(fiches || []));
+  } catch (e) {
+    console.error('Erreur sauvegarde fichesBorderforce :', e);
+  }
+}
+
+// ---------- Ajout dans déroulement ----------
 function ajouterLigneDeroulementDepuisFiche(fiche) {
   const champTexteLibre = document.getElementById('texte_libre');
-  if (!champTexteLibre) return; // sécurité
+  if (!champTexteLibre || !fiche) return;
 
   const heure = fiche.heure || "";
-  const nat = fiche.nationalite || "NC";
+  const nat   = fiche.nationalite || "NC";
   const suite = fiche.suitesDonnees || "NC";
 
   let label;
@@ -2755,76 +2762,71 @@ function ajouterLigneDeroulementDepuisFiche(fiche) {
     return;
   }
 
-  // Met directement le texte dans le champ
   champTexteLibre.value =
     `${heure ? heure + " – " : ""}${label} – Nationalité : ${nat} – Suite donnée : ${suite} sur ordre OPJ PAF.`;
 
-  // Facultatif : rafraîchir si nécessaire
   if (typeof majAffichageComptage === "function") {
     majAffichageComptage();
   }
 }
 
-const DELAI_EFFACEMENT_MS = 4 * 60 * 60 * 1000; // 4 heures
-
+// ---------- Gestion fiches ----------
 function soumettreFiche(rediriger) {
   const form = document.getElementById('ficheForm');
   if (!form) return;
 
-  // Vérifie les champs "required" du formulaire (comme un submit normal)
   if (!form.reportValidity()) {
     return;
   }
 
-  const pieces = Array.from(document.querySelectorAll('input[name="piece"]:checked')).map(cb => cb.value);
-  
-  const jourVal = document.getElementById('jour').value;
-  const moisVal = document.getElementById('mois').value;
-  const anneeVal = document.getElementById('annee').value;
-  
+  const pieces = Array.from(
+    document.querySelectorAll('input[name="piece"]:checked')
+  ).map(cb => cb.value);
+
+  const jourVal  = document.getElementById('jour')?.value || '';
+  const moisVal  = document.getElementById('mois')?.value || '';
+  const anneeVal = document.getElementById('annee')?.value || '';
+
   const fiche = {
-      categorie: document.getElementById('categorie').value,
-      nom: document.getElementById('nom').value,
-      prenom: document.getElementById('prenom').value,
-      sexe: document.getElementById('sexe').value,
-      nationalite: document.getElementById('nationalite').value,
-      jour: jourVal,
-      mois: moisVal,
-      annee: anneeVal,
-      dateNaissance: formatDateNaissance(jourVal, moisVal, anneeVal),
-      age: document.getElementById('age').value,
-      heure: document.getElementById('heure').value,
-      dateIntervention: document.getElementById('dateIntervention').value,
-      lieuInterpellation: document.getElementById('lieuInterpellation').value,
-      suitesDonnees: document.getElementById('suitesDonnees').value,
-      villeDepart: document.getElementById('villeDepart').value,
-      paysDepart: document.getElementById('paysDepart').value,
-      villeDestination: document.getElementById('villeDestination').value,
-      paysDestination: document.getElementById('paysDestination').value,
-      vehicule: document.getElementById('vehicule').value,
-      immatriculation: document.getElementById('immatriculation').value,
-      piecesIdentite: pieces,
-
-      // ⏱️ on ajoute l'heure d'enregistrement pour gérer l'effacement auto
-      heureEnregistrement: Date.now()
+    categorie:        document.getElementById('categorie')?.value || '',
+    nom:              document.getElementById('nom')?.value || '',
+    prenom:           document.getElementById('prenom')?.value || '',
+    sexe:             document.getElementById('sexe')?.value || '',
+    nationalite:      document.getElementById('nationalite')?.value || '',
+    jour:             jourVal,
+    mois:             moisVal,
+    annee:            anneeVal,
+    dateNaissance:    (jourVal && moisVal && anneeVal) ? formatDateNaissance(jourVal, moisVal, anneeVal) : '',
+    age:              document.getElementById('age')?.value || '',
+    heure:            document.getElementById('heure')?.value || '',
+    dateIntervention: document.getElementById('dateIntervention')?.value || '',
+    lieuInterpellation: document.getElementById('lieuInterpellation')?.value || '',
+    suitesDonnees:      document.getElementById('suitesDonnees')?.value || '',
+    villeDepart:        document.getElementById('villeDepart')?.value || '',
+    paysDepart:         document.getElementById('paysDepart')?.value || '',
+    villeDestination:   document.getElementById('villeDestination')?.value || '',
+    paysDestination:    document.getElementById('paysDestination')?.value || '',
+    vehicule:           document.getElementById('vehicule')?.value || '',
+    immatriculation:    document.getElementById('immatriculation')?.value || '',
+    piecesIdentite:     pieces,
+    heureEnregistrement: Date.now()
   };
-  
-  const fiches = JSON.parse(localStorage.getItem('fichesBorderforce') || '[]');
-  fiches.push(fiche);
-  localStorage.setItem('fichesBorderforce', JSON.stringify(fiches));
 
-  // 👉 on programme l'effacement de cette fiche dans 4h
+  const fiches = chargerFiches();
+  fiches.push(fiche);
+  sauverFiches(fiches);
+
   planifierEffacementFiche(fiche.heureEnregistrement);
 
-  // Envoie les infos vers ESI / Passeur (comme avant)
-  remplirDepuisFicheDansEsiOuPasseur(fiche);
+  if (typeof remplirDepuisFicheDansEsiOuPasseur === 'function') {
+    remplirDepuisFicheDansEsiOuPasseur(fiche);
+  }
 
-  // 👉 Si on a cliqué sur "Enregistrer et ouvrir ESI/PASSEUR"
   if (rediriger) {
     if (fiche.categorie === 'ESI') {
-      showPage('esiPage');
+      showPage && showPage('esiPage');
     } else if (fiche.categorie === 'PASSEUR') {
-      showPage('passeurPage');
+      showPage && showPage('passeurPage');
     }
   }
 
@@ -2834,17 +2836,13 @@ function soumettreFiche(rediriger) {
 }
 
 function effacerFicheAvecHeure(heureEnregistrement) {
-  const fiches = JSON.parse(localStorage.getItem('fichesBorderforce') || '[]');
-
-  // On supprime la (ou les) fiche(s) qui ont cette heure d'enregistrement
+  const fiches = chargerFiches();
   const nouvellesFiches = fiches.filter(f => f.heureEnregistrement !== heureEnregistrement);
 
-  // Si rien n'a changé, on sort
   if (nouvellesFiches.length === fiches.length) return;
 
-  localStorage.setItem('fichesBorderforce', JSON.stringify(nouvellesFiches));
+  sauverFiches(nouvellesFiches);
 
-  // Si tu as un affichage d'historique à l'écran
   if (typeof afficherHistorique === 'function') {
     afficherHistorique();
   }
@@ -2855,10 +2853,9 @@ function effacerFicheAvecHeure(heureEnregistrement) {
 function planifierEffacementFiche(heureEnregistrement) {
   const maintenant = Date.now();
   const expireA = heureEnregistrement + DELAI_EFFACEMENT_MS;
-  const reste = expireA - maintenant;
+  const reste   = expireA - maintenant;
 
   if (reste <= 0) {
-    // Si c'est déjà expiré pour une raison quelconque, on efface tout de suite
     effacerFicheAvecHeure(heureEnregistrement);
   } else {
     setTimeout(() => {
@@ -2868,182 +2865,236 @@ function planifierEffacementFiche(heureEnregistrement) {
 }
 
 function purgerFichesExpirees() {
-  const fiches = JSON.parse(localStorage.getItem('fichesBorderforce') || '[]');
+  const fiches = chargerFiches();
   const maintenant = Date.now();
 
   const fichesValides = fiches.filter(f => {
-    if (!f.heureEnregistrement) return true; // anciennes fiches sans timestamp
+    if (!f || !f.heureEnregistrement) return true;
     return f.heureEnregistrement + DELAI_EFFACEMENT_MS > maintenant;
   });
 
   if (fichesValides.length !== fiches.length) {
-    localStorage.setItem('fichesBorderforce', JSON.stringify(fichesValides));
+    sauverFiches(fichesValides);
     if (typeof afficherHistorique === 'function') {
       afficherHistorique();
     }
     console.log("Purge des fiches expirées au chargement.");
   }
 
-  // Replanifier les timers pour celles qui restent
   fichesValides.forEach(f => {
-    if (f.heureEnregistrement) {
+    if (f && f.heureEnregistrement) {
       planifierEffacementFiche(f.heureEnregistrement);
     }
   });
 }
 
-// À appeler au démarrage :
-document.addEventListener('DOMContentLoaded', () => {
-  purgerFichesExpirees();
-});
-
+// ---------- Historique & timers ----------
 function afficherHistorique() {
-    const historiqueDiv = document.getElementById('historique');
-    historiqueDiv.innerHTML = '';
-    const fiches = JSON.parse(localStorage.getItem('fichesBorderforce') || '[]');
+  const historiqueDiv = document.getElementById('historique');
+  if (!historiqueDiv) return;
 
-    if (fiches.length === 0) {
-        historiqueDiv.innerHTML = "<p>Aucune fiche enregistrée.</p>";
-        return;
+  historiqueDiv.innerHTML = '';
+  const fiches = chargerFiches();
+
+  if (fiches.length === 0) {
+    historiqueDiv.innerHTML = "<p>Aucune fiche enregistrée.</p>";
+    return;
+  }
+
+  fiches.forEach((fiche, index) => {
+    const ficheDiv = document.createElement('div');
+    ficheDiv.className = 'fiche';
+    ficheDiv.style.position = 'relative';
+    ficheDiv.style.border = '1px solid #ccc';
+    ficheDiv.style.borderRadius = '8px';
+    ficheDiv.style.padding = '8px';
+    ficheDiv.style.marginBottom = '8px';
+
+    const timerSpan = document.createElement('span');
+    timerSpan.className = 'timer-fiche';
+    timerSpan.style.position = 'absolute';
+    timerSpan.style.top = '8px';
+    timerSpan.style.right = '8px';
+    timerSpan.style.color = '#3498db';
+    timerSpan.style.fontFamily = 'monospace';
+    timerSpan.style.fontWeight = 'bold';
+
+    ficheDiv.innerHTML = `
+      <strong>Fiche #${index + 1} ${fiche.categorie || ''}</strong><br>
+      Nom: ${fiche.nom || ''} ${fiche.prenom || ''} | Sexe: ${fiche.sexe || ''} | Nationalité: ${fiche.nationalite || ''}<br>
+      Date de naissance: ${fiche.dateNaissance || 'Non renseignée'} | Âge: ${fiche.age || ''} ans<br>
+      Intervention: ${(fiche.heure || fiche.heureDate || '')} le ${formatDateIntervention(fiche.dateIntervention)}<br>
+      Lieu: ${fiche.lieuInterpellation || ''} | Suites données: ${fiche.suitesDonnees || ''}<br>
+      Départ: ${fiche.villeDepart || ''}, ${fiche.paysDepart || ''} | Destination: ${fiche.villeDestination || ''}, ${fiche.paysDestination || ''}<br>
+      Véhicule: ${fiche.vehicule || ''} | Immatriculation: ${fiche.immatriculation || ''}<br>
+      Pièces d'identité: ${(fiche.piecesIdentite || []).join(", ")}<br>
+      <button onclick="modifierFiche(${index})" class="green">Modifier</button>
+      <button onclick="supprimerFiche(${index})" class="red">Supprimer</button>
+    `;
+
+    ficheDiv.appendChild(timerSpan);
+    historiqueDiv.appendChild(ficheDiv);
+
+    if (fiche.heureEnregistrement) {
+      majTimerVisuel(fiche.heureEnregistrement, timerSpan);
+    } else {
+      timerSpan.textContent = "—";
+    }
+  });
+}
+
+function majTimerVisuel(heureEnregistrement, elementTimer) {
+  if (!elementTimer) return;
+
+  const interval = setInterval(() => {
+    const reste = (heureEnregistrement + DELAI_EFFACEMENT_MS) - Date.now();
+
+    if (reste <= 0) {
+      clearInterval(interval);
+      elementTimer.textContent = "Expirée";
+      elementTimer.style.color = "red";
+      effacerFicheAvecHeure(heureEnregistrement);
+      afficherHistorique();
+      return;
     }
 
-    fiches.forEach((fiche, index) => {
-        const ficheDiv = document.createElement('div');
-        ficheDiv.className = 'fiche';
-        ficheDiv.style.position = 'relative';
-        ficheDiv.style.border = '1px solid #ccc';
-        ficheDiv.style.borderRadius = '8px';
-        ficheDiv.style.padding = '8px';
-        ficheDiv.style.marginBottom = '8px';
+    const heures   = Math.floor(reste / (1000 * 60 * 60));
+    const minutes  = Math.floor((reste % (1000 * 60 * 60)) / (1000 * 60));
+    const secondes = Math.floor((reste % (1000 * 60)) / 1000);
 
-        // Crée un petit conteneur timer à droite du titre
-        const timerSpan = document.createElement('span');
-        timerSpan.className = 'timer-fiche';
-        timerSpan.style.position = 'absolute';
-        timerSpan.style.top = '8px';
-        timerSpan.style.right = '8px';
-        timerSpan.style.color = '#3498db';
-        timerSpan.style.fontFamily = 'monospace';
-        timerSpan.style.fontWeight = 'bold';
+    if (heures > 0) {
+      elementTimer.textContent = `${heures}h ${minutes}m`;
+    } else if (minutes > 0) {
+      elementTimer.textContent = `${minutes}m ${secondes}s`;
+    } else {
+      elementTimer.textContent = `${secondes}s`;
+    }
 
-        ficheDiv.innerHTML = `
-            <strong>Fiche #${index + 1} ${fiche.categorie}</strong><br>
-            Nom: ${fiche.nom} ${fiche.prenom} | Sexe: ${fiche.sexe} | Nationalité: ${fiche.nationalite}<br>
-            Date de naissance: ${fiche.dateNaissance || 'Non renseignée'} | Âge: ${fiche.age} ans<br>
-            Intervention: ${fiche.heure || fiche.heureDate} le ${formatDateIntervention(fiche.dateIntervention)}<br>
-            Lieu: ${fiche.lieuInterpellation} | Suites données: ${fiche.suitesDonnees || ''}<br>
-            Départ: ${fiche.villeDepart}, ${fiche.paysDepart} | Destination: ${fiche.villeDestination}, ${fiche.paysDestination}<br>
-            Véhicule: ${fiche.vehicule} | Immatriculation: ${fiche.immatriculation}<br>
-            Pièces d'identité: ${fiche.piecesIdentite.join(", ")}<br>
-            <button onclick="modifierFiche(${index})" class="green">Modifier</button>
-            <button onclick="supprimerFiche(${index})" class="red">Supprimer</button>
-        `;
-
-        ficheDiv.appendChild(timerSpan);
-        historiqueDiv.appendChild(ficheDiv);
-
-        // 🔥 Si la fiche a une heure d’enregistrement, on affiche le timer
-        if (fiche.heureEnregistrement) {
-            majTimerVisuel(fiche.heureEnregistrement, timerSpan, index);
-        } else {
-            timerSpan.textContent = "—";
-        }
-    });
+    elementTimer.style.fontSize = '1.4em';
+    elementTimer.style.fontWeight = 'bold';
+  }, 1000);
 }
-function majTimerVisuel(heureEnregistrement, elementTimer, index) {
-    const interval = setInterval(() => {
-        const reste = (heureEnregistrement + DELAI_EFFACEMENT_MS) - Date.now();
-
-        if (reste <= 0) {
-            clearInterval(interval);
-            elementTimer.textContent = "Expirée";
-            elementTimer.style.color = "red";
-            effacerFicheAvecHeure(heureEnregistrement);
-            afficherHistorique();
-            return;
-        }
-
-        const heures = Math.floor(reste / (1000 * 60 * 60));
-        const minutes = Math.floor((reste % (1000 * 60 * 60)) / (1000 * 60));
-        const secondes = Math.floor((reste % (1000 * 60)) / 1000);
-
-        if (heures > 0) {
-            elementTimer.textContent = `${heures}h ${minutes}m`;
-        } else if (minutes > 0) {
-            elementTimer.textContent = `${minutes}m ${secondes}s`;
-        } else {
-            elementTimer.textContent = `${secondes}s`;
-        }
-		elementTimer.style.fontSize = '1.4em';
-elementTimer.style.fontWeight = 'bold';
-    }, 1000);
-}
-
 
 function supprimerFiche(index) {
-    if (confirm("Voulez-vous vraiment supprimer cette fiche ?")) {
-        const fiches = JSON.parse(localStorage.getItem('fichesBorderforce') || '[]');
-        fiches.splice(index, 1);
-        localStorage.setItem('fichesBorderforce', JSON.stringify(fiches));
-        afficherHistorique();
-    }
+  if (!confirm("Voulez-vous vraiment supprimer cette fiche ?")) return;
+  const fiches = chargerFiches();
+  fiches.splice(index, 1);
+  sauverFiches(fiches);
+  afficherHistorique();
 }
 
 function modifierFiche(index) {
-    const fiches = JSON.parse(localStorage.getItem('fichesBorderforce') || '[]');
-    const fiche = fiches[index];
-document.getElementById('categorie').value = fiche.categorie;
-    document.getElementById('nom').value = fiche.nom;
-    document.getElementById('prenom').value = fiche.prenom;
-    document.getElementById('sexe').value = fiche.sexe;
-    document.getElementById('nationalite').value = fiche.nationalite;
-    document.getElementById('jour').value = fiche.jour;
-    document.getElementById('mois').value = fiche.mois;
-    document.getElementById('annee').value = fiche.annee;
-    document.getElementById('age').value = fiche.age;
-    document.getElementById('villeDepart').value = fiche.villeDepart;
-    document.getElementById('paysDepart').value = fiche.paysDepart;
-    document.getElementById('villeDestination').value = fiche.villeDestination;
-    document.getElementById('paysDestination').value = fiche.paysDestination;
-    document.getElementById('heure').value = fiche.heure || '';
-    document.getElementById('dateIntervention').value = fiche.dateIntervention || '';
-    document.getElementById('lieuInterpellation').value = fiche.lieuInterpellation;
-document.getElementById('suitesDonnees').value = fiche.suitesDonnees || '';
-    document.getElementById('vehicule').value = fiche.vehicule;
-    document.getElementById('immatriculation').value = fiche.immatriculation;
-    
-    // Réinitialiser toutes les cases à cocher
-    document.querySelectorAll('input[name="piece"]').forEach(cb => cb.checked = false);
-    document.getElementById('autreTexte').value = '';
-    document.getElementById('autreTexte').disabled = true;
-    
-    // Cocher les pièces d'identité correspondantes
-    fiche.piecesIdentite.forEach(val => {
-        if (val.startsWith('Autre : ')) {
-            document.getElementById('autreCheck').checked = true;
-            document.getElementById('autreTexte').disabled = false;
-            document.getElementById('autreTexte').value = val.replace('Autre : ', '');
-            document.getElementById('autreCheck').value = val;
-        } else {
-            const cb = Array.from(document.querySelectorAll('input[name="piece"]')).find(c => c.value === val);
-            if (cb) cb.checked = true;
-        }
-    });
-    
-    fiches.splice(index, 1);
-    localStorage.setItem('fichesBorderforce', JSON.stringify(fiches));
-    afficherHistorique();
+  const fiches = chargerFiches();
+  const fiche  = fiches[index];
+  if (!fiche) return;
+
+  const setVal = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.value = val ?? '';
+  };
+
+  setVal('categorie', fiche.categorie);
+  setVal('nom', fiche.nom);
+  setVal('prenom', fiche.prenom);
+  setVal('sexe', fiche.sexe);
+  setVal('nationalite', fiche.nationalite);
+  setVal('jour', fiche.jour);
+  setVal('mois', fiche.mois);
+  setVal('annee', fiche.annee);
+  setVal('age', fiche.age);
+  setVal('villeDepart', fiche.villeDepart);
+  setVal('paysDepart', fiche.paysDepart);
+  setVal('villeDestination', fiche.villeDestination);
+  setVal('paysDestination', fiche.paysDestination);
+  setVal('heure', fiche.heure || '');
+  setVal('dateIntervention', fiche.dateIntervention || '');
+  setVal('lieuInterpellation', fiche.lieuInterpellation);
+  setVal('suitesDonnees', fiche.suitesDonnees || '');
+  setVal('vehicule', fiche.vehicule);
+  setVal('immatriculation', fiche.immatriculation);
+
+  document.querySelectorAll('input[name="piece"]').forEach(cb => cb.checked = false);
+  const autreTexte = document.getElementById('autreTexte');
+  const autreCheck = document.getElementById('autreCheck');
+  if (autreTexte) {
+    autreTexte.value = '';
+    autreTexte.disabled = true;
+  }
+
+  (fiche.piecesIdentite || []).forEach(val => {
+    if (val.startsWith('Autre : ')) {
+      if (autreCheck && autreTexte) {
+        autreCheck.checked = true;
+        autreTexte.disabled = false;
+        autreTexte.value = val.replace('Autre : ', '');
+        autreCheck.value = val;
+      }
+    } else {
+      const cb = Array.from(document.querySelectorAll('input[name="piece"]'))
+        .find(c => c.value === val);
+      if (cb) cb.checked = true;
+    }
+  });
+
+  fiches.splice(index, 1);
+  sauverFiches(fiches);
+  afficherHistorique();
 }
 
-document.getElementById('effacerFiches').addEventListener('click', function() {
-    if (confirm("Voulez-vous vraiment effacer toutes les fiches ?")) {
+// ---------- Initialisation DOM ----------
+document.addEventListener('DOMContentLoaded', () => {
+  setCurrentDateTime();
+
+  autoNext(document.getElementById('jour'),  'mois',  2);
+  autoNext(document.getElementById('mois'),  'annee', 2);
+  const anneeEl = document.getElementById('annee');
+  if (anneeEl) anneeEl.addEventListener('input', calculerAge);
+
+  const immatEl = document.getElementById('immatriculation');
+  if (immatEl) {
+    immatEl.addEventListener('input', function () {
+      this.value = this.value.toUpperCase();
+    });
+  }
+
+  const autreCheck = document.getElementById('autreCheck');
+  const autreTexte = document.getElementById('autreTexte');
+  if (autreCheck && autreTexte) {
+    autreCheck.addEventListener('change', function () {
+      if (this.checked) {
+        autreTexte.disabled = false;
+        autreTexte.focus();
+      } else {
+        autreTexte.disabled = true;
+        autreTexte.value = '';
+        this.value = '';
+      }
+    });
+
+    autreTexte.addEventListener('input', function () {
+      if (this.value.trim()) {
+        autreCheck.value = 'Autre : ' + this.value.trim();
+      } else {
+        autreCheck.value = '';
+      }
+    });
+  }
+
+  const effacerBtn = document.getElementById('effacerFiches');
+  if (effacerBtn) {
+    effacerBtn.addEventListener('click', function () {
+      if (confirm("Voulez-vous vraiment effacer toutes les fiches ?")) {
         localStorage.removeItem('fichesBorderforce');
         afficherHistorique();
         alert("Toutes les fiches ont été effacées !");
-    }
+      }
+    });
+  }
+
+  purgerFichesExpirees();
+  afficherHistorique();
 });
 
-afficherHistorique();
 
 // 🔹 Envoie les infos utiles de la fiche vers la section ESI ou Passeur
 function remplirDepuisFicheDansEsiOuPasseur(fiche) {
