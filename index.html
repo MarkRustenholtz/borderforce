@@ -1398,13 +1398,21 @@ html, body {
       localStorage.setItem('borderforce', JSON.stringify(state));
     }
     
-    function loadFromStorage() {
-      const data = localStorage.getItem('borderforce');
-      if(data) {
-        const parsed = JSON.parse(data);
-        Object.assign(state, parsed);
-      }
+   function loadFromStorage() {
+  const data = localStorage.getItem('borderforce');
+  if (!data) return;
+
+  try {
+    const parsed = JSON.parse(data);
+    if (parsed && typeof parsed === 'object') {
+      Object.assign(state, parsed);
     }
+  } catch (e) {
+    console.error('Erreur de parsing borderforce, on repart propre :', e);
+    // On nettoie la clé corrompue pour ne plus replanter
+    localStorage.removeItem('borderforce');
+  }
+}
 
     function updateUI() {
       document.getElementById('siteSelect').value = state.site;
@@ -2569,77 +2577,104 @@ generateCompteRendu = function() {
   document.getElementById('compteRendu').value = cr;
 };
 
+function safeOn(id, eventName, handler) {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener(eventName, handler);
+}
     function init() {
-      loadFromStorage();
-      updateUI();
-	  
-      // 🔹 Au chargement : trier le déroulement une fois
-      const der = document.getElementById('deroulement');
-      if (der && der.value.trim()) {
-        BF_IS_SORTING_DEROULEMENT = true;
-        bf_trierDeroulement();          // trie le texte du textarea
-        BF_IS_SORTING_DEROULEMENT = false;
+  loadFromStorage();
+  updateUI();
 
-        // on resynchronise state.deroulement avec le texte trié
-        if (typeof onTextAreaChange === 'function') {
-          onTextAreaChange();
-        }
-      }
-      // bind events
-      document.getElementById('addEsrBtn').addEventListener('click', addEsr);
-      document.getElementById('delEsrBtn').addEventListener('click', delEsr);
-      document.getElementById('addEsiBtn').addEventListener('click', addEsi);
-      document.getElementById('delEsiBtn').addEventListener('click', delEsi);
-      document.getElementById('addPasseurBtn').addEventListener('click', addPasseur);
-      document.getElementById('delPasseurBtn').addEventListener('click', delPasseur);
+  // 🔹 Au chargement : trier le déroulement une fois
+  const der = document.getElementById('deroulement');
+  if (der && der.value.trim()) {
+    BF_IS_SORTING_DEROULEMENT = true;
+    bf_trierDeroulement();          // trie le texte du textarea
+    BF_IS_SORTING_DEROULEMENT = false;
 
-      document.querySelectorAll('button.plusminus').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const t = e.target;
-          changeCount(t.dataset.type, t.dataset.field, t.dataset.action);
-        });
-      });
-
-      document.getElementById('trainCvAddManualBtn').addEventListener('click', () => addManualCv('train'));
-      document.getElementById('busCvAddManualBtn').addEventListener('click', () => addManualCv('bus'));
-      document.getElementById('vlCvAddManualBtn').addEventListener('click', () => addManualCv('vl'));
-      document.getElementById('plCvAddManualBtn').addEventListener('click', () => addManualCv('pl'));
-      document.getElementById('trainCfAddManualBtn').addEventListener('click', () => addManualCf('train'));
-      document.getElementById('busCfAddManualBtn').addEventListener('click', () => addManualCf('bus'));
-      document.getElementById('vlCfAddManualBtn').addEventListener('click', () => addManualCf('vl'));
-      document.getElementById('plCfAddManualBtn').addEventListener('click', () => addManualCf('pl'));
-
-      ['dateInput','heureDebutInput','heureFinInput'].forEach(id => {
-        document.getElementById(id).addEventListener('input', onGeneralChange);
-      });
-      document.getElementById('siteSelect').addEventListener('input', () => { onGeneralChange(); updateUI(); });
-
-      ['cameraNum','cameraESR','tablette1Num','tablette1ESR','tablette2Num','tablette2ESR','vehiculeService'].forEach(id => {
-        const el=document.getElementById(id);
-        if(el) el.addEventListener('input', onMaterielChange);
-      });
-
-      ['observations','deroulement'].forEach(id => {
-        const el=document.getElementById(id);
-        if(el) el.addEventListener('input', onTextAreaChange);
-      });
-
-      document.getElementById('generateBtn').addEventListener('click', generateCompteRendu);
-      document.getElementById('copyBtn').addEventListener('click', copyToClipboard);
-      document.getElementById('resetBtn').addEventListener('click', resetData);
-      document.getElementById('scanQrBtn').addEventListener('click', openQrModal);
-
-      const pulsarOui = document.getElementById('pulsarOui');
-      const pulsarNon = document.getElementById('pulsarNon');
-      if(pulsarOui) pulsarOui.addEventListener('change', window.onPulsarChange);
-      if(pulsarNon) pulsarNon.addEventListener('change', window.onPulsarChange);
+    // on resynchronise state.deroulement avec le texte trié
+    if (typeof onTextAreaChange === 'function') {
+      onTextAreaChange();
     }
+  }
+
+  // 🔹 Bind boutons principaux (en sécurisé)
+  safeOn('addEsrBtn', 'click', addEsr);
+  safeOn('delEsrBtn', 'click', delEsr);
+  safeOn('addEsiBtn', 'click', addEsi);
+  safeOn('delEsiBtn', 'click', delEsi);
+  safeOn('addPasseurBtn', 'click', addPasseur);
+  safeOn('delPasseurBtn', 'click', delPasseur);
+
+  // 🔹 Boutons + / -
+  document.querySelectorAll('button.plusminus').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const t = e.target;
+      changeCount(t.dataset.type, t.dataset.field, t.dataset.action);
+    });
+  });
+
+  // 🔹 Ajouts manuels CV/CF (en sécurisé)
+  safeOn('trainCvAddManualBtn', 'click', () => addManualCv('train'));
+  safeOn('busCvAddManualBtn', 'click', () => addManualCv('bus'));
+  safeOn('vlCvAddManualBtn', 'click', () => addManualCv('vl'));
+  safeOn('plCvAddManualBtn', 'click', () => addManualCv('pl'));
+  safeOn('trainCfAddManualBtn', 'click', () => addManualCf('train'));
+  safeOn('busCfAddManualBtn', 'click', () => addManualCf('bus'));
+  safeOn('vlCfAddManualBtn', 'click', () => addManualCf('vl'));
+  safeOn('plCfAddManualBtn', 'click', () => addManualCf('pl'));
+
+  // 🔹 Général (date / heures)
+  ['dateInput','heureDebutInput','heureFinInput'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', onGeneralChange);
+  });
+
+  const siteSelect = document.getElementById('siteSelect');
+  if (siteSelect) {
+    siteSelect.addEventListener('input', () => { 
+      onGeneralChange(); 
+      updateUI(); 
+    });
+  }
+
+  // 🔹 Matériel
+  ['cameraNum','cameraESR','tablette1Num','tablette1ESR','tablette2Num','tablette2ESR','vehiculeService'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', onMaterielChange);
+  });
+
+  // 🔹 Textareas
+  ['observations','deroulement'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', onTextAreaChange);
+  });
+
+  // 🔹 CR / reset / QR
+  safeOn('generateBtn', 'click', generateCompteRendu);
+  safeOn('copyBtn', 'click', copyToClipboard);
+  safeOn('resetBtn', 'click', resetData);
+  safeOn('scanQrBtn', 'click', openQrModal);
+
+  // 🔹 Pulsar
+  const pulsarOui = document.getElementById('pulsarOui');
+  const pulsarNon = document.getElementById('pulsarNon');
+  if (pulsarOui) pulsarOui.addEventListener('change', window.onPulsarChange);
+  if (pulsarNon) pulsarNon.addEventListener('change', window.onPulsarChange);
+}
+
 
     // Initialisation au chargement de la page
     document.addEventListener('DOMContentLoaded', () => {
-      showPage('homePage'); // Afficher la page d'accueil par défaut
-      init();
-    });
+  showPage('homePage'); // Afficher la page d'accueil par défaut
+  try {
+    init();
+  } catch (e) {
+    alert("Erreur au démarrage : " + e.message);
+    console.error(e);
+  }
+});
+
 
     // Service Worker pour PWA
     if ('serviceWorker' in navigator) {
