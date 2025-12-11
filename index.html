@@ -2,103 +2,299 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <title>Suite BorderForce</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mise à jour de l’application</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#003366">
+
+  <!-- Icône iOS -->
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #003366, #0055aa);
-      color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      height: 100vh;
+    :root {
+      --bleu: #003366;
+      --vert: #007b3c;
+      --fond: #f0f2f5;
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    /* 🌌 Fond d’écran techno */
+  /*  body {
       margin: 0;
-      padding: 20px;
+      font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+      background-image: url("images/fond-tech3.jpg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #222;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+      touch-action: manipulation;
+    } */
+    
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+
+  /* 🖼️ Fond responsive */
+  background-image: url("images/fond-tech3.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;          /* ✅ image entière visible */
+  background-position: center;       /* centrée sur tout type d’écran */
+  background-color: #003366;         /* zone de sécurité bleue autour */
+  background-attachment: fixed;      /* effet fixe sur PC */
+
+  /* ⚙️ Ajustement global */
+  min-height: 100dvh;                /* ✅ nouvelle unité dynamique : plus fiable que 100vh */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  touch-action: manipulation;
+}
+
+/* 📱 Correction mobile : empêche le zoom et recentre tout */
+/*@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+    background-size: cover;          
+    background-position: center top; 
+    background-color: #003366;
+    background-repeat: no-repeat;*/
+
+    /* 👇 Empêche la vignette de remonter */
+  /*  min-height: 100vh;              
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+} */
+    @media (max-width: 768px) and (min-aspect-ratio: 4/3) {
+  body {
+    background-attachment: scroll;
+    background-size: cover;
+    background-position: center top;
+    background-color: #003366;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
     }
 
-    h1 {
-      font-size: 1.8em;
-      margin-bottom: 15px;
+@media (min-width: 1400px) {
+  body {
+    background-size: 90%;
+  }
+}
+
+    /* voile sombre pour lisibilité */
+    /*  body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 0;
+    }*/
+
+    .app {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 480px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 24px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+      padding: 20px 20px 24px;
+      text-align: center;
     }
 
-    p {
-      font-size: 1.1em;
-      line-height: 1.6;
-      max-width: 600px;
+    .title h1 {
+      margin: 0;
+      font-size: 1.4rem;
+      color: var(--bleu);
+      font-weight: 700;
     }
 
-    a {
-      display: inline-block;
+    .title p {
+      margin: 4px 0 0;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    .btn-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .menu-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.1s;
+      width: 100%;
+      text-align: left;
+    }
+
+    .menu-btn i {
+      font-size: 1.5rem;
+    }
+
+    .menu-btn span {
+      flex: 1;
+    }
+
+    .menu-btn small {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 400;
+      opacity: .9;
+    }
+
+    .menu-btn:active {
+      transform: scale(0.97);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      opacity: 0.9;
+    }
+
+    .btn-borderforce {
+      background: linear-gradient(135deg, #003366, #1f6fb2);
+    }
+
+    .btn-compteur {
+      background: linear-gradient(135deg, #007b3c, #27ae60);
+    }
+
+    .footer {
       margin-top: 20px;
-      background-color: #ffffff;
-      color: #003366;
-      padding: 10px 22px;
-      border-radius: 8px;
+      text-align: center;
+      font-size: 0.75rem;
       font-weight: bold;
-      text-decoration: none;
-    }
-
-    a:hover {
-      background-color: #e0e0e0;
-    }
-
-    .note {
-      margin-top: 25px;
-      font-size: 0.95em;
-      color: #ffeeaa;
-    }
-
-    .countdown {
-      margin-top: 25px;
-      font-size: 0.9em;
-      opacity: 0.85;
-    }
-  </style>
-
-  <script>
-    // 🔹 Supprimer tout ancien service worker pour éviter les blocages
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then(regs => {
-        regs.forEach(reg => reg.unregister());
-      });
-    }
-
-    // 🔹 Redirection automatique après 15 secondes
-    let seconds = 30;
-    function updateCountdown() {
-      const el = document.getElementById('countdown');
-      if (!el) return;
-      el.textContent = seconds;
-      if (seconds > 0) {
-        seconds--;
-        setTimeout(updateCountdown, 1000);
-      } else {
-        window.location.replace("https://markrustenholtz.github.io/bfcompt");
+      color: #000;
       }
-    }
-    window.onload = updateCountdown;
-  </script>
+    /* 📱 Mode "mobile" uniquement pour les écrans vraiment étroits (smartphones) */
+@media (max-width: 600px) {
+  body {
+    background-attachment: scroll;
+    background-size: cover;
+    background-position: center top;
+    background-color: #003366;
+    background-repeat: no-repeat;
+
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+    /* 🧩 Ajustement spécial pour tablettes 4:3 (Asus ZenPad, iPad, etc.) */
+@media (min-width: 601px) and (max-aspect-ratio: 3/4) {
+  body {
+    background-size: contain;          /* garde l’image entière */
+    background-position: center bottom;/* montre davantage le bas (GENDARMERIE) */
+  }
+}
+
+    @media (max-width: 480px) {
+      .app {
+        border-radius: 16px;
+        padding: 16px;
+      }
+    } 
+  </style>
 </head>
 
 <body>
-  <h1>⚠️ Nouvelle version disponible</h1>
-  <p>
-    L’application a été mise à jour.<br><br>
-    👉 Vous devez désormais utiliser la nouvelle version disponible ici :
-  </p>
-  <a href="https://markrustenholtz.github.io/bfcompt" target="_blank">
-    Ouvrir la nouvelle version
-  </a>
-  <p class="note">
-    📱 Une fois la page ouverte, ajoutez-la à l’écran d’accueil<br>
-    (via le menu du navigateur ou la barre de notification).<br><br>
-    Ensuite, vous pourrez supprimer cette ancienne application.
-  </p>
-  <p class="countdown">
-    Redirection automatique dans <span id="countdown">15</span> secondes…
-  </p>
+  <div class="app">
+    <div class="title">
+      <h1>Choisissez l'application</h1>
+      <p>selon votre fonction</p>
+    </div>
+
+    <div class="footer">
+      L'application pour le chef du dispositif:
+    </div>
+
+    <div class="btn-grid">
+      <button class="menu-btn btn-borderforce"
+              onclick="openModule('borderforce/index.html')">
+        <i class="fas fa-shield-alt"></i>
+        <span>
+          CR BORDERFORCE
+          <small>ESR, ESI, passeurs, matériel, CR…</small>
+        </span>
+        <i class="fas fa-arrow-right"></i>
+      </button>
+
+      <div class="footer">
+        L'application pour les subordonnés:
+      </div>
+
+      <button class="menu-btn btn-compteur"
+              onclick="openModule('compteur/index.html')">
+        <i class="fas fa-chart-bar"></i>
+        <span>
+          COMPTEUR
+          <small>Véhicules & personnes contrôlées</small>
+        </span>
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+
+    <div class="footer">
+      Une seule appli installée, deux outils embarqués.
+    </div>
+  </div>
+
+  <script>
+    function openModule(path) {
+      window.location.href = path;
+    }
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js')
+        .catch(err => console.error('SW registration failed', err));
+    }
+      </script>
+    <script>
+  // 📏 Recalcule la hauteur visible en pixels et l'applique au body
+  function setRealHeight() {
+    document.body.style.minHeight = window.innerHeight + "px";
+  }
+
+  // 🔄 On met à jour au chargement, au redimensionnement, et quand on revient sur la page
+  window.addEventListener("load", setRealHeight);
+  window.addEventListener("resize", setRealHeight);
+  window.addEventListener("focus", setRealHeight);
+  window.addEventListener("pageshow", setRealHeight);
+
+  </script>
 </body>
 </html>
