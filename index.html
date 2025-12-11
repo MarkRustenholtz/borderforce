@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mise à jour de l’application BorderForce</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #003366, #0055aa);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 { font-size: 1.8em; margin-bottom: 15px; }
+    p { font-size: 1.1em; line-height: 1.6; max-width: 600px; }
+
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      background-color: #ffffff;
+      color: #003366;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    a:hover { background-color: #e0e0e0; }
+
+    .note {
+      margin-top: 25px;
+      font-size: 0.95em;
+      color: #ffeeaa;
+    }
+
+    .countdown {
+      margin-top: 25px;
+      font-size: 0.9em;
+      opacity: 0.85;
+    }
+  </style>
+
+  <script>
+    const NEW_URL = "https://markrustenholtz.github.io/bfcompt";
+    const OLD_APP_URL = "app.html"; // ton ancienne app renommée
+
+    // 🔹 Au chargement, on décide quoi faire
+    window.addEventListener("load", () => {
+      // On nettoie les anciens service workers si besoin
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(regs => {
+          regs.forEach(reg => reg.unregister());
+        });
+      }
+
+      // Vérifie s'il y a des données BorderForce en cours
+      const savedData = localStorage.getItem('borderforce');
+
+      if (savedData) {
+        // 👉 Il y a des données : on renvoie sur l'ancienne appli
+        // pour finir la mission normalement
+        window.location.replace(OLD_APP_URL);
+        return;
+      }
+
+      // 👉 Pas de données : on montre la page de migration + compte à rebours
+      const container = document.getElementById('migrationContainer');
+      if (container) container.style.display = 'block';
+
+      let seconds = 15;
+      function updateCountdown() {
+        const el = document.getElementById('countdown');
+        if (!el) return;
+        el.textContent = seconds;
+        if (seconds > 0) {
+          seconds--;
+          setTimeout(updateCountdown, 1000);
+        } else {
+          window.location.replace(NEW_URL);
+        }
+      }
+      updateCountdown();
+    });
+  </script>
+</head>
+
+<body>
+  <div id="migrationContainer" style="display:none;">
+    <h1>⚠️ Nouvelle version disponible</h1>
+    <p>
+      L’application BorderForce a été mise à jour.<br><br>
+      👉 Vous devez désormais utiliser la nouvelle version disponible ici :
+    </p>
+    <a href="https://markrustenholtz.github.io/bfcompt" target="_blank">
+      Ouvrir la nouvelle version
+    </a>
+    <p class="note">
+      📱 Une fois la page ouverte, ajoutez-la à l’écran d’accueil<br>
+      (via le menu du navigateur ou la barre de notification).<br><br>
+      Ensuite, vous pourrez supprimer cette ancienne application.
+    </p>
+    <p class="countdown">
+      Redirection automatique dans <span id="countdown">15</span> secondes…
+    </p>
+  </div>
+</body>
+</html>
