@@ -3080,58 +3080,67 @@ function modifierFiche(index) {
 }
 
 // ---------- Initialisation DOM ----------
+// ---------- Initialisation DOM pour les FICHES ----------
 document.addEventListener('DOMContentLoaded', () => {
-  setCurrentDateTime();
+  try {
+    setCurrentDateTime();
 
-  autoNext(document.getElementById('jour'),  'mois',  2);
-  autoNext(document.getElementById('mois'),  'annee', 2);
-  const anneeEl = document.getElementById('annee');
-  if (anneeEl) anneeEl.addEventListener('input', calculerAge);
+    autoNext(document.getElementById('jour'),  'mois',  2);
+    autoNext(document.getElementById('mois'),  'annee', 2);
+    const anneeEl = document.getElementById('annee');
+    if (anneeEl) anneeEl.addEventListener('input', calculerAge);
 
-  const immatEl = document.getElementById('immatriculation');
-  if (immatEl) {
-    immatEl.addEventListener('input', function () {
-      this.value = this.value.toUpperCase();
-    });
-  }
-
-  const autreCheck = document.getElementById('autreCheck');
-  const autreTexte = document.getElementById('autreTexte');
-  if (autreCheck && autreTexte) {
-    autreCheck.addEventListener('change', function () {
-      if (this.checked) {
-        autreTexte.disabled = false;
-        autreTexte.focus();
-      } else {
-        autreTexte.disabled = true;
-        autreTexte.value = '';
-        this.value = '';
-      }
-    });
-
-    autreTexte.addEventListener('input', function () {
-      if (this.value.trim()) {
-        autreCheck.value = 'Autre : ' + this.value.trim();
-      } else {
-        autreCheck.value = '';
-      }
-    });
-  }
-
-const effacerBtn = document.getElementById('effacerFiches');
-if (effacerBtn) {
-  effacerBtn.addEventListener('click', function () {
-    if (confirm("Voulez-vous vraiment effacer toutes les fiches d'identité ?")) {
-      localStorage.removeItem(BF_FICHES_KEY);
-      afficherHistorique();
-      alert("Toutes les fiches identité ont été effacées !");
+    const immatEl = document.getElementById('immatriculation');
+    if (immatEl) {
+      immatEl.addEventListener('input', function () {
+        this.value = this.value.toUpperCase();
+      });
     }
-  });
-}
 
-purgerFichesExpirees();
-afficherHistorique();
+    const autreCheck = document.getElementById('autreCheck');
+    const autreTexte = document.getElementById('autreTexte');
+    if (autreCheck && autreTexte) {
+      autreCheck.addEventListener('change', function () {
+        if (this.checked) {
+          autreTexte.disabled = false;
+          autreTexte.focus();
+        } else {
+          autreTexte.disabled = true;
+          autreTexte.value = '';
+          this.value = '';
+        }
+      });
+
+      autreTexte.addEventListener('input', function () {
+        if (this.value.trim()) {
+          autreCheck.value = 'Autre : ' + this.value.trim();
+        } else {
+          autreCheck.value = '';
+        }
+      });
+    }
+
+    const effacerBtn = document.getElementById('effacerFiches');
+    if (effacerBtn) {
+      effacerBtn.addEventListener('click', function () {
+        if (confirm("Voulez-vous vraiment effacer toutes les fiches d'identité ?")) {
+          localStorage.removeItem(BF_FICHES_KEY);
+          afficherHistorique();
+          alert("Toutes les fiches identité ont été effacées !");
+        }
+      });
+    }
+
+    // 🔥 Au démarrage : purge + affichage sécurisé
+    purgerFichesExpirees();
+    afficherHistorique();
+  } catch (e) {
+    console.error('Erreur bloc FICHES identité :', e);
+    // En cas de souci, on supprime les fiches pour ne plus bloquer l’app
+    localStorage.removeItem(BF_FICHES_KEY);
+  }
 });
+
 
 
 
