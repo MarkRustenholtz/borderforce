@@ -299,7 +299,10 @@ textarea {
   font-size: 1em;
   padding: 4px 6px;
 }
-
+select.info-input {
+  width: 100%;
+  max-width: 100%;
+}
 #selectSite {
   font-size: 1em;
   padding: 4px 6px;
@@ -694,9 +697,17 @@ span[id$="Count"] {
              inputmode="numeric" pattern="[0-9]*">
     </label>
 
-    <label>CRT : 
-      <input type="text" id="crt" class="info-input" placeholder="Entrez CRT (ex: 06/1 Nice)">
-    </label>
+    <label>CRT :
+  <select id="crt" class="info-input">
+    <option value="">Sélectionner CRT</option>
+    <option value="06/1 Nice">06/1 Nice</option>
+    <option value="06/2 Nice">06/2 Nice</option>
+    <option value="06/3 Nice">06/3 Nice</option>
+    <option value="06/4 Nice">06/4 Nice</option>
+    <option value="06/5 Nice">06/5 Nice</option>
+    <option value="06/6 Nice">06/6 Nice</option>
+  </select>
+</label>
   </div>
 
   <div style="text-align:center; margin-top:15px;">
