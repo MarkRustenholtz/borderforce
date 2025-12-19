@@ -695,7 +695,15 @@ html, body {
       <input type="number" id="esrNigend" placeholder="Nigend"
              inputmode="numeric" pattern="[0-9]*">
 
-      <input type="text" id="esrCRT" placeholder="CRT (ex: 06/1 Nice)">
+      <select id="esrCRT">
+  <option value="">CRT</option>
+  <option value="06/1 Nice">06/1 Nice</option>
+  <option value="06/2 Nice">06/2 Nice</option>
+  <option value="06/3 Nice">06/3 Nice</option>
+  <option value="06/4 Nice">06/4 Nice</option>
+  <option value="06/5 Nice">06/5 Nice</option>
+  <option value="06/6 Nice">06/6 Nice</option>
+</select>
 
       <button id="addEsrBtn" class="blue">Ajouter ESR</button>
       <button id="delEsrBtn" class="red">Supprimer dernier ESR</button>
