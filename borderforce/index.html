@@ -3218,6 +3218,17 @@ function modifierFiche(index) {
     const fiches = JSON.parse(localStorage.getItem('fichesBorderforce') || '[]');
     const fiche = fiches[index];
 document.getElementById('categorie').value = fiche.categorie;
+// ✅ Affiche/masque le bloc "situation ESI" selon la catégorie
+if (typeof toggleSituationEsiFiche === 'function') {
+  toggleSituationEsiFiche();
+}
+
+// ✅ Remet la situation (si ESI)
+const sitEl = document.getElementById('situationEsiFiche');
+if (sitEl) {
+  sitEl.value = fiche.situationEsi || '';
+}
+
     document.getElementById('nom').value = fiche.nom;
     document.getElementById('prenom').value = fiche.prenom;
     document.getElementById('sexe').value = fiche.sexe;
