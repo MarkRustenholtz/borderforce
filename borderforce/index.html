@@ -2542,6 +2542,8 @@ function autoResize(el) {
       const suites      = (parts[5] || "").trim();
       const nat         = (parts[6] || "").trim();
       let   sexeBrut    = (parts[7] || "").trim();
+// ✅ NOUVEAU : situation ESI (optionnelle, si le QR l’envoie)
+const situationEsi = (parts[8] || "").trim();  // sera "" si ancien QR
 
       // Normalisation du sexe vers Homme/Femme
       const s = sexeBrut.toLowerCase();
@@ -2555,7 +2557,7 @@ function autoResize(el) {
         const pNat    = document.getElementById("passeurNationalite");
         const pLieu   = document.getElementById("passeurLieu");
         const pHeure  = document.getElementById("passeurHeure");
-        const pSuites = document.getElementById("passeurSuites");
+        
 	    const pAgeNum  = document.getElementById("passeurAgeNum");
 		
         if (pSexe)   pSexe.value   = sexeBrut;
@@ -2563,7 +2565,15 @@ function autoResize(el) {
         if (pNat)    pNat.value    = nat;
         if (pLieu)   pLieu.value   = lieu;
         if (pHeure)  pHeure.value  = heure;
-        if (pSuites) pSuites.value = suites;
+     // ✅ Suites : nouveau système (select + lieu) + fallback
+if (typeof bf_setSuites === "function") {
+  bf_setSuites("passeur", suites);
+} else {
+  const pSuitesOld = document.getElementById("passeurSuites");
+  if (pSuitesOld) pSuitesOld.value = suites;
+}
+   
+
 		
 		// 🧮 Calcul automatique de l'âge à partir de la date de naissance JJ/MM/AAAA
   if (typeof calculateAge === "function" && dateNaiss && dateNaiss.length === 10 && pAgeNum) {
@@ -2581,38 +2591,48 @@ function autoResize(el) {
         alert('Fiche PASSEUR importée via QR.\nVérifie puis clique sur "Ajouter Passeur".');
 
       } else {
-        // 👉 Par défaut : ESI
-        const eSexe   = document.getElementById("esiSexe");
-        const eDob    = document.getElementById("esiDob");
-        const eNat    = document.getElementById("esiNationalite");
-        const eLieu   = document.getElementById("esiLieu");
-        const eHeure  = document.getElementById("esiHeure");
-        const eSuites = document.getElementById("esiSuites");
+  // 👉 Par défaut : ESI
+  const eSexe  = document.getElementById("esiSexe");
+  const eDob   = document.getElementById("esiDob");
+  const eNat   = document.getElementById("esiNationalite");
+  const eLieu  = document.getElementById("esiLieu");
+  const eHeure = document.getElementById("esiHeure");
 
-        if (eSexe)   eSexe.value   = sexeBrut;
-        if (eDob)    eDob.value    = dateNaiss;
-        if (eNat)    eNat.value    = nat;
-        if (eLieu)   eLieu.value   = lieu;
-        if (eHeure)  eHeure.value  = heure;
-        if (eSuites) eSuites.value = suites;
+  if (eSexe)  eSexe.value  = sexeBrut;
+  if (eDob)   eDob.value   = dateNaiss;
+  if (eNat)   eNat.value   = nat;
+  if (eLieu)  eLieu.value  = lieu;
+  if (eHeure) eHeure.value = heure;
 
+  // ✅ Suites : nouveau système (select + lieu) + fallback
+  if (typeof bf_setSuites === "function") {
+    bf_setSuites("esi", suites);
+  } else {
+    const eSuitesOld = document.getElementById("esiSuites");
+    if (eSuitesOld) eSuitesOld.value = suites;
+  }
 
-if (typeof calculateAge === "function" && eDob && dateNaiss.length === 10) {
-  const age = calculateAge(dateNaiss);
-  if (age !== null) {
-    const ageNumInput = document.getElementById("esiAgeNum");
-    if (ageNumInput) {
-      ageNumInput.value = age;
+  // ✅ Situation ESI (optionnelle)
+  const eSituation = document.getElementById("esiSituation");
+  if (eSituation) eSituation.value = situationEsi || "";
+
+  // 🧮 Age auto
+  if (typeof calculateAge === "function" && dateNaiss && dateNaiss.length === 10) {
+    const age = calculateAge(dateNaiss);
+    if (age !== null) {
+      const ageNumInput = document.getElementById("esiAgeNum");
+      if (ageNumInput) ageNumInput.value = age;
     }
   }
-}
-        if (typeof majEsiStatut === "function") {
-          majEsiStatut();
-        }
 
-        showPage("esiPage");
-        alert('Fiche ESI importée via QR.\nVérifie puis clique sur "Ajouter ESI".');
-      }
+  if (typeof majEsiStatut === "function") {
+    majEsiStatut();
+  }
+
+  showPage("esiPage");
+  alert('Fiche ESI importée via QR.\nVérifie puis clique sur "Ajouter ESI".');
+}
+
 
       // On arrête le scan et on ferme le modal pour voir la page ESI/PASSEUR
       if (html5QrCode && isScanning) {
