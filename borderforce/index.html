@@ -993,8 +993,8 @@ html, body {
 	   <label for="esiSituation">Situation de l'individu :</label>
 <select id="esiSituation">
   <option value="">— Sélectionner —</option>
-  <option value="Etranger en situation régulière">Etranger en situation régulière</option>
-  <option value="Etranger en situation irrégulière">Etranger en situation irrégulière</option>
+  <option value="INDIVIDU EN SITUATION IRRÉGULIÈRE">INDIVIDU EN SITUATION RÉGULIÈRE</option>
+  <option value="INDIVIDU EN SITUATION IRRÉGULIÈRE">INDIVIDU EN SITUATION IRRÉGULIÈRE</option>
 </select>
 
       <input type="text" id="esiLieu" placeholder="Moyen de transport" />
@@ -1004,7 +1004,7 @@ html, body {
 <select id="esiSuitesType">
   <option value="">— Sélectionner —</option>
   <option value="TRANSPORT_PAF">TRANSPORT PAF</option>
-  <option value="LAISSE_LIBRE">INDIVIDU LAISSÉ LIBRE</option>
+  <option value="LAISSE_LIBRE">LAISSÉ LIBRE</option>
 </select>
 
 <input type="text" id="esiSuitesLieu" placeholder="Lieu TRANSPORT PAF (ex: Menton)" style="display:none;" />
@@ -1073,7 +1073,7 @@ html, body {
 <select id="passeurSuitesType">
   <option value="">— Sélectionner —</option>
   <option value="TRANSPORT_PAF">TRANSPORT PAF</option>
-  <option value="LAISSE_LIBRE">INDIVIDU LAISSÉ LIBRE</option>
+  <option value="LAISSE_LIBRE">LAISSÉ LIBRE</option>
 </select>
 
 <input type="text" id="passeurSuitesLieu" placeholder="Lieu TRANSPORT PAF (ex: Menton)" style="display:none;" />
@@ -1252,7 +1252,7 @@ html, body {
 <select id="suitesTypeFiche">
   <option value="">— Sélectionner —</option>
   <option value="TRANSPORT_PAF">TRANSPORT PAF</option>
-  <option value="LAISSE_LIBRE">INDIVIDU LAISSÉ LIBRE</option>
+  <option value="LAISSE_LIBRE">LAISSÉ LIBRE</option>
 </select>
 
 <input type="text" id="suitesLieuFiche" placeholder="Lieu TRANSPORT PAF (ex: Menton)" style="display:none;" />
@@ -1261,8 +1261,8 @@ html, body {
   <label for="situationEsiFiche">Situation de l'individu :</label>
   <select id="situationEsiFiche">
     <option value="">— Sélectionner —</option>
-    <option value="Etranger en situation régulière">Etranger en situation régulière</option>
-    <option value="Etranger en situation irrégulière">Etranger en situation irrégulière</option>
+    <option value="INDIVIDU EN SITUATION RÉGULIÈRE">INDIVIDU EN SITUATION RÉGULIÈRE</option>
+    <option value="INDIVIDU EN SITUATION IRRÉGULIÈRE">INDIVIDU EN SITUATION IRRÉGULIÈRE</option>
   </select>
 </div>
 
@@ -1895,7 +1895,7 @@ function bf_getSuites(prefix) {
   }
 
   // LAISSE_LIBRE
-  return { ok: true, suites: 'INDIVIDU LAISSE LIBRE', isLibre: true };
+  return { ok: true, suites: 'LAISSÉ LIBRE', isLibre: true };
 }
 
 function bf_setSuites(prefix, suitesRaw) {
@@ -1912,7 +1912,7 @@ function bf_setSuites(prefix, suitesRaw) {
   if (up.startsWith('TRANSPORT PAF')) {
     typeEl.value = 'TRANSPORT_PAF';
     if (lieuEl) lieuEl.value = s.replace(/^TRANSPORT PAF\s*/i, '').trim();
-  } else if (up.startsWith('INDIVIDU LAISSE LIBRE') || up.startsWith('INDIVIDU LAISSÉ LIBRE')) {
+  } else if (up.startsWith('LAISSÉ LIBRE') || up.startsWith('LAISSÉ LIBRE')) {
     typeEl.value = 'LAISSE_LIBRE';
   }
 
@@ -2387,10 +2387,10 @@ if (typeof bf_trierEsiState === 'function') {
 }
 const esiListCr = state.esiList || [];
 
-// ✅ Compte "INDIVIDU LAISSÉ LIBRE"
+// ✅ Compte "LAISSÉ LIBRE"
 const esiLibres = esiListCr.filter(e => {
   const s = (e.suites || '').toUpperCase();
-  return s.startsWith('INDIVIDU LAISSE LIBRE') || s.startsWith('INDIVIDU LAISSÉ LIBRE');
+  return s.startsWith('LAISSÉ LIBRE') || s.startsWith('LAISSÉ LIBRE');
 }).length;
 
 cr += `\n2 - ESI INTERCEPTÉ(S): ${esiListCr.length}` +
@@ -2408,10 +2408,10 @@ if (typeof bf_trierPasseurState === 'function') {
 }
 const passeurs = state.passeurList || [];
 
-// ✅ Compte "INDIVIDU LAISSÉ LIBRE"
+// ✅ Compte "LAISSÉ LIBRE"
 const passeurLibres = passeurs.filter(p => {
   const s = (p.suites || '').toUpperCase();
-  return s.startsWith('INDIVIDU LAISSE LIBRE') || s.startsWith('INDIVIDU LAISSÉ LIBRE');
+  return s.startsWith('LAISSÉ LIBRE') || s.startsWith('LAISSÉ LIBRE');
 }).length;
 
 cr += `\n3 - PASSEUR(S) INTERCEPTÉ(S): ${passeurs.length}` +
@@ -3021,7 +3021,7 @@ if (suitesType === 'TRANSPORT_PAF' && !suitesLieu) { alert("Merci de préciser l
 
 const suitesDonnees = (suitesType === 'TRANSPORT_PAF')
   ? `TRANSPORT PAF ${suitesLieu}`
-  : `INDIVIDU LAISSE LIBRE`;
+  : `LAISSÉ LIBRE`;
 const situationEsi =
   document.getElementById('situationEsiFiche')?.value || '';
 
@@ -3276,7 +3276,7 @@ if (lieuEl) lieuEl.value = '';
 if (up.startsWith('TRANSPORT PAF')) {
   if (typeEl) typeEl.value = 'TRANSPORT_PAF';
   if (lieuEl) lieuEl.value = s.replace(/^TRANSPORT PAF\s*/i, '').trim();
-} else if (up.startsWith('INDIVIDU LAISSE LIBRE') || up.startsWith('INDIVIDU LAISSÉ LIBRE')) {
+} else if (up.startsWith('LAISSÉ LIBRE') || up.startsWith('LAISSÉ LIBRE')) {
   if (typeEl) typeEl.value = 'LAISSE_LIBRE';
 }
 
