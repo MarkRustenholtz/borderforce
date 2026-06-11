@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Borderforce Scanner</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <!-- Material Symbols Outlined -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
+  
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; background: #0a0a0f; color: #fff; margin: 0; min-height: 100vh; overflow-x: hidden; }
+    .view { display: none; }
+    .view.active { display: flex; }
+    
+    .field-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.04); border-radius: 0.75rem; margin-bottom: 0.5rem; cursor: pointer; transition: background 0.2s; }
+    .field-row:hover { background: rgba(255, 255, 255, 0.08); }
+    .field-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #94a3b8; min-width: 7rem; }
+    .field-value { font-size: 1rem; font-weight: 600; color: #f1f5f9; flex: 1; word-break: break-all; }
+    
+    .valid-badge { background: #22c55e22; color: #22c55e; padding: 2px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; }
+    .partial-badge { background: #3b82f622; color: #3b82f6; padding: 2px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; }
+    .invalid-badge { background: #ef444422; color: #ef4444; padding: 2px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; }
+    
+    .copy-toast { position: fixed; bottom: 5rem; left: 50%; transform: translateX(-50%); background: #22c55e; color: #000; padding: 0.5rem 1.5rem; border-radius: 2rem; font-weight: 700; font-size: 0.8rem; z-index: 100; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+    .copy-toast.show { opacity: 1; }
+    
+    .doc-selector { display: flex; gap: 0.4rem; width: 100%; max-width: 24rem; overflow-x: auto; padding-bottom: 0.25rem; }
+    .doc-btn { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.2rem; min-width: 65px; padding: 0.5rem; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 0.75rem; font-size: 0.6rem; font-weight: 600; color: #94a3b8; text-align: center; transition: all 0.2s; white-space: nowrap; }
+    .doc-btn.active { background: #3b82f6; color: #fff; border-color: #3b82f6; box-shadow: 0 4px 12px rgba(59, 131, 246, 0.3); }
+    .doc-btn .material-symbols-outlined { font-size: 1.15rem; }
+
+    .engine-badge-centered { display: inline-flex; align-items: center; justify-content: center; gap: 0.25rem; background: rgba(255,255,255,0.1); padding: 3px 8px; border-radius: 12px; font-size: 0.6rem; font-weight: bold; backdrop-filter: blur(4px); cursor: pointer; transition: background 0.2s; border: 1px solid transparent; }
+    .engine-badge-centered:hover { background: rgba(255,255,255,0.2); }
+    .engine-native { color: #4ade80; border-color: #4ade8055; }
+    .engine-wasm { color: #facc15; border-color: #facc1555; }
+    
+    .progress-bar-container { width: 100%; height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; margin-top: 8px; }
+    .progress-bar { height: 100%; background: #3b82f6; width: 0%; transition: width 0.3s linear; }
+
+    .custom-checkbox { accent-color: #3b82f6; width: 1.1rem; height: 1.1rem; cursor: pointer; flex-shrink: 0; }
+  </style>
+</head>
+
+<body>
+  <div id="copy-toast" class="copy-toast">✅ Action réussie !</div>
+
+  <!-- MODAL CONSEIL -->
+  <div id="modal-advice" class="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm hidden flex-col items-center justify-center px-6">
+    <div class="bg-slate-900 border border-slate-700 p-6 rounded-2xl max-w-sm w-full text-center shadow-2xl">
+      <div class="text-4xl mb-4">💡</div>
+      <p class="text-slate-300 text-sm mb-4 leading-relaxed">
+        Si le scanner vidéo échoue, <strong class="text-white">utilisez plutôt une photo prise au préalable</strong> dans votre galerie pour un résultat chirurgical.
+      </p>
+      
+      <label class="flex items-center justify-center gap-2 mb-6 cursor-pointer text-slate-400 hover:text-slate-300 group">
+        <input type="checkbox" id="dont-show-again" class="custom-checkbox" style="width: 1rem; height: 1rem;">
+        <span class="text-xs select-none">J'ai compris, ne plus afficher</span>
+      </label>
+
+      <div class="flex flex-col gap-3">
+        <button onclick="confirmStartCamera()" class="w-full bg-blue-600 hover:bg-blue-500 py-3 rounded-xl font-bold text-sm transition-all shadow-lg shadow-blue-600/20">Continuer vers le scanner</button>
+        <button onclick="closeAdviceModal()" class="w-full bg-white/10 hover:bg-white/20 py-3 rounded-xl font-bold text-sm transition-all">Annuler</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL ASTUCE MOTEUR NATIF -->
+  <div id="modal-flags" class="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm hidden flex-col items-center justify-center px-6">
+    <div class="bg-slate-900 border border-slate-700 p-6 rounded-2xl max-w-sm w-full text-left shadow-2xl">
+      <h3 class="text-lg font-bold mb-2 text-emerald-400 flex items-center gap-2">
+        <span class="material-symbols-outlined">bolt</span> Mode Natif
+      </h3>
+      <p class="text-slate-300 text-xs mb-4 leading-relaxed">Le mode natif utilise l'accélération matérielle (NPU/GPU) pour le scan vidéo en temps réel.<br><br>S'il n'est pas actif sur votre navigateur (Chrome Android / Bureau), vous pouvez l'activer manuellement :</p>
+      <ol class="text-slate-400 text-xs space-y-3 mb-6 list-decimal pl-4">
+        <li>Copiez cette adresse : <br><code class="text-blue-300 bg-black/50 px-2 py-1 rounded select-all mt-1 block border border-blue-900/50">chrome://flags/#enable-experimental-web-platform-features</code></li>
+        <li>Ouvrez un nouvel onglet et collez l'adresse.</li>
+        <li>Passez le menu sur <strong class="text-white">Enabled</strong>.</li>
+        <li>Appuyez sur le bouton bleu <strong class="text-white">Relaunch</strong> en bas.</li>
+      </ol>
+      <button onclick="closeFlagsModal()" class="w-full bg-slate-700 hover:bg-slate-600 py-3 rounded-xl font-bold text-sm transition-all">J'ai compris</button>
+    </div>
+  </div>
+
+  <!-- 1. CHARGEMENT -->
+  <div id="view-loading" class="view active fixed inset-0 z-50 bg-[#0a0a0f] flex flex-col items-center justify-center px-8">
+    <span class="material-symbols-outlined text-blue-500 animate-pulse mb-6" style="font-size: 4rem;">detection_and_zone</span>
+    <h1 class="text-xl font-bold mb-2">Borderforce Scanner</h1>
+    <div class="w-full max-w-xs bg-slate-800 rounded-full h-2 mt-4 overflow-hidden">
+      <div id="load-progress" class="bg-blue-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+    </div>
+    <p id="load-status" class="text-slate-500 text-xs mt-3 font-mono">Chargement des modèles...</p>
+  </div>
+
+  <!-- 2. PRÊT -->
+  <div id="view-ready" class="view fixed inset-0 z-50 bg-[#0a0a0f] flex flex-col items-center justify-center px-4 sm:px-8 relative">
+    
+    <div class="w-full max-w-sm flex flex-col items-center gap-5">
+      
+      <div id="engine-indicator" class="engine-badge-centered engine-wasm" onclick="showFlagsModal()">Moteur: Détection...</div>
+      
+      <div class="text-center flex flex-col items-center">
+        <span class="material-symbols-outlined text-blue-500 mb-2" style="font-size: 4.5rem; font-variation-settings: 'wght' 300;">detection_and_zone</span>
+        <h1 class="text-2xl font-bold mb-1">Borderforce Scanner</h1>
+        <p class="text-amber-400 text-[0.65rem] leading-snug px-2 font-medium max-w-[18rem]">
+          ⚠️ Vérifiez toujours manuellement les éléments scannés, des erreurs peuvent survenir ⚠️
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2 w-full" id="ready-selector">
+        <button class="doc-btn active col-span-2" data-type="AUTO">
+          <span class="material-symbols-outlined">document_scanner</span>AUTO
+        </button>
+        <button class="doc-btn" data-type="PASSEPORT">
+          <span class="material-symbols-outlined">book</span>PASS
+        </button>
+        <button class="doc-btn" data-type="PERMIS_FR">
+          <span class="material-symbols-outlined">directions_car</span>PERMIS
+        </button>
+        <button class="doc-btn" data-type="TITRE_SEJOUR">
+          <span class="material-symbols-outlined">assignment_ind</span>SÉJOUR
+        </button>
+        <button class="doc-btn" data-type="CNI">
+          <span class="material-symbols-outlined">badge</span>CNI
+        </button>
+      </div>
+
+      <div class="w-full flex flex-col gap-3 items-center">
+        <div id="wasm-warning" class="hidden w-full p-3 bg-facc15/10 border border-facc15/30 rounded-xl text-facc15 text-xs text-center cursor-pointer transition-all hover:bg-facc15/20" onclick="showFlagsModal()">
+          <span class="material-symbols-outlined align-middle mr-1" style="font-size: 1.1rem;">warning</span>
+          Scanner vidéo indisponible.<br>
+          <span class="underline font-bold mt-1 inline-block">Cliquez ici pour l'activer.</span>
+        </div>
+
+        <button id="btn-start-scan" onclick="showAdviceModal()" class="w-full bg-blue-600 hover:bg-blue-500 py-3.5 rounded-xl font-bold text-[0.95rem] transition-all shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-[1.2rem]">photo_camera</span> Scanner le document
+        </button>
+
+        <label id="btn-import-label" class="w-full py-3.5 rounded-xl font-bold text-[0.95rem] transition-all text-center cursor-pointer flex items-center justify-center gap-2 border border-white/10 bg-white/5 hover:bg-white/10">
+          <span class="material-symbols-outlined text-[1.2rem]">image</span> Importer de la galerie
+          <input type="file" id="fileUpload" accept="image/*" class="hidden" />
+        </label>
+      </div>
+
+      <div class="text-center w-full opacity-40 text-[9px] text-slate-500 tracking-[0.2em] uppercase font-bold mt-1">
+        G/ Maheux - Adj Rustenholtz
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. SCANNER CAMÉRA -->
+  <div id="view-scanning" class="view fixed inset-0 z-50 bg-black flex flex-col">
+    <video id="video-stream" class="w-full h-full object-cover" playsinline muted></video>
+    
+    <div class="absolute inset-0 pointer-events-none flex flex-col items-center justify-center">
+      <div class="w-[90%] max-w-[400px] aspect-[1.58/1] border-2 border-blue-500/50 rounded-xl relative overflow-hidden shadow-[0_0_0_9999px_rgba(0,0,0,0.6)]">
+        <div class="absolute bottom-0 left-0 w-full h-[30%] bg-blue-500/20 border-t border-blue-500/50 flex items-center justify-center">
+          <span class="text-blue-300/80 text-[10px] font-bold tracking-widest uppercase">Alignez le document</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-8 left-0 w-full px-6">
+      <div class="bg-black/80 backdrop-blur-md p-4 rounded-2xl border border-slate-800 text-center">
+        <p id="scan-feedback" class="text-sm font-medium text-blue-400 mb-1 animate-pulse">Acquisition des données...</p>
+        <div class="progress-bar-container mb-3">
+          <div id="timeout-progress" class="progress-bar"></div>
+        </div>
+        
+        <div class="flex gap-2">
+          <button onclick="cancelScan()" class="flex-1 bg-white/10 py-3 rounded-lg font-bold text-sm">Annuler</button>
+          <button onclick="forceCapture()" class="flex-1 bg-slate-700 py-3 rounded-lg font-bold text-sm" id="btn-force">📸 Forcer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. RÉSULTAT -->
+  <div id="view-result" class="view fixed inset-0 z-50 bg-[#0a0a0f] flex flex-col overflow-y-auto">
+    <div class="px-5 py-6 flex-1 w-full max-w-lg mx-auto">
+      <div class="flex items-center justify-between mb-2">
+        <h2 class="text-xl font-bold">Données Extraites</h2>
+        <span id="res-valid-badge" class="valid-badge">—</span>
+      </div>
+      <p class="text-[0.65rem] text-slate-400 mb-5">Décochez les informations que vous ne souhaitez pas partager.</p>
+      
+      <div id="res-fields" class="flex flex-col gap-2 mb-6"></div>
+
+      <div class="flex gap-3 mb-3">
+        <button onclick="copySelectedFields()" class="flex-1 bg-blue-600 hover:bg-blue-500 py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg shadow-blue-600/20 flex flex-col items-center justify-center gap-1">
+          <span class="material-symbols-outlined text-[1.2rem]">content_copy</span>
+          Copier
+        </button>
+        <button onclick="shareSelectedFields()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg shadow-emerald-600/20 flex flex-col items-center justify-center gap-1">
+          <span class="material-symbols-outlined text-[1.2rem]">share</span>
+          Partager
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-3 mb-6">
+        <button onclick="sendToCallingApp()" class="w-full bg-indigo-600 hover:bg-indigo-500 py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg shadow-indigo-600/20 flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-[1.2rem]">send</span>
+          Envoyer vers la fiche identité
+        </button>
+        <div class="grid grid-cols-2 gap-3">
+          <button onclick="sendToSpecificApp('borderforce')" class="bg-white/10 hover:bg-white/20 py-3 rounded-xl font-bold text-xs transition-all">BorderForce</button>
+          <button onclick="sendToSpecificApp('compteur')" class="bg-white/10 hover:bg-white/20 py-3 rounded-xl font-bold text-xs transition-all">Compteur</button>
+        </div>
+        <p class="text-[0.65rem] text-slate-500 text-center leading-snug">
+          Depuis BorderForce ou Compteur, le bouton principal remplit automatiquement la fiche identité ouverte.
+        </p>
+      </div>
+
+      <details class="bg-slate-900/50 rounded-xl p-4 border border-slate-800">
+        <summary class="text-xs text-slate-500 cursor-pointer outline-none">Données brutes non filtrées (Debug)</summary>
+        <pre id="res-raw" class="text-[10px] font-mono text-slate-500 mt-3 whitespace-pre-wrap break-all"></pre>
+      </details>
+    </div>
+    <div class="px-5 pb-6 w-full max-w-lg mx-auto">
+      <button onclick="resetApp()" class="w-full bg-white/10 hover:bg-white/20 py-4 rounded-xl font-bold text-sm transition-all">Nouveau scan</button>
+    </div>
+  </div>
+
+  <canvas id="canvas-mrz" class="hidden"></canvas>
+
+  <script>
+    // =====================================================================
+    // VARIABLES GLOBALES
+    // =====================================================================
+    const views = {};
+    let video, canvas, ctx;
+    let mrzParse = null;
+    let scanTimeout = null;
+    let ocrEngine = 'NONE'; 
+    let tesseractWorker = null;
+    let isScanning = false;
+    let selectedDocType = 'AUTO';
+    let finalFields = {};
+
+    const MAX_FRAMES = 8;
+    let scanFrames = [];
+    let frameCount = 0;
+
+    const FORBIDDEN_WORDS = [
+      'TITRE DE SEJOUR', 'CARTE NATIONALE', 'IDENTITE', 'PASSEPORT', 'PASSPORT',
+      'PERMIS', 'CONDUIRE', 'DRIVING', 'LICENSE', 'REPUBLIQUE', 'FRANCAISE', 'FRANGAISE'
+    ];
+
+    const OCR_NOISE = /\b(ULOME|SURNAME|GIVEN|NAMES|SCE|NOM|PRENOM|TYPE|DOCUMENT|ETAT|CIVIL)\b/gi;
+
+    const ALLOWED_DOC_TYPES = {
+      'PASSEPORT': 'Passeport',
+      'CNI': 'CNI',
+      'TITRE_SEJOUR': 'Titre de séjour',
+      'PERMIS_FR': 'Permis de conduire'
+    };
+
+    const FIELD_ORDER = [
+      'Type de document', 'N° de titre', 'Nom', 'Prénom', 
+      'Date de naissance', 'Lieu de naissance', 'Sexe', 'Nationalité', 
+      'Date d\'émission', 'Délivré par', 'Date de péremption'
+    ];
+
+    // =====================================================================
+    // FORMATAGE STRICT ET CORRECTIONS CHIRURGICALES
+    // =====================================================================
+    function containsForbiddenWord(text) {
+      if (!text) return false;
+      const upper = text.toUpperCase().replace(/[^A-Z]/g, '');
+      return FORBIDDEN_WORDS.some(word => upper.includes(word.replace(/[^A-Z]/g, '')));
+    }
+
+    function cleanName(name) {
+      if (!name) return null;
+      let clean = name;
+      
+      clean = clean.replace(/[a-z]/g, ''); 
+      clean = clean.toUpperCase();
+      
+      clean = clean.replace(OCR_NOISE, '');
+      clean = clean.replace(/^[0-9]+[.\-:]?\s*/g, ''); 
+      
+      clean = clean.replace(/[^\w\s\-À-Ÿ,]/g, ' ').trim();
+      clean = clean.replace(/^,+|,+$/g, '').trim();
+      clean = clean.replace(/\s+/g, ' ');
+
+      if (clean.length < 2 || containsForbiddenWord(clean)) return null;
+      return clean;
+    }
+
+    function cleanDateDigits(str) {
+      if (!str) return "";
+      return str.replace(/O/g, '0')
+                .replace(/I/g, '1')
+                .replace(/[l]/g, '1')
+                .replace(/[S]/g, '5')
+                .replace(/[Z]/g, '2')
+                .replace(/[B]/g, '8')
+                .replace(/Q/g, '0');
+    }
+
+    function strictDateFormatter(rawDate, type = 'birth') {
+      if (!rawDate) return null;
+      const cleaned = cleanDateDigits(rawDate);
+      
+      if (/^\d{6}$/.test(cleaned)) {
+        let yy = parseInt(cleaned.substring(0,2), 10);
+        let mm = cleaned.substring(2,4);
+        let dd = cleaned.substring(4,6);
+        let currentYear = new Date().getFullYear() % 100;
+        let yyyy;
+
+        if (type === 'expiry') {
+            yyyy = '20' + cleaned.substring(0,2); 
+        } else {
+            yyyy = (yy > currentYear ? '19' : '20') + cleaned.substring(0,2);
+        }
+        return `${dd}.${mm}.${yyyy}`;
+      }
+      
+      const match = cleaned.match(/\b(\d{2})[./\-\s]+(\d{2})[./\-\s]+(\d{4})\b/);
+      if (match) {
+          let dd = match[1], mm = match[2], yyyy = match[3];
+          if (parseInt(mm) >= 1 && parseInt(mm) <= 12 && parseInt(dd) >= 1 && parseInt(dd) <= 31) {
+              return `${dd}.${mm}.${yyyy}`;
+          }
+      }
+      return null;
+    }
+
+    function extractSortedDates(rawText) {
+      const dateRegex = /(\d{2})[./\-\s]+(\d{2})[./\-\s]+(\d{4})/g;
+      let match;
+      let dates = [];
+      const cleanText = cleanDateDigits(rawText); 
+      
+      while ((match = dateRegex.exec(cleanText)) !== null) {
+          let dd = parseInt(match[1], 10), mm = parseInt(match[2], 10), yyyy = parseInt(match[3], 10);
+          if (mm >= 1 && mm <= 12 && dd >= 1 && dd <= 31 && yyyy >= 1900 && yyyy <= 2100) {
+              dates.push({
+                  str: `${match[1].padStart(2, '0')}.${match[2].padStart(2, '0')}.${match[3]}`,
+                  val: yyyy * 10000 + mm * 100 + dd
+              });
+          }
+      }
+      const unique = []; const seen = new Set();
+      for(let d of dates) { if(!seen.has(d.str)) { seen.add(d.str); unique.push(d); } }
+      unique.sort((a,b) => a.val - b.val);
+      return unique;
+    }
+
+    function getStrictDocType(format, rawText) {
+      if (selectedDocType !== 'AUTO') return selectedDocType;
+      if (format === 'PASSEPORT') return ALLOWED_DOC_TYPES.PASSEPORT;
+      if (format === 'PERMIS_FR') return ALLOWED_DOC_TYPES.PERMIS_FR;
+      if (format === 'CNI') return ALLOWED_DOC_TYPES.CNI;
+      if (format === 'TITRE_SEJOUR') return ALLOWED_DOC_TYPES.TITRE_SEJOUR;
+      
+      const upperText = (rawText || '').toUpperCase();
+      if (format === 'TD1' || upperText.includes('IDENTIT')) return ALLOWED_DOC_TYPES.CNI;
+      if (upperText.includes('PERMIS') && upperText.includes('CONDUIRE')) return ALLOWED_DOC_TYPES.PERMIS_FR;
+      if (upperText.includes('PASSEPORT') || upperText.includes('RASSPORT')) return ALLOWED_DOC_TYPES.PASSEPORT;
+      if (upperText.includes('SEJOUR') || upperText.includes('RESIDENT')) return ALLOWED_DOC_TYPES.TITRE_SEJOUR;
+
+      return null;
+    }
+
+    // =====================================================================
+    // EXTRACTION CHIRURGICALE UNIFIÉE
+    // =====================================================================
+    function extractDocumentData(rawText) {
+      if (!rawText) return {};
+      let format = null, documentNumber = null, fields = {};
+      const rawUpper = rawText.toUpperCase();
+
+      const sortedDates = extractSortedDates(rawUpper);
+      const noSpace = rawUpper.replace(/[\s\n]+/g, '').replace(/[«]/g, '<');
+
+      // 1. PASSEPORT MRZ STANDARD (TD3)
+      let mrzPassStandard = noSpace.match(/P[A-Z<]*FRA([A-Z0-9]+?)(?:K<|C<|E<|[<C]{2,})([A-Z0-9<C]+?)[<C]{2,}([A-Z0-9]{9})[0-9A-Z][A-Z<C]{3}([0-9A-Z]{6})[0-9A-Z][MF<C]([0-9A-Z]{6})/);
+
+      // 1b. PASSEPORT MRZ ALTERNATIF
+      let mrzPassAlt = noSpace.match(/P[A-Z<C]*FRA([A-Z0-9]+?)[<C]{2,}([A-Z0-9]{9})[0-9A-Z][A-Z<C]{0,3}([0-9A-Z]{6})[0-9A-Z][MF<C]([0-9A-Z]{6})[0-9A-Z][A-Z<C]{3}[<C]+[0-9A-Z]{1,2}([A-Z<C]+)/);
+
+      // 2. NOUVELLE CNI FRANÇAISE MRZ (TD1) - DOIT PASSER AVANT L'ANCIENNE !
+      let mrzCniNew = noSpace.match(/I[A-Z<C]FRA([A-Z0-9]{9})[0-9A-Z][<C]+([0-9A-Z]{6})[0-9A-Z][MF<C]([0-9A-Z]{6})[0-9A-Z][A-Z<C]{3}[<C]+[0-9A-Z]?([A-Z]+)[<C]{2,}([A-Z<C]+)/);
+
+      // 3. ANCIENNE CNI FRANÇAISE MRZ - Verrouillée sur [0-9OQ]{12} pour ne pas voler la nouvelle CNI
+      let mrzCniOld = noSpace.match(/I[D1lO]FRA([A-Z0-9]+?)[<C]+.*?([0-9OQ]{12})[0-9OQ]([A-Z]+[A-Z0-9<C]*?)([0-9OQ]{6})[0-9OQ][MF<C]/);
+
+      // 4. PERMIS DE CONDUIRE MRZ
+      let mrzPermis = noSpace.match(/D[1I]FRA([A-Z0-9]{9})\d([0-9A-Z]{6})([A-ZÀ-Ÿ]+)<</);
+
+      // 5. TITRE DE SÉJOUR MRZ
+      let mrzTitreSejour = noSpace.match(/I[R<C]FRA([A-Z0-9]{9,10})[<C]+.*?([0-9A-Z]{6})[0-9A-Z][MF<C]([0-9A-Z]{6})[0-9A-Z]([A-Z<C]{3})[0-9A-Z<C]*?([A-Z0-9]{2,})[<C]+([A-Z0-9<C]{2,})/);
+
+      // --- APPLICATION DES VÉRITÉS ABSOLUES MRZ ---
+      if (mrzPassStandard) {
+          format = 'PASSEPORT';
+          fields.lastName = mrzPassStandard[1].replace(/</g, ' ').trim();
+          fields.firstName = mrzPassStandard[2].split(/<+/)[0].trim();
+          documentNumber = mrzPassStandard[3].replace(/O/g, '0');
+          fields.birthDate = cleanDateDigits(mrzPassStandard[4]);
+          fields.expirationDate = cleanDateDigits(mrzPassStandard[5]);
+          fields.nationality = 'FRA';
+      } 
+      else if (mrzPassAlt) {
+          format = 'PASSEPORT';
+          fields.lastName = mrzPassAlt[1].replace(/0/g, 'O').replace(/</g, ' ').trim();
+          documentNumber = mrzPassAlt[2].replace(/O/g, '0');
+          fields.birthDate = cleanDateDigits(mrzPassAlt[3]);
+          fields.expirationDate = cleanDateDigits(mrzPassAlt[4]);
+          fields.nationality = 'FRA';
+          fields.firstName = mrzPassAlt[5].replace(/0/g, 'O').split(/<+/)[0].trim();
+      }
+      else if (mrzCniNew) {
+          format = 'CNI';
+          documentNumber = mrzCniNew[1].replace(/O/g, '0');
+          fields.birthDate = cleanDateDigits(mrzCniNew[2]);
+          fields.expirationDate = cleanDateDigits(mrzCniNew[3]);
+          fields.lastName = mrzCniNew[4].replace(/0/g, 'O').replace(/<+/g, ' ').trim();
+          fields.firstName = mrzCniNew[5].replace(/0/g, 'O').split(/<+/)[0].trim();
+      }
+      else if (mrzCniOld) {
+          format = 'CNI';
+          fields.lastName = mrzCniOld[1].replace(/0/g, 'O');
+          documentNumber = mrzCniOld[2].replace(/[OQ]/g, '0');
+          fields.firstName = mrzCniOld[3].replace(/[0-9]/g, '').split(/<+/)[0].trim();
+          fields.birthDate = cleanDateDigits(mrzCniOld[4]);
+      }
+      else if (mrzTitreSejour) {
+          format = 'TITRE_SEJOUR';
+          documentNumber = mrzTitreSejour[1].replace(/O/g, '0');
+          fields.birthDate = cleanDateDigits(mrzTitreSejour[2]);
+          fields.expirationDate = cleanDateDigits(mrzTitreSejour[3]);
+          fields.nationality = mrzTitreSejour[4].replace(/[<C]/g, '');
+          let ln = mrzTitreSejour[5].replace(/0/g, 'O');
+          if (ln.endsWith('K') && ln.length > 3) ln = ln.slice(0, -1);
+          fields.lastName = ln;
+          fields.firstName = mrzTitreSejour[6].replace(/0/g, 'O').split(/<+/)[0].trim();
+      }
+      else {
+          if (mrzPermis) {
+             format = 'PERMIS_FR';
+             documentNumber = mrzPermis[1].replace(/O/g, '0');
+             fields.expirationDate = cleanDateDigits(mrzPermis[2]);
+             fields.lastName = mrzPermis[3];
+          }
+
+          // --- LECTURE DES ANCRES VISUELLES ---
+          const lines = rawText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+          
+          for (let i = 0; i < lines.length; i++) {
+              let l = lines[i];
+
+              let m1 = l.match(/^1[\s.,:-]+(?:[0-9]\s*|[A-Z]\s+)?(.*)/i);
+              if (m1 && !fields.lastName) fields.lastName = m1[1];
+
+              let m2 = l.match(/^2[\s.,:-]+(?:[0-9]\s*|[A-Z]\s+)?(.*)/i);
+              if (m2 && !fields.firstName) fields.firstName = m2[1];
+
+              let m3 = l.match(/^3[\s.,:-]+(?:.*?)?(\d{2}[./\-\s]+\d{2}[./\-\s]+\d{4})\s*(?:\(?([^)\n]+)\)?)?/i);
+              if (m3) {
+                  if (!fields.birthDate) fields.birthDate = m3[1];
+                  if (m3[2] && !fields.placeOfBirth) fields.placeOfBirth = m3[2].replace(/[<()]/g, '').trim();
+              }
+
+              let m4a = l.match(/^4[aA][\s.,:-]+(?:.*?)?(\d{2}[./\-\s]+\d{2}[./\-\s]+\d{4})/i);
+              if (m4a && !fields.issueDate) fields.issueDate = m4a[1];
+
+              let m4b = l.match(/^4[bB8][\s.,:-]+(?:.*?)?(\d{2}[./\-\s]+\d{2}[./\-\s]+\d{4})/i);
+              if (m4b && !fields.expirationDate) fields.expirationDate = m4b[1];
+
+              let m4c = l.match(/^4[cC][\s.,:-]+(.+)/i);
+              if (m4c && !fields.issuedBy) fields.issuedBy = m4c[1].replace(/4[A-Z0-9].*$/, '').trim();
+
+              let m5 = l.match(/^[5S6][\s.,:-]+([A-Z0-9]{5,15})/i);
+              if (m5 && !documentNumber) documentNumber = m5[1].replace(/O/g, '0');
+
+              let cniNom = l.match(/^(?:NOM|NQM)[.\s:]+([A-ZÀ-Ÿ\-]{2,})/i);
+              if (cniNom && !fields.lastName) fields.lastName = cniNom[1];
+
+              let cniPrenom = l.match(/^(?:PR[EÉ]NOM.*?)[.\s:]+([A-ZÀ-Ÿ\-, ]{2,})/i);
+              if (cniPrenom && !fields.firstName) fields.firstName = cniPrenom[1].replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+
+              let cniDateLieu = l.match(/N[EÉ](?:E)?\s*LE\s*[:\s]*(\d{2}[./\-\s]+\d{2}[./\-\s]+\d{4})/i);
+              if (cniDateLieu && !fields.birthDate) {
+                  fields.birthDate = cniDateLieu[1];
+              }
+
+              let cniLieu = l.match(/(?:^|\s)[AÀaà]\s*[:;]\s*([A-ZÀ-Ÿ\-\s]+)/i);
+              if (cniLieu && !fields.placeOfBirth) fields.placeOfBirth = cniLieu[1].trim();
+
+              let cniNum = l.match(/(?:NATIONALE.*?N[°0O]?|N\s*:)\s*([0-9OA-Z]{12})/i);
+              if (cniNum && !documentNumber) documentNumber = cniNum[1].replace(/[OQ]/gi, '0').replace(/A/gi, '4'); 
+          }
+
+          let lieuNaiss = rawText.match(/LIEU DE NAISSANCE.*?\n([A-ZÀ-Ÿ\-\s()]+)/i);
+          if (lieuNaiss && !fields.placeOfBirth) fields.placeOfBirth = lieuNaiss[1].replace(/[()]/g, '').trim();
+
+          let dateDeliv = rawUpper.match(/D[EÉ]LIVRANCE.*?\n(\d{2}[./\-\s]+\d{2}[./\-\s]+\d{4})/);
+          if (dateDeliv && !fields.issueDate) fields.issueDate = dateDeliv[1];
+
+          if (fields.birthDate && !fields.placeOfBirth) {
+              let cleanDate = fields.birthDate.replace(/\./g, '\\.');
+              let bMatch = rawUpper.match(new RegExp(cleanDate + '\\s*\\n\\s*\\(?([A-ZÀ-Ÿ\\-\\s]{3,})\\)?'));
+              if (bMatch) fields.placeOfBirth = bMatch[1].replace(/^[A-ZÀ-Ÿ]*LE\s+/i, '').trim();
+          }
+
+          if (sortedDates.length > 0) {
+              if (!fields.birthDate) fields.birthDate = sortedDates[0].str; 
+              if (sortedDates.length > 1 && !fields.expirationDate) fields.expirationDate = sortedDates[sortedDates.length - 1].str;
+              if (sortedDates.length > 2 && !fields.issueDate) fields.issueDate = sortedDates[1].str;
+          }
+      }
+
+      return { format, documentNumber, fields };
+    }
+
+    function applyStrictRules(extractedData, rawText) {
+      let rawFn = cleanName(extractedData.fields?.firstName);
+      let primaryFn = rawFn ? rawFn.split(/\s+/)[0] : null;
+
+      const strictResult = {
+        'Type de document': getStrictDocType(extractedData.format, rawText),
+        'N° de titre': null,
+        'Nom': cleanName(extractedData.fields?.lastName),
+        'Prénom': primaryFn,
+        'Date de naissance': strictDateFormatter(extractedData.fields?.birthDate, 'birth'),
+        'Lieu de naissance': extractedData.fields?.placeOfBirth,
+        'Date d\'émission': strictDateFormatter(extractedData.fields?.issueDate, 'issue'),
+        'Délivré par': extractedData.fields?.issuedBy,
+        'Date de péremption': strictDateFormatter(extractedData.fields?.expirationDate, 'expiry'),
+        'Sexe': extractedData.fields?.sex,
+        'Nationalité': extractedData.fields?.nationality
+      };
+
+      const docNum = extractedData.documentNumber;
+      if (docNum && docNum.length >= 5 && !containsForbiddenWord(docNum)) {
+        strictResult['N° de titre'] = docNum.toUpperCase().replace(/[^A-Z0-9]/g, '');
+      }
+
+      return { strictFields: strictResult };
+    }
+
+    // =====================================================================
+    // GESTION DES MODALES
+    // =====================================================================
+    function showAdviceModal() {
+      if (localStorage.getItem('borderforce_hide_advice') === 'true') {
+        startCamera();
+      } else {
+        document.getElementById('modal-advice').classList.replace('hidden', 'flex');
+      }
+    }
+
+    function closeAdviceModal() {
+      document.getElementById('modal-advice').classList.replace('flex', 'hidden');
+    }
+
+    function confirmStartCamera() {
+      const dontShow = document.getElementById('dont-show-again').checked;
+      if (dontShow) {
+        localStorage.setItem('borderforce_hide_advice', 'true');
+      }
+      closeAdviceModal();
+      startCamera();
+    }
+
+    function showFlagsModal() {
+      document.getElementById('modal-flags').classList.replace('hidden', 'flex');
+    }
+
+    function closeFlagsModal() {
+      document.getElementById('modal-flags').classList.replace('flex', 'hidden');
+    }
+
+    // =====================================================================
+    // MOTEUR OCR & APP INIT
+    // =====================================================================
+    window.addEventListener('DOMContentLoaded', async () => {
+      ['loading', 'ready', 'scanning', 'result'].forEach(n => views[n] = document.getElementById('view-' + n));
+      video = document.getElementById('video-stream');
+      canvas = document.getElementById('canvas-mrz');
+      ctx = canvas.getContext('2d', { willReadFrequently: true });
+      document.getElementById('fileUpload').addEventListener('change', handleFileUpload);
+
+      document.querySelectorAll('.doc-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          selectedDocType = btn.getAttribute('data-type');
+          document.querySelectorAll('.doc-btn').forEach(b => {
+            if (b.getAttribute('data-type') === selectedDocType) b.classList.add('active');
+            else b.classList.remove('active');
+          });
+        });
+      });
+      await loadEngines();
+    });
+
+    function switchView(name) {
+      Object.values(views).forEach(v => { v.classList.remove('active'); v.classList.add('hidden'); });
+      views[name].classList.add('active');
+      views[name].classList.remove('hidden');
+    }
+
+    async function loadEngines() {
+      const status = document.getElementById('load-status'), bar = document.getElementById('load-progress');
+      const btnScan = document.getElementById('btn-start-scan');
+      const btnImport = document.getElementById('btn-import-label');
+      const warningWasm = document.getElementById('wasm-warning');
+
+      try {
+        status.innerText = "Chargement des modules..."; bar.style.width = '30%';
+        const mod = await import('https://esm.sh/mrz@5'); mrzParse = mod.parse;
+        
+        if ('TextDetector' in window) {
+          ocrEngine = 'NATIVE';
+          document.getElementById('engine-indicator').innerHTML = "<span class='material-symbols-outlined text-sm'>bolt</span> Moteur Natif <span class='text-[7px] ml-1 bg-white/20 px-1 py-0.5 rounded-full'>INFO</span>";
+          document.getElementById('engine-indicator').className = "engine-badge-centered engine-native"; 
+          btnScan.classList.remove('hidden');
+          warningWasm.classList.add('hidden');
+          bar.style.width = '100%';
+        } else {
+          ocrEngine = 'TESSERACT';
+          document.getElementById('engine-indicator').innerHTML = "🐢 Moteur Web <span class='text-[7px] ml-1 bg-white/20 px-1 py-0.5 rounded-full'>INFO</span>";
+          document.getElementById('engine-indicator').className = "engine-badge-centered engine-wasm"; 
+          btnScan.classList.add('hidden');
+          warningWasm.classList.remove('hidden');
+          btnImport.className = "w-full py-3.5 rounded-xl font-bold text-base transition-all text-center cursor-pointer flex items-center justify-center gap-2 border border-blue-500 bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-600/20";
+          bar.style.width = '60%';
+          tesseractWorker = await Tesseract.createWorker('eng');
+          await tesseractWorker.setParameters({ tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<', });
+          bar.style.width = '100%';
+        }
+        setTimeout(() => switchView('ready'), 500);
+      } catch (err) { status.innerText = "Erreur: " + err.message; }
+    }
+
+    async function extractTextData(imageSource) {
+      let srcW = imageSource === 'camera' ? video.videoWidth : imageSource.width;
+      let srcH = imageSource === 'camera' ? video.videoHeight : imageSource.height;
+      canvas.width = srcW; canvas.height = srcH;
+      if (imageSource === 'camera') ctx.drawImage(video, 0, 0, srcW, srcH);
+      else ctx.drawImage(imageSource, 0, 0, srcW, srcH);
+
+      let rawText = "";
+      if (ocrEngine === 'NATIVE') {
+        try {
+          const detector = new TextDetector(); const detectedTexts = await detector.detect(canvas);
+          rawText = detectedTexts.map(t => t.rawValue).join('\n');
+        } catch (e) { }
+      } else {
+        ctx.filter = 'contrast(1.5) grayscale(1)'; ctx.drawImage(canvas, 0, 0); ctx.filter = 'none';
+        const { data } = await tesseractWorker.recognize(canvas); rawText = data.text;
+      }
+      return rawText;
+    }
+
+    // =====================================================================
+    // CAMERA & VIDÉO
+    // =====================================================================
+    async function startCamera() {
+      switchView('scanning'); 
+      isScanning = true; 
+      scanFrames = [];
+      frameCount = 0;
+      
+      document.getElementById('scan-feedback').innerText = `Acquisition des données (0/${MAX_FRAMES})...`;
+      document.getElementById('timeout-progress').style.width = '0%';
+      
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } } });
+        video.srcObject = stream; await video.play(); scanLoop();
+      } catch (err) { document.getElementById('scan-feedback').innerText = "Erreur Caméra. Autorisez l'accès."; }
+    }
+
+    function stopVideo() { isScanning = false; if (scanTimeout) clearTimeout(scanTimeout); if (video.srcObject) video.srcObject.getTracks().forEach(t => t.stop()); }
+    function cancelScan() { stopVideo(); switchView('ready'); }
+    
+    function forceCapture() { 
+      if (!isScanning) return; 
+      stopVideo(); 
+      processConsensusAndShowResult(); 
+    }
+
+    async function scanLoop() {
+      if (!isScanning || !video.srcObject || video.paused) return;
+      try {
+        const rawText = await extractTextData('camera');
+        
+        scanFrames.push(rawText);
+        frameCount++;
+
+        document.getElementById('scan-feedback').innerText = `Acquisition image (${frameCount}/${MAX_FRAMES})...`;
+        document.getElementById('timeout-progress').style.width = `${(frameCount / MAX_FRAMES) * 100}%`;
+
+        if (frameCount >= MAX_FRAMES) {
+            stopVideo();
+            processConsensusAndShowResult();
+            return;
+        }
+      } catch (e) { }
+      
+      scanTimeout = setTimeout(scanLoop, ocrEngine === 'NATIVE' ? 250 : 800);
+    }
+
+    function processConsensusAndShowResult() {
+        let allResults = [];
+        let megaRawText = "";
+
+        for (let rawText of scanFrames) {
+            megaRawText += rawText + "\n";
+            const rawData = extractDocumentData(rawText);
+            const strictData = applyStrictRules(rawData, rawText);
+            allResults.push(strictData.strictFields);
+        }
+
+        const megaRawData = extractDocumentData(megaRawText);
+        const megaStrictData = applyStrictRules(megaRawData, megaRawText);
+        allResults.push(megaStrictData.strictFields);
+
+        let finalConsensus = {};
+        for (const key of FIELD_ORDER) {
+            let counts = {};
+            let maxCount = 0;
+            let bestValue = null;
+            
+            for (let res of allResults) {
+                const val = res[key];
+                if (val) {
+                    counts[val] = (counts[val] || 0) + 1;
+                    if (counts[val] > maxCount) { maxCount = counts[val]; bestValue = val; }
+                }
+            }
+            finalConsensus[key] = bestValue;
+        }
+
+        const isOptimal = (
+            finalConsensus['Type de document'] !== null && 
+            finalConsensus['N° de titre'] !== null && 
+            finalConsensus['Nom'] !== null && 
+            finalConsensus['Date de naissance'] !== null
+        );
+        
+        let score = 0; Object.values(finalConsensus).forEach(val => { if (val !== null) score++; });
+        
+        showResult({ isOptimal, score, strictFields: finalConsensus }, megaRawText, !isOptimal);
+    }
+
+    // =====================================================================
+    // UPLOAD PHOTO GALERIE
+    // =====================================================================
+    function handleFileUpload(event) {
+      const file = event.target.files[0]; if (!file) return;
+      switchView('loading'); document.getElementById('load-status').innerText = "Extraction chirurgicale en cours..."; 
+      
+      const img = new Image();
+      img.onload = async () => {
+        const rawText = await extractTextData(img);
+        const rawData = extractDocumentData(rawText);
+        const strictData = applyStrictRules(rawData, rawText);
+        
+        const isOptimal = (strictData.strictFields['Type de document'] && strictData.strictFields['N° de titre'] && strictData.strictFields['Nom'] && strictData.strictFields['Date de naissance']);
+        let score = 0; Object.values(strictData.strictFields).forEach(val => { if (val !== null) score++; });
+        
+        showResult({ isOptimal, score, strictFields: strictData.strictFields }, rawText, !isOptimal);
+      };
+      img.src = URL.createObjectURL(file);
+    }
+
+    // =====================================================================
+    // AFFICHAGE ET EXPORT (CASES À COCHER)
+    // =====================================================================
+    function resetApp() { switchView('ready'); }
+
+    function getIconForLabel(label) {
+        if (label.includes('Date')) return 'calendar_today';
+        if (label === 'Nom' || label === 'Prénom') return 'person';
+        if (label === 'Lieu de naissance') return 'location_on';
+        if (label === 'Délivré par') return 'account_balance';
+        if (label.includes('N°')) return 'badge';
+        if (label === 'Sexe') return 'wc';
+        if (label === 'Nationalité') return 'public';
+        return 'info';
+    }
+
+    function addFieldUI(container, label, value) {
+      const row = document.createElement('div'); 
+      row.className = 'flex flex-col gap-1 p-3 bg-white/5 hover:bg-white/10 rounded-xl cursor-pointer transition-colors';
+      
+      const matIcon = getIconForLabel(label);
+
+      row.innerHTML = `
+        <div class="flex items-center gap-2 text-slate-400">
+          <input type="checkbox" class="custom-checkbox field-cb" checked data-label="${label}" data-value="${value}">
+          <span class="material-symbols-outlined text-[1rem]">${matIcon}</span>
+          <span class="text-[0.65rem] uppercase tracking-widest font-semibold">${label} :</span>
+        </div>
+        <div class="pl-8">
+          <span class="text-[0.95rem] font-bold text-white break-all">${value}</span>
+        </div>
+      `;
+
+      row.addEventListener('click', (e) => { 
+          if(e.target.tagName !== 'INPUT') {
+            const cb = row.querySelector('.field-cb');
+            cb.checked = !cb.checked;
+          }
+      });
+
+      container.appendChild(row);
+    }
+
+    function showResult(validatedData, rawText, isPartialFallback) {
+      switchView('result'); finalFields = {}; 
+      const badge = document.getElementById('res-valid-badge');
+      if (validatedData.isOptimal) { badge.className = 'valid-badge'; badge.innerText = '✅ DONNÉES COMPLÈTES'; } 
+      else if (isPartialFallback && validatedData.score > 0) { badge.className = 'partial-badge'; badge.innerText = '⚠️ DONNÉES PARTIELLES'; } 
+      else { badge.className = 'invalid-badge'; badge.innerText = '❌ ÉCHEC'; }
+
+      document.getElementById('res-raw').innerText = rawText || "Aucun texte détecté";
+      const container = document.getElementById('res-fields'); container.innerHTML = '';
+
+      let hasDisplayedData = false;
+      if (validatedData.strictFields) {
+        FIELD_ORDER.forEach(label => {
+          const value = validatedData.strictFields[label];
+          if (value) { hasDisplayedData = true; addFieldUI(container, label, value); }
+        });
+      }
+      if (!hasDisplayedData) container.innerHTML = `<p class="text-sm text-red-400 text-center py-4 font-bold">Aucune donnée valide trouvée.</p>`;
+    }
+
+    function getSelectedText() {
+        const checkboxes = document.querySelectorAll('.field-cb:checked');
+        if (checkboxes.length === 0) return null;
+        const lines = [];
+        checkboxes.forEach(cb => {
+            lines.push(`${cb.dataset.label} : ${cb.dataset.value}`);
+        });
+        return lines.join('\n');
+    }
+
+    function copySelectedFields() {
+      const text = getSelectedText();
+      if (!text) { showToast('⚠️ Aucune ligne sélectionnée'); return; }
+      navigator.clipboard.writeText(text).then(() => showToast('✅ Sélection copiée !')).catch(() => {
+        const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+        showToast('✅ Sélection copiée !');
+      });
+    }
+
+    function shareSelectedFields() {
+      const text = getSelectedText();
+      if (!text) { showToast('⚠️ Aucune ligne sélectionnée'); return; }
+      
+      if (navigator.share) {
+          navigator.share({
+              title: 'Informations Identité',
+              text: text
+          }).catch(console.error);
+      } else {
+          showToast('⚠️ Partage natif non supporté sur ce navigateur');
+      }
+    }
+
+    // =====================================================================
+    // LIAISON AVEC BORDERFORCE / COMPTEUR
+    // =====================================================================
+    const BF_MRZ_TARGETS = {
+      borderforce: '../borderforce/index.html',
+      compteur: '../compteur/index.html'
+    };
+
+    function getQueryParam(name) {
+      try { return new URLSearchParams(window.location.search).get(name) || ''; }
+      catch(e) { return ''; }
+    }
+
+    function getFieldValue(label) {
+      const cb = Array.from(document.querySelectorAll('.field-cb'))
+        .find(x => (x.dataset.label || '').trim().toLowerCase() === label.toLowerCase());
+      return cb ? (cb.dataset.value || '').trim() : '';
+    }
+
+    function parseDateForFiche(value) {
+      const raw = String(value || '').trim();
+      let m = raw.match(/^(\d{2})[\.\/\-\s](\d{2})[\.\/\-\s](\d{4})$/);
+      if (m) return { jour: m[1], mois: m[2], annee: m[3] };
+      m = raw.match(/^(\d{4})[\.\/\-\s](\d{2})[\.\/\-\s](\d{2})$/);
+      if (m) return { jour: m[3], mois: m[2], annee: m[1] };
+      return { jour: '', mois: '', annee: '' };
+    }
+
+    function calculateAgeFromParts(jour, mois, annee) {
+      const d = parseInt(jour, 10), m = parseInt(mois, 10), y = parseInt(annee, 10);
+      if (!d || !m || !y) return '';
+      const today = new Date();
+      let age = today.getFullYear() - y;
+      const monthDiff = (today.getMonth() + 1) - m;
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < d)) age--;
+      return age >= 0 && age < 130 ? String(age) : '';
+    }
+
+    function normalizeSexeForFiche(value) {
+      const v = String(value || '').trim().toUpperCase();
+      if (!v) return '';
+      if (v === 'M' || v.includes('MASC')) return 'Masculin';
+      if (v === 'F' || v.includes('FEM') || v.includes('FÉM')) return 'Féminin';
+      return value;
+    }
+
+    function buildPayloadForFiche() {
+      const dateNaissance = getFieldValue('Date de naissance');
+      const parts = parseDateForFiche(dateNaissance);
+      const age = calculateAgeFromParts(parts.jour, parts.mois, parts.annee);
+      return {
+        nom: getFieldValue('Nom'),
+        prenom: getFieldValue('Prénom'),
+        dateNaissance,
+        jour: parts.jour,
+        mois: parts.mois,
+        annee: parts.annee,
+        age,
+        nationalite: getFieldValue('Nationalité'),
+        sexe: normalizeSexeForFiche(getFieldValue('Sexe'))
+      };
+    }
+
+    function setTargetValue(doc, id, value) {
+      const el = doc.getElementById(id);
+      if (!el || value === undefined || value === null || value === '') return;
+      el.value = value;
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+      el.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    function fillFicheInWindow(targetWindow, payload) {
+      if (!targetWindow || targetWindow.closed) return false;
+      let doc;
+      try { doc = targetWindow.document; } catch(e) { return false; }
+      if (!doc || !doc.getElementById('nom')) return false;
+
+      try {
+        if (typeof targetWindow.showPage === 'function') targetWindow.showPage('ficheIdentitePage');
+      } catch(e) {}
+
+      setTargetValue(doc, 'nom', payload.nom);
+      setTargetValue(doc, 'prenom', payload.prenom);
+      setTargetValue(doc, 'nationalite', payload.nationalite);
+      setTargetValue(doc, 'sexe', payload.sexe);
+      setTargetValue(doc, 'jour', payload.jour);
+      setTargetValue(doc, 'mois', payload.mois);
+      setTargetValue(doc, 'annee', payload.annee);
+      setTargetValue(doc, 'age', payload.age);
+
+      try {
+        if (typeof targetWindow.calculerAge === 'function') targetWindow.calculerAge();
+      } catch(e) {}
+
+      return true;
+    }
+
+    function sendToCallingApp() {
+      const payload = buildPayloadForFiche();
+      if (!payload.nom && !payload.prenom && !payload.dateNaissance && !payload.nationalite) {
+        showToast('⚠️ Aucune donnée identité à envoyer');
+        return;
+      }
+
+      try {
+        localStorage.setItem('bf_mrz_last_identity', JSON.stringify({ ...payload, dateExport: Date.now() }));
+      } catch(e) {}
+
+      if (window.opener && !window.opener.closed && fillFicheInWindow(window.opener, payload)) {
+        showToast('✅ Fiche identité remplie');
+        setTimeout(() => { try { window.close(); } catch(e) {} }, 700);
+        return;
+      }
+
+      const source = (getQueryParam('source') || '').toLowerCase();
+      if (source === 'borderforce' || source === 'compteur') {
+        sendToSpecificApp(source);
+        return;
+      }
+
+      showToast('⚠️ Application d’origine introuvable');
+    }
+
+    function sendToSpecificApp(targetName) {
+      const payload = buildPayloadForFiche();
+      if (!payload.nom && !payload.prenom && !payload.dateNaissance && !payload.nationalite) {
+        showToast('⚠️ Aucune donnée identité à envoyer');
+        return;
+      }
+
+      const url = BF_MRZ_TARGETS[targetName];
+      if (!url) { showToast('⚠️ Destination inconnue'); return; }
+
+      try {
+        localStorage.setItem('bf_mrz_last_identity', JSON.stringify({ ...payload, dateExport: Date.now() }));
+      } catch(e) {}
+
+      const win = window.open(url, targetName === 'borderforce' ? 'BF_BORDERFORCE_APP' : 'BF_COMPTEUR_APP');
+      if (!win) { showToast('⚠️ Ouverture bloquée'); return; }
+
+      let tries = 0;
+      const timer = setInterval(() => {
+        tries++;
+        if (fillFicheInWindow(win, payload)) {
+          clearInterval(timer);
+          showToast('✅ Données envoyées');
+          return;
+        }
+        if (tries > 40) {
+          clearInterval(timer);
+          showToast('⚠️ Impossible de remplir automatiquement');
+        }
+      }, 250);
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('copy-toast'); toast.innerText = msg; toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1500);
+    }
+  </script>
+</body>
+</html>
