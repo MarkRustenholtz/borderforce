@@ -1437,6 +1437,73 @@ button.whatsapp:hover {
   font-size: .84em;
 }
 
+/* Statut SNCF : temps réel, retard, avance ou horaire non actualisé */
+.bf-train-live-statuses {
+  display: grid;
+  gap: 7px;
+  margin-top: 9px;
+}
+
+.bf-train-live-status {
+  padding: 8px 10px;
+  border: 1px solid #cfdceb;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #334155;
+  line-height: 1.3;
+}
+
+.bf-train-live-status strong,
+.bf-train-live-status small {
+  display: block;
+}
+
+.bf-train-live-status strong {
+  font-size: .9em;
+}
+
+.bf-train-live-status small {
+  margin-top: 2px;
+  font-size: .8em;
+  font-weight: 600;
+}
+
+.bf-train-live-status.ontime {
+  border-color: #79c58e;
+  background: #edf9f1;
+  color: #176b31;
+}
+
+.bf-train-live-status.delay {
+  border-color: #e0a343;
+  background: #fff7e6;
+  color: #7a4b00;
+}
+
+.bf-train-live-status.early {
+  border-color: #77a9d6;
+  background: #eef6ff;
+  color: #174f7a;
+}
+
+.bf-train-live-status.unavailable {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+  color: #526170;
+}
+
+.bf-train-live-status.theoretical {
+  border-color: #d8bd75;
+  background: #fffaf0;
+  color: #73510a;
+}
+
+.bf-train-live-status.cancelled {
+  border-color: #d98c8c;
+  background: #fff0f0;
+  color: #8b1e1e;
+}
+
 .bf-train-event-buttons {
   display: flex;
   gap: 7px;
@@ -1460,6 +1527,13 @@ button.whatsapp:hover {
 .bf-train-event-buttons .departure {
   background: #0b63a5;
   color: #ffffff;
+}
+
+.bf-train-event-buttons button:disabled {
+  background: #9ca3af;
+  color: #ffffff;
+  cursor: not-allowed;
+  opacity: .82;
 }
 
 #bfTrainBreilSelected {
@@ -1501,31 +1575,957 @@ button.whatsapp:hover {
   }
 }
 
+
+/* =========================================================
+   VIGNETTE MISSION VERROUILLÉE — présentation uniquement
+   Les champs d'origine restent présents et continuent d'être
+   utilisés par toutes les fonctions existantes de Border Force.
+   ========================================================= */
+.bf-mission-summary-card {
+  margin: 12px 0 8px 0;
+  padding: 15px;
+  border: 2px solid #003366;
+  border-radius: 14px;
+  background: #f8fbff;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(0, 51, 102, .10);
+}
+
+.bf-mission-summary-card h3 {
+  margin: 0 0 10px 0;
+  color: #2c3e50;
+}
+
+.bf-mission-summary-value {
+  display: block;
+  margin: 0 auto 10px auto;
+  padding: 12px 15px;
+  background: #003366;
+  color: #ffffff;
+  border-radius: 9px;
+  font-weight: 800;
+  line-height: 1.55;
+}
+
+.bf-mission-summary-value span {
+  display: block;
+}
+
+.bf-mission-summary-note {
+  margin: 0;
+  color: #5d6b7a;
+  font-size: .86em;
+  line-height: 1.4;
+}
+
+/* Masquage visuel uniquement : les champs et leurs identifiants restent intacts. */
+#bfMissionTechnicalFields {
+  display: none !important;
+}
+
+
+/* =========================================================
+   SUIVI COMPACT DE L'ENVOI DU COMPTE RENDU
+   Une ligne discrète et une seule confirmation à la fin.
+   ========================================================= */
+.bf-cr-status-card {
+  max-width: 700px;
+  margin: 0 auto 12px auto;
+  padding: 8px 10px;
+  border: 1px solid #b7c8da;
+  border-radius: 11px;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,.07);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  text-align: left;
+}
+
+.bf-cr-status-card .bf-cr-status-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.bf-cr-status-card .bf-cr-status-icon {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .86em;
+  background: #edf2f7;
+  color: #4b5563;
+}
+
+.bf-cr-status-card .bf-cr-status-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.bf-cr-status-card h3 {
+  margin: 0;
+  text-align: left;
+  color: #2c3e50;
+  font-size: .9em;
+  line-height: 1.25;
+}
+
+.bf-cr-status-card p {
+  margin: 2px 0 0 0;
+  color: #5d6b7a;
+  font-size: .74em;
+  line-height: 1.25;
+}
+
+.bf-cr-status-card p:empty {
+  display: none;
+}
+
+.bf-cr-status-card .bf-cr-status-actions {
+  display: flex;
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.bf-cr-status-card .bf-cr-status-actions button {
+  margin: 0;
+  min-height: 34px;
+  padding: 6px 10px;
+  justify-content: center;
+  border-radius: 9px;
+  background: #003366;
+  color: #ffffff;
+  font-size: .82em;
+  white-space: nowrap;
+}
+
+.bf-cr-status-card.status-non-envoye {
+  border-color: #d66b6b;
+  background: #fff8f8;
+}
+.bf-cr-status-card.status-non-envoye .bf-cr-status-icon {
+  background: #fde2e2;
+  color: #a12626;
+}
+
+.bf-cr-status-card.status-envoye {
+  border-color: #62b87a;
+  background: #f4fbf6;
+}
+.bf-cr-status-card.status-envoye .bf-cr-status-icon {
+  background: #dff4e5;
+  color: #176b31;
+}
+
+.bf-cr-status-card.status-modifie {
+  border-color: #e1a543;
+  background: #fffaf0;
+}
+.bf-cr-status-card.status-modifie .bf-cr-status-icon {
+  background: #ffedbd;
+  color: #855600;
+}
+
+.bf-cr-warning-details {
+  margin-top: 10px !important;
+  padding: 9px 10px;
+  border-radius: 9px;
+  background: rgba(255,255,255,.10);
+  font-size: .9em !important;
+}
+
+#popupCrAvertissementFin .popup-buttons {
+  flex-direction: column;
+}
+
+#popupCrAvertissementFin .popup-buttons button {
+  width: 100%;
+  flex: none;
+}
+
+#bfCrEnvoyeEtTerminerBtn {
+  background: #247a43;
+}
+
+#bfCrTerminerSansEnvoiBtn {
+  background: #b45309;
+}
+
+@media (max-width: 620px) {
+  .bf-cr-status-card {
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+
+  .bf-cr-status-card .bf-cr-status-head {
+    flex: 1 1 100%;
+  }
+
+  .bf-cr-status-card .bf-cr-status-actions {
+    width: 100%;
+  }
+
+  .bf-cr-status-card .bf-cr-status-actions button {
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   BUS ZEST EN LIGNE — BREIL ET SECTEUR DSI TENDE
+   Horaires théoriques GTFS + temps réel GTFS-RT.
+   Les résultats consultés ne sont pas conservés après la mission.
+   ========================================================= */
+#bfBusZestPanel {
+  display: none;
+  margin: 12px 0;
+  padding: 14px;
+  border: 2px solid #b45309;
+  border-radius: 14px;
+  background: #fffaf2;
+  box-shadow: 0 4px 12px rgba(180, 83, 9, .12);
+}
+
+#bfBusZestPanel h3 {
+  margin: 0 0 6px 0;
+  text-align: left;
+  color: #7c2d12;
+}
+
+#bfBusZestPanel .bf-bus-intro {
+  margin: 0 0 10px 0;
+  color: #5b4636;
+  font-size: .91em;
+  line-height: 1.4;
+}
+
+#bfBusSiteBlock {
+  display: none;
+  margin: 10px 0 12px 0;
+  padding: 11px;
+  border: 1px solid #e4c29e;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+#bfBusSiteBlock label {
+  margin: 0 0 5px 0;
+  color: #7c2d12;
+  font-weight: 800;
+}
+
+#bfBusSiteBlock select {
+  margin-bottom: 5px;
+  min-height: 46px;
+  border: 2px solid #b45309;
+  font-weight: 700;
+}
+
+#bfBusSiteHelp {
+  color: #6b5a4d;
+  font-size: .84em;
+  line-height: 1.35;
+}
+
+.bf-bus-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.bf-bus-actions button {
+  flex: 1 1 190px;
+  justify-content: center;
+  min-height: 44px;
+  border-radius: 12px;
+}
+
+.bf-bus-actions .bf-bus-close {
+  flex: 0 1 130px;
+  background: #e74c3c;
+  color: #ffffff;
+}
+
+#bfBusZestStatus {
+  display: none;
+  margin: 8px 0;
+  padding: 9px 10px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid #ead8c5;
+  color: #4b3c31;
+  font-size: .9em;
+  line-height: 1.4;
+}
+
+#bfBusZestStatus.info { display: block; }
+#bfBusZestStatus.success {
+  display: block;
+  background: #edf9f1;
+  border-color: #9ed8af;
+  color: #185b2b;
+}
+#bfBusZestStatus.warning {
+  display: block;
+  background: #fff7e6;
+  border-color: #f0c46b;
+  color: #7a4b00;
+}
+#bfBusZestStatus.error {
+  display: block;
+  background: #fff0f0;
+  border-color: #e3a1a1;
+  color: #8b1e1e;
+}
+
+.bf-bus-section-title {
+  margin: 13px 0 7px 0;
+  color: #7c2d12;
+  font-size: .95em;
+  font-weight: 800;
+}
+
+.bf-bus-card {
+  background: #ffffff;
+  border: 1px solid #e5d2bf;
+  border-radius: 12px;
+  padding: 11px;
+  margin: 8px 0;
+}
+
+.bf-bus-card.near {
+  border: 2px solid #27ae60;
+  box-shadow: 0 3px 10px rgba(39, 174, 96, .14);
+}
+
+.bf-bus-card.selected {
+  border: 2px solid #b45309;
+  background: #fff5e7;
+}
+
+.bf-bus-card.cancelled {
+  border-color: #d66b6b;
+  background: #fff3f3;
+  opacity: .84;
+}
+
+.bf-bus-title {
+  font-weight: 900;
+  color: #3f2b1e;
+  line-height: 1.35;
+}
+
+.bf-bus-route {
+  margin-top: 3px;
+  color: #5b4636;
+  font-size: .92em;
+}
+
+.bf-bus-time {
+  margin-top: 6px;
+  color: #7c2d12;
+  font-weight: 800;
+  font-size: .94em;
+}
+
+.bf-bus-meta {
+  margin-top: 5px;
+  color: #6b5a4d;
+  font-size: .84em;
+  line-height: 1.4;
+}
+
+.bf-bus-card button[data-bf-bus-event] {
+  width: 100%;
+  justify-content: center;
+  margin: 9px 0 0 0;
+  min-height: 42px;
+  border-radius: 10px;
+  background: #b45309;
+  color: #ffffff;
+}
+
+.bf-bus-others-toggle {
+  width: 100%;
+  margin: 12px 0 7px 0;
+  padding: 10px 12px;
+  min-height: 42px;
+  justify-content: space-between;
+  background: #fff1df;
+  color: #7c2d12;
+  border: 1px solid #e4c29e;
+  border-radius: 11px;
+  text-align: left;
+}
+
+.bf-bus-others-toggle .bf-bus-toggle-sign {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #b45309;
+  color: #fff;
+  font-size: 1.25em;
+  line-height: 1;
+}
+
+.bf-bus-others-list[hidden] {
+  display: none !important;
+}
+
+#bfBusZestSelected {
+  display: none;
+  margin-top: 10px;
+  padding: 11px;
+  border-radius: 12px;
+  background: #eaf8ef;
+  border: 2px solid #27ae60;
+  color: #174d27;
+  line-height: 1.4;
+}
+
+#bfBusZestSelected strong {
+  color: #0f3e1d;
+}
+
+#bfBusZestSelected button {
+  margin-top: 8px;
+  background: #e74c3c;
+  color: #ffffff;
+  min-height: 38px;
+}
+
+.bf-bus-empty {
+  padding: 10px;
+  color: #6b5a4d;
+  background: #ffffff;
+  border: 1px dashed #d9bfa4;
+  border-radius: 10px;
+  font-size: .9em;
+}
+
+.bf-bus-source-live {
+  color: #176b31;
+  font-weight: 800;
+}
+
+.bf-bus-source-theoretical {
+  color: #855600;
+  font-weight: 800;
+}
+
+@media (max-width: 520px) {
+  .bf-bus-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* === Action prédéfinie : mise en évidence de TRAIN et BUS === */
+#type_action option[data-bf-transport-action] {
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+#type_action.bf-transport-action-selected {
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #003366;
+  border: 2px solid #003366;
+  background: #edf5ff;
+}
+
+
+/* =========================================================
+   BANNIÈRE « PROCHAIN TRAIN » — Déroulement uniquement
+   Remplace les notifications Web Push. La consultation détaillée
+   Train et Bus reste strictement inchangée.
+   ========================================================= */
+.bf-next-train-banner {
+  display: none;
+  margin: 0 0 13px 0;
+  padding: 12px;
+  border: 2px solid #0b63a5;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #f4f9ff, #ffffff);
+  box-shadow: 0 4px 12px rgba(0, 51, 102, .12);
+}
+
+.bf-next-train-banner.visible { display: block; }
+.bf-next-train-banner.loading { border-color: #6b7280; }
+.bf-next-train-banner.ontime { border-color: #27ae60; background: linear-gradient(135deg, #edf9f1, #ffffff); }
+.bf-next-train-banner.delay { border-color: #e0a343; background: linear-gradient(135deg, #fff7e6, #ffffff); }
+.bf-next-train-banner.early { border-color: #3b82b8; background: linear-gradient(135deg, #eef6ff, #ffffff); }
+.bf-next-train-banner.theoretical,
+.bf-next-train-banner.unavailable { border-color: #b8943e; background: linear-gradient(135deg, #fffaf0, #ffffff); }
+.bf-next-train-banner.error,
+.bf-next-train-banner.cancelled { border-color: #c0392b; background: linear-gradient(135deg, #fff0f0, #ffffff); }
+
+.bf-next-train-main {
+  width: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #172b42;
+  text-align: left;
+  font-family: inherit;
+  font-weight: normal;
+}
+
+.bf-next-train-main:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+.bf-next-train-icon {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #e6f2ff;
+  color: #003366;
+  font-size: 1.05em;
+}
+
+.bf-next-train-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.bf-next-train-title {
+  display: block;
+  color: #003366;
+  font-size: .95em;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.bf-next-train-primary {
+  display: block;
+  margin-top: 4px;
+  color: #172b42;
+  font-size: 1em;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.bf-next-train-secondary {
+  display: block;
+  margin-top: 3px;
+  color: #45576a;
+  font-size: .82em;
+  line-height: 1.35;
+}
+
+.bf-next-train-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 9px;
+}
+
+.bf-next-train-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: #edf2f7;
+  color: #334155;
+  font-size: .75em;
+  font-weight: 900;
+}
+
+.bf-next-train-updated {
+  color: #64748b;
+  font-size: .72em;
+  font-weight: 700;
+}
+
+.bf-next-train-actions {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 9px;
+}
+
+.bf-next-train-actions button {
+  flex: 1 1 150px;
+  min-height: 38px;
+  margin: 0;
+  padding: 7px 9px;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: .82em;
+}
+
+#bfNextTrainRefreshBtn {
+  background: #edf5ff;
+  color: #003366;
+  border: 1px solid #b7cfe5;
+}
+
+#bfNextTrainAllBtn {
+  background: #003366;
+  color: #ffffff;
+}
+
+#popupNextTrainQuickAdd .popup-box {
+  max-width: 440px;
+  text-align: left;
+}
+
+#popupNextTrainQuickAdd .bf-next-train-popup-summary {
+  margin: 10px 0 13px 0;
+  padding: 11px;
+  border-radius: 11px;
+  background: rgba(255,255,255,.10);
+  color: #ffffff;
+  line-height: 1.4;
+}
+
+#popupNextTrainQuickAdd .bf-next-train-popup-summary strong,
+#popupNextTrainQuickAdd .bf-next-train-popup-summary small {
+  display: block;
+}
+
+#popupNextTrainQuickAdd .bf-next-train-popup-summary small {
+  margin-top: 4px;
+  color: #dbeafe;
+}
+
+.bf-next-train-popup-counts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  margin: 12px 0;
+}
+
+#popupNextTrainQuickAdd label {
+  color: #ffffff;
+  font-size: .88em;
+  font-weight: 800;
+}
+
+#popupNextTrainQuickAdd input[type="number"] {
+  width: 100%;
+  min-height: 46px;
+  margin: 5px 0 0 0;
+  padding: 8px 10px;
+  box-sizing: border-box;
+  border: 1px solid #9fb6d1;
+  border-radius: 9px;
+  background: #ffffff;
+  font-size: 16px;
+}
+
+#popupNextTrainQuickAdd .popup-buttons {
+  flex-direction: column;
+}
+
+#popupNextTrainQuickAdd .popup-buttons button {
+  width: 100%;
+  flex: none;
+  justify-content: center;
+}
+
+#bfNextTrainQuickAddBtn { background: #247a43; }
+#bfNextTrainQuickAllBtn { background: #0b63a5; }
+#bfNextTrainQuickCloseBtn { background: #4b5563; }
+
+#bfNextTrainQuickStatus {
+  display: none;
+  margin: 10px 0 0 0;
+  color: #fde68a;
+  font-size: .85em;
+  text-align: center;
+}
+
+@media (max-width: 520px) {
+  .bf-next-train-popup-counts {
+    grid-template-columns: 1fr;
+  }
+
+  .bf-next-train-status-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
 </style>
 
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="trains-trenitalia-roya.js?v=3"></script>
+<script src="trains-sncf-roya.js?v=1"></script>
+
+<style id="appDialogStyles">
+/* === Fenêtres internes : remplacent les dialogues natifs du navigateur === */
+.app-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, .62);
+}
+.app-dialog-box {
+  width: min(430px, 100%);
+  max-height: min(82vh, 720px);
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 24px 22px 20px;
+  border-radius: 18px;
+  background: #0b1936;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, .45);
+  border: 1px solid rgba(255,255,255,.12);
+}
+.app-dialog-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin: 0 0 16px;
+  color: #ffcc00;
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.app-dialog-message {
+  margin: 0;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.48;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+.app-dialog-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
+}
+.app-dialog-actions button {
+  flex: 1 1 0;
+  justify-content: center;
+  min-height: 50px;
+  margin: 0;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 800;
+}
+.app-dialog-confirm { background: #1769aa; }
+.app-dialog-confirm.danger { background: #cf3a2d; }
+.app-dialog-cancel { background: #596579; }
+.app-dialog-actions.single .app-dialog-confirm {
+  max-width: 220px;
+  margin: 0 auto;
+}
+@media (max-width: 420px) {
+  .app-dialog-overlay { padding: 8px; }
+  .app-dialog-box { padding: 22px 14px 18px; border-radius: 16px; }
+  .app-dialog-actions { gap: 8px; }
+  .app-dialog-actions button { padding: 9px 8px; }
+}
+</style>
+<script id="appDialogScript">
+(() => {
+  const queue = [];
+  let active = null;
+  let overlay = null;
+
+  function ensureDialog() {
+    if (overlay && document.documentElement.contains(overlay)) return overlay;
+
+    overlay = document.createElement('div');
+    overlay.id = 'appDialogOverlay';
+    overlay.className = 'app-dialog-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.innerHTML = `
+      <div class="app-dialog-box">
+        <h3 class="app-dialog-title">
+          <i id="appDialogIcon" class="fas fa-circle-info" aria-hidden="true"></i>
+          <span id="appDialogTitle">Information</span>
+        </h3>
+        <p id="appDialogMessage" class="app-dialog-message"></p>
+        <div id="appDialogActions" class="app-dialog-actions">
+          <button id="appDialogConfirm" type="button" class="app-dialog-confirm">OK</button>
+          <button id="appDialogCancel" type="button" class="app-dialog-cancel">Annuler</button>
+        </div>
+      </div>`;
+
+    (document.body || document.documentElement).appendChild(overlay);
+
+    overlay.querySelector('#appDialogConfirm').addEventListener('click', () => closeDialog(true));
+    overlay.querySelector('#appDialogCancel').addEventListener('click', () => closeDialog(false));
+    return overlay;
+  }
+
+  function showNext() {
+    if (active || !queue.length) return;
+    active = queue.shift();
+    const root = ensureDialog();
+    const title = root.querySelector('#appDialogTitle');
+    const icon = root.querySelector('#appDialogIcon');
+    const message = root.querySelector('#appDialogMessage');
+    const actions = root.querySelector('#appDialogActions');
+    const ok = root.querySelector('#appDialogConfirm');
+    const cancel = root.querySelector('#appDialogCancel');
+
+    title.textContent = active.title;
+    icon.className = `fas ${active.icon}`;
+    message.textContent = String(active.message ?? '');
+    ok.textContent = active.confirmText;
+    ok.className = `app-dialog-confirm${active.danger ? ' danger' : ''}`;
+    cancel.textContent = active.cancelText;
+    cancel.style.display = active.kind === 'confirm' ? 'inline-flex' : 'none';
+    actions.classList.toggle('single', active.kind !== 'confirm');
+
+    root.style.display = 'flex';
+    document.body?.classList.add('app-dialog-open');
+    setTimeout(() => ok.focus(), 30);
+  }
+
+  function closeDialog(result) {
+    if (!active) return;
+    const item = active;
+    active = null;
+    if (overlay) overlay.style.display = 'none';
+    document.body?.classList.remove('app-dialog-open');
+    item.resolve(result);
+    setTimeout(showNext, 0);
+  }
+
+  window.addEventListener('keydown', event => {
+    if (!active || event.key !== 'Escape') return;
+    event.preventDefault();
+    closeDialog(active.kind === 'confirm' ? false : true);
+  });
+
+  window.appAlert = function(message, options = {}) {
+    if (typeof options === 'string') options = { title: options };
+    return new Promise(resolve => {
+      queue.push({
+        kind: 'alert',
+        message,
+        title: options.title || 'Information',
+        icon: options.icon || 'fa-circle-info',
+        confirmText: options.confirmText || 'OK',
+        cancelText: '',
+        danger: !!options.danger,
+        resolve
+      });
+      showNext();
+    });
+  };
+
+  window.appConfirm = function(message, options = {}) {
+    if (typeof options === 'string') options = { title: options };
+    return new Promise(resolve => {
+      queue.push({
+        kind: 'confirm',
+        message,
+        title: options.title || 'Confirmation',
+        icon: options.icon || 'fa-circle-question',
+        confirmText: options.confirmText || 'Oui',
+        cancelText: options.cancelText || 'Annuler',
+        danger: options.danger !== false,
+        resolve
+      });
+      showNext();
+    });
+  };
+})();
+</script>
+
 </head>
 <body>
+<script>
+/* Session de mission commune : verrouille Border Force sur le rôle choisi à l'accueil. */
+(() => {
+  const MISSION_KEY = "bf_mission_session_v1";
+  let mission = null;
+  try { mission = JSON.parse(localStorage.getItem(MISSION_KEY) || "null"); } catch (_) {}
+  if (!mission || !mission.active || mission.role !== "chef") {
+    location.replace("../index.html");
+    return;
+  }
+  window.BF_MISSION_SESSION = mission;
+
+  function bfAfficherResumeMission() {
+    const current = window.BF_MISSION_SESSION || {};
+    const nomsSites = {
+      "Breil": "Breil-sur-Roya",
+      "Breil-sur-Roya": "Breil-sur-Roya",
+      "La Turbie": "La Turbie",
+      "DSI Tende": "DSI Tende"
+    };
+
+    const site = nomsSites[current.site] || current.site || "Site non renseigné";
+    let date = "Date non renseignée";
+    if (current.date) {
+      const morceaux = String(current.date).split("-");
+      date = morceaux.length === 3
+        ? `${morceaux[2]}/${morceaux[1]}/${morceaux[0]}`
+        : current.date;
+    }
+
+    const debut = current.heureDebut || "--:--";
+    const fin = current.heureFin || "--:--";
+
+    const siteEl = document.getElementById("bfMissionSummarySite");
+    const dateEl = document.getElementById("bfMissionSummaryDate");
+    const hoursEl = document.getElementById("bfMissionSummaryHours");
+
+    if (siteEl) siteEl.textContent = site;
+    if (dateEl) dateEl.textContent = date;
+    if (hoursEl) hoursEl.textContent = `${debut} – ${fin}`;
+  }
+
+  document.addEventListener("DOMContentLoaded", bfAfficherResumeMission);
+  window.bfUpdateMissionFromChef = (values) => {
+    const current = window.BF_MISSION_SESSION || {};
+    const updated = {...current, ...values, active:true, role:"chef", updatedAt:Date.now()};
+    window.BF_MISSION_SESSION = updated;
+    localStorage.setItem(MISSION_KEY, JSON.stringify(updated));
+    localStorage.setItem("siteSelection", updated.site || "");
+  };
+})();
+</script>
 
 <!-- Page d'accueil avec nouvelle présentation -->
 <div id="homePage" class="home-page">
   <h1 class="home-title">
-    <button onclick="window.location.href='../index.html'" style="
-      float:left;
-      margin-right:10px;
-      background:white;
-      color:#003366;
-      border:none;
-      border-radius:6px;
-      padding:4px 8px;
-      font-size:0.9em;
-      cursor:pointer;
-      box-shadow:0 2px 5px rgba(0,0,0,0.2);
-    ">
-      🏠 Accueil
-    </button>
     CR BORDERFORCE<br>
     <span class="sous-titre">LIMES Breil-La Turbie-DSI Tende</span>
   </h1>
@@ -1671,7 +2671,7 @@ button.whatsapp:hover {
 
       <div class="small-note" style="background:#edf5ff; border-left:4px solid #003366; padding:10px; border-radius:10px;">
         Tu as le tableau des services du jour ? Clique sur <strong>Importer tableau des services</strong> :
-        l'application peut te proposer les services trouvés dans le PDF et remplir automatiquement le site, la date, les horaires, les ESR et les tablettes.
+        l'application vérifie le site et la date, avec une marge de ±1 heure sur les horaires, puis importe les ESR et les tablettes.
         <br><br>
         Pour rechercher un ESR déjà connu, tape quelques lettres du nom ou le NIGEND. La flèche affiche la liste complète.
       </div>
@@ -1683,29 +2683,44 @@ button.whatsapp:hover {
         <input id="bfImporterEsrPdfInput" type="file" accept=".pdf,application/pdf" style="display:none;">
       </div>
 
-      <div class="form-grid mission-compact">
-        <div class="full">
-          <label for="siteSelect">Site :</label>
-          <select id="siteSelect" aria-label="Sélection du site">
-            <option value="Breil">Breil</option>
-            <option value="La Turbie">La Turbie</option>
-            <option value="DSI Tende">DSI Tende</option>
-          </select>
+      <div class="bf-mission-summary-card" aria-label="Informations verrouillées de la mission">
+        <h3><i class="fas fa-lock" aria-hidden="true"></i> Mission en cours</h3>
+        <div class="bf-mission-summary-value">
+          <span id="bfMissionSummarySite">Chargement…</span>
+          <span id="bfMissionSummaryDate">Date non renseignée</span>
+          <span id="bfMissionSummaryHours">Horaires non renseignés</span>
         </div>
+        <p class="bf-mission-summary-note">
+          Le site, la date et les horaires sont verrouillés pour cette mission afin d'éviter une modification accidentelle.
+        </p>
+      </div>
 
-        <div>
-          <label for="dateInput">Date :</label>
-          <input type="date" id="dateInput" />
-        </div>
+      <!-- Champs d'origine conservés à l'identique pour toutes les fonctions existantes. -->
+      <div id="bfMissionTechnicalFields" aria-hidden="true">
+        <div class="form-grid mission-compact">
+          <div class="full">
+            <label for="siteSelect">Site :</label>
+            <select id="siteSelect" aria-label="Sélection du site">
+              <option value="Breil">Breil</option>
+              <option value="La Turbie">La Turbie</option>
+              <option value="DSI Tende">DSI Tende</option>
+            </select>
+          </div>
 
-        <div>
-          <label for="heureDebutInput">Heure début :</label>
-          <input type="time" id="heureDebutInput" />
-        </div>
+          <div>
+            <label for="dateInput">Date :</label>
+            <input type="date" id="dateInput" />
+          </div>
 
-        <div>
-          <label for="heureFinInput">Heure fin :</label>
-          <input type="time" id="heureFinInput" />
+          <div>
+            <label for="heureDebutInput">Heure début :</label>
+            <input type="time" id="heureDebutInput" />
+          </div>
+
+          <div>
+            <label for="heureFinInput">Heure fin :</label>
+            <input type="time" id="heureFinInput" />
+          </div>
         </div>
       </div>
     </section>
@@ -2184,6 +3199,25 @@ button.whatsapp:hover {
     <div class="page-title">Déroulement de la mission</div>
   </div>
   <div class="page-content">
+
+    <section id="bfNextTrainBanner" class="bf-next-train-banner" aria-live="polite">
+      <button id="bfNextTrainMainBtn" type="button" class="bf-next-train-main" disabled>
+        <span class="bf-next-train-icon"><i class="fas fa-train"></i></span>
+        <span class="bf-next-train-content">
+          <span id="bfNextTrainTitle" class="bf-next-train-title">Prochain train</span>
+          <span id="bfNextTrainPrimary" class="bf-next-train-primary">Consultation en attente…</span>
+          <span id="bfNextTrainSecondary" class="bf-next-train-secondary">La bannière s’actualise lorsque le déroulement est ouvert.</span>
+          <span class="bf-next-train-status-row">
+            <span id="bfNextTrainStatus" class="bf-next-train-status"><i class="fas fa-circle-info"></i> En attente</span>
+            <span id="bfNextTrainUpdated" class="bf-next-train-updated"></span>
+          </span>
+        </span>
+      </button>
+      <div class="bf-next-train-actions">
+        <button id="bfNextTrainAllBtn" type="button"><i class="fas fa-list"></i> Voir tous les trains</button>
+        <button id="bfNextTrainRefreshBtn" type="button"><i class="fas fa-rotate"></i> Actualiser</button>
+      </div>
+    </section>
   
  <!-- Saisie rapide Heure + Actions -->
 <section id="temps_action" style="margin-bottom:12px">
@@ -2198,6 +3232,8 @@ button.whatsapp:hover {
       <option value="">— Sélectionner —</option>
 
       <optgroup label="Déplacements / mission">
+        <option value="Train" data-bf-transport-action="train">TRAIN</option>
+        <option value="Bus" data-bf-transport-action="bus">BUS</option>
         <option>Départ de la caserne Ausseur</option>
         <option>Arrivée à la caserne Ausseur</option>
         <option>Départ en mission</option>
@@ -2205,8 +3241,7 @@ button.whatsapp:hover {
         <option>Arrivée sur site d'emploi — Début de mission</option>
         <option>Départ du site d'emploi — Fin de mission</option>
         <option>Contrôle routier</option>
-        <option>Train</option>
-        <option>Bus</option>
+        
       </optgroup>
     </select>
 
@@ -2214,10 +3249,11 @@ button.whatsapp:hover {
     <div id="bfTrainBreilPanel" aria-live="polite">
       <h3 id="bfTrainPanelTitle"><i class="fas fa-train"></i> Trains de la gare sélectionnée</h3>
       <p class="bf-train-intro">
-        L’application réunit les trains SNCF consultés en ligne et les horaires théoriques Trenitalia du fichier
-        <strong>trains-trenitalia-roya.js</strong>. Elle tient compte de la gare choisie, de la date, du jour de la semaine,
-        des dimanches, des jours fériés et des services traversant minuit. Les trains situés à moins de 20 minutes
-        de l’heure du contrôle sont proposés en priorité.
+        L’application réunit les trains SNCF consultés en ligne avec les horaires théoriques locaux des fichiers
+        <strong>trains-sncf-roya.js</strong> et <strong>trains-trenitalia-roya.js</strong>. Sans réseau, les deux compagnies
+        restent donc visibles en horaire théorique. Avec Internet, l’API SNCF remplace automatiquement le planning SNCF
+        local et le monitor officiel RFI actualise les trains italiens présents dans sa fenêtre. La date, les jours fériés,
+        les services traversant minuit et la gare choisie restent pris en compte.
       </p>
 
       <div id="bfTrainStationBlock">
@@ -2235,7 +3271,6 @@ button.whatsapp:hover {
           La vue globale classe chronologiquement les trains des cinq gares et indique clairement la gare de passage.
         </div>
       </div>
-
       <div class="bf-train-actions">
         <button id="bfTrainBreilRefreshBtn" type="button" class="blue">
           <i class="fas fa-rotate"></i> Consulter les trains
@@ -2250,7 +3285,46 @@ button.whatsapp:hover {
       <div id="bfTrainBreilSelected"></div>
     </div>
 
-	
+
+    <!-- Assistance bus Zest : visible seulement pour Breil ou DSI Tende + action Bus -->
+    <div id="bfBusZestPanel" aria-live="polite">
+      <h3 id="bfBusPanelTitle"><i class="fas fa-bus"></i> Bus Zest du secteur</h3>
+      <p class="bf-bus-intro">
+        L’application consulte les horaires officiels Zest des lignes <strong>19, 23 et 25</strong>.
+        Elle affiche l’horaire actualisé lorsqu’il est disponible et conserve l’horaire théorique
+        comme solution de secours. Seuls les passages compris dans les horaires de la mission sont proposés.
+      </p>
+
+      <div id="bfBusSiteBlock">
+        <label for="bfBusSiteSelect">Arrêt / secteur du contrôle :</label>
+        <select id="bfBusSiteSelect" aria-label="Arrêt ou secteur du contrôle bus">
+          <option value="">— Choisir le secteur —</option>
+          <option value="breil">Breil-sur-Roya</option>
+          <option value="fontan-saorge">Fontan / Saorge</option>
+          <option value="saint-dalmas">Saint-Dalmas-de-Tende</option>
+          <option value="la-brigue">La Brigue</option>
+          <option value="tende">Tende</option>
+        </select>
+        <div id="bfBusSiteHelp">
+          Pour DSI Tende, choisis la commune ou l’arrêt correspondant au lieu réel du contrôle.
+        </div>
+      </div>
+
+      <div class="bf-bus-actions">
+        <button id="bfBusZestRefreshBtn" type="button" class="blue">
+          <i class="fas fa-rotate"></i> Consulter les bus
+        </button>
+        <button id="bfBusZestCloseBtn" type="button" class="bf-bus-close" aria-label="Fermer la fenêtre des bus">
+          <i class="fas fa-xmark"></i> Fermer
+        </button>
+      </div>
+
+      <div id="bfBusZestStatus"></div>
+      <div id="bfBusZestList"></div>
+      <div id="bfBusZestSelected"></div>
+    </div>
+
+
  <!-- 🔻 : infos supplémentaires  -->
     <label style="display:block;margin-top:6px">Infos supplémentaires</label>
     <select id="esi_select">
@@ -2494,11 +3568,24 @@ button.whatsapp:hover {
       </div>
     </div>
 
+    <div id="bfCrStatusCard" class="bf-cr-status-card status-non-envoye" aria-live="polite">
+      <div class="bf-cr-status-head">
+        <span id="bfCrStatusIcon" class="bf-cr-status-icon"><i class="fas fa-paper-plane"></i></span>
+        <div class="bf-cr-status-text">
+          <h3 id="bfCrStatusTitle">Envoi non confirmé</h3>
+          <p id="bfCrStatusDetail"></p>
+        </div>
+      </div>
+      <div class="bf-cr-status-actions">
+        <button id="bfCrConfirmerEnvoiBtn" type="button"><i class="fas fa-check"></i> Marquer comme envoyé</button>
+      </div>
+    </div>
+
     <div style="text-align:center; margin-bottom: 20px;">
       <button id="generateBtn" class="blue" style="padding:12px 24px; font-size:1.1em;">Générer compte rendu</button>
       <button id="copyBtn" class="green" style="padding:12px 24px; font-size:1.1em;">Copier dans le presse-papiers</button>
       <button id="whatsappBtn" class="whatsapp" type="button" style="padding:12px 24px; font-size:1.1em;">💬 WhatsApp</button>
-      <button id="resetBtn" class="red" style="font-size:1.1em;">Effacer les données sauvegardées</button>
+      <button id="resetBtn" class="red" style="font-size:1.1em;"><i class="fas fa-flag-checkered"></i> Fin de mission</button>
     </div>
 
     <h3>Compte rendu généré :</h3>
@@ -2536,10 +3623,344 @@ button.whatsapp:hover {
   </div>
 </div>
 
+
+<!-- Saisie rapide du prochain train depuis la bannière -->
+<div id="popupNextTrainQuickAdd" class="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="popupNextTrainQuickAddTitle">
+  <div class="popup-box">
+    <h3 id="popupNextTrainQuickAddTitle"><i class="fas fa-train"></i> Ajouter ce train</h3>
+    <div id="bfNextTrainQuickSummary" class="bf-next-train-popup-summary"></div>
+
+    <div class="bf-next-train-popup-counts">
+      <div>
+        <label for="bfNextTrainQuickControlled">Personnes contrôlées</label>
+        <input type="number" id="bfNextTrainQuickControlled" min="0" inputmode="numeric" placeholder="0" />
+      </div>
+      <div>
+        <label for="bfNextTrainQuickDescended">Personnes descendues</label>
+        <input type="number" id="bfNextTrainQuickDescended" min="0" inputmode="numeric" placeholder="0" />
+      </div>
+    </div>
+
+    <div class="popup-buttons">
+      <button id="bfNextTrainQuickAddBtn" type="button" class="popup-btn">Ajouter au déroulement</button>
+      <button id="bfNextTrainQuickAllBtn" type="button" class="popup-btn">Voir tous les trains</button>
+      <button id="bfNextTrainQuickCloseBtn" type="button" class="popup-btn cancel">Annuler</button>
+    </div>
+    <p id="bfNextTrainQuickStatus"></p>
+  </div>
+</div>
+
+<!-- Confirmation de fin de mission -->
+<div id="popupFinMission" class="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="popupFinMissionTitre">
+  <div class="popup-box">
+    <h3 id="popupFinMissionTitre"><i class="fas fa-flag-checkered"></i> Fin de mission</h3>
+    <p>Confirmer la fin de mission et effacer les données enregistrées ?</p>
+    <p style="font-size:.9em; color:#dbeafe;"><strong>Le premier ESR sera conservé</strong>, comme auparavant.</p>
+    <div class="popup-buttons">
+      <button id="bfFinMissionOuiBtn" type="button" class="popup-btn call">Oui, terminer</button>
+      <button id="bfFinMissionAnnulerBtn" type="button" class="popup-btn cancel">Annuler</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Décision unique à la fin si le CR n'est pas confirmé ou a été modifié -->
+<div id="popupCrAvertissementFin" class="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="popupCrAvertissementFinTitre">
+  <div class="popup-box">
+    <h3 id="popupCrAvertissementFinTitre"><i class="fas fa-triangle-exclamation"></i> Compte rendu non confirmé</h3>
+    <p id="popupCrAvertissementFinMessage">Le compte rendu n’est pas indiqué comme envoyé.</p>
+    <p id="popupCrAvertissementFinDetail" class="bf-cr-warning-details"></p>
+    <div class="popup-buttons">
+      <button id="bfCrRetourCompteRenduBtn" type="button" class="popup-btn cancel">Retour au compte rendu</button>
+      <button id="bfCrEnvoyeEtTerminerBtn" type="button" class="popup-btn">J’ai envoyé — terminer la mission</button>
+      <button id="bfCrTerminerSansEnvoiBtn" type="button" class="popup-btn">Terminer sans envoi</button>
+    </div>
+  </div>
+</div>
+
 <!-- Bouton Accueil flottant : visible uniquement hors page d'accueil -->
 <button id="floatingHomeBtn" type="button" onclick="bfFloatingHomeClick(event)" aria-label="Retour accueil" title="Accueil">
   <i class="fas fa-home"></i>
 </button>
+
+<script>
+/* Suivi compact de l'envoi du compte rendu.
+   - aucune question automatique après Copier ou WhatsApp ;
+   - confirmation manuelle en un seul appui ;
+   - une seule fenêtre de décision lors de la fin de mission. */
+(() => {
+  const STATUS_KEY = 'bf_cr_envoi_status_v1';
+  const LEGACY_PENDING_KEY = 'bf_cr_envoi_pending_v1';
+
+  function getMissionId() {
+    const mission = window.BF_MISSION_SESSION || {};
+    return [
+      mission.createdAt || '',
+      mission.site || '',
+      mission.date || '',
+      mission.heureDebut || '',
+      mission.heureFin || ''
+    ].join('|');
+  }
+
+  function readStatus() {
+    try {
+      const raw = localStorage.getItem(STATUS_KEY);
+      const parsed = raw ? JSON.parse(raw) : null;
+      if (!parsed || parsed.missionId !== getMissionId()) return null;
+      return parsed;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function writeStatus(status) {
+    localStorage.setItem(STATUS_KEY, JSON.stringify(status));
+  }
+
+  function currentSignature() {
+    try {
+      return typeof window.bfCrGetCurrentReportSignature === 'function'
+        ? window.bfCrGetCurrentReportSignature()
+        : '';
+    } catch (_) {
+      return '';
+    }
+  }
+
+  function formatTimeCompact(timestamp) {
+    if (!timestamp) return '';
+    try {
+      return new Intl.DateTimeFormat('fr-FR', {
+        hour: '2-digit',
+        minute: '2-digit'
+      }).format(new Date(timestamp));
+    } catch (_) {
+      return new Date(timestamp).toLocaleTimeString('fr-FR', {
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+  }
+
+  function getEffectiveState() {
+    const status = readStatus();
+    if (!status) return { state: 'non_envoye', status: null };
+
+    const signature = currentSignature();
+    if (
+      status.state === 'envoye' &&
+      status.signature &&
+      signature &&
+      status.signature !== signature
+    ) {
+      status.state = 'modifie';
+      status.modifiedAt = Date.now();
+      writeStatus(status);
+    }
+
+    return { state: status.state || 'non_envoye', status };
+  }
+
+  function renderStatus() {
+    const card = document.getElementById('bfCrStatusCard');
+    const icon = document.getElementById('bfCrStatusIcon');
+    const title = document.getElementById('bfCrStatusTitle');
+    const detail = document.getElementById('bfCrStatusDetail');
+    const button = document.getElementById('bfCrConfirmerEnvoiBtn');
+
+    if (!card || !icon || !title || !detail || !button) return;
+
+    const result = getEffectiveState();
+    card.classList.remove(
+      'status-non-envoye',
+      'status-envoye',
+      'status-modifie'
+    );
+
+    if (result.state === 'envoye') {
+      card.classList.add('status-envoye');
+      icon.innerHTML = '<i class="fas fa-circle-check"></i>';
+      title.textContent =
+        `Compte rendu envoyé à ${formatTimeCompact(result.status.sentAt)}`;
+      detail.textContent = '';
+      button.style.display = 'none';
+      return;
+    }
+
+    button.style.display = 'inline-flex';
+
+    if (result.state === 'modifie') {
+      card.classList.add('status-modifie');
+      icon.innerHTML = '<i class="fas fa-pen-to-square"></i>';
+      title.textContent = 'Compte rendu modifié depuis l’envoi';
+      detail.textContent =
+        `Dernier envoi confirmé à ${formatTimeCompact(result.status.sentAt)}.`;
+      button.innerHTML =
+        '<i class="fas fa-check"></i> Confirmer le nouvel envoi';
+      return;
+    }
+
+    card.classList.add('status-non-envoye');
+    icon.innerHTML = '<i class="fas fa-paper-plane"></i>';
+    title.textContent = 'Envoi non confirmé';
+    detail.textContent = '';
+    button.innerHTML =
+      '<i class="fas fa-check"></i> Marquer comme envoyé';
+  }
+
+  function confirmSent(method = 'Confirmation manuelle') {
+    writeStatus({
+      missionId: getMissionId(),
+      state: 'envoye',
+      signature: currentSignature(),
+      sentAt: Date.now(),
+      method
+    });
+    renderStatus();
+  }
+
+  function finishMissionNow() {
+    if (typeof window.confirmerFinMissionBorderForce === 'function') {
+      window.confirmerFinMissionBorderForce();
+      return;
+    }
+
+    const finishButton = document.getElementById('bfFinMissionOuiBtn');
+    if (finishButton) finishButton.click();
+  }
+
+  function signalerCopieReussie() {
+    const button = document.getElementById('copyBtn');
+    if (!button) return;
+
+    const original = button.innerHTML;
+    button.innerHTML = '<i class="fas fa-check"></i> Copié';
+    button.disabled = true;
+
+    window.setTimeout(() => {
+      button.innerHTML = original;
+      button.disabled = false;
+    }, 1400);
+  }
+
+  window.bfCrAfficherStatut = renderStatus;
+
+  // Compatibilité avec les anciens appels : ils ne déclenchent plus aucune fenêtre.
+  window.bfCrDemanderConfirmationEnvoi = function() {};
+  window.bfCrPreparerConfirmationApresPartage = function() {};
+
+  window.bfCrSignalerCopie = signalerCopieReussie;
+
+  window.bfCrVerifierModificationDepuisEnvoi = function(signature) {
+    const status = readStatus();
+
+    if (
+      !status ||
+      status.state !== 'envoye' ||
+      !status.signature ||
+      !signature
+    ) {
+      renderStatus();
+      return;
+    }
+
+    if (status.signature !== signature) {
+      status.state = 'modifie';
+      status.modifiedAt = Date.now();
+      writeStatus(status);
+    }
+
+    renderStatus();
+  };
+
+  window.bfCrDoitAvertirFinMission = function() {
+    return getEffectiveState().state !== 'envoye';
+  };
+
+  window.bfCrAfficherAvertissementFinMission = function() {
+    const result = getEffectiveState();
+    const popup = document.getElementById('popupCrAvertissementFin');
+    const title = document.getElementById('popupCrAvertissementFinTitre');
+    const message = document.getElementById('popupCrAvertissementFinMessage');
+    const detail = document.getElementById('popupCrAvertissementFinDetail');
+
+    if (result.state === 'modifie') {
+      if (title) {
+        title.innerHTML =
+          '<i class="fas fa-triangle-exclamation"></i> Compte rendu modifié';
+      }
+      if (message) {
+        message.textContent =
+          'Le compte rendu a été modifié depuis le dernier envoi confirmé.';
+      }
+      if (detail) {
+        detail.textContent =
+          'Choisis une seule action ci-dessous : revenir au compte rendu, confirmer le nouvel envoi et terminer, ou terminer sans envoi.';
+      }
+    } else {
+      if (title) {
+        title.innerHTML =
+          '<i class="fas fa-triangle-exclamation"></i> Compte rendu non confirmé';
+      }
+      if (message) {
+        message.textContent =
+          'Le compte rendu n’est pas indiqué comme envoyé.';
+      }
+      if (detail) {
+        detail.textContent =
+          'Choisis une seule action ci-dessous : revenir au compte rendu, indiquer qu’il a été envoyé et terminer, ou terminer sans envoi.';
+      }
+    }
+
+    if (popup) popup.style.display = 'flex';
+  };
+
+  window.bfCrNettoyerStatutMission = function() {
+    localStorage.removeItem(STATUS_KEY);
+    sessionStorage.removeItem(LEGACY_PENDING_KEY);
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Supprime une éventuelle ancienne attente créée par une version précédente.
+    sessionStorage.removeItem(LEGACY_PENDING_KEY);
+
+    document
+      .getElementById('bfCrConfirmerEnvoiBtn')
+      ?.addEventListener('click', () => {
+        confirmSent('Confirmation manuelle');
+      });
+
+    document
+      .getElementById('bfCrRetourCompteRenduBtn')
+      ?.addEventListener('click', () => {
+        const popup = document.getElementById('popupCrAvertissementFin');
+        if (popup) popup.style.display = 'none';
+        if (typeof showPage === 'function') showPage('generatePage');
+      });
+
+    document
+      .getElementById('bfCrEnvoyeEtTerminerBtn')
+      ?.addEventListener('click', () => {
+        const popup = document.getElementById('popupCrAvertissementFin');
+        if (popup) popup.style.display = 'none';
+        confirmSent('Confirmation à la fin de mission');
+        finishMissionNow();
+      });
+
+    document
+      .getElementById('bfCrTerminerSansEnvoiBtn')
+      ?.addEventListener('click', () => {
+        const popup = document.getElementById('popupCrAvertissementFin');
+        if (popup) popup.style.display = 'none';
+        finishMissionNow();
+      });
+
+    // Laisse d'abord Border Force charger l'état sauvegardé de la mission.
+    setTimeout(renderStatus, 800);
+  });
+})();
+</script>
 
 <script>
 // Navigation entre les pages
@@ -2624,8 +4045,38 @@ button.whatsapp:hover {
   "DSI Tende": ["train", "bus", "vl", "pl"]
 };
 
+    function bfCrConstruireSignatureDonnees() {
+      return JSON.stringify({
+        site: state.site || '',
+        date: state.date || '',
+        heureDebut: state.heureDebut || '',
+        heureFin: state.heureFin || '',
+        esrList: state.esrList || [],
+        cameraNum: state.cameraNum || '',
+        cameraESR: state.cameraESR || '',
+        tablette1Num: state.tablette1Num || '',
+        tablette1ESR: state.tablette1ESR || '',
+        tablette2Num: state.tablette2Num || '',
+        tablette2ESR: state.tablette2ESR || '',
+        vehiculeService: state.vehiculeService || '',
+        vehicules: state.vehicules || {},
+        cv: state.cv || {},
+        cf: state.cf || {},
+        esiList: state.esiList || [],
+        passeurList: state.passeurList || [],
+        observations: state.observations || '',
+        deroulement: state.deroulement || '',
+        pulsar: state.pulsar || ''
+      });
+    }
+
+    window.bfCrGetCurrentReportSignature = bfCrConstruireSignatureDonnees;
+
     let saveTimeout = null;
     function debounceSave() {
+      if (typeof window.bfCrVerifierModificationDepuisEnvoi === 'function') {
+        window.bfCrVerifierModificationDepuisEnvoi(bfCrConstruireSignatureDonnees());
+      }
       if(saveTimeout) clearTimeout(saveTimeout);
       saveTimeout = setTimeout(() => {
         saveToStorage();
@@ -2634,6 +4085,9 @@ button.whatsapp:hover {
     
     function saveToStorage() {
       localStorage.setItem('borderforce', JSON.stringify(state));
+      if (typeof window.bfCrVerifierModificationDepuisEnvoi === 'function') {
+        window.bfCrVerifierModificationDepuisEnvoi(bfCrConstruireSignatureDonnees());
+      }
     }
     
     function loadFromStorage() {
@@ -2763,8 +4217,8 @@ if (resumeEl) {
         const delBtn = document.createElement('button');
         delBtn.textContent = 'Supprimer';
         delBtn.className = 'red';
-        delBtn.onclick = () => {
-          if(confirm(`Supprimer ${esr.grade} ${esr.nom} ?`)) {
+        delBtn.onclick = async () => {
+          if (await appConfirm(`Supprimer ${esr.grade} ${esr.nom} ?`, { title: 'Supprimer un ESR', confirmText: 'Oui, supprimer' })) {
             state.esrList.splice(i,1);
             populateEsrSelects();
             renderEsrList();
@@ -2874,7 +4328,7 @@ if (resumeEl) {
       const nigend = document.getElementById('esrNigend').value.trim();
       const crt = document.getElementById('esrCRT').value.trim();
       if(!grade || !nom || !nigend || !crt) {
-        alert('Merci de remplir tous les champs ESR.');
+        appAlert('Merci de remplir tous les champs ESR.');
         return;
       }
 
@@ -2969,7 +4423,7 @@ function addManualCv(type){
   const input = document.getElementById(type+'CvManual');
   if(!input) return;
   const val = parseInt(input.value, 10);
-  if (!(val > 0)) { alert('Veuillez saisir un nombre entier > 0.'); input.focus(); input.select(); return; }
+  if (!(val > 0)) { appAlert('Veuillez saisir un nombre entier > 0.'); input.focus(); input.select(); return; }
   state.cv[type] += val;
   updateUI(); debounceSave();
   input.value = '';          // ← vide
@@ -2982,7 +4436,7 @@ function addManualCf(type){
   const input = document.getElementById(type+'CfManual');
   if(!input) return;
   const val = parseInt(input.value, 10);
-  if (!(val > 0)) { alert('Veuillez saisir un nombre entier > 0.'); input.focus(); input.select(); return; }
+  if (!(val > 0)) { appAlert('Veuillez saisir un nombre entier > 0.'); input.focus(); input.select(); return; }
   state.cf[type] += val;
   updateUI(); debounceSave();
   input.value = '';
@@ -3111,8 +4565,8 @@ function renderEsiList() {
     const delBtn = document.createElement('button');
     delBtn.textContent = 'Supprimer';
     delBtn.className = 'red';
-    delBtn.onclick = () => {
-      if (confirm("Supprimer cet ESI ?")) {
+    delBtn.onclick = async () => {
+      if (await appConfirm("Supprimer cet ESI ?", { title: "Supprimer un ESI", confirmText: "Oui, supprimer" })) {
         state.esiList.splice(i, 1);
         // On reconstruit les lignes auto (ESI/PASSEUR) dans le déroulement
         if (typeof rebuildDeroulementAuto === 'function') {
@@ -3247,14 +4701,14 @@ function addEsi() {
   const situation = document.getElementById('esiSituation').value;
   const lieu = document.getElementById('esiLieu').value.trim();
   const suitesInfo = bf_getSuites('esi');
-if (!suitesInfo.ok) { alert(suitesInfo.msg); return; }
+if (!suitesInfo.ok) { appAlert(suitesInfo.msg); return; }
 const suites = suitesInfo.suites;
 
   const dob = document.getElementById('esiDob').value.trim(); // date de naissance
 const event = document.getElementById('esiEvent')?.value.trim() || "";
 
 if (!age || !sexe || !ageNum || !nationalite || !situation || !lieu) {
-  alert('Merci de remplir tous les champs ESI.');
+  appAlert('Merci de remplir tous les champs ESI.');
   return;
 }
 
@@ -3395,8 +4849,8 @@ function renderPasseurList() {
     const delBtn = document.createElement('button');
     delBtn.textContent = 'Supprimer';
     delBtn.className = 'red';
-    delBtn.onclick = () => {
-      if (confirm("Supprimer ce passeur ?")) {
+    delBtn.onclick = async () => {
+      if (await appConfirm("Supprimer ce passeur ?", { title: "Supprimer un passeur", confirmText: "Oui, supprimer" })) {
         state.passeurList.splice(i, 1);
         if (typeof rebuildDeroulementAuto === 'function') {
           rebuildDeroulementAuto();
@@ -3423,7 +4877,7 @@ function addPasseur() {
   const nationalite = document.getElementById('passeurNationalite').value.trim();
   const lieu = document.getElementById('passeurLieu').value.trim();
   const suitesInfo = bf_getSuites('passeur');
-if (!suitesInfo.ok) { alert(suitesInfo.msg); return; }
+if (!suitesInfo.ok) { appAlert(suitesInfo.msg); return; }
 const suites = suitesInfo.suites;
 
   const dob = document.getElementById('passeurDob').value.trim(); // date de naissance
@@ -3431,7 +4885,7 @@ const event = document.getElementById('passeurEvent')?.value.trim() || "";
 
 
   if (!age || !sexe || !ageNum || !nationalite || !lieu || !suites) {
-    alert('Merci de remplir tous les champs PASSEUR.');
+    appAlert('Merci de remplir tous les champs PASSEUR.');
     return;
   }
 
@@ -3665,7 +5119,7 @@ function rebuildDeroulementAuto() {
       const datePourCr = ((dateInputEl && dateInputEl.value) || state.date || '').trim();
 
       if(!datePourCr) {
-        alert('Merci de sélectionner une date.');
+        appAlert('Merci de sélectionner une date.');
 
         const crEl = document.getElementById('compteRendu');
         if (crEl) crEl.value = '';
@@ -3788,7 +5242,7 @@ function autoResize(el) {
       const pulsarRenseigne = (pulsarOui && pulsarOui.checked) || (pulsarNon && pulsarNon.checked);
 
       if (!pulsarRenseigne) {
-        alert('Merci de renseigner PULSAR (OUI ou NON) avant de copier le compte rendu.');
+        appAlert('Merci de renseigner PULSAR (OUI ou NON) avant de copier le compte rendu.');
         showPage('generatePage');
         return;
       }
@@ -3799,7 +5253,7 @@ function autoResize(el) {
 
       const textarea = document.getElementById('compteRendu');
       if (!textarea) {
-        alert('Zone compte rendu introuvable.');
+        appAlert('Zone compte rendu introuvable.');
         return;
       }
 
@@ -3813,12 +5267,16 @@ function autoResize(el) {
       }
 
       if (!textarea.value || !textarea.value.trim()) {
-        alert('Impossible de copier : le compte rendu est vide. Vérifie les informations obligatoires.');
+        appAlert('Impossible de copier : le compte rendu est vide. Vérifie les informations obligatoires.');
         return;
       }
 
       try {
-        navigator.clipboard.writeText(textarea.value).then(()=> alert('Compte rendu copié dans le presse-papiers !')).catch(()=> fallbackCopy(textarea));
+        navigator.clipboard.writeText(textarea.value).then(() => {
+          if (typeof window.bfCrSignalerCopie === 'function') {
+            window.bfCrSignalerCopie();
+          }
+        }).catch(() => fallbackCopy(textarea));
       } catch {
         fallbackCopy(textarea);
       }
@@ -3828,9 +5286,11 @@ function autoResize(el) {
       try {
         textarea.select();
         document.execCommand('copy');
-        alert('Compte rendu copié dans le presse-papiers !');
+        if (typeof window.bfCrSignalerCopie === 'function') {
+          window.bfCrSignalerCopie();
+        }
       } catch {
-        alert('Impossible de copier. Sélectionnez manuellement le texte.');
+        appAlert('Impossible de copier. Sélectionnez manuellement le texte.');
       }
     }
 
@@ -3872,7 +5332,7 @@ function autoResize(el) {
       const pulsarRenseigne = (pulsarOui && pulsarOui.checked) || (pulsarNon && pulsarNon.checked);
 
       if (!pulsarRenseigne) {
-        alert('Merci de renseigner PULSAR (OUI ou NON) avant d’envoyer le compte rendu sur WhatsApp.');
+        appAlert('Merci de renseigner PULSAR (OUI ou NON) avant d’envoyer le compte rendu sur WhatsApp.');
         showPage('generatePage');
         return;
       }
@@ -3883,7 +5343,7 @@ function autoResize(el) {
 
       const textarea = document.getElementById('compteRendu');
       if (!textarea) {
-        alert('Zone compte rendu introuvable.');
+        appAlert('Zone compte rendu introuvable.');
         return;
       }
 
@@ -3899,14 +5359,14 @@ function autoResize(el) {
       const cr = textarea.value ? textarea.value.trim() : '';
 
       if (!cr) {
-        alert('Impossible d’ouvrir WhatsApp : le compte rendu est vide. Vérifie les informations puis génère le CR.');
+        appAlert('Impossible d’ouvrir WhatsApp : le compte rendu est vide. Vérifie les informations puis génère le CR.');
         return;
       }
 
       const copieOk = await copyCompteRenduSansAlerte(textarea);
 
       if (!copieOk) {
-        alert('Le CR est généré, mais la copie automatique a échoué. Tu pourras quand même sélectionner le texte manuellement avant de le coller dans WhatsApp.');
+        appAlert('Le CR est généré, mais la copie automatique a échoué. Tu pourras quand même sélectionner le texte manuellement avant de le coller dans WhatsApp.');
       }
 
       // Ouvre WhatsApp avec le compte rendu déjà placé dans la zone de message.
@@ -3923,6 +5383,15 @@ function autoResize(el) {
       state.date = document.getElementById('dateInput').value;
       state.heureDebut = document.getElementById('heureDebutInput').value;
       state.heureFin = document.getElementById('heureFinInput').value;
+
+      if (typeof window.bfUpdateMissionFromChef === 'function') {
+        window.bfUpdateMissionFromChef({
+          site: state.site,
+          date: state.date,
+          heureDebut: state.heureDebut,
+          heureFin: state.heureFin
+        });
+      }
 
       // Si le site change, on recalcule les compteurs auto du déroulement.
       // Sécurité demandée : actif uniquement sur Breil et DSI Tende.
@@ -4079,7 +5548,7 @@ function autoResize(el) {
         .filter(Boolean);
 
       if (lignes.length < 2) {
-        alert('Le fichier CSV semble vide ou incomplet.');
+        appAlert('Le fichier CSV semble vide ou incomplet.');
         return;
       }
 
@@ -4094,7 +5563,7 @@ function autoResize(el) {
       const idxCrt = headers.findIndex(h => ['crt', 'unite', 'unitecrt'].includes(h));
 
       if (idxGrade === -1 || idxNigend === -1 || idxCrt === -1 || (idxNomPrenom === -1 && idxNom === -1)) {
-        alert('Colonnes CSV attendues : grade, nomPrenom, nigend, crt.');
+        appAlert('Colonnes CSV attendues : grade, nomPrenom, nigend, crt.');
         return;
       }
 
@@ -4128,7 +5597,7 @@ function autoResize(el) {
 
       bfActualiserListeEsrLocal();
 
-      alert(`Import terminé : ${importes} ESR importé(s) / mis à jour.${ignores ? '\n' + ignores + ' ligne(s) ignorée(s).' : ''}`);
+      appAlert(`Import terminé : ${importes} ESR importé(s) / mis à jour.${ignores ? '\n' + ignores + ' ligne(s) ignorée(s).' : ''}`);
     }
 
 
@@ -4172,6 +5641,26 @@ function autoResize(el) {
       const h = Math.floor(minutes / 60);
       const m = minutes % 60;
       return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+    }
+
+    // Tolérance pour reconnaître le bon service même si les horaires du planning
+    // diffèrent des horaires réels renseignés dans Border Force.
+    const BF_PDF_MARGE_HORAIRE_MINUTES = 60;
+
+    function bfPdfEcartHeuresMinutes(heureA, heureB) {
+      const a = bfPdfHeureToMinutes(heureA);
+      const b = bfPdfHeureToMinutes(heureB);
+      if (a === null || b === null) return Infinity;
+
+      const ecartDirect = Math.abs(a - b);
+      // Gère aussi correctement les horaires proches de minuit.
+      return Math.min(ecartDirect, 1440 - ecartDirect);
+    }
+
+    function bfPdfHorairesCompatibles(debutA, finA, debutB, finB, margeMinutes = BF_PDF_MARGE_HORAIRE_MINUTES) {
+      if (!debutA || !finA || !debutB || !finB) return false;
+      return bfPdfEcartHeuresMinutes(debutA, debutB) <= margeMinutes
+        && bfPdfEcartHeuresMinutes(finA, finB) <= margeMinutes;
     }
 
     function bfPdfMoisFrancaisToNumber(mois) {
@@ -4223,7 +5712,7 @@ function autoResize(el) {
 
     async function bfPdfExtraireTextePlanning(file) {
       if (!window.pdfjsLib) {
-        alert("Lecture PDF indisponible : PDF.js n'est pas chargé.");
+        appAlert("Lecture PDF indisponible : PDF.js n'est pas chargé.");
         return '';
       }
 
@@ -4236,17 +5725,51 @@ function autoResize(el) {
       const pdf = await window.pdfjsLib.getDocument({ data: buffer }).promise;
       const allLines = [];
 
+      // Le planning peut contenir des annotations à gauche/droite du tableau
+      // (numéro de mission, e-mail, commentaires...). On repère donc les
+      // colonnes du tableau grâce aux en-têtes "Nigend" et "Néo"/"Téléphone"
+      // puis on ignore réellement le texte situé hors de cette zone.
+      const mediane = values => {
+        const nums = (values || []).filter(Number.isFinite).sort((a, b) => a - b);
+        if (!nums.length) return null;
+        const mid = Math.floor(nums.length / 2);
+        return nums.length % 2 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
+      };
+
       for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
         const page = await pdf.getPage(pageNumber);
         const content = await page.getTextContent();
 
-        const items = (content.items || [])
-          .map(item => ({
-            text: String(item.str || '').trim(),
-            x: item.transform ? item.transform[4] : 0,
-            y: item.transform ? item.transform[5] : 0
-          }))
+        let items = (content.items || [])
+          .map(item => {
+            const x = item.transform ? item.transform[4] : 0;
+            const width = Number(item.width) || 0;
+            return {
+              text: String(item.str || '').trim(),
+              x,
+              x2: x + width,
+              y: item.transform ? item.transform[5] : 0
+            };
+          })
           .filter(item => item.text);
+
+        // Détection dynamique des limites horizontales du tableau.
+        // Cela fonctionne aussi si le tableau est déplacé ou redimensionné
+        // entre deux mois, comme entre juillet et août 2026.
+        const nigendHeaders = items.filter(item => bfPdfNormaliserTexte(item.text) === 'NIGEND');
+        const neoHeaders = items.filter(item => bfPdfNormaliserTexte(item.text) === 'NEO');
+        const telHeaders = items.filter(item => bfPdfNormaliserTexte(item.text) === 'TELEPHONE');
+
+        const leftHeaderX = mediane(nigendHeaders.map(item => item.x));
+        const rightNeoX = mediane(neoHeaders.map(item => item.x2));
+        const rightTelX = mediane(telHeaders.map(item => item.x2));
+
+        if (leftHeaderX !== null && (rightNeoX !== null || rightTelX !== null)) {
+          const tableXMin = leftHeaderX - 10;
+          const tableXMax = (rightNeoX !== null ? rightNeoX : rightTelX) + 8;
+
+          items = items.filter(item => item.x >= tableXMin && item.x2 <= tableXMax);
+        }
 
         items.sort((a, b) => {
           const dy = b.y - a.y;
@@ -4323,7 +5846,10 @@ function autoResize(el) {
 
       if (!debutApp || !finApp || !section.heureDebut || !section.heureFin) return false;
 
-      return debutApp === section.heureDebut && finApp === section.heureFin;
+      return bfPdfHorairesCompatibles(
+        debutApp, finApp,
+        section.heureDebut, section.heureFin
+      );
     }
 
     function bfPdfNormaliserUnite(value) {
@@ -4424,12 +5950,43 @@ function autoResize(el) {
     }
 
     function bfPdfChampsMissionRenseignes() {
-      const siteApp = (state.site || '').trim();
-      const dateApp = (state.date || '').trim();
-      const debutApp = bfPdfNormaliserHeure(state.heureDebut || '');
-      const finApp = bfPdfNormaliserHeure(state.heureFin || '');
+      // La session créée depuis l'accueil est la référence prioritaire.
+      // L'import PDF ne doit jamais pouvoir remplacer ces informations verrouillées.
+      const mission = window.BF_MISSION_SESSION || {};
+      const siteApp = (mission.site || state.site || '').trim();
+      const dateApp = (mission.date || state.date || '').trim();
+      const debutApp = bfPdfNormaliserHeure(mission.heureDebut || state.heureDebut || '');
+      const finApp = bfPdfNormaliserHeure(mission.heureFin || state.heureFin || '');
 
       return { siteApp, dateApp, debutApp, finApp };
+    }
+
+    function bfPdfResumeMissionVerrouillee() {
+      const { siteApp, dateApp, debutApp, finApp } = bfPdfChampsMissionRenseignes();
+      const site = bfPdfNormaliserSite(siteApp) || 'site non renseigné';
+      const date = dateApp ? dateApp.split('-').reverse().join('/') : 'date non renseignée';
+      const debut = debutApp ? debutApp.replace(':', 'h') : '--h--';
+      const fin = finApp ? finApp.replace(':', 'h') : '--h--';
+      return `${site} — ${date} — ${debut}/${fin}`;
+    }
+
+    function bfPdfAfficherServiceIncompatible(sections) {
+      const trouves = (sections || []).slice(0, 8).map(section => `• ${bfPdfSectionLabel(section)}`);
+      const suite = (sections || []).length > 8
+        ? `
+• … et ${(sections || []).length - 8} autre(s) service(s)`
+        : '';
+
+      appAlert(`SERVICE INCOMPATIBLE AVEC LA MISSION EN COURS
+
+Mission verrouillée :
+${bfPdfResumeMissionVerrouillee()}
+
+Aucun service du PDF ne correspond au site, à la date et aux horaires de cette mission (marge admise : ±1 heure sur le début et la fin).
+Aucune donnée n’a été importée et la mission n’a pas été modifiée.${trouves.length ? `
+
+Services trouvés dans le PDF :
+${trouves.join('\n')}${suite}` : ''}`);
     }
 
     function bfPdfFiltrerSectionsSelonChamps(sections) {
@@ -4437,30 +5994,42 @@ function autoResize(el) {
       const siteNorm = bfPdfNormaliserSite(siteApp);
 
       return (sections || []).filter(section => {
+        if (!section) return false;
         if (siteNorm && section.site !== siteNorm) return false;
-        if (dateApp && section.dateIso && section.dateIso !== dateApp) return false;
+        if (dateApp && section.dateIso !== dateApp) return false;
 
-        // Si les deux heures sont renseignées, on filtre sur le créneau.
-        if (debutApp && finApp) {
-          if (!section.heureDebut || !section.heureFin) return false;
-          return section.heureDebut === debutApp && section.heureFin === finApp;
+        // Certains tableaux DSI Tende ne portent aucun horaire : dans ce cas,
+        // le site et la date restent les critères verrouillés de compatibilité.
+        if (siteNorm === 'DSI Tende' && !section.heureDebut && !section.heureFin) {
+          return true;
         }
 
-        return true;
+        if (debutApp && finApp) {
+          if (!section.heureDebut || !section.heureFin) return false;
+          return bfPdfHorairesCompatibles(
+            debutApp, finApp,
+            section.heureDebut, section.heureFin
+          );
+        }
+
+        return false;
       });
     }
 
-    function bfPdfImporterSectionPlanning(section, options = {}) {
+    async function bfPdfImporterSectionPlanning(section, options = {}) {
       if (!section) return false;
 
       const parsed = bfPdfExtraireEsrSection(section);
 
       if (!parsed.esrs.length) {
-        alert('Créneau trouvé, mais aucun ESR lisible dans ce bloc PDF.');
+        appAlert('Créneau trouvé, mais aucun ESR lisible dans ce bloc PDF.');
         return false;
       }
 
-      const remplirMission = options.remplirMission !== false;
+      // Une mission active est verrouillée : le PDF importe uniquement les ESR
+      // et les tablettes. Le site, la date et les horaires restent intacts.
+      const missionVerrouillee = !!(window.BF_MISSION_SESSION && window.BF_MISSION_SESSION.active);
+      const remplirMission = !missionVerrouillee && options.remplirMission !== false;
 
       if (remplirMission) {
         if (section.site) state.site = section.site;
@@ -4470,7 +6039,7 @@ function autoResize(el) {
       }
 
       const remplacer = (state.esrList || []).length
-        ? confirm('Une liste ESR existe déjà pour cette mission.\n\nOK = remplacer par le planning PDF.\nAnnuler = ajouter / mettre à jour sans supprimer.')
+        ? await appConfirm('Une liste ESR existe déjà pour cette mission.\n\nVeux-tu remplacer la liste actuelle par celle du planning PDF ?', { title: 'Liste ESR existante', confirmText: 'Remplacer', cancelText: 'Ajouter / mettre à jour' })
         : true;
 
       if (remplacer) {
@@ -4494,7 +6063,7 @@ function autoResize(el) {
       updateUI();
       debounceSave();
 
-      alert(
+      appAlert(
         `Import PDF terminé : ${importes} ESR ajouté(s) / mis à jour.` +
         `\nService : ${bfPdfSectionLabel(section)}` +
         (parsed.neos.length ? `\nTablette(s) détectée(s) : ${parsed.neos.map(n => 'T' + n).join(', ')}` : '')
@@ -4539,7 +6108,7 @@ function autoResize(el) {
         box.appendChild(title);
 
         const intro = document.createElement('p');
-        intro.textContent = message || 'Sélectionne ton service dans le tableau du jour. L’application remplira automatiquement le site, la date, les heures, les ESR et les tablettes détectées.';
+        intro.textContent = message || 'Sélectionne le service correspondant à la mission en cours. L’application importe les ESR et les tablettes sans modifier le site, la date ni les horaires verrouillés.';
         intro.style.margin = '0 0 12px 0';
         intro.style.color = '#444';
         intro.style.lineHeight = '1.35';
@@ -4624,34 +6193,42 @@ function autoResize(el) {
       const sections = bfPdfDecouperSectionsPlanning(texte);
 
       if (!sections.length) {
-        alert('Aucun service lisible trouvé dans ce planning PDF.');
+        appAlert('Aucun service lisible trouvé dans ce planning PDF.');
         return;
       }
 
       const { siteApp, dateApp, debutApp, finApp } = bfPdfChampsMissionRenseignes();
-      const champsRenseignes = !!(siteApp || dateApp || debutApp || finApp);
-      const sectionsCompatibles = bfPdfFiltrerSectionsSelonChamps(sections);
+      const missionComplete = !!(siteApp && dateApp && debutApp && finApp);
 
-      // Si les champs renseignés identifient un seul service, on importe directement.
-      if (champsRenseignes && sectionsCompatibles.length === 1) {
-        bfPdfImporterSectionPlanning(sectionsCompatibles[0], { remplirMission: true });
+      if (!missionComplete) {
+        appAlert(`Les informations verrouillées de la mission sont incomplètes.
+
+L’import PDF est annulé afin de ne pas mélanger deux services.`);
         return;
       }
 
-      let sectionsAProposer = sections;
-      let message = 'Sélectionne ton service dans le tableau du jour. L’application remplira automatiquement le site, la date, les heures, les ESR et les tablettes détectées.';
+      const sectionsCompatibles = bfPdfFiltrerSectionsSelonChamps(sections);
 
-      if (champsRenseignes && sectionsCompatibles.length > 1) {
-        sectionsAProposer = sectionsCompatibles;
-        message = 'Plusieurs services correspondent aux champs renseignés. Sélectionne celui à importer.';
-      } else if (champsRenseignes && sectionsCompatibles.length === 0) {
-        message = 'Aucun service ne correspond exactement aux champs renseignés. Sélectionne manuellement le service à importer dans la liste complète.';
+      // Un seul service correspond dans la marge de ±1 heure : import direct.
+      if (sectionsCompatibles.length === 1) {
+        await bfPdfImporterSectionPlanning(sectionsCompatibles[0], { remplirMission: false });
+        return;
       }
 
-      const sectionChoisie = await bfPdfChoisirServicePlanning(sectionsAProposer, message);
-      if (!sectionChoisie) return;
+      // Plusieurs blocs sont compatibles dans la marge de ±1 heure : le chef choisit uniquement parmi eux.
+      if (sectionsCompatibles.length > 1) {
+        const sectionChoisie = await bfPdfChoisirServicePlanning(
+          sectionsCompatibles,
+          'Plusieurs services correspondent à la mission verrouillée avec la marge de ±1 heure. Sélectionne celui dont tu veux importer les ESR et les tablettes.'
+        );
+        if (!sectionChoisie) return;
+        await bfPdfImporterSectionPlanning(sectionChoisie, { remplirMission: false });
+        return;
+      }
 
-      bfPdfImporterSectionPlanning(sectionChoisie, { remplirMission: true });
+      // Aucun service compatible : blocage strict, sans possibilité de sélectionner
+      // un autre jour ou un autre créneau dans la liste complète.
+      bfPdfAfficherServiceIncompatible(sections);
     }
 
 
@@ -4935,7 +6512,7 @@ function autoResize(el) {
 
           const reader = new FileReader();
           reader.onload = e => bfImporterRepertoireEsrDepuisCsvTexte(e.target.result || '');
-          reader.onerror = () => alert('Impossible de lire le fichier CSV.');
+          reader.onerror = () => appAlert('Impossible de lire le fichier CSV.');
           reader.readAsText(file, 'UTF-8');
         });
       }
@@ -5011,7 +6588,7 @@ function autoResize(el) {
             await bfImporterEsrMissionDepuisPdfFichier(file);
           } catch (e) {
             console.error(e);
-            alert('Impossible de lire ou analyser le planning PDF.');
+            appAlert('Impossible de lire ou analyser le planning PDF.');
           }
         });
       }
@@ -5248,7 +6825,7 @@ if (typeof bf_setSuites === "function") {
         }
 
         showPage("passeurPage");
-        alert('Fiche PASSEUR importée via QR.\nVérifie puis clique sur "Ajouter Passeur".');
+        appAlert('Fiche PASSEUR importée via QR.\nVérifie puis clique sur "Ajouter Passeur".');
 
       } else {
   // 👉 Par défaut : ESI
@@ -5290,7 +6867,7 @@ if (typeof bf_setSuites === "function") {
   }
 
   showPage("esiPage");
-  alert('Fiche ESI importée via QR.\nVérifie puis clique sur "Ajouter ESI".');
+  appAlert('Fiche ESI importée via QR.\nVérifie puis clique sur "Ajouter ESI".');
 }
 
 
@@ -5633,7 +7210,25 @@ generateCompteRendu = function() {
 
     function init() {
       loadFromStorage();
+
+      // Les informations saisies à l'accueil sont prioritaires pour la mission en cours.
+      const mission = window.BF_MISSION_SESSION || {};
+      if (mission.active && mission.role === "chef") {
+        state.site = mission.site || state.site;
+        state.date = mission.date || state.date;
+        state.heureDebut = mission.heureDebut || state.heureDebut;
+        state.heureFin = mission.heureFin || state.heureFin;
+        saveToStorage();
+      }
+
       updateUI();
+
+      // Les champs de mission sont remplis automatiquement depuis l'accueil.
+      // On déclenche donc ici la proposition qui était auparavant lancée
+      // uniquement après une saisie manuelle du site ou des horaires.
+      if (typeof bfVerifierDemandeDeroulementAutomatique === 'function') {
+        bfVerifierDemandeDeroulementAutomatique();
+      }
 	  
 	  const esiSuitesType = document.getElementById('esiSuitesType');
 if (esiSuitesType) {
@@ -5898,8 +7493,8 @@ function soumettreFiche(rediriger) {
   const suitesType = document.getElementById('suitesTypeFiche')?.value || '';
 const suitesLieu = (document.getElementById('suitesLieuFiche')?.value || '').trim();
 
-if (!suitesType) { alert("Merci de sélectionner les suites données."); return; }
-if (suitesType === 'TRANSPORT_PAF' && !suitesLieu) { alert("Merci de préciser le lieu du TRANSPORT PAF."); return; }
+if (!suitesType) { appAlert("Merci de sélectionner les suites données."); return; }
+if (suitesType === 'TRANSPORT_PAF' && !suitesLieu) { appAlert("Merci de préciser le lieu du TRANSPORT PAF."); return; }
 
 const suitesDonnees = (suitesType === 'TRANSPORT_PAF')
   ? `TRANSPORT PAF ${suitesLieu}`
@@ -6107,8 +7702,8 @@ elementTimer.style.fontWeight = 'bold';
 }
 
 
-function supprimerFiche(index) {
-    if (confirm("Voulez-vous vraiment supprimer cette fiche ?")) {
+async function supprimerFiche(index) {
+    if (await appConfirm("Voulez-vous vraiment supprimer cette fiche ?", { title: "Supprimer la fiche", confirmText: "Oui, supprimer" })) {
         const fiches = JSON.parse(localStorage.getItem('fichesBorderforce') || '[]');
         fiches.splice(index, 1);
         localStorage.setItem('fichesBorderforce', JSON.stringify(fiches));
@@ -6190,11 +7785,11 @@ toggleSuitesLieuFiche();
     afficherHistorique();
 }
 
-document.getElementById('effacerFiches').addEventListener('click', function() {
-    if (confirm("Voulez-vous vraiment effacer toutes les fiches ?")) {
+document.getElementById('effacerFiches').addEventListener('click', async function() {
+    if (await appConfirm("Voulez-vous vraiment effacer toutes les fiches ?", { title: "Effacer toutes les fiches", confirmText: "Oui, effacer" })) {
         localStorage.removeItem('fichesBorderforce');
         afficherHistorique();
-        alert("Toutes les fiches ont été effacées !");
+        appAlert("Toutes les fiches ont été effacées !");
     }
 });
 
@@ -6547,9 +8142,39 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("passeurAgeNum").addEventListener("input", majPasseurStatut);
   document.getElementById("passeurSexe").addEventListener("change", majPasseurStatut);
 });
-// Reset qui conserve le premier ESR mais réinitialise aussi le site
+// Fin de mission : conserve le premier ESR comme auparavant.
 function resetData() {
-  if (confirm("Voulez-vous vraiment effacer toutes les données sauf le premier ESR ?")) {
+  if (typeof window.bfCrDoitAvertirFinMission === 'function' && window.bfCrDoitAvertirFinMission()) {
+    if (typeof window.bfCrAfficherAvertissementFinMission === 'function') {
+      window.bfCrAfficherAvertissementFinMission();
+      return;
+    }
+  }
+  const popup = document.getElementById('popupFinMission');
+  if (popup) popup.style.display = 'flex';
+}
+
+function annulerFinMissionBorderForce() {
+  const popup = document.getElementById('popupFinMission');
+  if (popup) popup.style.display = 'none';
+}
+
+async function confirmerFinMissionBorderForce() {
+  if (window.BF_FIN_MISSION_EN_COURS) return;
+  window.BF_FIN_MISSION_EN_COURS = true;
+
+  const popup = document.getElementById('popupFinMission');
+  if (popup) popup.style.display = 'none';
+
+  const finishButton = document.getElementById('bfFinMissionOuiBtn');
+  const finishButtonHtml = finishButton?.innerHTML || '';
+  if (finishButton) {
+    finishButton.disabled = true;
+    finishButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Fin de mission…';
+  }
+  if (finishButton) {
+    finishButton.innerHTML = finishButtonHtml;
+  }
     
     // Charger l'état actuel depuis le localStorage
     const data = localStorage.getItem('borderforce');
@@ -6602,13 +8227,21 @@ function resetData() {
       newState.esrList.push(premierEsr);
     }
 
-    // Sauvegarde et rechargement
+    // Sauvegarde, fin de session et retour à l'écran de démarrage.
     localStorage.setItem('borderforce', JSON.stringify(newState));
-    location.reload();
-
-    alert("Données effacées. Le premier ESR a été conservé.");
-  }
+    localStorage.removeItem('siteSelection');
+    localStorage.removeItem('bf_mission_session_v1');
+    localStorage.removeItem('bf_deroulement_auto_proposition_v1');
+    if (typeof window.bfCrNettoyerStatutMission === 'function') {
+      window.bfCrNettoyerStatutMission();
+    }
+    location.replace('../index.html');
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('bfFinMissionOuiBtn')?.addEventListener('click', confirmerFinMissionBorderForce);
+  document.getElementById('bfFinMissionAnnulerBtn')?.addEventListener('click', annulerFinMissionBorderForce);
+});
       
 </script>
 <script>
@@ -6886,7 +8519,7 @@ function majAffichageComptage(){
 
 function ajouterDeroulementFlex(){
   const zone = document.getElementById("deroulement");
-  if(!zone){ alert("⚠️ Zone 'Déroulement' introuvable."); return; }
+  if(!zone){ appAlert("⚠️ Zone 'Déroulement' introuvable."); return; }
 
   const heure = document.getElementById("heure_action").value;
   const act   = (document.getElementById("type_action").value || "").trim();
@@ -6900,7 +8533,7 @@ function ajouterDeroulementFlex(){
   const suffix = buildSuffixComptage(nbCtrl, nbDesc);
 
   if(!hStr && !corps && !suffix){
-    alert("Renseignez au moins l’heure ou une action (prédéfinie, infos supplémentaires ou texte libre).");
+    appAlert("Renseignez au moins l’heure ou une action (prédéfinie, infos supplémentaires ou texte libre).");
     return;
   }
 
@@ -7057,9 +8690,10 @@ window.addEventListener('resize', bfFloatingHomeApplySavedPosition);
 // N'ajoute que les lignes de base. Elles restent modifiables ensuite.
 const BF_DEROULEMENT_AUTO_TRAJETS = {
   "Breil": { aller: 90, retour: 90 },
-  "La Turbie": { aller: 20, retour: 20 }
+  "La Turbie": { aller: 30, retour: 30 }
 };
 
+const BF_DEROULEMENT_AUTO_PROPOSITION_KEY = "bf_deroulement_auto_proposition_v1";
 let BF_DEROULEMENT_AUTO_DERNIERE_PROPOSITION = "";
 
 function bfAutoTimeToMinutes(value) {
@@ -7098,53 +8732,63 @@ function bfAutoRetirerAnciennesLignes(lignes) {
 
 function bfVerifierDemandeDeroulementAutomatique() {
   const site = (document.getElementById("siteSelect")?.value || "").trim();
+  const date = (document.getElementById("dateInput")?.value || "").trim();
   const heureDebut = (document.getElementById("heureDebutInput")?.value || "").trim();
   const heureFin = (document.getElementById("heureFinInput")?.value || "").trim();
 
-  // Tende est particulier : aucune proposition automatique.
+  if (!site || !date || !heureDebut || !heureFin) return;
+
+  // DSI Tende n’a pas de déroulement automatique.
   if (site === "DSI Tende") return;
 
-  // On ne propose que pour les sites prévus.
   if (!BF_DEROULEMENT_AUTO_TRAJETS[site]) return;
 
-  // On attend que les trois champs soient renseignés.
-  if (!site || !heureDebut || !heureFin) return;
+  const mission = window.BF_MISSION_SESSION || {};
+  const identifiantMission = mission.createdAt || mission.updatedAt || "mission";
+  const signature = `${identifiantMission}|${site}|${date}|${heureDebut}|${heureFin}`;
 
-  const signature = `${site}|${heureDebut}|${heureFin}`;
+  // Ne repose pas la question si elle a déjà été traitée pour cette mission.
+  if (
+    localStorage.getItem(BF_DEROULEMENT_AUTO_PROPOSITION_KEY) === signature ||
+    signature === BF_DEROULEMENT_AUTO_DERNIERE_PROPOSITION
+  ) {
+    return;
+  }
 
-  // Évite de redemander plusieurs fois pour les mêmes valeurs.
-  if (signature === BF_DEROULEMENT_AUTO_DERNIERE_PROPOSITION) return;
   BF_DEROULEMENT_AUTO_DERNIERE_PROPOSITION = signature;
+  localStorage.setItem(BF_DEROULEMENT_AUTO_PROPOSITION_KEY, signature);
 
-  setTimeout(() => {
-    const confirmation = confirm(
-      `Voulez-vous générer automatiquement le déroulement pour ${site} de ${heureDebut} à ${heureFin} ?`
+  setTimeout(async () => {
+    const dateAffichee = date.split("-").reverse().join("/");
+    const confirmation = await appConfirm(
+      `Générer automatiquement le déroulement ?\n\n${site} — ${dateAffichee}\n${heureDebut} à ${heureFin}`,
+      { title: "Déroulement automatique", icon: "fa-route", confirmText: "Oui, générer", cancelText: "Non", danger: false }
     );
 
     if (confirmation) {
-      bfGenererDeroulementAutomatique();
+      await bfGenererDeroulementAutomatique();
     }
   }, 250);
 }
 
-function bfGenererDeroulementAutomatique() {
+async function bfGenererDeroulementAutomatique() {
   const site = (document.getElementById("siteSelect")?.value || "").trim();
   const heureDebut = (document.getElementById("heureDebutInput")?.value || "").trim();
   const heureFin = (document.getElementById("heureFinInput")?.value || "").trim();
   const zone = document.getElementById("deroulement");
 
   if (!zone) {
-    alert("⚠️ Zone Déroulement introuvable.");
+    await appAlert("⚠️ Zone Déroulement introuvable.");
     return;
   }
 
   if (!site || !heureDebut || !heureFin) {
-    alert("Merci de renseigner le site, l'heure de début et l'heure de fin de mission.");
+    await appAlert("Merci de renseigner le site, l'heure de début et l'heure de fin de mission.");
     return;
   }
 
   if (site === "DSI Tende") {
-    alert("Déroulement automatique non disponible pour DSI Tende. Merci de saisir le déroulement manuellement.");
+    await appAlert("Déroulement automatique non disponible pour DSI Tende. Merci de saisir le déroulement manuellement.");
     return;
   }
 
@@ -7154,24 +8798,21 @@ function bfGenererDeroulementAutomatique() {
   let fin = bfAutoTimeToMinutes(heureFin);
 
   if (debut === null || fin === null) {
-    alert("Les heures de début et de fin ne sont pas valides.");
+    await appAlert("Les heures de début et de fin ne sont pas valides.");
     return;
   }
 
-  // Gestion vacation de nuit : exemple 22:00 → 06:00.
   if (fin <= debut) fin += 24 * 60;
 
   const priseCompte = debut - 30;
   const departAusseur = debut;
   const arriveeSite = debut + trajet.aller;
-  // L'heure de fin saisie correspond maintenant à l'arrivée à la caserne Ausseur.
-  // Le retour domiciles respectifs / fin de service est automatiquement placé 30 minutes après.
   const arriveeAusseur = fin;
   const departSite = arriveeAusseur - trajet.retour;
   const finService = fin + 30;
 
   if (departSite < arriveeSite) {
-    alert("La durée de mission est trop courte par rapport au temps de trajet prévu pour ce site.");
+    await appAlert("La durée de mission est trop courte par rapport au temps de trajet prévu pour ce site.");
     return;
   }
 
@@ -7197,17 +8838,19 @@ function bfGenererDeroulementAutomatique() {
     zone.dispatchEvent(new Event("input", { bubbles: true }));
   }
 
-  alert("Déroulement automatique généré. Tu peux modifier les lignes si besoin.");
+  await appAlert("Déroulement automatique généré. Tu peux modifier les lignes si besoin.");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   ["siteSelect", "heureDebutInput", "heureFinInput"].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.addEventListener("change", bfVerifierDemandeDeroulementAutomatique);
-      el.addEventListener("blur", bfVerifierDemandeDeroulementAutomatique);
+    const field = document.getElementById(id);
+    if (field) {
+      field.addEventListener("change", bfVerifierDemandeDeroulementAutomatique);
+      field.addEventListener("blur", bfVerifierDemandeDeroulementAutomatique);
     }
   });
+  // Sécurité pour une mission déjà chargée et verrouillée avant les événements change/blur.
+  window.setTimeout(bfVerifierDemandeDeroulementAutomatique, 650);
 });
 
 // === TRI AUTO INSTANTANÉ DU DÉROULEMENT (ajouté, ne remplace rien) ===
@@ -7431,7 +9074,7 @@ function openMrzImport(){
   const url = '../mrz/index.html?source=borderforce';
   const win = window.open(url, 'BF_MRZ_SCANNER', 'popup=yes,width=430,height=850');
   if (!win) {
-    alert("Le navigateur a bloqué l'ouverture du scanner MRZ. Autorise les pop-ups pour ce site, ou ouvre le dossier MRZ manuellement.");
+    appAlert("Le navigateur a bloqué l'ouverture du scanner MRZ. Autorise les pop-ups pour ce site, ou ouvre le dossier MRZ manuellement.");
     return;
   }
   try { win.focus(); } catch(e) {}
@@ -7448,7 +9091,7 @@ function parseMRZ(){
   const status = (msg) => { if (statusEl) statusEl.textContent = msg; };
 
   if (!mrzInput){
-    alert("mrzInput introuvable");
+    appAlert("mrzInput introuvable");
     return;
   }
 
@@ -7623,7 +9266,7 @@ function cleanMrzText(){
   const status = (msg) => { if (statusEl) statusEl.textContent = msg; };
 
   if (!input){
-    alert("mrzInput introuvable");
+    appAlert("mrzInput introuvable");
     return;
   }
 
@@ -7730,7 +9373,7 @@ function cleanMrzText(){
       page: "esrPage",
       target: "#esrPage .friendly-card:first-of-type",
       titre: "1 — Informations mission",
-      texte: "Commence par renseigner le site, la date, l'heure de début et l'heure de fin. Ces informations seront reprises automatiquement dans le compte rendu."
+      texte: "Le site, la date et les horaires de mission sont déjà renseignés et verrouillés depuis l’écran d’accueil. Vérifie simplement qu’ils correspondent bien à la mission en cours : ils seront repris automatiquement dans le compte rendu."
     },
     {
       page: "esrPage",
@@ -7743,13 +9386,13 @@ function cleanMrzText(){
       target: "#bfImporterEsrPdfBtn",
       fallbackTarget: "#esrPage .form-grid",
       titre: "Importer le tableau des services",
-      texte: "Si tu as le tableau des services du jour en PDF, appuie sur ce bouton. Si le site, la date et les horaires sont déjà renseignés, l'application importe directement le bon service. Sinon, elle te propose les services trouvés dans le PDF : sélectionne le tien et l'application remplit automatiquement le site, la date, les horaires, les ESR et les tablettes."
+      texte: "Télécharge d’abord le tableau des services au format PDF dans ton téléphone. Appuie ensuite sur « Importer le tableau des services » et sélectionne le fichier téléchargé. L’application vérifie que le site et la date correspondent à la mission verrouillée et accepte jusqu’à 1 heure d’écart sur l’heure de début et l’heure de fin. Si un service correspond, elle importe directement les ESR et les tablettes ; sinon l’import est bloqué."
     },
     {
       page: "esrPage",
       target: "#addEsrBtn",
       titre: "Ajouter les ESR",
-      texte: "Après avoir rempli les champs Grade, Nom Prénom, NIGEND et CRT, appuie sur Ajouter ESR. Les ESR ajoutés seront disponibles pour le matériel et le compte rendu.",
+      texte: "Si tu dois renseigner les ESR manuellement, complète les champs Grade, Nom Prénom, NIGEND et CRT, puis appuie sur « Ajouter ESR ». Les ESR ajoutés seront ensuite disponibles pour le matériel et le compte rendu.",
       position: "top"
     },
     {
@@ -7992,13 +9635,130 @@ function cleanMrzText(){
 
 
 
+
+<script id="bfPassageDuplicateProtection">
+/* =========================================================
+   PROTECTION CONTRE LE DOUBLE COMPTAGE TRAIN / BUS
+   Même passage + même heure = mise à jour de la ligne existante.
+   ========================================================= */
+(function () {
+  "use strict";
+
+  let confirmationEnCours = false;
+
+  function normaliserLigne(value) {
+    return String(value || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[–—−]/g, "—")
+      .replace(/\s+/g, " ")
+      .trim()
+      .toLowerCase();
+  }
+
+  function formatHeureLisible(value) {
+    const match = String(value || "").match(/^(\d{1,2}):(\d{2})$/);
+    if (!match) return String(value || "");
+    return `${Number(match[1])} h ${match[2]}`;
+  }
+
+  window.bfAjouterOuMettreAJourPassage = async function (options = {}) {
+    const zone = options.zone;
+    const ligne = String(options.ligne || "").trim();
+    const prefixeUnique = String(options.prefixeUnique || "").trim();
+    const type = options.type === "bus" ? "bus" : "train";
+    const heure = options.heure || "";
+
+    if (!zone || !ligne || !prefixeUnique) {
+      return { action: "erreur" };
+    }
+
+    const lignes = String(zone.value || "").split(/\r?\n/);
+    const prefixeNormalise = normaliserLigne(prefixeUnique);
+
+    const doublons = [];
+    lignes.forEach((ligneExistante, index) => {
+      const normalisee = normaliserLigne(ligneExistante);
+      if (normalisee && normalisee.startsWith(prefixeNormalise)) {
+        doublons.push(index);
+      }
+    });
+
+    if (!doublons.length) {
+      zone.value = zone.value.trim()
+        ? `${zone.value}\n${ligne}`
+        : ligne;
+      zone.dispatchEvent(new Event("input", { bubbles: true }));
+      return { action: "ajoute" };
+    }
+
+    if (confirmationEnCours) {
+      return { action: "annule" };
+    }
+
+    confirmationEnCours = true;
+
+    try {
+      const nom = type === "bus" ? "Ce bus" : "Ce train";
+      const titre = type === "bus"
+        ? "Bus déjà ajouté"
+        : "Train déjà ajouté";
+
+      const confirme = await appConfirm(
+        `${nom} figure déjà dans le déroulement${heure ? ` à ${formatHeureLisible(heure)}` : ""}.\n\n` +
+        `La mise à jour remplacera la ligne existante et corrigera automatiquement les nombres de personnes contrôlées et descendues.`,
+        {
+          title: titre,
+          icon: type === "bus" ? "fa-bus" : "fa-train",
+          confirmText: "Mettre à jour",
+          cancelText: "Annuler",
+          danger: false
+        }
+      );
+
+      if (!confirme) {
+        return { action: "annule" };
+      }
+
+      const indexPrincipal = doublons[0];
+      const indexDoublons = new Set(doublons);
+      const nouvellesLignes = [];
+
+      lignes.forEach((ligneExistante, index) => {
+        if (index === indexPrincipal) {
+          nouvellesLignes.push(ligne);
+          return;
+        }
+
+        // Nettoie aussi d'éventuels doublons créés par une ancienne version.
+        if (indexDoublons.has(index)) return;
+
+        nouvellesLignes.push(ligneExistante);
+      });
+
+      zone.value = nouvellesLignes.join("\n").trim();
+      zone.dispatchEvent(new Event("input", { bubbles: true }));
+
+      return {
+        action: "mis_a_jour",
+        doublonsSupprimes: Math.max(0, doublons.length - 1)
+      };
+    } finally {
+      confirmationEnCours = false;
+    }
+  };
+})();
+</script>
+
+
 <script>
 /* =========================================================
    ASSISTANCE TRAINS — BREIL ET CINQ GARES DU SECTEUR DSI TENDE
    Sources :
    - API SNCF/Navitia via le Worker Cloudflare sécurisé ;
+   - fichier séparé trains-sncf-roya.js pour le secours SNCF hors connexion ;
    - fichier séparé trains-trenitalia-roya.js pour les horaires théoriques Trenitalia.
-   La clé SNCF reste côté Cloudflare. Pour DSI Tende, la gare est choisie parmi Breil, Fontan-Saorge, Saint-Dalmas-de-Tende, La Brigue et Tende. Les horaires Trenitalia sont filtrés selon la gare,
+   La clé SNCF reste côté Cloudflare. Pour DSI Tende, la gare est choisie parmi Breil, Fontan-Saorge, Saint-Dalmas-de-Tende, La Brigue et Tende. Les horaires locaux sont filtrés selon la gare,
    la date, le jour de la semaine, les dimanches, les jours fériés et la période de validité.
    Cette assistance ne modifie pas le déroulement automatique propre à DSI Tende.
    ========================================================= */
@@ -8057,8 +9817,12 @@ function cleanMrzText(){
   const BF_TRAIN_ALL_STATIONS_KEY = "__all__";
   const BF_TRAIN_ALLOWED_SITES = new Set(["breil", "dsi tende"]);
   const BF_TRAIN_WORKER_BASE = "https://borderforce-trains-breil.markrusten.workers.dev";
+  const BF_TRAIN_RFI_WORKER_BASE = "https://borderforce-trenitalia-live.markrusten.workers.dev";
+  const BF_TRAIN_RFI_MAX_AGE_SECONDS = 180;
+  const BF_TRAIN_RFI_CACHE_MS = 20000;
   const BF_TRAIN_MARGIN_MINUTES = 20;
   const BF_TRAIN_TRENITALIA_DATA = window.BF_TRENITALIA_ROYA_DATA || window.BF_TRENITALIA_BREIL_DATA || null;
+  const BF_TRAIN_SNCF_DATA = window.BF_SNCF_ROYA_DATA || null;
 
   const bfTrainState = {
     trains: [],
@@ -8068,7 +9832,28 @@ function cleanMrzText(){
     loading: false,
     panelClosed: false,
     othersExpanded: false,
-    trenitaliaInfo: null
+    sncfInfo: null,
+    trenitaliaInfo: null,
+    rfiInfo: null
+  };
+
+  const bfTrainRfiCache = {
+    loadedAt: 0,
+    payload: null,
+    promise: null
+  };
+
+  const bfNextTrainState = {
+    trains: [],
+    next: null,
+    loading: false,
+    loadedAt: null,
+    lastSignature: "",
+    sncfInfo: null,
+    trenitaliaInfo: null,
+    rfiInfo: null,
+    skippedTrainKeys: new Set(),
+    timerId: null
   };
 
   window.BF_TRAIN_SELECTION = null;
@@ -8352,7 +10137,9 @@ function cleanMrzText(){
     bfTrainState.loadedAt = null;
     bfTrainState.lastQuerySignature = "";
     bfTrainState.othersExpanded = false;
+    bfTrainState.sncfInfo = null;
     bfTrainState.trenitaliaInfo = null;
+    bfTrainState.rfiInfo = null;
     const list = bfTrainEl("bfTrainBreilList");
     if (list) list.innerHTML = "";
     bfTrainEffacerSelection(false);
@@ -8463,12 +10250,16 @@ function cleanMrzText(){
     const stopTime = item?.stop_date_time || {};
     const actualValue = kind === "arrival" ? stopTime.arrival_date_time : stopTime.departure_date_time;
     const baseValue = kind === "arrival" ? stopTime.base_arrival_date_time : stopTime.base_departure_date_time;
-    const actual = bfTrainParseNavitiaDate(actualValue);
-    const base = bfTrainParseNavitiaDate(baseValue) || actual;
+    const parsedBase = bfTrainParseNavitiaDate(baseValue);
+    const actual = bfTrainParseNavitiaDate(actualValue) || parsedBase;
+    const base = parsedBase || actual;
     if (!actual) return null;
 
     const route = bfTrainRoute(item);
     const delay = base ? Math.round((actual - base) / 60000) : 0;
+    const dataFreshness = String(stopTime.data_freshness || item?.data_freshness || "")
+      .trim()
+      .toLowerCase();
 
     return {
       kind,
@@ -8480,7 +10271,7 @@ function cleanMrzText(){
       origin: route.origin,
       destination: route.destination,
       routeName: route.routeName,
-      dataFreshness: stopTime.data_freshness || "",
+      dataFreshness,
       source: "API SNCF",
       theoretical: false,
       circulationLabel: "",
@@ -8639,12 +10430,12 @@ function cleanMrzText(){
       base: new Date(actual),
       delay: 0,
       numero: String(train.numero || ""),
-      operateur: train.operateur || data.operateur || "Trenitalia",
+      operateur: train.operateur || data.operateur || "Train",
       origin: train.origine || "",
       destination: train.destination || "",
       routeName: [train.origine, train.destination].filter(Boolean).join(" → "),
       dataFreshness: "base_schedule",
-      source: "Fichier Trenitalia",
+      source: data?.sourceLocale || (/sncf|zou/i.test(String(data?.operateur || "")) ? "Fichier SNCF" : "Fichier Trenitalia"),
       theoretical: true,
       circulationLabel: circulation.libelle || data?.circulationParDefaut?.libelle || "",
       jourLabel,
@@ -8655,7 +10446,7 @@ function cleanMrzText(){
     };
   }
 
-  function bfTrainTrenitaliaPourPlage(data, range, stationConfigs) {
+  function bfTrainHorairesTheoriquesPourPlage(data, range, stationConfigs) {
     const resultat = [];
     const info = {
       disponible: Boolean(data && Array.isArray(data.trains)),
@@ -8745,6 +10536,223 @@ function cleanMrzText(){
     return { trains, info };
   }
 
+
+  function bfTrainAjouterMinutes(date, minutes) {
+    if (!(date instanceof Date) || Number.isNaN(date.getTime())) return null;
+    const valeur = Number(minutes);
+    if (!Number.isFinite(valeur)) return new Date(date);
+    return new Date(date.getTime() + valeur * 60000);
+  }
+
+  function bfTrainMinutesDepuisMinuit(value) {
+    const match = String(value || "").match(/^(\d{1,2}):(\d{2})$/);
+    if (!match) return null;
+    return Number(match[1]) * 60 + Number(match[2]);
+  }
+
+  function bfTrainEcartHorairesMinutes(a, b) {
+    const minutesA = bfTrainMinutesDepuisMinuit(a);
+    const minutesB = bfTrainMinutesDepuisMinuit(b);
+    if (minutesA === null || minutesB === null) return null;
+    const direct = Math.abs(minutesA - minutesB);
+    return Math.min(direct, 1440 - direct);
+  }
+
+  function bfTrainPlageContientAujourdhui(range) {
+    if (!range) return false;
+    const aujourdHui = bfTrainDateLocale(new Date());
+    return bfTrainDatesDeLaPlage(range)
+      .some(date => bfTrainDateLocale(date) === aujourdHui);
+  }
+
+  async function bfTrainChargerRfi(range) {
+    const info = {
+      consulte: false,
+      disponible: false,
+      applicableAujourdHui: bfTrainPlageContientAujourdhui(range),
+      nombreTrains: 0,
+      nombreActualises: 0,
+      dataFresh: false,
+      updatedAt: null,
+      freshnessSeconds: null,
+      erreur: ""
+    };
+
+    if (!navigator.onLine || !info.applicableAujourdHui) {
+      return { trains: [], info };
+    }
+
+    info.consulte = true;
+    const maintenant = Date.now();
+
+    if (
+      bfTrainRfiCache.payload &&
+      maintenant - bfTrainRfiCache.loadedAt < BF_TRAIN_RFI_CACHE_MS
+    ) {
+      const payload = bfTrainRfiCache.payload;
+      const trains = Array.isArray(payload?.trains) ? payload.trains : [];
+      const freshnessValues = [
+        payload?.feed?.departures?.freshnessSeconds,
+        payload?.feed?.arrivals?.freshnessSeconds
+      ].filter(value => Number.isFinite(Number(value))).map(Number);
+      return {
+        trains,
+        info: {
+          ...info,
+          disponible: payload?.ok === true,
+          nombreTrains: trains.length,
+          dataFresh: trains.some(train => train?.dataFresh === true),
+          updatedAt: payload?.feed?.departures?.updatedAt || payload?.feed?.arrivals?.updatedAt || null,
+          freshnessSeconds: freshnessValues.length ? Math.min(...freshnessValues) : null
+        }
+      };
+    }
+
+    if (!bfTrainRfiCache.promise) {
+      const url = `${BF_TRAIN_RFI_WORKER_BASE}/roya?_=${Date.now()}`;
+      bfTrainRfiCache.promise = bfTrainFetchJson(url)
+        .then(payload => {
+          bfTrainRfiCache.payload = payload;
+          bfTrainRfiCache.loadedAt = Date.now();
+          return payload;
+        })
+        .finally(() => {
+          bfTrainRfiCache.promise = null;
+        });
+    }
+
+    try {
+      const payload = await bfTrainRfiCache.promise;
+      const trains = Array.isArray(payload?.trains) ? payload.trains : [];
+      const freshnessValues = [
+        payload?.feed?.departures?.freshnessSeconds,
+        payload?.feed?.arrivals?.freshnessSeconds
+      ].filter(value => Number.isFinite(Number(value))).map(Number);
+
+      return {
+        trains,
+        info: {
+          ...info,
+          disponible: payload?.ok === true,
+          nombreTrains: trains.length,
+          dataFresh: trains.some(train => train?.dataFresh === true),
+          updatedAt: payload?.feed?.departures?.updatedAt || payload?.feed?.arrivals?.updatedAt || null,
+          freshnessSeconds: freshnessValues.length ? Math.min(...freshnessValues) : null
+        }
+      };
+    } catch (error) {
+      return {
+        trains: [],
+        info: {
+          ...info,
+          erreur: error?.message || String(error)
+        }
+      };
+    }
+  }
+
+  function bfTrainAppliquerRfi(trainsTheoriques, trainsRfi, rfiInfo) {
+    const trains = Array.isArray(trainsTheoriques) ? trainsTheoriques : [];
+    const aujourdHui = bfTrainDateLocale(new Date());
+    const parNumero = new Map();
+
+    (Array.isArray(trainsRfi) ? trainsRfi : []).forEach(trainRfi => {
+      const numero = String(trainRfi?.numero || "").trim();
+      if (!numero) return;
+      if (trainRfi?.dataFresh !== true) return;
+      const age = Number(trainRfi?.sourceFreshnessSeconds);
+      if (Number.isFinite(age) && age > BF_TRAIN_RFI_MAX_AGE_SECONDS) return;
+      parNumero.set(numero, trainRfi);
+    });
+
+    let nombreActualises = 0;
+
+    trains.forEach(train => {
+      const trainRfi = parNumero.get(String(train?.numero || "").trim());
+      if (!trainRfi) return;
+
+      const stopRfi = (Array.isArray(trainRfi.stops) ? trainRfi.stops : [])
+        .find(stop => stop?.stationKey === train.stationKey);
+
+      /*
+       * Dans le sens Cuneo → Vintimille, le monitor RFI des arrivées donne
+       * le numéro du train, le retard et la voie à Ventimiglia, mais pas la
+       * liste des arrêts précédents. Le fichier statique de BorderForce
+       * contient déjà les horaires de Tende, La Brigue, Saint-Dalmas,
+       * Fontan-Saorge et Breil : le rapprochement par numéro suffit.
+       */
+      const rfiArriveeCuneoSansDetails = (
+        !stopRfi &&
+        trainRfi?.mode === "arrivals" &&
+        bfTrainNormaliserTexte(trainRfi?.relation || "").includes("cuneo")
+      );
+      if (!stopRfi && !rfiArriveeCuneoSansDetails) return;
+
+      const evenementReference = train.arrival || train.departure;
+      if (!evenementReference?.base) return;
+      if (bfTrainDateLocale(evenementReference.base) !== aujourdHui) return;
+
+      if (stopRfi?.scheduledTime) {
+        const horaireStatique = bfTrainFormatHeure(
+          train.arrival?.base || train.departure?.base
+        );
+        const ecartHoraire = bfTrainEcartHorairesMinutes(
+          horaireStatique,
+          stopRfi.scheduledTime
+        );
+        if (ecartHoraire !== null && ecartHoraire > 20) return;
+      }
+
+      const delay = Number(trainRfi.delayMinutes);
+      const cancelled = trainRfi.status === "cancelled";
+      const delayValide = Number.isFinite(delay);
+
+      ["arrival", "departure"].forEach(kind => {
+        const event = train[kind];
+        if (!event?.base) return;
+
+        event.source = "Monitor officiel RFI";
+        event.theoretical = false;
+        event.dataFreshness = "realtime";
+        event.realtimeProvider = "RFI";
+        event.rfiStatus = trainRfi.status || "";
+        event.cancelled = cancelled;
+        event.sourceUpdatedAt = trainRfi.sourceUpdatedAt || null;
+        event.sourceFreshnessSeconds = Number.isFinite(Number(trainRfi.sourceFreshnessSeconds))
+          ? Number(trainRfi.sourceFreshnessSeconds)
+          : null;
+        event.delay = delayValide ? delay : 0;
+        event.actual = cancelled
+          ? new Date(event.base)
+          : bfTrainAjouterMinutes(event.base, event.delay);
+        event.rfiMode = trainRfi.mode || "";
+        event.rfiStopDetailsAvailable = Boolean(stopRfi);
+        event.estimateMethod = cancelled
+          ? "suppression signalée par le monitor officiel RFI"
+          : rfiArriveeCuneoSansDetails
+            ? "horaire théorique augmenté du retard affiché par RFI pour l’arrivée à Ventimiglia"
+            : "horaire théorique augmenté du retard affiché par RFI au départ de Ventimiglia";
+      });
+
+      train.source = "Monitor officiel RFI";
+      train.theoretical = false;
+      train.rfiStatus = trainRfi.status || "";
+      train.rfiRelation = trainRfi.relation || "";
+      nombreActualises += 1;
+    });
+
+    if (rfiInfo) rfiInfo.nombreActualises = nombreActualises;
+    return trains;
+  }
+
+  function bfTrainPrioriteEvenement(event) {
+    if (!event) return -1;
+    if (event.theoretical) return 0;
+    if (event.realtimeProvider === "RFI") return 2;
+    if (bfTrainEstTempsReel(event)) return 3;
+    return 1;
+  }
+
   function bfTrainFusionnerSources(trainsSncf, trainsTrenitalia) {
     const map = new Map();
 
@@ -8760,7 +10768,7 @@ function cleanMrzText(){
         const nouveau = train[kind];
         const ancien = existant[kind];
         if (!nouveau) return;
-        if (!ancien || (ancien.theoretical && !nouveau.theoretical)) {
+        if (!ancien || bfTrainPrioriteEvenement(nouveau) > bfTrainPrioriteEvenement(ancien)) {
           existant[kind] = nouveau;
         }
       });
@@ -8788,6 +10796,40 @@ function cleanMrzText(){
   function bfTrainReferenceDate(train) {
     const dates = [train.arrival?.actual, train.departure?.actual].filter(Boolean);
     return dates.length ? new Date(Math.min(...dates.map(date => date.getTime()))) : new Date(8640000000000000);
+  }
+
+
+  function bfTrainEstSncf(train) {
+    const texte = `${train?.operateur || ""} ${train?.source || ""} ${train?.arrival?.source || ""} ${train?.departure?.source || ""}`;
+    return /sncf|zou/i.test(texte);
+  }
+
+  function bfTrainEstTrenitalia(train) {
+    const texte = `${train?.operateur || ""} ${train?.source || ""} ${train?.arrival?.source || ""} ${train?.departure?.source || ""}`;
+    return /trenitalia|rfi/i.test(texte) && !bfTrainEstSncf(train);
+  }
+
+  function bfTrainEstEntierementTheorique(train) {
+    const events = [train?.arrival, train?.departure].filter(Boolean);
+    return events.length > 0 && events.every(event => event.theoretical);
+  }
+
+  function bfTrainConstruireHorairesLocaux(range, stationConfigs) {
+    const resultatSncf = bfTrainHorairesTheoriquesPourPlage(
+      BF_TRAIN_SNCF_DATA,
+      range,
+      stationConfigs
+    );
+    const resultatTrenitalia = bfTrainHorairesTheoriquesPourPlage(
+      BF_TRAIN_TRENITALIA_DATA,
+      range,
+      stationConfigs
+    );
+    return {
+      resultatSncf,
+      resultatTrenitalia,
+      trains: bfTrainFusionnerSources(resultatSncf.trains, resultatTrenitalia.trains)
+    };
   }
 
   function bfTrainControleDate() {
@@ -8842,16 +10884,105 @@ function cleanMrzText(){
     return description;
   }
 
+  function bfTrainEstTempsReel(event) {
+    return Boolean(
+      event &&
+      !event.theoretical &&
+      String(event.dataFreshness || "").trim().toLowerCase() === "realtime"
+    );
+  }
+
+  function bfTrainStatutTempsReel(event) {
+    if (!event) return null;
+
+    const type = event.kind === "arrival" ? "Arrivée" : "Départ";
+    const actualTime = bfTrainFormatHeure(event.actual);
+    const baseTime = bfTrainFormatHeure(event.base || event.actual);
+
+    if (event.theoretical) {
+      return {
+        state: "theoretical",
+        shortLabel: "horaire théorique",
+        title: `${type} : horaire théorique`,
+        detail: `Horaire prévu ${actualTime}`
+      };
+    }
+
+    if (event.cancelled || event.rfiStatus === "cancelled") {
+      return {
+        state: "cancelled",
+        shortLabel: "train supprimé",
+        title: `${type} : train supprimé`,
+        detail: `Horaire prévu ${baseTime} · suppression signalée par RFI`
+      };
+    }
+
+    if (!bfTrainEstTempsReel(event)) {
+      return {
+        state: "unavailable",
+        shortLabel: "temps réel non communiqué",
+        title: `${type} : temps réel non communiqué`,
+        detail: `Horaire prévu ${baseTime || actualTime}`
+      };
+    }
+
+    if (event.delay > 0) {
+      return {
+        state: "delay",
+        shortLabel: `retard +${event.delay} min`,
+        title: `${type} : retard de ${event.delay} min`,
+        detail: event.realtimeProvider === "RFI"
+          ? `Prévu ${baseTime} · estimé ${actualTime} d’après RFI`
+          : `Prévu ${baseTime} · estimé ${actualTime}`
+      };
+    }
+
+    if (event.delay < 0) {
+      const avance = Math.abs(event.delay);
+      return {
+        state: "early",
+        shortLabel: `avance ${avance} min`,
+        title: `${type} : avance de ${avance} min`,
+        detail: event.realtimeProvider === "RFI"
+          ? `Prévu ${baseTime} · estimé ${actualTime} d’après RFI`
+          : `Prévu ${baseTime} · estimé ${actualTime}`
+      };
+    }
+
+    return {
+      state: "ontime",
+      shortLabel: "à l’heure",
+      title: `${type} : à l’heure`,
+      detail: event.realtimeProvider === "RFI"
+        ? `Horaire prévu ${baseTime} · aucun retard affiché par RFI`
+        : `Prévu et actualisé à ${actualTime}`
+    };
+  }
+
+  function bfTrainStatutHtml(event) {
+    const status = bfTrainStatutTempsReel(event);
+    if (!status) return "";
+
+    return `
+      <div class="bf-train-live-status ${status.state}">
+        <strong>${bfTrainEchapperHtml(status.title)}</strong>
+        <small>${bfTrainEchapperHtml(status.detail)}</small>
+      </div>
+    `;
+  }
+
   function bfTrainEvenementLabel(event) {
     if (!event) return "";
     const type = event.kind === "arrival" ? "Arrivée" : "Départ";
-    const delay = event.delay > 0
-      ? ` · +${event.delay} min`
-      : event.delay < 0
-        ? ` · ${event.delay} min`
-        : "";
-    const theorique = event.theoretical ? " · théorique" : "";
-    return `${type} ${bfTrainFormatHeure(event.actual)}${delay}${theorique}`;
+    const status = bfTrainStatutTempsReel(event);
+    const heure = bfTrainFormatHeure(event.actual);
+
+    if (event.theoretical) return `${type} ${heure} · théorique`;
+    if (status?.state === "cancelled") return `${type} ${heure} · supprimé`;
+    if (status?.state === "delay") return `${type} ${heure} · +${event.delay} min`;
+    if (status?.state === "early") return `${type} ${heure} · -${Math.abs(event.delay)} min`;
+    if (status?.state === "ontime") return `${type} ${heure} · à l’heure`;
+    return `${type} ${heure}`;
   }
 
   function bfTrainSelectionner(trainKey, kind) {
@@ -8863,6 +10994,14 @@ function cleanMrzText(){
     const train = bfTrainState.trains.find(item => item.key === trainKey);
     const event = train?.[kind];
     if (!train || !event) return;
+
+    if (event.cancelled) {
+      bfTrainSetStatus(
+        `Le train ${train.numero ? "n° " + train.numero : ""} est signalé supprimé par RFI. Il ne peut pas être ajouté comme passage contrôlé.`,
+        "warning"
+      );
+      return;
+    }
 
     const selection = {
       trainKey,
@@ -8878,6 +11017,11 @@ function cleanMrzText(){
       date: bfTrainDateLocale(event.actual),
       source: event.source || train.source || "",
       theoretical: Boolean(event.theoretical),
+      dataFreshness: event.dataFreshness || "",
+      delay: Number.isFinite(Number(event.delay)) ? Number(event.delay) : 0,
+      baseTime: bfTrainFormatHeure(event.base || event.actual),
+      actualTime: bfTrainFormatHeure(event.actual),
+      realtimeStatus: bfTrainStatutTempsReel(event),
       description: bfTrainDescriptionDeroulement(train)
     };
 
@@ -8906,12 +11050,22 @@ function cleanMrzText(){
     }
 
     const eventLabel = selection.kind === "arrival" ? "arrivée" : "départ";
+    const status = selection.realtimeStatus || null;
+    const statusDetail = status
+      ? `<br><small><strong>${bfTrainEchapperHtml(status.title)}</strong> — ${bfTrainEchapperHtml(status.detail)}</small>`
+      : "";
+
+    const compagnieTheorique = /sncf|zou/i.test(`${selection.operateur || ""} ${selection.source || ""}`)
+      ? "SNCF"
+      : "Trenitalia";
+
     el.style.display = "block";
     el.innerHTML = `
       <strong>Train sélectionné :</strong><br>
       ${bfTrainEchapperHtml(selection.description)}<br>
       Horaire en gare : ${bfTrainEchapperHtml(eventLabel)} ${bfTrainEchapperHtml(selection.scheduledTime)}
-      ${selection.theoretical ? "<br><small>Horaire Trenitalia théorique : vérifier les perturbations le jour du service.</small>" : ""}
+      ${statusDetail}
+      ${selection.theoretical ? `<br><small>Horaire ${compagnieTheorique} théorique : vérifier les perturbations le jour du service.</small>` : ""}
       <br><button type="button" id="bfTrainBreilClearSelectionBtn">Annuler la sélection</button>
     `;
 
@@ -8928,27 +11082,43 @@ function cleanMrzText(){
   function bfTrainCardHtml(train, near) {
     const selected = bfTrainState.selection?.trainKey === train.key;
     const title = bfTrainDescription(train);
-    const route = train.origin && train.destination
-      ? `${train.origin} → ${train.destination}`
-      : (train.routeName || train.destination || train.origin || "Trajet non communiqué");
+    
+const routeBrute = train.origin && train.destination
+  ? `${train.origin} → ${train.destination}`
+  : (train.routeName || train.destination || train.origin || "");
+
+const route = /^P\d+$/i.test(routeBrute.trim())
+  ? ""
+  : routeBrute;
+
     const distance = bfTrainEcartAvecControle(train);
     const distanceLabel = distance !== null ? `Écart avec l'heure saisie : ${distance} min` : "";
     const referenceEvent = train.arrival || train.departure;
+    const estSncf = /sncf|zou/i.test(`${train.operateur || ""} ${referenceEvent?.source || ""}`);
     const sourceLabel = referenceEvent?.theoretical
-      ? "Trenitalia · horaire théorique"
-      : "SNCF · donnée en ligne";
+      ? `${estSncf ? "SNCF" : "Trenitalia"} · horaire théorique${estSncf ? " hors connexion" : ""}`
+      : referenceEvent?.realtimeProvider === "RFI"
+        ? "Trenitalia · actualisation RFI"
+        : bfTrainEstTempsReel(referenceEvent)
+          ? "SNCF · temps réel"
+          : "SNCF · horaire en ligne, sans actualisation temps réel";
     const jourLabel = referenceEvent?.jourLabel ? ` · ${referenceEvent.jourLabel}` : "";
     const circulationLabel = train.circulationLabel ? ` · ${train.circulationLabel}` : "";
     const metaLabel = [distanceLabel, `${sourceLabel}${jourLabel}${circulationLabel}`]
       .filter(Boolean)
       .join(" · ");
 
+    const liveStatuses = [train.arrival, train.departure]
+      .filter(Boolean)
+      .map(event => bfTrainStatutHtml(event))
+      .join("");
+
     const buttons = [];
     if (train.arrival) {
-      buttons.push(`<button type="button" class="arrival" data-bf-train-key="${bfTrainEchapperHtml(train.key)}" data-bf-train-kind="arrival">${bfTrainEchapperHtml(bfTrainEvenementLabel(train.arrival))}</button>`);
+      buttons.push(`<button type="button" class="arrival" data-bf-train-key="${bfTrainEchapperHtml(train.key)}" data-bf-train-kind="arrival"${train.arrival.cancelled ? " disabled" : ""}>${bfTrainEchapperHtml(bfTrainEvenementLabel(train.arrival))}</button>`);
     }
     if (train.departure) {
-      buttons.push(`<button type="button" class="departure" data-bf-train-key="${bfTrainEchapperHtml(train.key)}" data-bf-train-kind="departure">${bfTrainEchapperHtml(bfTrainEvenementLabel(train.departure))}</button>`);
+      buttons.push(`<button type="button" class="departure" data-bf-train-key="${bfTrainEchapperHtml(train.key)}" data-bf-train-kind="departure"${train.departure.cancelled ? " disabled" : ""}>${bfTrainEchapperHtml(bfTrainEvenementLabel(train.departure))}</button>`);
     }
 
     const stationBadge = train.stationName
@@ -8959,8 +11129,9 @@ function cleanMrzText(){
       <div class="bf-train-card${near ? " near" : ""}${selected ? " selected" : ""}">
         ${stationBadge}
         <div class="bf-train-title">${bfTrainEchapperHtml(title)}</div>
-        <div class="bf-train-route">${bfTrainEchapperHtml(route)}</div>
+        ${route ? `<div class="bf-train-route">${bfTrainEchapperHtml(route)}</div>` : ""}
         <div class="bf-train-meta">${bfTrainEchapperHtml(metaLabel || "Sélectionne l'arrivée ou le départ correspondant au contrôle.")}</div>
+        <div class="bf-train-live-statuses">${liveStatuses}</div>
         <div class="bf-train-event-buttons">${buttons.join("")}</div>
       </div>
     `;
@@ -9074,8 +11245,9 @@ function cleanMrzText(){
     });
 
     try {
-      let trainsSncf = [];
+      let trainsSncfEnLigne = [];
       let stationsApiRepondues = 0;
+      const stationsSncfApiDisponibles = new Set();
 
       if (navigator.onLine) {
         const stationResults = await Promise.all(stationConfigs.map(async stationConfig => {
@@ -9090,7 +11262,10 @@ function cleanMrzText(){
 
           const departuresData = results[0].status === "fulfilled" ? results[0].value : null;
           const arrivalsData = results[1].status === "fulfilled" ? results[1].value : null;
-          if (departuresData || arrivalsData) stationsApiRepondues += 1;
+          if (departuresData || arrivalsData) {
+            stationsApiRepondues += 1;
+            stationsSncfApiDisponibles.add(stationConfig.key);
+          }
 
           return bfTrainFusionnerEvenements(
             departuresData?.departures || [],
@@ -9100,27 +11275,50 @@ function cleanMrzText(){
           );
         }));
 
-        trainsSncf = stationResults.flat();
+        trainsSncfEnLigne = stationResults.flat();
       }
 
       const apiIndisponible = stationsApiRepondues === 0;
       const apiPartielle = stationsApiRepondues > 0 && stationsApiRepondues < stationConfigs.length;
 
-      const resultatTrenitalia = bfTrainTrenitaliaPourPlage(
-        BF_TRAIN_TRENITALIA_DATA,
-        range,
-        stationConfigs
+      const horairesLocaux = bfTrainConstruireHorairesLocaux(range, stationConfigs);
+      const resultatSncf = horairesLocaux.resultatSncf;
+      const resultatTrenitalia = horairesLocaux.resultatTrenitalia;
+      // Le planning SNCF local ne complète que les gares sans réponse API.
+      // Ainsi, un train supprimé et retiré du flux SNCF n’est pas réintroduit
+      // à tort comme un train théorique lorsque l’API de la gare a répondu.
+      const trainsSncfLocauxDeSecours = resultatSncf.trains.filter(train =>
+        !stationsSncfApiDisponibles.has(train.stationKey)
       );
-      const trains = bfTrainFusionnerSources(trainsSncf, resultatTrenitalia.trains);
+      const trainsSncf = bfTrainFusionnerSources(trainsSncfEnLigne, trainsSncfLocauxDeSecours);
+      const resultatRfi = await bfTrainChargerRfi(range);
+      const trainsTrenitalia = bfTrainAppliquerRfi(
+        resultatTrenitalia.trains,
+        resultatRfi.trains,
+        resultatRfi.info
+      );
+      const trains = bfTrainFusionnerSources(trainsSncf, trainsTrenitalia);
 
       bfTrainState.trains = trains;
       bfTrainState.othersExpanded = false;
+      bfTrainState.sncfInfo = resultatSncf.info;
       bfTrainState.trenitaliaInfo = resultatTrenitalia.info;
+      bfTrainState.rfiInfo = resultatRfi.info;
       bfTrainState.lastQuerySignature = bfTrainQuerySignature();
       bfTrainState.loadedAt = new Date();
 
-      const nbTrenitalia = trains.filter(train => (train.operateur || "").toLowerCase().includes("trenitalia")).length;
-      const nbSncf = trains.length - nbTrenitalia;
+      const nbTrenitaliaRfi = trains.filter(train =>
+        bfTrainEstTrenitalia(train) && [train.arrival, train.departure].some(event => event?.realtimeProvider === "RFI")
+      ).length;
+      const nbTrenitaliaTheoriques = trains.filter(train =>
+        bfTrainEstTrenitalia(train) && bfTrainEstEntierementTheorique(train)
+      ).length;
+      const nbSncfEnLigne = trains.filter(train =>
+        bfTrainEstSncf(train) && !bfTrainEstEntierementTheorique(train)
+      ).length;
+      const nbSncfTheoriques = trains.filter(train =>
+        bfTrainEstSncf(train) && bfTrainEstEntierementTheorique(train)
+      ).length;
       const jourDebut = bfTrainInfoJour(range.start);
       const jourTexte = jourDebut.nomFerie
         ? `${jourDebut.nom} (${jourDebut.nomFerie})`
@@ -9131,22 +11329,35 @@ function cleanMrzText(){
 
       if (!trains.length) {
         const detailApi = apiIndisponible ? " L’API SNCF n’a pas répondu." : "";
+        const detailSncf = !resultatSncf.info.disponible
+          ? " Le fichier trains-sncf-roya.js est absent."
+          : resultatSncf.info.horsValidite
+            ? ` Les horaires SNCF locaux ne sont pas valides à cette date (validité : ${resultatSncf.info.validiteDu || "?"} au ${resultatSncf.info.validiteAu || "?"}).`
+            : "";
         const detailTrenitalia = !resultatTrenitalia.info.disponible
           ? " Le fichier trains-trenitalia-roya.js est absent."
           : resultatTrenitalia.info.horsValidite
             ? ` Les horaires Trenitalia ne sont pas valides à cette date (validité : ${resultatTrenitalia.info.validiteDu || "?"} au ${resultatTrenitalia.info.validiteAu || "?"}).`
             : "";
         bfTrainSetStatus(
-          `Aucun train trouvé pour ${gareTexte}, ce ${jourTexte}, dans la tranche du service.${detailApi}${detailTrenitalia}`,
+          `Aucun train trouvé pour ${gareTexte}, ce ${jourTexte}, dans la tranche du service.${detailApi}${detailSncf}${detailTrenitalia}`,
           "warning"
         );
         bfTrainEl("bfTrainBreilList").innerHTML = '<div class="bf-train-empty">Aucune circulation correspondant à la gare, à la date et aux horaires renseignés.</div>';
       } else {
         let complement = "";
         if (apiIndisponible) {
-          complement += " L’API SNCF n’a pas répondu : les horaires Trenitalia théoriques restent disponibles.";
+          complement += " L’API SNCF n’a pas répondu : les horaires SNCF et Trenitalia théoriques locaux restent disponibles.";
         } else if (apiPartielle) {
           complement += ` L’API SNCF a répondu pour ${stationsApiRepondues} gare${stationsApiRepondues > 1 ? "s" : ""} sur ${stationConfigs.length}.`;
+        }
+
+        if (!resultatSncf.info.disponible) {
+          complement += " Le fichier SNCF hors connexion est absent.";
+        } else if (resultatSncf.info.horsValidite) {
+          complement += ` Le fichier SNCF local est hors période de validité (${resultatSncf.info.validiteDu} au ${resultatSncf.info.validiteAu}).`;
+        } else {
+          complement += ` Base SNCF hors connexion version ${resultatSncf.info.version || "non renseignée"}.`;
         }
 
         if (!resultatTrenitalia.info.disponible) {
@@ -9154,11 +11365,28 @@ function cleanMrzText(){
         } else if (resultatTrenitalia.info.horsValidite) {
           complement += ` Le fichier Trenitalia est hors période de validité (${resultatTrenitalia.info.validiteDu} au ${resultatTrenitalia.info.validiteAu}).`;
         } else {
-          complement += ` Horaires Trenitalia théoriques, version ${resultatTrenitalia.info.version || "non renseignée"}.`;
+          complement += ` Base Trenitalia version ${resultatTrenitalia.info.version || "non renseignée"}.`;
         }
 
+        if (!resultatRfi.info.applicableAujourdHui) {
+          complement += " L’actualisation RFI s’applique uniquement aux trains circulant aujourd’hui.";
+        } else if (resultatRfi.info.erreur) {
+          complement += " Le monitor RFI n’a pas répondu : les horaires théoriques restent affichés.";
+        } else if (resultatRfi.info.nombreActualises > 0) {
+          complement += ` ${resultatRfi.info.nombreActualises} passage${resultatRfi.info.nombreActualises > 1 ? "s" : ""} Trenitalia actualisé${resultatRfi.info.nombreActualises > 1 ? "s" : ""} par RFI.`;
+        } else {
+          complement += " Aucun train Trenitalia de cette tranche n’est actuellement présent dans la fenêtre du monitor RFI.";
+        }
+
+        const detailsSources = [
+          `${nbSncfEnLigne} SNCF en ligne`,
+          `${nbSncfTheoriques} SNCF théorique${nbSncfTheoriques > 1 ? "s" : ""} local${nbSncfTheoriques > 1 ? "aux" : ""}`,
+          `${nbTrenitaliaRfi} Trenitalia actualisé${nbTrenitaliaRfi > 1 ? "s" : ""} par RFI`,
+          `${nbTrenitaliaTheoriques} Trenitalia théorique${nbTrenitaliaTheoriques > 1 ? "s" : ""}`
+        ].join(", ");
+
         bfTrainSetStatus(
-          `${trains.length} passage${trains.length > 1 ? "s" : ""} trouvé${trains.length > 1 ? "s" : ""} pour ${gareTexte}, ce ${jourTexte} : ${nbSncf} SNCF en ligne et ${nbTrenitalia} Trenitalia théorique${nbTrenitalia > 1 ? "s" : ""}.${complement}`,
+          `${trains.length} passage${trains.length > 1 ? "s" : ""} trouvé${trains.length > 1 ? "s" : ""} pour ${gareTexte}, ce ${jourTexte} : ${detailsSources}.${complement}`,
           "success"
         );
         bfTrainRendreListe();
@@ -9177,6 +11405,519 @@ function cleanMrzText(){
     } finally {
       bfTrainState.loading = false;
     }
+  }
+
+
+  function bfNextTrainPageVisible() {
+    const page = bfTrainEl("deroulementPage");
+    if (!page || document.hidden) return false;
+    return page.classList.contains("active") || page.style.display === "block";
+  }
+
+  function bfNextTrainSignature() {
+    const range = bfTrainServiceRange();
+    if (!range || !bfTrainEstSiteCompatible()) return "";
+    return [
+      bfTrainSiteKey(),
+      range.dateValue,
+      range.startValue,
+      range.endValue
+    ].join("|");
+  }
+
+  function bfNextTrainStationConfigs() {
+    if (bfTrainSiteKey() === "breil") return [BF_TRAIN_STATIONS.breil];
+    if (bfTrainEstDsiTende()) {
+      return BF_TRAIN_STATION_ORDER.map(key => BF_TRAIN_STATIONS[key]);
+    }
+    return [];
+  }
+
+  function bfNextTrainFormatMaj(date) {
+    return date ? `Mis à jour à ${bfTrainFormatHeure(date)}` : "";
+  }
+
+  function bfNextTrainSetBanner({
+    visible = true,
+    state = "unavailable",
+    title = "Prochain train",
+    primary = "",
+    secondary = "",
+    status = "",
+    statusIcon = "fa-circle-info",
+    clickable = false
+  } = {}) {
+    const banner = bfTrainEl("bfNextTrainBanner");
+    const main = bfTrainEl("bfNextTrainMainBtn");
+    if (!banner || !main) return;
+
+    banner.className = `bf-next-train-banner${visible ? " visible" : ""}${state ? " " + state : ""}`;
+    main.disabled = !clickable;
+    main.setAttribute("aria-disabled", clickable ? "false" : "true");
+    bfTrainEl("bfNextTrainTitle").textContent = title;
+    bfTrainEl("bfNextTrainPrimary").textContent = primary;
+    bfTrainEl("bfNextTrainSecondary").textContent = secondary;
+    bfTrainEl("bfNextTrainStatus").innerHTML = `<i class="fas ${statusIcon}"></i> ${bfTrainEchapperHtml(status)}`;
+    bfTrainEl("bfNextTrainUpdated").textContent = bfNextTrainFormatMaj(bfNextTrainState.loadedAt);
+  }
+
+  function bfNextTrainEvenementPourTrain(train, threshold) {
+    const candidats = ["arrival", "departure"]
+      .map(kind => ({ kind, event: train?.[kind] }))
+      .filter(item => item.event?.actual instanceof Date && !Number.isNaN(item.event.actual.getTime()))
+      .filter(item => item.event.actual.getTime() >= threshold)
+      .sort((a, b) => a.event.actual - b.event.actual);
+
+    return candidats.length ? { train, ...candidats[0] } : null;
+  }
+
+  function bfNextTrainCalculer() {
+    const range = bfTrainServiceRange();
+    if (!range) return null;
+
+    const now = Date.now();
+    if (now > range.end.getTime()) return null;
+
+    const threshold = Math.max(range.start.getTime(), now - 30000);
+    const candidats = bfNextTrainState.trains
+      .filter(train => !bfNextTrainState.skippedTrainKeys.has(train.key))
+      .map(train => bfNextTrainEvenementPourTrain(train, threshold))
+      .filter(Boolean)
+      .filter(item => item.event.actual.getTime() <= range.end.getTime())
+      .sort((a, b) => a.event.actual - b.event.actual);
+
+    return candidats[0] || null;
+  }
+
+  function bfNextTrainRouteCourte(train) {
+    if (train?.origin && train?.destination) return `${train.origin} → ${train.destination}`;
+    if (train?.destination) return `Direction ${train.destination}`;
+    if (train?.origin) return `En provenance de ${train.origin}`;
+    return train?.routeName || "Itinéraire non communiqué";
+  }
+
+  function bfNextTrainRendre() {
+    const banner = bfTrainEl("bfNextTrainBanner");
+    if (!banner) return;
+
+    if (!bfTrainEstSiteCompatible()) {
+      bfNextTrainSetBanner({ visible: false });
+      return;
+    }
+
+    const range = bfTrainServiceRange();
+    if (!range) {
+      bfNextTrainSetBanner({
+        state: "unavailable",
+        primary: "Date ou horaires de mission manquants",
+        secondary: "Renseigne la mission pour afficher le prochain train.",
+        status: "En attente de la mission"
+      });
+      return;
+    }
+
+    if (bfNextTrainState.loading) {
+      bfNextTrainSetBanner({
+        state: "loading",
+        primary: "Consultation des prochains trains…",
+        secondary: bfTrainEstDsiTende()
+          ? "Recherche sur les cinq gares entre Breil et Tende."
+          : "Recherche à Breil-sur-Roya.",
+        status: "Actualisation en cours",
+        statusIcon: "fa-spinner fa-spin"
+      });
+      return;
+    }
+
+    const next = bfNextTrainCalculer();
+    bfNextTrainState.next = next;
+
+    if (!next) {
+      const missionFinie = Date.now() > range.end.getTime();
+      bfNextTrainSetBanner({
+        state: "unavailable",
+        primary: missionFinie ? "Mission terminée" : "Aucun autre train prévu pendant la mission",
+        secondary: missionFinie
+          ? "La bannière sera réinitialisée à la prochaine mission."
+          : "Tu peux toujours consulter la liste complète ou saisir un passage manuellement.",
+        status: missionFinie ? "Fin de mission" : "Aucun prochain passage",
+        statusIcon: missionFinie ? "fa-flag-checkered" : "fa-circle-check"
+      });
+      return;
+    }
+
+    const { train, event, kind } = next;
+    const statusInfo = bfTrainStatutTempsReel(event) || {
+      state: "unavailable",
+      shortLabel: "statut non communiqué"
+    };
+    const minutes = Math.ceil((event.actual.getTime() - Date.now()) / 60000);
+    const quand = minutes <= 0
+      ? "maintenant"
+      : minutes === 1
+        ? "dans 1 minute"
+        : `dans ${minutes} minutes`;
+    const eventLabel = kind === "arrival" ? "Arrivée" : "Départ";
+    const gare = train.stationName || (bfTrainSiteKey() === "breil" ? "Breil-sur-Roya" : "Gare non précisée");
+    const numero = train.numero ? ` n° ${train.numero}` : "";
+    const operateur = train.operateur ? train.operateur : "Train";
+    const primary = `${bfTrainFormatHeure(event.actual)} — ${gare} — ${eventLabel}`;
+    const secondary = `${operateur}${numero} · ${bfNextTrainRouteCourte(train)}`;
+    const statusText = event.theoretical
+      ? "Horaire théorique"
+      : bfTrainEstTempsReel(event)
+        ? `Temps réel · ${statusInfo.shortLabel || "statut non communiqué"}`
+        : statusInfo.shortLabel || "Horaire non actualisé";
+
+    bfNextTrainSetBanner({
+      state: statusInfo.state || "unavailable",
+      title: event.cancelled ? `Train supprimé ${quand}` : `Prochain train ${quand}`,
+      primary,
+      secondary,
+      status: statusText,
+      statusIcon: event.cancelled
+        ? "fa-ban"
+        : event.theoretical
+          ? "fa-clock"
+          : "fa-signal",
+      clickable: !event.cancelled
+    });
+  }
+
+  async function bfNextTrainCharger({ force = false } = {}) {
+    if (!bfTrainEstSiteCompatible()) {
+      bfNextTrainState.trains = [];
+      bfNextTrainState.next = null;
+      bfNextTrainRendre();
+      return;
+    }
+
+    const range = bfTrainServiceRange();
+    const stationConfigs = bfNextTrainStationConfigs();
+    const signature = bfNextTrainSignature();
+    if (!range || !stationConfigs.length || !signature) {
+      bfNextTrainRendre();
+      return;
+    }
+
+    if (bfNextTrainState.loading) return;
+    if (!force && bfNextTrainState.lastSignature === signature && bfNextTrainState.loadedAt &&
+        Date.now() - bfNextTrainState.loadedAt.getTime() < 55000) {
+      bfNextTrainRendre();
+      return;
+    }
+
+    bfNextTrainState.loading = true;
+    bfNextTrainRendre();
+
+    const query = new URLSearchParams({
+      from_datetime: bfTrainNavitiaDate(range.requestStart),
+      duration: String(range.durationSeconds),
+      count: "100",
+      depth: "3",
+      data_freshness: "realtime",
+      disable_geojson: "true",
+      _: String(Date.now())
+    });
+
+    try {
+      let trainsSncfEnLigne = [];
+      const stationsSncfApiDisponibles = new Set();
+      if (navigator.onLine) {
+        const stationResults = await Promise.all(stationConfigs.map(async stationConfig => {
+          const stationPath = encodeURIComponent(stationConfig.stationId);
+          const departuresUrl = `${BF_TRAIN_WORKER_BASE}/v1/coverage/sncf/stop_areas/${stationPath}/departures?${query.toString()}`;
+          const arrivalsUrl = `${BF_TRAIN_WORKER_BASE}/v1/coverage/sncf/stop_areas/${stationPath}/arrivals?${query.toString()}`;
+          const results = await Promise.allSettled([
+            bfTrainFetchJson(departuresUrl),
+            bfTrainFetchJson(arrivalsUrl)
+          ]);
+          const departuresData = results[0].status === "fulfilled" ? results[0].value : null;
+          const arrivalsData = results[1].status === "fulfilled" ? results[1].value : null;
+          if (departuresData || arrivalsData) stationsSncfApiDisponibles.add(stationConfig.key);
+          return bfTrainFusionnerEvenements(
+            departuresData?.departures || [],
+            arrivalsData?.arrivals || [],
+            range,
+            stationConfig
+          );
+        }));
+        trainsSncfEnLigne = stationResults.flat();
+      }
+
+      const horairesLocaux = bfTrainConstruireHorairesLocaux(range, stationConfigs);
+      const resultatSncf = horairesLocaux.resultatSncf;
+      const resultatTrenitalia = horairesLocaux.resultatTrenitalia;
+      const trainsSncfLocauxDeSecours = resultatSncf.trains.filter(train =>
+        !stationsSncfApiDisponibles.has(train.stationKey)
+      );
+      const trainsSncf = bfTrainFusionnerSources(trainsSncfEnLigne, trainsSncfLocauxDeSecours);
+      const resultatRfi = await bfTrainChargerRfi(range);
+      const trainsTrenitalia = bfTrainAppliquerRfi(
+        resultatTrenitalia.trains,
+        resultatRfi.trains,
+        resultatRfi.info
+      );
+
+      bfNextTrainState.trains = bfTrainFusionnerSources(trainsSncf, trainsTrenitalia);
+      bfNextTrainState.sncfInfo = resultatSncf.info;
+      bfNextTrainState.trenitaliaInfo = resultatTrenitalia.info;
+      bfNextTrainState.rfiInfo = resultatRfi.info;
+      bfNextTrainState.loadedAt = new Date();
+      bfNextTrainState.lastSignature = signature;
+    } catch (error) {
+      console.error("Bannière prochain train :", error);
+      bfNextTrainState.trains = [];
+      bfNextTrainState.next = null;
+      bfNextTrainState.loadedAt = new Date();
+      bfNextTrainSetBanner({
+        state: "error",
+        primary: "Consultation momentanément impossible",
+        secondary: "Le bouton « Consulter les trains » et la saisie manuelle restent disponibles.",
+        status: navigator.onLine ? "Service indisponible" : "Hors connexion",
+        statusIcon: "fa-triangle-exclamation"
+      });
+      return;
+    } finally {
+      bfNextTrainState.loading = false;
+    }
+
+    bfNextTrainRendre();
+  }
+
+  function bfNextTrainPreparerFormulaire(next) {
+    if (!next?.train || !next?.event) return false;
+
+    const typeAction = bfTrainEl("type_action");
+    if (!typeAction) return false;
+
+    if (bfTrainEstDsiTende()) {
+      const stationSelect = bfTrainEl("bfTrainStationSelect");
+      if (stationSelect) stationSelect.value = BF_TRAIN_ALL_STATIONS_KEY;
+    }
+
+    typeAction.value = "Train";
+    typeAction.dispatchEvent(new Event("change", { bubbles: true }));
+    if (typeof window.majAffichageComptage === "function") window.majAffichageComptage();
+
+    bfTrainState.panelClosed = false;
+    bfTrainState.trains = bfNextTrainState.trains.slice();
+    bfTrainState.loadedAt = bfNextTrainState.loadedAt;
+    bfTrainState.sncfInfo = bfNextTrainState.sncfInfo;
+    bfTrainState.trenitaliaInfo = bfNextTrainState.trenitaliaInfo;
+    bfTrainState.rfiInfo = bfNextTrainState.rfiInfo;
+    bfTrainState.othersExpanded = false;
+    bfTrainState.lastQuerySignature = bfTrainQuerySignature();
+    bfTrainMettreAJourLibellesSite();
+    bfTrainMajVisibilite();
+    bfTrainRendreListe();
+    bfTrainSelectionner(next.train.key, next.kind);
+
+    const heureInput = bfTrainEl("heure_action");
+    if (heureInput) {
+      heureInput.value = bfTrainFormatHeure(next.event.actual);
+      heureInput.dispatchEvent(new Event("input", { bubbles: true }));
+    }
+
+    return Boolean(window.BF_TRAIN_SELECTION);
+  }
+
+  function bfNextTrainOuvrirPopup() {
+    const next = bfNextTrainState.next || bfNextTrainCalculer();
+    if (!next) {
+      bfNextTrainCharger({ force: true });
+      return;
+    }
+
+    bfNextTrainState.next = next;
+    const { train, event, kind } = next;
+    const statusInfo = bfTrainStatutTempsReel(event);
+    const eventLabel = kind === "arrival" ? "Arrivée" : "Départ";
+    const gare = train.stationName || "Breil-sur-Roya";
+    const summary = bfTrainEl("bfNextTrainQuickSummary");
+    const popup = bfTrainEl("popupNextTrainQuickAdd");
+    const controlled = bfTrainEl("bfNextTrainQuickControlled");
+    const descended = bfTrainEl("bfNextTrainQuickDescended");
+    const quickStatus = bfTrainEl("bfNextTrainQuickStatus");
+
+    if (summary) {
+      summary.innerHTML = `
+        <strong>${bfTrainEchapperHtml(`${bfTrainFormatHeure(event.actual)} — ${eventLabel} à ${gare}`)}</strong>
+        <small>${bfTrainEchapperHtml(bfTrainDescription(train))}</small>
+        <small>${bfTrainEchapperHtml(statusInfo?.title || "Statut non communiqué")} — ${bfTrainEchapperHtml(statusInfo?.detail || "")}</small>
+      `;
+    }
+    if (controlled) controlled.value = "";
+    if (descended) descended.value = "";
+    if (quickStatus) {
+      quickStatus.style.display = "none";
+      quickStatus.textContent = "";
+    }
+    if (popup) popup.style.display = "flex";
+    window.setTimeout(() => controlled?.focus(), 50);
+  }
+
+  function bfNextTrainFermerPopup() {
+    const popup = bfTrainEl("popupNextTrainQuickAdd");
+    if (popup) popup.style.display = "none";
+    const quickStatus = bfTrainEl("bfNextTrainQuickStatus");
+    if (quickStatus) {
+      quickStatus.style.display = "none";
+      quickStatus.textContent = "";
+    }
+  }
+
+  async function bfNextTrainAjouterRapidement() {
+    const next = bfNextTrainState.next || bfNextTrainCalculer();
+    const addButton = bfTrainEl("bfNextTrainQuickAddBtn");
+    const quickStatus = bfTrainEl("bfNextTrainQuickStatus");
+    if (!next || !bfNextTrainPreparerFormulaire(next)) {
+      if (quickStatus) {
+        quickStatus.style.display = "block";
+        quickStatus.textContent = "Impossible de sélectionner ce train. Actualise la bannière.";
+      }
+      return;
+    }
+
+    const controlled = bfTrainEl("bfNextTrainQuickControlled")?.value || "";
+    const descended = bfTrainEl("bfNextTrainQuickDescended")?.value || "";
+    const controlledNumber = controlled === "" ? 0 : Number(controlled);
+    const descendedNumber = descended === "" ? 0 : Number(descended);
+
+    if (!Number.isFinite(controlledNumber) || controlledNumber < 0 ||
+        !Number.isFinite(descendedNumber) || descendedNumber < 0) {
+      if (quickStatus) {
+        quickStatus.style.display = "block";
+        quickStatus.textContent = "Les nombres doivent être positifs.";
+      }
+      return;
+    }
+
+    if (descendedNumber > controlledNumber) {
+      if (quickStatus) {
+        quickStatus.style.display = "block";
+        quickStatus.textContent = "Le nombre de personnes descendues ne peut pas dépasser le nombre contrôlé.";
+      }
+      return;
+    }
+
+    const nbControles = bfTrainEl("nb_controles");
+    const nbDescendus = bfTrainEl("nb_descendus");
+    if (nbControles) nbControles.value = controlled === "" ? "0" : String(controlledNumber);
+    if (nbDescendus) nbDescendus.value = descended === "" ? "0" : String(descendedNumber);
+
+    if (addButton) addButton.disabled = true;
+    if (quickStatus) {
+      quickStatus.style.display = "block";
+      quickStatus.textContent = "Ajout au déroulement…";
+    }
+
+    try {
+      if (typeof window.ajouterDeroulementFlex !== "function") {
+        throw new Error("La fonction d’ajout au déroulement est indisponible.");
+      }
+      await window.ajouterDeroulementFlex();
+
+      if (!window.BF_TRAIN_SELECTION) {
+        bfNextTrainState.skippedTrainKeys.add(next.train.key);
+        bfNextTrainFermerPopup();
+        bfNextTrainRendre();
+      } else if (quickStatus) {
+        quickStatus.textContent = "Ajout annulé. Tu peux modifier les valeurs ou fermer cette fenêtre.";
+      }
+    } catch (error) {
+      console.error("Ajout rapide du prochain train :", error);
+      if (quickStatus) quickStatus.textContent = error?.message || "Impossible d’ajouter ce train.";
+    } finally {
+      if (addButton) addButton.disabled = false;
+    }
+  }
+
+  async function bfNextTrainVoirTous() {
+    if (!bfNextTrainState.trains.length) {
+      await bfNextTrainCharger({ force: true });
+      if (!bfNextTrainState.trains.length) return;
+    }
+
+    if (bfTrainEstDsiTende()) {
+      const stationSelect = bfTrainEl("bfTrainStationSelect");
+      if (stationSelect) stationSelect.value = BF_TRAIN_ALL_STATIONS_KEY;
+    }
+
+    const typeAction = bfTrainEl("type_action");
+    if (typeAction) {
+      typeAction.value = "Train";
+      typeAction.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+    if (typeof window.majAffichageComptage === "function") window.majAffichageComptage();
+
+    bfTrainState.panelClosed = false;
+    bfTrainState.trains = bfNextTrainState.trains.slice();
+    bfTrainState.loadedAt = bfNextTrainState.loadedAt;
+    bfTrainState.sncfInfo = bfNextTrainState.sncfInfo;
+    bfTrainState.trenitaliaInfo = bfNextTrainState.trenitaliaInfo;
+    bfTrainState.rfiInfo = bfNextTrainState.rfiInfo;
+    bfTrainState.othersExpanded = false;
+    bfTrainState.lastQuerySignature = bfTrainQuerySignature();
+    bfTrainMettreAJourLibellesSite();
+    bfTrainMajVisibilite();
+    bfTrainSetStatus("Liste actualisée depuis la bannière du prochain train.", "success");
+    bfTrainRendreListe();
+    bfNextTrainFermerPopup();
+    bfTrainEl("bfTrainBreilPanel")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function bfNextTrainReinitialiser() {
+    bfNextTrainState.trains = [];
+    bfNextTrainState.next = null;
+    bfNextTrainState.loadedAt = null;
+    bfNextTrainState.lastSignature = "";
+    bfNextTrainState.sncfInfo = null;
+    bfNextTrainState.trenitaliaInfo = null;
+    bfNextTrainState.rfiInfo = null;
+    bfNextTrainState.skippedTrainKeys.clear();
+    bfNextTrainRendre();
+    if (bfNextTrainPageVisible()) bfNextTrainCharger({ force: true });
+  }
+
+  function bfNextTrainInstaller() {
+    bfTrainEl("bfNextTrainMainBtn")?.addEventListener("click", bfNextTrainOuvrirPopup);
+    bfTrainEl("bfNextTrainRefreshBtn")?.addEventListener("click", () => bfNextTrainCharger({ force: true }));
+    bfTrainEl("bfNextTrainAllBtn")?.addEventListener("click", bfNextTrainVoirTous);
+    bfTrainEl("bfNextTrainQuickAddBtn")?.addEventListener("click", bfNextTrainAjouterRapidement);
+    bfTrainEl("bfNextTrainQuickAllBtn")?.addEventListener("click", bfNextTrainVoirTous);
+    bfTrainEl("bfNextTrainQuickCloseBtn")?.addEventListener("click", bfNextTrainFermerPopup);
+
+    ["siteSelect", "dateInput", "heureDebutInput", "heureFinInput"].forEach(id => {
+      bfTrainEl(id)?.addEventListener("change", bfNextTrainReinitialiser);
+    });
+
+    const deroulementPage = bfTrainEl("deroulementPage");
+    if (deroulementPage) {
+      const observer = new MutationObserver(() => {
+        if (bfNextTrainPageVisible()) bfNextTrainCharger({ force: true });
+      });
+      observer.observe(deroulementPage, { attributes: true, attributeFilter: ["class", "style"] });
+    }
+
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden && bfNextTrainPageVisible()) bfNextTrainCharger({ force: true });
+    });
+    window.addEventListener("pageshow", () => {
+      if (bfNextTrainPageVisible()) bfNextTrainCharger({ force: true });
+    });
+    window.addEventListener("online", () => {
+      if (bfNextTrainPageVisible()) bfNextTrainCharger({ force: true });
+    });
+
+    bfNextTrainState.timerId = window.setInterval(() => {
+      if (bfNextTrainPageVisible()) bfNextTrainCharger({ force: true });
+    }, 60000);
+
+    bfNextTrainRendre();
+    window.setTimeout(() => {
+      if (bfNextTrainPageVisible()) bfNextTrainCharger({ force: true });
+    }, 1000);
   }
 
   function bfTrainCorpsSelectionne(selection) {
@@ -9199,7 +11940,7 @@ function cleanMrzText(){
     const original = window.ajouterDeroulementFlex;
     if (typeof original !== "function" || original.__bfTrainWrapped) return;
 
-    function wrappedAjouterDeroulementFlex() {
+    async function wrappedAjouterDeroulementFlex() {
       const selection = window.BF_TRAIN_SELECTION;
       const act = (bfTrainEl("type_action")?.value || "").trim();
 
@@ -9209,20 +11950,20 @@ function cleanMrzText(){
 
       if (!navigator.onLine && !selection.theoretical) {
         bfTrainEffacerResultats();
-        bfTrainSetStatus("Aucune connexion Internet. Le train SNCF en ligne a été effacé. Les horaires Trenitalia théoriques restent utilisables.", "error");
-        alert("La connexion Internet n'est plus disponible. Le train SNCF en ligne a été effacé pour éviter d'utiliser une information ancienne.");
+        bfTrainSetStatus("Aucune connexion Internet. Le train en ligne a été effacé. Les horaires SNCF et Trenitalia théoriques restent utilisables.", "error");
+        appAlert("La connexion Internet n'est plus disponible. Le train en ligne a été effacé pour éviter d'utiliser une information ancienne.");
         return;
       }
 
       if (bfTrainState.lastQuerySignature && bfTrainState.lastQuerySignature !== bfTrainQuerySignature()) {
         bfTrainEffacerResultats("Les informations de mission ont changé : relance la consultation des trains.");
-        alert("La date ou les horaires de mission ont changé. Relance la consultation avant de sélectionner le train.");
+        appAlert("La date ou les horaires de mission ont changé. Relance la consultation avant de sélectionner le train.");
         return;
       }
 
       const zone = bfTrainEl("deroulement");
       if (!zone) {
-        alert("⚠️ Zone 'Déroulement' introuvable.");
+        appAlert("⚠️ Zone 'Déroulement' introuvable.");
         return;
       }
 
@@ -9235,12 +11976,18 @@ function cleanMrzText(){
       const corps = typeof window.triJoin === "function"
         ? window.triJoin([corpsTrain, infosupp, libre])
         : [corpsTrain, infosupp, libre].filter(Boolean).join(" — ");
+      // Comme pour les bus et la bannière « prochain train », une saisie vide
+      // signifie explicitement 0 personne contrôlée et 0 personne descendue.
+      // La ligne reste ainsi reconnue par le recalcul automatique comme 1 train contrôlé.
       const suffix = typeof window.buildSuffixComptage === "function"
-        ? window.buildSuffixComptage(nbCtrl, nbDesc)
+        ? window.buildSuffixComptage(
+            nbCtrl === "" ? "0" : nbCtrl,
+            nbDesc === "" ? "0" : nbDesc
+          )
         : "";
 
       if (!heure && !corps && !suffix) {
-        alert("Renseignez au moins l'heure ou une action.");
+        appAlert("Renseignez au moins l'heure ou une action.");
         return;
       }
 
@@ -9248,8 +11995,26 @@ function cleanMrzText(){
         ? window.triJoin([heure, corps])
         : [heure, corps].filter(Boolean).join(" — ")) + suffix;
 
-      zone.value = zone.value.trim() ? `${zone.value}\n${ligne}` : ligne;
-      zone.dispatchEvent(new Event("input", { bubbles: true }));
+      const prefixeUnique = typeof window.triJoin === "function"
+        ? window.triJoin([heure, corpsTrain])
+        : [heure, corpsTrain].filter(Boolean).join(" — ");
+
+      const resultatAjout = typeof window.bfAjouterOuMettreAJourPassage === "function"
+        ? await window.bfAjouterOuMettreAJourPassage({
+            zone,
+            ligne,
+            prefixeUnique,
+            type: "train",
+            heure
+          })
+        : { action: "erreur" };
+
+      if (resultatAjout.action === "annule") return;
+
+      if (resultatAjout.action === "erreur") {
+        appAlert("Impossible d'ajouter ou de mettre à jour ce train.");
+        return;
+      }
 
       ["heure_action", "type_action", "esi_select", "texte_libre", "nb_controles", "nb_descendus"].forEach(id => {
         const el = bfTrainEl(id);
@@ -9307,25 +12072,31 @@ function cleanMrzText(){
 
     window.addEventListener("offline", () => {
       if (bfTrainEstSiteCompatible() && bfTrainActionChoisie()) {
-        const trainsTheoriques = bfTrainState.trains.filter(train =>
-          Boolean(train.arrival?.theoretical || train.departure?.theoretical)
-        );
+        const range = bfTrainServiceRange();
+        const stationConfigs = bfTrainStationConfigs();
+        const horairesLocaux = range && stationConfigs.length
+          ? bfTrainConstruireHorairesLocaux(range, stationConfigs)
+          : null;
+        const trainsTheoriques = horairesLocaux?.trains || [];
 
         if (bfTrainState.selection && !bfTrainState.selection.theoretical) {
           bfTrainEffacerSelection(false);
         }
 
         bfTrainState.trains = trainsTheoriques;
+        bfTrainState.sncfInfo = horairesLocaux?.resultatSncf?.info || null;
+        bfTrainState.trenitaliaInfo = horairesLocaux?.resultatTrenitalia?.info || null;
+        bfTrainState.rfiInfo = null;
         if (trainsTheoriques.length) {
           bfTrainSetStatus(
-            "Aucune connexion Internet : les trains SNCF en ligne ont été retirés. Les horaires Trenitalia théoriques restent affichés.",
+            "Aucune connexion Internet : les données en ligne ont été retirées. Les horaires SNCF et Trenitalia théoriques locaux restent affichés.",
             "warning"
           );
           bfTrainRendreListe();
         } else {
           bfTrainEffacerResultats();
           bfTrainSetStatus(
-            "Aucune connexion Internet. Les trains SNCF ne sont pas disponibles ; la saisie manuelle reste accessible.",
+            "Aucune connexion Internet. Aucun horaire local ne correspond à la mission ; la saisie manuelle reste accessible.",
             "error"
           );
         }
@@ -9345,12 +12116,1144 @@ function cleanMrzText(){
 
     bfTrainInstallerAjoutDeroulement();
     bfTrainInstallerEvenements();
+    bfNextTrainInstaller();
     bfTrainMajVisibilite();
   });
 })();
 </script>
 
+
+<script id="bfBusZestIntegration">
+/* =========================================================
+   ASSISTANCE BUS ZEST — BREIL ET SECTEUR DSI TENDE
+   - Worker Cloudflare : GTFS statique + GTFS-RT Zest
+   - lignes 19, 23 et 25
+   - sélection d'un passage puis ajout au déroulement
+   - le comptage Bus/CV est recalculé par la logique existante
+   ========================================================= */
+(function () {
+  "use strict";
+
+  const BF_BUS_WORKER_BASE = (
+    window.BF_BUS_WORKER_BASE ||
+    "https://borderforce-bus-zest.markrusten.workers.dev"
+  ).replace(/\/+$/, "");
+
+  const BF_BUS_ALLOWED_SITES = new Set(["breil", "dsi tende"]);
+  const BF_BUS_MARGIN_MINUTES = 20;
+
+  const BF_BUS_SITE_LABELS = {
+    "breil-gare": "Breil Gare SNCF",
+    "breil": "Breil-sur-Roya",
+    "fontan-saorge": "Fontan / Saorge",
+    "saint-dalmas": "Saint-Dalmas-de-Tende",
+    "la-brigue": "La Brigue",
+    "tende": "Tende"
+  };
+
+  const bfBusState = {
+    events: [],
+    selection: null,
+    lastQuerySignature: "",
+    loading: false,
+    panelClosed: false,
+    othersExpanded: false,
+    lastActionWasBus: false,
+    response: null
+  };
+
+  window.BF_BUS_SELECTION = null;
+
+  function bfBusEl(id) {
+    return document.getElementById(id);
+  }
+
+  function bfBusNormaliserTexte(value) {
+    return String(value || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, " ");
+  }
+
+  function bfBusEchapperHtml(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function bfBusMissionSiteKey() {
+    return bfBusNormaliserTexte(bfBusEl("siteSelect")?.value);
+  }
+
+  function bfBusEstDsiTende() {
+    return bfBusMissionSiteKey() === "dsi tende";
+  }
+
+  function bfBusEstSiteCompatible() {
+    return BF_BUS_ALLOWED_SITES.has(bfBusMissionSiteKey());
+  }
+
+  function bfBusActionChoisie() {
+    return bfBusNormaliserTexte(bfBusEl("type_action")?.value) === "bus";
+  }
+
+  function bfBusSiteSelectionne() {
+    // Mission Breil-sur-Roya : uniquement les arrivées et départs
+    // à l'arrêt Breil Gare SNCF.
+    if (bfBusMissionSiteKey() === "breil") return "breil-gare";
+
+    // Mission DSI Tende : le secteur choisi reste inchangé.
+    // DSI Tende + Breil continue donc d'utiliser "breil".
+    if (!bfBusEstDsiTende()) return "";
+    return bfBusEl("bfBusSiteSelect")?.value || "";
+  }
+
+  function bfBusMettreAJourLibelles() {
+    const panelTitle = bfBusEl("bfBusPanelTitle");
+    const siteBlock = bfBusEl("bfBusSiteBlock");
+    const selectedSite = bfBusSiteSelectionne();
+
+    if (siteBlock) {
+      siteBlock.style.display = bfBusEstDsiTende() ? "block" : "none";
+    }
+
+    if (!panelTitle) return;
+
+    if (bfBusMissionSiteKey() === "breil") {
+      panelTitle.innerHTML = '<i class="fas fa-bus"></i> Bus Zest à Breil-sur-Roya';
+    } else if (bfBusEstDsiTende() && selectedSite) {
+      panelTitle.innerHTML = `<i class="fas fa-bus"></i> Bus Zest — ${bfBusEchapperHtml(BF_BUS_SITE_LABELS[selectedSite] || selectedSite)}`;
+    } else {
+      panelTitle.innerHTML = '<i class="fas fa-bus"></i> Bus Zest du secteur DSI Tende';
+    }
+  }
+
+  function bfBusSetStatus(message, type) {
+    const el = bfBusEl("bfBusZestStatus");
+    if (!el) return;
+    el.className = type || "info";
+    el.textContent = message || "";
+    el.style.display = message ? "block" : "none";
+  }
+
+  function bfBusEffacerSelection(render = true) {
+    bfBusState.selection = null;
+    window.BF_BUS_SELECTION = null;
+    bfBusAfficherSelection();
+    if (render) bfBusRendreListe();
+  }
+
+  function bfBusEffacerResultats(message = "") {
+    bfBusState.events = [];
+    bfBusState.response = null;
+    bfBusState.lastQuerySignature = "";
+    bfBusState.othersExpanded = false;
+    bfBusEffacerSelection(false);
+
+    const list = bfBusEl("bfBusZestList");
+    if (list) list.innerHTML = "";
+
+    if (message) bfBusSetStatus(message, "info");
+  }
+
+  function bfBusMajVisibilite() {
+    const panel = bfBusEl("bfBusZestPanel");
+    if (!panel) return;
+
+    const doitAfficher =
+      bfBusEstSiteCompatible() &&
+      bfBusActionChoisie() &&
+      !bfBusState.panelClosed;
+
+    panel.style.display = doitAfficher ? "block" : "none";
+    bfBusMettreAJourLibelles();
+
+    if (!doitAfficher) return;
+
+    if (bfBusEstDsiTende() && !bfBusSiteSelectionne()) {
+      bfBusSetStatus(
+        "Choisis d’abord l’arrêt ou le secteur du contrôle, puis appuie sur « Consulter les bus ».",
+        "info"
+      );
+    } else if (!bfBusState.events.length && !bfBusState.loading) {
+      bfBusSetStatus(
+        "Appuie sur « Consulter les bus » pour afficher les passages compris dans les horaires de la mission.",
+        "info"
+      );
+    }
+  }
+
+  function bfBusFermerPanel() {
+    bfBusState.panelClosed = true;
+    const panel = bfBusEl("bfBusZestPanel");
+    if (panel) panel.style.display = "none";
+  }
+
+  function bfBusMissionData() {
+    const date = bfBusEl("dateInput")?.value || "";
+    const start = bfBusEl("heureDebutInput")?.value || "";
+    const end = bfBusEl("heureFinInput")?.value || "";
+
+    if (!date || !start || !end) return null;
+    return { date, start, end };
+  }
+
+  function bfBusQuerySignature() {
+    const mission = bfBusMissionData();
+    return [
+      bfBusMissionSiteKey(),
+      bfBusSiteSelectionne(),
+      mission?.date || "",
+      mission?.start || "",
+      mission?.end || ""
+    ].join("|");
+  }
+
+  async function bfBusFetchJson(url) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 25000);
+
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: { "Accept": "application/json" },
+        cache: "no-store",
+        signal: controller.signal
+      });
+
+      const text = await response.text();
+      let data = null;
+
+      try {
+        data = text ? JSON.parse(text) : null;
+      } catch (_) {
+        throw new Error("Le Worker bus n’a pas renvoyé de JSON valide.");
+      }
+
+      if (!response.ok || !data?.ok) {
+        const error = new Error(data?.error || `Erreur HTTP ${response.status}`);
+        error.status = response.status;
+        error.details = data;
+        throw error;
+      }
+
+      return data;
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  function bfBusInfoPassage(event) {
+    return (
+      event?.expectedDeparture ||
+      event?.expectedArrival ||
+      event?.scheduledDeparture ||
+      event?.scheduledArrival ||
+      null
+    );
+  }
+
+  function bfBusInfoTheorique(event) {
+    return event?.scheduledDeparture || event?.scheduledArrival || null;
+  }
+
+  function bfBusInfoActualisee(event) {
+    return event?.expectedDeparture || event?.expectedArrival || null;
+  }
+
+  function bfBusEpoch(event) {
+    const info = bfBusInfoPassage(event);
+    const epoch = Number(info?.epochSeconds);
+    return Number.isFinite(epoch) ? epoch : Number.MAX_SAFE_INTEGER;
+  }
+
+  function bfBusHeureInputDepuisInfo(info) {
+    const epoch = Number(info?.epochSeconds);
+
+    if (Number.isFinite(epoch) && epoch > 0) {
+      const parts = new Intl.DateTimeFormat("fr-FR", {
+        timeZone: "Europe/Paris",
+        hour: "2-digit",
+        minute: "2-digit",
+        hourCycle: "h23"
+      }).formatToParts(new Date(epoch * 1000));
+
+      const values = {};
+      parts.forEach(part => {
+        if (part.type !== "literal") values[part.type] = part.value;
+      });
+
+      if (values.hour && values.minute) {
+        return `${values.hour}:${values.minute}`;
+      }
+    }
+
+    const serviceTime = String(info?.serviceTime || "");
+    const match = serviceTime.match(/^(\d{1,2}):(\d{2})/);
+
+    if (match) {
+      const hour = Number(match[1]) % 24;
+      return `${String(hour).padStart(2, "0")}:${match[2]}`;
+    }
+
+    return "";
+  }
+
+  function bfBusFormatHeure(info) {
+    const value = bfBusHeureInputDepuisInfo(info);
+    if (!value) return "--h--";
+    const [hour, minute] = value.split(":");
+    return `${Number(hour)}h${minute}`;
+  }
+
+  function bfBusDirectionLisible(value) {
+    const raw = String(value || "").trim();
+    const normalized = bfBusNormaliserTexte(raw);
+
+    if (normalized === "gare routiere") return "Menton — Gare routière";
+    if (normalized === "breil gare") return "Breil Gare";
+    if (normalized === "tende") return "Tende";
+
+    return raw || "Destination non communiquée";
+  }
+
+  /*
+   * Le GTFS Zest renvoie parfois comme direction le terminus où se trouve
+   * précisément le contrôle, par exemple :
+   *   arrêt = « Breil Gare SNCF »
+   *   direction = « Breil Gare »
+   * Il s'agit alors d'une arrivée au terminus, pas d'un trajet
+   * « Breil Gare SNCF → Breil Gare ».
+   */
+  function bfBusMemeLieu(a, b) {
+    const lieuA = bfBusNormaliserTexte(a);
+    const lieuB = bfBusNormaliserTexte(b);
+
+    if (!lieuA || !lieuB) return false;
+    if (lieuA === lieuB) return true;
+
+    /*
+     * Ne jamais déduire que deux lieux sont identiques parce que l'un de
+     * leurs noms est contenu dans l'autre. Exemple à proscrire :
+     * « St Dalmas de Tende » = « Tende ».
+     *
+     * Seules les variantes explicitement connues du même arrêt sont
+     * rapprochées ici.
+     */
+    const equivalences = [
+      new Set([
+        "breil gare",
+        "breil gare sncf"
+      ])
+    ];
+
+    return equivalences.some(groupe =>
+      groupe.has(lieuA) && groupe.has(lieuB)
+    );
+  }
+
+  function bfBusTrajetDeroulement(selection) {
+    const arret = String(
+      selection?.stopName ||
+      BF_BUS_SITE_LABELS[bfBusSiteSelectionne()] ||
+      ""
+    ).trim();
+
+    const destination = String(selection?.direction || "").trim();
+
+    if (arret && destination && bfBusMemeLieu(arret, destination)) {
+      return `arrivée à ${arret}`;
+    }
+
+    if (arret && destination) return `${arret} → ${destination}`;
+    if (destination) return `direction ${destination}`;
+    if (arret) return `passage à ${arret}`;
+    return "";
+  }
+
+  function bfBusSourceLisible(event) {
+    if (event?.source === "temps_reel_modifie") return "Temps réel actualisé";
+    if (event?.source === "temps_reel") return "Temps réel";
+    return "Horaire théorique";
+  }
+
+  function bfBusEstTheorique(event) {
+    return event?.source === "theorique";
+  }
+
+  function bfBusEstAnnule(event) {
+    const relationship = String(event?.scheduleRelationship || "").toUpperCase();
+    return relationship === "CANCELED" || relationship === "DELETED" || relationship === "SKIPPED";
+  }
+
+  function bfBusMinutesDepuisHeure(value) {
+    const match = String(value || "").match(/^(\d{1,2}):(\d{2})$/);
+    if (!match) return null;
+    return Number(match[1]) * 60 + Number(match[2]);
+  }
+
+  function bfBusEcartAvecControle(event) {
+    const control = bfBusMinutesDepuisHeure(bfBusEl("heure_action")?.value);
+    const passage = bfBusMinutesDepuisHeure(
+      bfBusHeureInputDepuisInfo(bfBusInfoPassage(event))
+    );
+
+    if (control === null || passage === null) return null;
+
+    const direct = Math.abs(control - passage);
+    return Math.min(direct, 1440 - direct);
+  }
+
+  function bfBusDescription(event) {
+    const line = event?.line ? `ligne ${event.line}` : "";
+    const direction = bfBusDirectionLisible(event?.direction);
+    const stop = event?.stopName || BF_BUS_SITE_LABELS[bfBusSiteSelectionne()] || "arrêt non communiqué";
+
+    return [
+      "Bus Zest",
+      line,
+      `direction ${direction}`,
+      `arrêt ${stop}`
+    ].filter(Boolean).join(" — ");
+  }
+
+  function bfBusNoteSource(event) {
+    const delay = Number(event?.delayMinutes);
+    const source = event?.source || "";
+
+    if (source === "temps_reel_modifie") {
+      if (Number.isFinite(delay) && delay > 0) return `passage actualisé, retard +${delay} min`;
+      if (Number.isFinite(delay) && delay < 0) return `passage actualisé, avance ${delay} min`;
+      return "passage actualisé en temps réel";
+    }
+
+    if (source === "temps_reel") return "passage confirmé en temps réel";
+    return "horaire théorique";
+  }
+
+  function bfBusSelectionner(eventId) {
+    if (
+      bfBusState.lastQuerySignature &&
+      bfBusState.lastQuerySignature !== bfBusQuerySignature()
+    ) {
+      bfBusEffacerResultats(
+        "Les informations de mission ont changé : relance la consultation des bus."
+      );
+      return;
+    }
+
+    const event = bfBusState.events.find(item => String(item.eventId) === String(eventId));
+    if (!event || bfBusEstAnnule(event)) return;
+
+    const passageInfo = bfBusInfoPassage(event);
+    const heure = bfBusHeureInputDepuisInfo(passageInfo);
+
+    const selection = {
+      eventId: event.eventId,
+      line: event.line || "",
+      direction: bfBusDirectionLisible(event.direction),
+      stopId: event.stopId || "",
+      stopName: event.stopName || "",
+      source: event.source || "theorique",
+      theoretical: bfBusEstTheorique(event),
+      delayMinutes: Number.isFinite(Number(event.delayMinutes))
+        ? Number(event.delayMinutes)
+        : null,
+      scheduledTime: bfBusFormatHeure(bfBusInfoTheorique(event)),
+      actualTime: bfBusFormatHeure(passageInfo),
+      heureInput: heure,
+      description: bfBusDescription(event),
+      sourceNote: bfBusNoteSource(event)
+    };
+
+    bfBusState.selection = selection;
+    window.BF_BUS_SELECTION = selection;
+
+    const heureInput = bfBusEl("heure_action");
+    if (heureInput && !heureInput.value && selection.heureInput) {
+      heureInput.value = selection.heureInput;
+      heureInput.dispatchEvent(new Event("input", { bubbles: true }));
+    }
+
+    // Comme pour les trains, les champs de comptage restent vides.
+    // S'ils ne sont pas renseignés, l'ajout du bus les interprète
+    // néanmoins comme 0 afin de conserver le comptage du moyen.
+    bfBusAfficherSelection();
+    bfBusRendreListe();
+  }
+
+  function bfBusAfficherSelection() {
+    const el = bfBusEl("bfBusZestSelected");
+    const selection = bfBusState.selection;
+    if (!el) return;
+
+    if (!selection) {
+      el.style.display = "none";
+      el.innerHTML = "";
+      return;
+    }
+
+    const sourceDetail = selection.theoretical
+      ? "Horaire théorique : les perturbations restent à vérifier le jour du service."
+      : `${selection.sourceNote}.`;
+
+    el.style.display = "block";
+    el.innerHTML = `
+      <strong>Bus sélectionné :</strong><br>
+      ${bfBusEchapperHtml(selection.description)}<br>
+      Passage retenu : ${bfBusEchapperHtml(selection.actualTime)}
+      <br><small>${bfBusEchapperHtml(sourceDetail)}</small>
+      <br><button type="button" id="bfBusZestClearSelectionBtn">Annuler la sélection</button>
+    `;
+
+    bfBusEl("bfBusZestClearSelectionBtn")?.addEventListener(
+      "click",
+      () => bfBusEffacerSelection(true)
+    );
+  }
+
+  function bfBusCardHtml(event, near) {
+    const selected =
+      String(bfBusState.selection?.eventId || "") === String(event.eventId || "");
+    const cancelled = bfBusEstAnnule(event);
+    const actual = bfBusInfoActualisee(event);
+    const scheduled = bfBusInfoTheorique(event);
+    const passage = bfBusInfoPassage(event);
+    const source = bfBusSourceLisible(event);
+    const delay = Number(event?.delayMinutes);
+
+    let timeText = "";
+    if (cancelled) {
+      timeText = "Course annulée";
+    } else if (actual) {
+      timeText = `Passage prévu : ${bfBusFormatHeure(actual)}`;
+      if (scheduled) timeText += ` · théorique ${bfBusFormatHeure(scheduled)}`;
+    } else {
+      timeText = `Passage théorique : ${bfBusFormatHeure(passage)}`;
+    }
+
+    let delayText = "";
+    if (Number.isFinite(delay) && delay > 0) delayText = `Retard : +${delay} min`;
+    else if (Number.isFinite(delay) && delay < 0) delayText = `Avance : ${delay} min`;
+    else if (Number.isFinite(delay) && !bfBusEstTheorique(event)) delayText = "À l’heure";
+
+    const distance = bfBusEcartAvecControle(event);
+    const distanceText =
+      distance !== null ? `Écart avec l’heure saisie : ${distance} min` : "";
+
+    const sourceClass = bfBusEstTheorique(event)
+      ? "bf-bus-source-theoretical"
+      : "bf-bus-source-live";
+
+    const vehicleText = event?.vehicle?.position
+      ? " · véhicule localisé"
+      : "";
+
+    const button = cancelled
+      ? ""
+      : `<button type="button" data-bf-bus-event="${bfBusEchapperHtml(event.eventId)}">
+           <i class="fas fa-check"></i> Sélectionner ce bus
+         </button>`;
+
+    return `
+      <div class="bf-bus-card${near ? " near" : ""}${selected ? " selected" : ""}${cancelled ? " cancelled" : ""}">
+        <div class="bf-bus-title">
+          Ligne ${bfBusEchapperHtml(event.line || "?")} — direction ${bfBusEchapperHtml(bfBusDirectionLisible(event.direction))}
+        </div>
+        <div class="bf-bus-route">
+          <i class="fas fa-location-dot"></i> ${bfBusEchapperHtml(event.stopName || "Arrêt non communiqué")}
+        </div>
+        <div class="bf-bus-time">${bfBusEchapperHtml(timeText)}</div>
+        <div class="bf-bus-meta">
+          <span class="${sourceClass}">${bfBusEchapperHtml(source)}</span>
+          ${delayText ? ` · ${bfBusEchapperHtml(delayText)}` : ""}
+          ${vehicleText}
+          ${distanceText ? `<br>${bfBusEchapperHtml(distanceText)}` : ""}
+        </div>
+        ${button}
+      </div>
+    `;
+  }
+
+  function bfBusInstallerBoutonsListe() {
+    const list = bfBusEl("bfBusZestList");
+    if (!list) return;
+
+    list.querySelectorAll("button[data-bf-bus-event]").forEach(button => {
+      button.addEventListener("click", () => {
+        bfBusSelectionner(button.dataset.bfBusEvent);
+      });
+    });
+
+    list.querySelector("[data-bf-bus-others-toggle]")?.addEventListener("click", () => {
+      bfBusState.othersExpanded = !bfBusState.othersExpanded;
+      bfBusRendreListe();
+    });
+  }
+
+  function bfBusRendreListe() {
+    const list = bfBusEl("bfBusZestList");
+    if (!list) return;
+
+    if (!bfBusState.events.length) {
+      list.innerHTML = "";
+      return;
+    }
+
+    const hasControlTime = Boolean(bfBusEl("heure_action")?.value);
+    const near = [];
+    const others = [];
+
+    bfBusState.events
+      .slice()
+      .sort((a, b) => bfBusEpoch(a) - bfBusEpoch(b))
+      .forEach(event => {
+        const distance = bfBusEcartAvecControle(event);
+        if (
+          hasControlTime &&
+          distance !== null &&
+          distance <= BF_BUS_MARGIN_MINUTES
+        ) {
+          near.push(event);
+        } else {
+          others.push(event);
+        }
+      });
+
+    const html = [];
+
+    if (hasControlTime) {
+      html.push(
+        `<div class="bf-bus-section-title">Autour de ${bfBusEchapperHtml(bfBusEl("heure_action")?.value || "")} (± ${BF_BUS_MARGIN_MINUTES} min)</div>`
+      );
+
+      if (near.length) {
+        near.forEach(event => html.push(bfBusCardHtml(event, true)));
+      } else {
+        html.push(
+          `<div class="bf-bus-empty">Aucun bus trouvé à moins de ${BF_BUS_MARGIN_MINUTES} minutes de l’heure saisie.</div>`
+        );
+      }
+
+      if (others.length) {
+        const expanded = bfBusState.othersExpanded;
+        html.push(`
+          <button type="button"
+                  class="bf-bus-others-toggle"
+                  data-bf-bus-others-toggle
+                  aria-expanded="${expanded ? "true" : "false"}">
+            <span>Autres bus pendant le service (${others.length})</span>
+            <span class="bf-bus-toggle-sign" aria-hidden="true">${expanded ? "−" : "+"}</span>
+          </button>
+          <div class="bf-bus-others-list"${expanded ? "" : " hidden"}>
+            ${others.map(event => bfBusCardHtml(event, false)).join("")}
+          </div>
+        `);
+      }
+    } else {
+      html.push('<div class="bf-bus-section-title">Bus pendant le service</div>');
+      bfBusState.events.forEach(event => html.push(bfBusCardHtml(event, false)));
+    }
+
+    list.innerHTML = html.join("");
+    bfBusInstallerBoutonsListe();
+  }
+
+  async function bfBusConsulter() {
+    if (!bfBusEstSiteCompatible() || !bfBusActionChoisie()) return;
+    if (bfBusState.loading) return;
+
+    const site = bfBusSiteSelectionne();
+    const mission = bfBusMissionData();
+
+    if (!site) {
+      bfBusEffacerResultats();
+      bfBusSetStatus(
+        "Choisis d’abord l’arrêt ou le secteur du contrôle.",
+        "warning"
+      );
+      return;
+    }
+
+    if (!mission) {
+      bfBusEffacerResultats();
+      bfBusSetStatus(
+        "La date et les horaires de mission sont incomplets.",
+        "warning"
+      );
+      return;
+    }
+
+    if (!navigator.onLine) {
+      bfBusSetStatus(
+        "Aucune connexion Internet. La saisie manuelle reste disponible.",
+        "error"
+      );
+      return;
+    }
+
+    bfBusState.loading = true;
+    bfBusEffacerSelection(false);
+    const list = bfBusEl("bfBusZestList");
+    if (list) list.innerHTML = "";
+    bfBusSetStatus("Consultation des horaires Zest en cours…", "info");
+
+    const params = new URLSearchParams({
+      site,
+      line: "all",
+      date: mission.date,
+      start: mission.start,
+      end: mission.end,
+      _: String(Date.now())
+    });
+
+    try {
+      const data = await bfBusFetchJson(
+        `${BF_BUS_WORKER_BASE}/api/bus?${params.toString()}`
+      );
+
+      const events = Array.isArray(data.events)
+        ? data.events.slice().sort((a, b) => bfBusEpoch(a) - bfBusEpoch(b))
+        : [];
+
+      bfBusState.events = events;
+      bfBusState.response = data;
+      bfBusState.lastQuerySignature = bfBusQuerySignature();
+      bfBusState.othersExpanded = false;
+
+      const liveCount = events.filter(
+        event => event.source === "temps_reel" || event.source === "temps_reel_modifie"
+      ).length;
+      const theoreticalCount = events.filter(
+        event => event.source === "theorique"
+      ).length;
+      const cancelledCount = events.filter(bfBusEstAnnule).length;
+      const siteLabel = BF_BUS_SITE_LABELS[site] || data?.query?.siteLabel || site;
+      const warnings = Array.isArray(data.warnings) ? data.warnings.filter(Boolean) : [];
+
+      if (!events.length) {
+        bfBusSetStatus(
+          `Aucun bus Zest trouvé à ${siteLabel} dans les horaires de cette mission.`,
+          "warning"
+        );
+        if (list) {
+          list.innerHTML =
+            '<div class="bf-bus-empty">Aucun passage correspondant à la date, au secteur et aux horaires de mission.</div>';
+        }
+      } else {
+        let message =
+          `${events.length} passage${events.length > 1 ? "s" : ""} trouvé${events.length > 1 ? "s" : ""} à ${siteLabel} : ` +
+          `${liveCount} en temps réel et ${theoreticalCount} horaire${theoreticalCount > 1 ? "s" : ""} théorique${theoreticalCount > 1 ? "s" : ""}.`;
+
+        if (cancelledCount) {
+          message += ` ${cancelledCount} course${cancelledCount > 1 ? "s" : ""} annulée${cancelledCount > 1 ? "s" : ""}.`;
+        }
+
+        if (warnings.length) {
+          message += ` Information : ${warnings.join(" ")}`;
+        }
+
+        bfBusSetStatus(message, "success");
+        bfBusRendreListe();
+      }
+    } catch (error) {
+      console.error("Consultation bus Zest :", error);
+      bfBusEffacerResultats();
+
+      if (error?.name === "AbortError") {
+        bfBusSetStatus(
+          "Le Worker bus met trop de temps à répondre. Réessaie dans quelques instants ; la saisie manuelle reste disponible.",
+          "error"
+        );
+      } else {
+        bfBusSetStatus(
+          "Impossible de consulter les bus Zest. Vérifie que le Worker Cloudflare bus est bien déployé ; la saisie manuelle reste disponible.",
+          "error"
+        );
+      }
+    } finally {
+      bfBusState.loading = false;
+    }
+  }
+
+  function bfBusInstallerAjoutDeroulement() {
+    const originalMaj = window.majAffichageComptage;
+
+    if (typeof originalMaj === "function" && !originalMaj.__bfBusWrapped) {
+      const wrappedMajAffichage = function () {
+        const result = originalMaj.apply(this, arguments);
+        bfBusMajVisibilite();
+        return result;
+      };
+
+      wrappedMajAffichage.__bfBusWrapped = true;
+      window.majAffichageComptage = wrappedMajAffichage;
+    }
+
+    const originalAjouter = window.ajouterDeroulementFlex;
+    if (
+      typeof originalAjouter !== "function" ||
+      originalAjouter.__bfBusWrapped
+    ) {
+      return;
+    }
+
+    async function wrappedAjouterDeroulementFlex() {
+      const selection = window.BF_BUS_SELECTION;
+      const action = bfBusNormaliserTexte(
+        bfBusEl("type_action")?.value
+      );
+
+      if (
+        !(
+          selection &&
+          bfBusEstSiteCompatible() &&
+          action === "bus"
+        )
+      ) {
+        return originalAjouter.apply(this, arguments);
+      }
+
+      if (!navigator.onLine && !selection.theoretical) {
+        bfBusEffacerSelection(true);
+        bfBusSetStatus(
+          "La connexion Internet n’est plus disponible. La sélection en temps réel a été retirée.",
+          "error"
+        );
+        appAlert(
+          "La connexion Internet n’est plus disponible. Le bus en temps réel a été effacé pour éviter d’utiliser une information ancienne."
+        );
+        return;
+      }
+
+      if (
+        bfBusState.lastQuerySignature &&
+        bfBusState.lastQuerySignature !== bfBusQuerySignature()
+      ) {
+        bfBusEffacerResultats(
+          "Les informations de mission ont changé : relance la consultation des bus."
+        );
+        appAlert(
+          "La date, les horaires ou le secteur de mission ont changé. Relance la consultation avant d’ajouter le bus."
+        );
+        return;
+      }
+
+      const zone = bfBusEl("deroulement");
+      if (!zone) {
+        appAlert("⚠️ Zone 'Déroulement' introuvable.");
+        return;
+      }
+
+      const heure = bfBusEl("heure_action")?.value || selection.heureInput || "";
+      const infosupp = (bfBusEl("esi_select")?.value || "").trim();
+      const libre = (bfBusEl("texte_libre")?.value || "").trim();
+      const nbCtrl = bfBusEl("nb_controles")?.value;
+      const nbDesc = bfBusEl("nb_descendus")?.value;
+
+      // Dans le déroulement, on garde uniquement l'information utile :
+      // ligne et trajet. Lorsque la direction correspond à l'arrêt contrôlé,
+      // il s'agit d'une arrivée au terminus : on écrit « arrivée à ... »
+      // au lieu de fabriquer un faux trajet entre deux noms du même arrêt.
+      // Le temps réel et le retard restent visibles dans la consultation
+      // des bus, mais ne sont pas recopiés dans le compte rendu.
+      const trajetBus = bfBusTrajetDeroulement(selection);
+      const descriptionBus = [
+        "Bus Zest",
+        selection.line ? `ligne ${selection.line}` : "",
+        trajetBus
+      ].filter(Boolean).join(" — ");
+
+      const corps =
+        typeof window.triJoin === "function"
+          ? window.triJoin([descriptionBus, infosupp, libre])
+          : [descriptionBus, infosupp, libre].filter(Boolean).join(" — ");
+
+      const suffix =
+        typeof window.buildSuffixComptage === "function"
+          ? window.buildSuffixComptage(
+              nbCtrl === "" ? "0" : nbCtrl,
+              nbDesc === "" ? "0" : nbDesc
+            )
+          : "";
+
+      const ligne =
+        (typeof window.triJoin === "function"
+          ? window.triJoin([heure, corps])
+          : [heure, corps].filter(Boolean).join(" — ")) + suffix;
+
+      const prefixeUnique =
+        typeof window.triJoin === "function"
+          ? window.triJoin([heure, descriptionBus])
+          : [heure, descriptionBus].filter(Boolean).join(" — ");
+
+      const resultatAjout =
+        typeof window.bfAjouterOuMettreAJourPassage === "function"
+          ? await window.bfAjouterOuMettreAJourPassage({
+              zone,
+              ligne,
+              prefixeUnique,
+              type: "bus",
+              heure
+            })
+          : { action: "erreur" };
+
+      if (resultatAjout.action === "annule") return;
+
+      if (resultatAjout.action === "erreur") {
+        appAlert("Impossible d'ajouter ou de mettre à jour ce bus.");
+        return;
+      }
+
+      [
+        "heure_action",
+        "type_action",
+        "esi_select",
+        "texte_libre",
+        "nb_controles",
+        "nb_descendus"
+      ].forEach(id => {
+        const el = bfBusEl(id);
+        if (el) el.value = "";
+      });
+
+      bfBusEffacerSelection(true);
+
+      if (typeof window.majAffichageComptage === "function") {
+        window.majAffichageComptage();
+      }
+
+      bfBusMajVisibilite();
+    }
+
+    wrappedAjouterDeroulementFlex.__bfBusWrapped = true;
+    window.ajouterDeroulementFlex = wrappedAjouterDeroulementFlex;
+  }
+
+  function bfBusInstallerEvenements() {
+    bfBusEl("bfBusZestRefreshBtn")?.addEventListener("click", bfBusConsulter);
+    bfBusEl("bfBusZestCloseBtn")?.addEventListener("click", bfBusFermerPanel);
+
+    bfBusEl("type_action")?.addEventListener("change", () => {
+      const isBus = bfBusActionChoisie();
+
+      if (isBus && !bfBusState.lastActionWasBus) {
+        bfBusState.panelClosed = false;
+      }
+
+      if (!isBus) {
+        bfBusEffacerSelection(false);
+      }
+
+      bfBusState.lastActionWasBus = isBus;
+      bfBusMajVisibilite();
+    });
+
+    bfBusEl("bfBusSiteSelect")?.addEventListener("change", () => {
+      bfBusEffacerResultats(
+        "Le secteur a changé. Appuie sur « Consulter les bus » pour charger les nouveaux passages."
+      );
+      bfBusMettreAJourLibelles();
+      bfBusMajVisibilite();
+    });
+
+    bfBusEl("siteSelect")?.addEventListener("change", () => {
+      const select = bfBusEl("bfBusSiteSelect");
+      if (select && bfBusEstDsiTende()) select.value = "";
+      bfBusEffacerResultats(
+        "Les résultats bus ont été effacés après le changement de site."
+      );
+      bfBusMettreAJourLibelles();
+      bfBusMajVisibilite();
+    });
+
+    ["dateInput", "heureDebutInput", "heureFinInput"].forEach(id => {
+      bfBusEl(id)?.addEventListener("change", () => {
+        if (bfBusState.events.length || bfBusState.selection) {
+          bfBusEffacerResultats(
+            "Les horaires de mission ont changé : relance la consultation des bus."
+          );
+        }
+      });
+    });
+
+    bfBusEl("heure_action")?.addEventListener("input", () => {
+      if (bfBusState.events.length) bfBusRendreListe();
+    });
+
+    window.addEventListener("offline", () => {
+      if (!bfBusEstSiteCompatible() || !bfBusActionChoisie()) return;
+
+      if (bfBusState.selection && !bfBusState.selection.theoretical) {
+        bfBusEffacerSelection(false);
+      }
+
+      const theoreticalEvents = bfBusState.events.filter(
+        event => bfBusEstTheorique(event)
+      );
+
+      bfBusState.events = theoreticalEvents;
+
+      if (theoreticalEvents.length) {
+        bfBusSetStatus(
+          "Aucune connexion Internet : les données en temps réel ont été retirées. Les horaires théoriques déjà chargés restent disponibles.",
+          "warning"
+        );
+        bfBusRendreListe();
+      } else {
+        bfBusEffacerResultats();
+        bfBusSetStatus(
+          "Aucune connexion Internet. La saisie manuelle reste disponible.",
+          "error"
+        );
+      }
+    });
+
+    window.addEventListener("online", () => {
+      if (
+        bfBusEstSiteCompatible() &&
+        bfBusActionChoisie() &&
+        !bfBusState.events.length
+      ) {
+        bfBusSetStatus(
+          "Connexion rétablie. Appuie sur « Consulter les bus » pour actualiser la liste.",
+          "success"
+        );
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    bfBusInstallerAjoutDeroulement();
+    bfBusInstallerEvenements();
+    bfBusMettreAJourLibelles();
+    bfBusMajVisibilite();
+  });
+})();
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/mrz@3/dist/mrz.umd.js"></script>
+
+
+<script id="bfTrainBusActionVisibility">
+/* Action prédéfinie :
+   TRAIN et BUS seulement pour Breil et DSI Tende. */
+(function () {
+  "use strict";
+
+  const TRANSPORT_ACTIONS = [
+    { key: "train", value: "Train", label: "TRAIN" },
+    { key: "bus", value: "Bus", label: "BUS" }
+  ];
+
+  function normalize(value) {
+    return String(value || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, " ");
+  }
+
+  function transportActionsAllowed() {
+    const siteSelect = document.getElementById("siteSelect");
+    const site = normalize(
+      siteSelect?.value ||
+      window.BF_MISSION_SESSION?.site ||
+      ""
+    );
+
+    return site === "breil" || site === "dsi tende";
+  }
+
+  function findMissionOptgroup(select) {
+    return Array.from(select?.children || []).find(element =>
+      element.tagName === "OPTGROUP" &&
+      normalize(element.label).includes("deplacements")
+    ) || select?.querySelector("optgroup") || null;
+  }
+
+  function createTransportOption(definition) {
+    const option = document.createElement("option");
+    option.value = definition.value;
+    option.textContent = definition.label;
+    option.dataset.bfTransportAction = definition.key;
+    option.style.fontWeight = "900";
+    return option;
+  }
+
+  function updateSelectedStyle() {
+    const select = document.getElementById("type_action");
+    if (!select) return;
+
+    const selected = normalize(select.value);
+    select.classList.toggle(
+      "bf-transport-action-selected",
+      selected === "train" || selected === "bus"
+    );
+  }
+
+  function syncTransportActions() {
+    const select = document.getElementById("type_action");
+    if (!select) return;
+
+    const group = findMissionOptgroup(select);
+    if (!group) return;
+
+    const allowed = transportActionsAllowed();
+    const currentValue = normalize(select.value);
+
+    // Retire toujours d'abord les éventuels doublons.
+    group
+      .querySelectorAll("option[data-bf-transport-action]")
+      .forEach(option => option.remove());
+
+    if (allowed) {
+      const firstNormalOption = group.querySelector("option");
+
+      TRANSPORT_ACTIONS.forEach(definition => {
+        const option = createTransportOption(definition);
+        group.insertBefore(option, firstNormalOption);
+      });
+    } else if (currentValue === "train" || currentValue === "bus") {
+      // Sécurité si une ancienne valeur Train/Bus était encore sélectionnée.
+      select.value = "";
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+
+    updateSelectedStyle();
+
+    if (typeof window.majAffichageComptage === "function") {
+      window.majAffichageComptage();
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const actionSelect = document.getElementById("type_action");
+    const siteSelect = document.getElementById("siteSelect");
+
+    actionSelect?.addEventListener("change", updateSelectedStyle);
+    siteSelect?.addEventListener("change", syncTransportActions);
+    siteSelect?.addEventListener("input", syncTransportActions);
+
+    // Le premier passage intervient après le chargement de la mission
+    // verrouillée dans les champs techniques.
+    syncTransportActions();
+    window.setTimeout(syncTransportActions, 0);
+    window.setTimeout(syncTransportActions, 500);
+  });
+
+  window.bfActualiserActionsTrainBusSelonSite = syncTransportActions;
+})();
+</script>
+
+
+
 
 </body>
 </html>

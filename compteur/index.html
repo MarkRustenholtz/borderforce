@@ -1036,38 +1036,226 @@ span[id$="Count"] {
 }
 
 </style>
+
+<style id="appDialogStyles">
+/* === Fenêtres internes : remplacent les dialogues natifs du navigateur === */
+.app-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, .62);
+}
+.app-dialog-box {
+  width: min(430px, 100%);
+  max-height: min(82vh, 720px);
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 24px 22px 20px;
+  border-radius: 18px;
+  background: #0b1936;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, .45);
+  border: 1px solid rgba(255,255,255,.12);
+}
+.app-dialog-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin: 0 0 16px;
+  color: #ffcc00;
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.app-dialog-message {
+  margin: 0;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.48;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+.app-dialog-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
+}
+.app-dialog-actions button {
+  flex: 1 1 0;
+  justify-content: center;
+  min-height: 50px;
+  margin: 0;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 800;
+}
+.app-dialog-confirm { background: #1769aa; }
+.app-dialog-confirm.danger { background: #cf3a2d; }
+.app-dialog-cancel { background: #596579; }
+.app-dialog-actions.single .app-dialog-confirm {
+  max-width: 220px;
+  margin: 0 auto;
+}
+@media (max-width: 420px) {
+  .app-dialog-overlay { padding: 8px; }
+  .app-dialog-box { padding: 22px 14px 18px; border-radius: 16px; }
+  .app-dialog-actions { gap: 8px; }
+  .app-dialog-actions button { padding: 9px 8px; }
+}
+</style>
+<script id="appDialogScript">
+(() => {
+  const queue = [];
+  let active = null;
+  let overlay = null;
+
+  function ensureDialog() {
+    if (overlay && document.documentElement.contains(overlay)) return overlay;
+
+    overlay = document.createElement('div');
+    overlay.id = 'appDialogOverlay';
+    overlay.className = 'app-dialog-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.innerHTML = `
+      <div class="app-dialog-box">
+        <h3 class="app-dialog-title">
+          <i id="appDialogIcon" class="fas fa-circle-info" aria-hidden="true"></i>
+          <span id="appDialogTitle">Information</span>
+        </h3>
+        <p id="appDialogMessage" class="app-dialog-message"></p>
+        <div id="appDialogActions" class="app-dialog-actions">
+          <button id="appDialogConfirm" type="button" class="app-dialog-confirm">OK</button>
+          <button id="appDialogCancel" type="button" class="app-dialog-cancel">Annuler</button>
+        </div>
+      </div>`;
+
+    (document.body || document.documentElement).appendChild(overlay);
+
+    overlay.querySelector('#appDialogConfirm').addEventListener('click', () => closeDialog(true));
+    overlay.querySelector('#appDialogCancel').addEventListener('click', () => closeDialog(false));
+    return overlay;
+  }
+
+  function showNext() {
+    if (active || !queue.length) return;
+    active = queue.shift();
+    const root = ensureDialog();
+    const title = root.querySelector('#appDialogTitle');
+    const icon = root.querySelector('#appDialogIcon');
+    const message = root.querySelector('#appDialogMessage');
+    const actions = root.querySelector('#appDialogActions');
+    const ok = root.querySelector('#appDialogConfirm');
+    const cancel = root.querySelector('#appDialogCancel');
+
+    title.textContent = active.title;
+    icon.className = `fas ${active.icon}`;
+    message.textContent = String(active.message ?? '');
+    ok.textContent = active.confirmText;
+    ok.className = `app-dialog-confirm${active.danger ? ' danger' : ''}`;
+    cancel.textContent = active.cancelText;
+    cancel.style.display = active.kind === 'confirm' ? 'inline-flex' : 'none';
+    actions.classList.toggle('single', active.kind !== 'confirm');
+
+    root.style.display = 'flex';
+    document.body?.classList.add('app-dialog-open');
+    setTimeout(() => ok.focus(), 30);
+  }
+
+  function closeDialog(result) {
+    if (!active) return;
+    const item = active;
+    active = null;
+    if (overlay) overlay.style.display = 'none';
+    document.body?.classList.remove('app-dialog-open');
+    item.resolve(result);
+    setTimeout(showNext, 0);
+  }
+
+  window.addEventListener('keydown', event => {
+    if (!active || event.key !== 'Escape') return;
+    event.preventDefault();
+    closeDialog(active.kind === 'confirm' ? false : true);
+  });
+
+  window.appAlert = function(message, options = {}) {
+    if (typeof options === 'string') options = { title: options };
+    return new Promise(resolve => {
+      queue.push({
+        kind: 'alert',
+        message,
+        title: options.title || 'Information',
+        icon: options.icon || 'fa-circle-info',
+        confirmText: options.confirmText || 'OK',
+        cancelText: '',
+        danger: !!options.danger,
+        resolve
+      });
+      showNext();
+    });
+  };
+
+  window.appConfirm = function(message, options = {}) {
+    if (typeof options === 'string') options = { title: options };
+    return new Promise(resolve => {
+      queue.push({
+        kind: 'confirm',
+        message,
+        title: options.title || 'Confirmation',
+        icon: options.icon || 'fa-circle-question',
+        confirmText: options.confirmText || 'Oui',
+        cancelText: options.cancelText || 'Annuler',
+        danger: options.danger !== false,
+        resolve
+      });
+      showNext();
+    });
+  };
+})();
+</script>
+
 </head>
 <body>
+<script>
+/* Session de mission commune : verrouille le Compteur sur le rôle et le site choisis à l'accueil. */
+(() => {
+  const MISSION_KEY = "bf_mission_session_v1";
+  let mission = null;
+  try { mission = JSON.parse(localStorage.getItem(MISSION_KEY) || "null"); } catch (_) {}
+  if (!mission || !mission.active || mission.role !== "compteur") {
+    location.replace("../index.html");
+    return;
+  }
+  localStorage.setItem("siteSelection", mission.site || "");
+  window.BF_MISSION_SESSION = mission;
+})();
+</script>
 <div id="homePage" class="page active">
   <h1 class="home-title">
-    <button onclick="window.location.href='../index.html'" style="
-      float:left;
-      margin-right:10px;
-      background:white;
-      color:#003366;
-      border:none;
-      border-radius:6px;
-      padding:4px 8px;
-      font-size:0.9em;
-      cursor:pointer;
-      box-shadow:0 2px 5px rgba(0,0,0,0.2);
-    ">
-      🏠 Accueil
-    </button>
     COMPTEUR BORDERFORCE<br>
     <span class="sous-titre">Moyens / Personnes contrôlées</span>
   </h1>
 
   <div class="compteur-home-helper">
-    <strong>Parcours rapide :</strong> choisis le site, vérifie ton identité ESR, remplis les compteurs, puis génère le compte rendu.
+    <strong>Mission configurée :</strong> le site est défini automatiquement. Vérifie ton identité ESR, remplis les compteurs, puis génère le compte rendu.
   </div>
 
   <div class="compteur-primary-grid">
     <button class="icon-button compteur-big primary icon-infosite" onclick="showPage('infositePage')">
       <span class="step-num">1</span>
       <i class="fas fa-map-marker-alt gps-pin"></i>
-      <span class="label">Site</span>
-      <small>Breil, La Turbie ou DSI Tende</small>
+      <span class="label">Mission</span>
+      <small id="compteurMissionHomeSummary">Site et horaires définis au démarrage</small>
     </button>
 
     <button class="icon-button compteur-big icon-esr" onclick="showPage('esrPage')">
@@ -1140,15 +1328,11 @@ span[id$="Count"] {
 
   <section class="infosite">
   <div class="page-content" style="text-align:center;">
-       <h3>Choisir un site</h3>
-	   <div id="selectedSiteDisplay" class="selected-site"></div>
-    <div class="site-list">
-      <button class="site-btn" onclick="selectSite('Breil')">Breil</button>
-      <button class="site-btn" onclick="selectSite('La Turbie')">La Turbie</button>
-      <button class="site-btn" onclick="selectSite('DSI Tende')">DSI Tende</button>
-    </div>
-  </div> 
-	</section>
+       <h3>Mission en cours</h3>
+       <div id="selectedSiteDisplay" class="selected-site"></div>
+       <p class="small-note">Le lieu est verrouillé pour cette mission afin d'éviter une erreur de compteur. Il sera de nouveau demandé après la remise à zéro de fin de service.</p>
+  </div>
+  </section>
 	</div>
 	
 <!-- PAGE ESR -->
@@ -1541,10 +1725,24 @@ span[id$="Count"] {
   <textarea id="compteRendu" readonly rows="12" style="font-family:monospace; white-space:pre-wrap;"></textarea>
 </section>
 <section style="text-align:center; margin-top:30px;">
-    <button id="resetBtn" class="red">Effacer les données sauvegardées</button>
+    <button id="resetBtn" class="red"><i class="fas fa-flag-checkered"></i> Fin de mission</button>
 	</section>
 </div>
   
+
+
+<!-- Confirmation de fin de mission -->
+<div id="popupFinMission" class="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="popupFinMissionTitre">
+  <div class="popup-box">
+    <h3 id="popupFinMissionTitre"><i class="fas fa-flag-checkered"></i> Fin de mission</h3>
+    <p>Confirmer la fin de mission et effacer les données de comptage enregistrées ?</p>
+    <p style="font-size:.9em; color:#dbeafe;"><strong>L’identité de l’ESR sera conservée.</strong></p>
+    <div class="popup-buttons">
+      <button id="compteurFinMissionOuiBtn" type="button" class="popup-btn call">Oui, terminer</button>
+      <button id="compteurFinMissionAnnulerBtn" type="button" class="popup-btn cancel">Annuler</button>
+    </div>
+  </div>
+</div>
 
 <!-- Bouton Accueil flottant : visible uniquement hors page d'accueil -->
 <button id="floatingHomeBtn" type="button" aria-label="Retour accueil" title="Accueil">
@@ -1596,7 +1794,7 @@ function addManualCv(type){
   const input = document.getElementById(type+'CvManual');
   if(!input) return;
   const val = parseInt(input.value, 10);
-  if (!(val > 0)) { alert('Veuillez saisir un nombre entier > 0.'); input.focus(); input.select(); return; }
+  if (!(val > 0)) { appAlert('Veuillez saisir un nombre entier > 0.'); input.focus(); input.select(); return; }
   state.cv[type] += val;
   updateUI(); debounceSave();
   input.value = '';          // ← vide
@@ -1609,7 +1807,7 @@ function addManualCf(type){
   const input = document.getElementById(type+'CfManual');
   if(!input) return;
   const val = parseInt(input.value, 10);
-  if (!(val > 0)) { alert('Veuillez saisir un nombre entier > 0.'); input.focus(); input.select(); return; }
+  if (!(val > 0)) { appAlert('Veuillez saisir un nombre entier > 0.'); input.focus(); input.select(); return; }
   state.cf[type] += val;
   updateUI(); debounceSave();
   input.value = '';
@@ -1770,7 +1968,7 @@ const siteConfig = {
     const crt = document.getElementById('crt')?.value.trim() || '';
 
     if(!grade || !nomPrenom || !nigend || !crt){
-      alert('Remplissez Grade, Nom Prénom, NIGEND et CRT avant de générer le QR identité.');
+      appAlert('Remplissez Grade, Nom Prénom, NIGEND et CRT avant de générer le QR identité.');
       return;
     }
 
@@ -1884,7 +2082,7 @@ if (document.getElementById('transmettreBtn'))
     const qrDiv = document.getElementById('qrcode');
     if (qrDiv) qrDiv.innerHTML = "";
 
-    if (!infosValidees) return alert("Validez vos informations !");
+    if (!infosValidees) return appAlert("Validez vos informations !");
 
     // ✅ Génération automatique du compte rendu avec les dernières données saisies.
     generateCR();
@@ -1932,9 +2130,19 @@ if (qrDiv) {
     }
   });
 
+  const popupFinMission = document.getElementById('popupFinMission');
+
   if (document.getElementById('resetBtn'))
     document.getElementById('resetBtn').addEventListener('click', ()=>{
-      if(!confirm("Voulez-vous vraiment tout effacer ?")) return;
+      if (popupFinMission) popupFinMission.style.display = 'flex';
+    });
+
+  document.getElementById('compteurFinMissionAnnulerBtn')?.addEventListener('click', ()=>{
+    if (popupFinMission) popupFinMission.style.display = 'none';
+  });
+
+  document.getElementById('compteurFinMissionOuiBtn')?.addEventListener('click', async ()=>{
+      if (popupFinMission) popupFinMission.style.display = 'none';
       state.vehicules={train:0,bus:0,vl:0,pl:0};
       state.cv={train:0,bus:0,vl:0,pl:0};
       state.cf={train:0,bus:0,vl:0,pl:0};
@@ -1944,16 +2152,18 @@ if (qrDiv) {
       if(document.getElementById('qrcode')) document.getElementById('qrcode').innerHTML='';
       localStorage.removeItem('moyensData');
       localStorage.removeItem('siteSelection');
-	   localStorage.removeItem('fichesESI');
-	    // On vide l’historique à l’écran si la fonction existe
-    if (typeof afficherHistorique === 'function') {
-      afficherHistorique();
-    }
-    // On nettoie le QR des fiches identité
-    const qrFiche = document.getElementById('qrFicheContainer');
-    if (qrFiche) qrFiche.innerHTML = '';
-	   displaySelectedSite();
-       filtrerCompteurs();
+      localStorage.removeItem('fichesESI');
+      // L'identité ESR reste conservée dans infosPersonnelles.
+      if (typeof afficherHistorique === 'function') {
+        afficherHistorique();
+      }
+      const qrFiche = document.getElementById('qrFicheContainer');
+      if (qrFiche) qrFiche.innerHTML = '';
+      localStorage.removeItem('bf_mission_session_v1');
+      displaySelectedSite();
+      filtrerCompteurs();
+      await appAlert("Mission terminée. L'identité ESR a été conservée. L'application va revenir à l'écran de démarrage.", { title: "Fin de mission", icon: "fa-flag-checkered" });
+      location.replace('../index.html');
     });
 
   // Boutons Infos
@@ -1963,22 +2173,22 @@ if (qrDiv) {
       const nomPrenom = document.getElementById('nomPrenom')?.value.trim();
       const nigend = document.getElementById('nigend')?.value.trim();
       const crt = document.getElementById('crt')?.value.trim();
-      if(!grade||!nomPrenom||!nigend||!crt) return alert("Remplissez tous les champs !");
+      if(!grade||!nomPrenom||!nigend||!crt) return appAlert("Remplissez tous les champs !");
       infosValidees = true;
       saveInfos();
       disableInfos(true);
-      alert(`Informations validées :\nGrade: ${grade}\nNom Prénom: ${nomPrenom}\nNigend: ${nigend}\nCRT: ${crt}`);
+      appAlert(`Informations validées :\nGrade: ${grade}\nNom Prénom: ${nomPrenom}\nNigend: ${nigend}\nCRT: ${crt}`);
     });
 
   if (document.getElementById('resetInfosBtn'))
-    document.getElementById('resetInfosBtn').addEventListener('click',()=>{
-      if(!confirm("Voulez-vous vraiment effacer les infos ?")) return;
+    document.getElementById('resetInfosBtn').addEventListener('click', async ()=>{
+      if (!(await appConfirm("Voulez-vous vraiment effacer les infos ?", { title: "Effacer l’identité ESR", confirmText: "Oui, effacer" }))) return;
       state.infos = {grade:'',nomPrenom:'',nigend:'',crt:''};
       localStorage.removeItem('infosPersonnelles');
       loadInfos();
       disableInfos(false);
       infosValidees = false;
-      alert("Infos effacées");
+      appAlert("Infos effacées");
     });
 
   if (document.getElementById('genererQrIdentiteBtn'))
@@ -2353,8 +2563,8 @@ document.getElementById('ficheForm').addEventListener('submit', function(e){
     const suitesType = document.getElementById('suitesTypeFiche')?.value || '';
     const suitesLieu = (document.getElementById('suitesLieuFiche')?.value || '').trim();
 
-    if (!suitesType) { alert("Merci de sélectionner les suites données."); return; }
-    if (suitesType === 'TRANSPORT_PAF' && !suitesLieu) { alert("Merci de préciser le lieu du TRANSPORT PAF."); return; }
+    if (!suitesType) { appAlert("Merci de sélectionner les suites données."); return; }
+    if (suitesType === 'TRANSPORT_PAF' && !suitesLieu) { appAlert("Merci de préciser le lieu du TRANSPORT PAF."); return; }
 
     const suitesDonnees = (suitesType === 'TRANSPORT_PAF')
       ? `TRANSPORT PAF ${suitesLieu}`
@@ -2370,7 +2580,7 @@ document.getElementById('ficheForm').addEventListener('submit', function(e){
       : '';
 
     if (categorie === 'ESI' && !situationEsi) {
-      alert("Merci de sélectionner la situation de l'individu (ESI).");
+      appAlert("Merci de sélectionner la situation de l'individu (ESI).");
       return;
     }
 const fiche = {
@@ -2493,8 +2703,8 @@ function effacerFicheAvecHeure(heureEnregistrement) {
     localStorage.setItem('fichesESI', JSON.stringify(nouvellesFiches));
 }
 
-function supprimerFiche(index) {
-    if (confirm("Voulez-vous vraiment supprimer cette fiche ?")) {
+async function supprimerFiche(index) {
+    if (await appConfirm("Voulez-vous vraiment supprimer cette fiche ?", { title: "Supprimer la fiche", confirmText: "Oui, supprimer" })) {
         const fiches = JSON.parse(localStorage.getItem('fichesESI') || '[]');
         fiches.splice(index, 1);
         localStorage.setItem('fichesESI', JSON.stringify(fiches));
@@ -2576,13 +2786,13 @@ function genererQrFiche(index) {
   const fiches = JSON.parse(localStorage.getItem("fichesESI") || "[]");
   const fiche = fiches[index];
   if (!fiche) {
-    alert("Fiche introuvable.");
+    appAlert("Fiche introuvable.");
     return;
   }
 
   // Sécurité : vérifier que la lib QRCode est bien là
   if (typeof QRCode === "undefined") {
-    alert("Erreur : librairie QRCode non chargée.");
+    appAlert("Erreur : librairie QRCode non chargée.");
     return;
   }
 
@@ -2629,7 +2839,7 @@ const situationOut = (String(cat).trim().toUpperCase() === "ESI") ? situationEsi
 
   const container = document.getElementById("qrFicheContainer");
   if (!container) {
-    alert("Impossible de trouver #qrFicheContainer");
+    appAlert("Impossible de trouver #qrFicheContainer");
     return;
   }
 
@@ -2964,11 +3174,18 @@ function selectSite(site) {
 }
 
 function displaySelectedSite() {
-  const site = localStorage.getItem("siteSelection");
+  const mission = window.BF_MISSION_SESSION || {};
+  const site = mission.site || localStorage.getItem("siteSelection") || "";
   const display = document.getElementById("selectedSiteDisplay");
+  const homeSummary = document.getElementById("compteurMissionHomeSummary");
+  const horaires = [mission.heureDebut, mission.heureFin].filter(Boolean).join(" → ");
+  const dateFr = mission.date ? mission.date.split("-").reverse().join("/") : "";
   if (display) {
-    display.textContent = site ? "📍 Site choisi : " + site : "📍 Aucun site choisi";
+    display.innerHTML = site
+      ? `📍 <strong>${site}</strong><br><span style="font-size:.9em;font-weight:normal;">${dateFr}${dateFr && horaires ? " — " : ""}${horaires}</span>`
+      : "📍 Mission non configurée";
   }
+  if (homeSummary) homeSummary.textContent = [site, dateFr, horaires].filter(Boolean).join(" · ");
 }
 
 // Afficher au chargement
@@ -3110,8 +3327,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnEffacer = document.getElementById("effacerFiches");
   if (!btnEffacer) return;
 
-  btnEffacer.addEventListener("click", () => {
-    if (!confirm("Voulez-vous vraiment effacer toutes les fiches ?")) {
+  btnEffacer.addEventListener("click", async () => {
+    if (!(await appConfirm("Voulez-vous vraiment effacer toutes les fiches ?", { title: "Effacer toutes les fiches", confirmText: "Oui, effacer" }))) {
       return;
     }
 
@@ -3127,7 +3344,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const qrDiv = document.getElementById("qrFicheContainer");
     if (qrDiv) qrDiv.innerHTML = "";
 
-    alert("Toutes les fiches ont été effacées.");
+    appAlert("Toutes les fiches ont été effacées.");
   });
 });
 
@@ -3139,7 +3356,7 @@ function openMrzImport(){
   const url = '../mrz/index.html?source=compteur';
   const win = window.open(url, 'BF_MRZ_SCANNER', 'popup=yes,width=430,height=850');
   if (!win) {
-    alert("Le navigateur a bloqué l'ouverture du scanner MRZ. Autorise les pop-ups pour ce site, ou ouvre le dossier MRZ manuellement.");
+    appAlert("Le navigateur a bloqué l'ouverture du scanner MRZ. Autorise les pop-ups pour ce site, ou ouvre le dossier MRZ manuellement.");
     return;
   }
   try { win.focus(); } catch(e) {}
@@ -3156,7 +3373,7 @@ function parseMRZ(){
   const status = (msg) => { if (statusEl) statusEl.textContent = msg; };
 
   if (!mrzInput){
-    alert("mrzInput introuvable");
+    appAlert("mrzInput introuvable");
     return;
   }
 
@@ -3331,7 +3548,7 @@ function cleanMrzText(){
   const status = (msg) => { if (statusEl) statusEl.textContent = msg; };
 
   if (!input){
-    alert("mrzInput introuvable");
+    appAlert("mrzInput introuvable");
     return;
   }
 
