@@ -1,1 +1,57 @@
+name: Mise a jour FlixBus La Turbie
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * *"
+      timezone: "Europe/Paris"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-flix-turbie
+  cancel-in-progress: false
+
+jobs:
+  build-catalog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Recuperer le depot
+        uses: actions/checkout@v6
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generer le catalogue FlixBus La Turbie
+        run: python scripts/build_flix_turbie_catalog.py
+
+      - name: Verifier le fichier genere
+        run: |
+          test -s data/flix_turbie.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("data/flix_turbie.json")
+          data = json.loads(p.read_text(encoding="utf-8"))
+          buses = data.get("buses", [])
+          print(f"Catalogue valide : {len(buses)} passages FlixBus")
+          if not isinstance(buses, list):
+              raise SystemExit("Le champ buses n'est pas une liste")
+          PY
+
+      - name: Publier le nouveau catalogue dans le depot
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/flix_turbie.json
+          if git diff --cached --quiet; then
+            echo "Aucun changement a publier."
+            exit 0
+          fi
+          git commit -m "Mise a jour automatique FlixBus La Turbie"
+          git push
 
