@@ -23,8 +23,8 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 GTFS_URL = "https://gtfs.gis.flix.tech/gtfs_generic_eu.zip"
-OUT = Path("flix_turbie.json")
-DAYS = 14
+OUT = Path("data/flix_turbie.json")
+DAYS = 21
 TZ = ZoneInfo("Europe/Paris")
 GTFS_TZ = timezone.utc
 TOLL = (43.74367, 7.37827)
