@@ -18,14 +18,15 @@ import re
 import urllib.request
 import zipfile
 from collections import defaultdict
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 GTFS_URL = "https://gtfs.gis.flix.tech/gtfs_generic_eu.zip"
-OUT = Path("data/flix_turbie.json")
-DAYS = 21
+OUT = Path("flix_turbie.json")
+DAYS = 14
 TZ = ZoneInfo("Europe/Paris")
+GTFS_TZ = timezone.utc
 TOLL = (43.74367, 7.37827)
 
 ITALY_RE = re.compile(
@@ -207,17 +208,30 @@ def main():
         for d in dates:
             if not service_active(service_id, d, calendars, exceptions):
                 continue
-            dt = datetime(d.year, d.month, d.day, tzinfo=TZ) + timedelta(seconds=eta_sec)
+            # Le flux Flix Europe utilise ici des heures stop_times sur une base UTC.
+            # On construit d'abord les instants en UTC puis on les convertit vers
+            # Europe/Paris. Cela corrige le décalage de -2 h observé en été.
+            dt_utc = datetime(d.year, d.month, d.day, tzinfo=GTFS_TZ) + timedelta(seconds=eta_sec)
+            last_utc = datetime(d.year, d.month, d.day, tzinfo=GTFS_TZ) + timedelta(seconds=t0)
+            next_utc = datetime(d.year, d.month, d.day, tzinfo=GTFS_TZ) + timedelta(seconds=t1)
+
+            dt = dt_utc.astimezone(TZ)
+            last_local = last_utc.astimezone(TZ)
+            next_local = next_utc.astimezone(TZ)
+
             out.append({
                 "id": f"flix:{trip_id}:{d.isoformat()}",
                 "company": "FlixBus",
                 "tripId": trip_id,
                 "journeyRef": trip_id,
+                "serviceDate": d.isoformat(),
                 "line": line,
                 "origin": origin,
                 "destination": destination,
                 "lastItalianStop": s0.get("stop_name", ""),
                 "nextFrenchStop": sn.get("stop_name", ""),
+                "lastItalianScheduledIso": last_local.isoformat(),
+                "nextFrenchScheduledIso": next_local.isoformat(),
                 "etaTurbieIso": dt.isoformat(),
                 "etaTurbieDate": dt.strftime("%Y-%m-%d"),
                 "etaTurbieTime": dt.strftime("%H:%M"),
@@ -230,7 +244,6 @@ def main():
             })
 
     out.sort(key=lambda b: (b["etaTurbieDate"], b["etaTurbieTime"], b["line"]))
-    OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps({"generatedAt": datetime.now(TZ).isoformat(), "buses": out}, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"Wrote {OUT} with {len(out)} bus passages")
 
