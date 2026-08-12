@@ -204,11 +204,17 @@ def main() -> None:
 
     active = service_active_builder(calendar_rows, exception_rows)
     today = datetime.now(tz).date()
-start_date = today - timedelta(days=1)
-service_dates = [
-    start_date + timedelta(days=i)
-    for i in range(DAYS + 1)]
 
+    # On prend aussi la veille pour les services de nuit GTFS.
+    # Exemple : 26:30 correspond à 02:30 le lendemain.
+    start_date = today - timedelta(days=1)
+
+    service_dates = [
+        start_date + timedelta(days=i)
+        for i in range(DAYS + 1)
+    ]
+
+    buses: list[dict[str, object]] = []
     buses: list[dict[str, object]] = []
 
     for trip_id, trip in trips.items():
