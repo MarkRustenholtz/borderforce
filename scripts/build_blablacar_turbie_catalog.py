@@ -203,8 +203,11 @@ def main() -> None:
         arr.sort(key=lambda x: int(x["seq"]))
 
     active = service_active_builder(calendar_rows, exception_rows)
-    start_date = datetime.now(tz).date()
-    service_dates = [start_date + timedelta(days=i) for i in range(DAYS)]
+    start_date = today - timedelta(days=1)
+    service_dates = [
+    start_date + timedelta(days=i)
+    for i in range(DAYS + 1)
+]
 
     buses: list[dict[str, object]] = []
 
