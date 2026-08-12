@@ -203,19 +203,8 @@ def main() -> None:
         arr.sort(key=lambda x: int(x["seq"]))
 
     active = service_active_builder(calendar_rows, exception_rows)
-    today = datetime.now(tz).date()
-
-# On prend aussi la veille.
-# Important pour les services GTFS nocturnes dont les horaires
-# peuvent dépasser 24:00 (ex. 26:30 = 02:30 le lendemain).
-start_date = today - timedelta(days=1)
-
-# On conserve la même portée future qu'avant,
-# mais on ajoute la veille au catalogue.
-service_dates = [
-    start_date + timedelta(days=i)
-    for i in range(DAYS + 1)
-]
+    start_date = datetime.now(tz).date()
+    service_dates = [start_date + timedelta(days=i) for i in range(DAYS)]
 
     buses: list[dict[str, object]] = []
 
