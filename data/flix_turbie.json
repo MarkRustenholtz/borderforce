@@ -1,420 +1,6 @@
 {
-  "generatedAt": "2026-10-02T09:01:28.677142+02:00",
+  "generatedAt": "2026-10-03T08:35:17.093805+02:00",
   "buses": [
-    {
-      "id": "flix:1404-8-0430102026-TO#NIT-00:2026-10-02",
-      "company": "FlixBus",
-      "tripId": "1404-8-0430102026-TO#NIT-00",
-      "journeyRef": "1404-8-0430102026-TO#NIT-00",
-      "serviceDate": "2026-10-02",
-      "line": "FlixBus 1404",
-      "origin": "Turin (Vittorio Emanuele)",
-      "destination": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianStop": "Sanremo",
-      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianScheduledIso": "2026-10-02T09:50:00+02:00",
-      "nextFrenchScheduledIso": "2026-10-02T11:00:00+02:00",
-      "etaTurbieIso": "2026-10-02T10:34:15+02:00",
-      "etaTurbieDate": "2026-10-02",
-      "etaTurbieTime": "10:34",
-      "etaTurbieDisplay": "10h34",
-      "quality": "ESTIME_GTFS_SHAPE",
-      "qualityLabel": "ESTIMÉ GTFS",
-      "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.323357+02:00",
-      "cancelled": false
-    },
-    {
-      "id": "flix:404-1-0550102026-TO#MAA-00:2026-10-02",
-      "company": "FlixBus",
-      "tripId": "404-1-0550102026-TO#MAA-00",
-      "journeyRef": "404-1-0550102026-TO#MAA-00",
-      "serviceDate": "2026-10-02",
-      "line": "FlixBus 404",
-      "origin": "Turin (Vittorio Emanuele)",
-      "destination": "Marseille (Saint-Charles)",
-      "lastItalianStop": "Savona (Stazione FS)",
-      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianScheduledIso": "2026-10-02T10:10:00+02:00",
-      "nextFrenchScheduledIso": "2026-10-02T12:30:00+02:00",
-      "etaTurbieIso": "2026-10-02T12:11:45+02:00",
-      "etaTurbieDate": "2026-10-02",
-      "etaTurbieTime": "12:11",
-      "etaTurbieDisplay": "12h11",
-      "quality": "ESTIME_GTFS_SHAPE",
-      "qualityLabel": "ESTIMÉ GTFS",
-      "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.423674+02:00",
-      "cancelled": false
-    },
-    {
-      "id": "flix:728-13-0755102026-GNF#BAC-00:2026-10-02",
-      "company": "FlixBus",
-      "tripId": "728-13-0755102026-GNF#BAC-00",
-      "journeyRef": "728-13-0755102026-GNF#BAC-00",
-      "serviceDate": "2026-10-02",
-      "line": "FlixBus 728",
-      "origin": "Genoa (Fanti d'Italia/Principe bus station)",
-      "destination": "Barcelona (Bus Terminal Nord)",
-      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
-      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianScheduledIso": "2026-10-02T09:55:00+02:00",
-      "nextFrenchScheduledIso": "2026-10-02T13:05:00+02:00",
-      "etaTurbieIso": "2026-10-02T12:45:51+02:00",
-      "etaTurbieDate": "2026-10-02",
-      "etaTurbieTime": "12:45",
-      "etaTurbieDisplay": "12h45",
-      "quality": "ESTIME_GTFS_SHAPE",
-      "qualityLabel": "ESTIMÉ GTFS",
-      "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.283717+02:00",
-      "cancelled": false
-    },
-    {
-      "id": "flix:798-1-0720102026-MIO#MAA-00:2026-10-02",
-      "company": "FlixBus",
-      "tripId": "798-1-0720102026-MIO#MAA-00",
-      "journeyRef": "798-1-0720102026-MIO#MAA-00",
-      "serviceDate": "2026-10-02",
-      "line": "FlixBus 798",
-      "origin": "Milan (Lampugnano bus station)",
-      "destination": "Marseille (Saint-Charles)",
-      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
-      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianScheduledIso": "2026-10-02T11:40:00+02:00",
-      "nextFrenchScheduledIso": "2026-10-02T15:05:00+02:00",
-      "etaTurbieIso": "2026-10-02T14:44:20+02:00",
-      "etaTurbieDate": "2026-10-02",
-      "etaTurbieTime": "14:44",
-      "etaTurbieDisplay": "14h44",
-      "quality": "ESTIME_GTFS_SHAPE",
-      "qualityLabel": "ESTIMÉ GTFS",
-      "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.903213+02:00",
-      "cancelled": false
-    },
-    {
-      "id": "flix:1404-16-0500102026-GEN#NIT-00:2026-10-02",
-      "company": "FlixBus",
-      "tripId": "1404-16-0500102026-GEN#NIT-00",
-      "journeyRef": "1404-16-0500102026-GEN#NIT-00",
-      "serviceDate": "2026-10-02",
-      "line": "FlixBus 1404",
-      "origin": "Geneva (central bus station)",
-      "destination": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianStop": "Sanremo",
-      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianScheduledIso": "2026-10-02T14:45:00+02:00",
-      "nextFrenchScheduledIso": "2026-10-02T15:55:00+02:00",
-      "etaTurbieIso": "2026-10-02T15:29:15+02:00",
-      "etaTurbieDate": "2026-10-02",
-      "etaTurbieTime": "15:29",
-      "etaTurbieDisplay": "15h29",
-      "quality": "ESTIME_GTFS_SHAPE",
-      "qualityLabel": "ESTIMÉ GTFS",
-      "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.074848+02:00",
-      "cancelled": false
-    },
-    {
-      "id": "flix:482-1-0410102026-VE#MTP-00:2026-10-02",
-      "company": "FlixBus",
-      "tripId": "482-1-0410102026-VE#MTP-00",
-      "journeyRef": "482-1-0410102026-VE#MTP-00",
-      "serviceDate": "2026-10-02",
-      "line": "FlixBus 482",
-      "origin": "Venice (Tronchetto)",
-      "destination": "Montpellier (Sabines)",
-      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
-      "nextFrenchStop": "Nice (Vauban Bus Station)",
-      "lastItalianScheduledIso": "2026-10-02T12:30:00+02:00",
-      "nextFrenchScheduledIso": "2026-10-02T16:00:00+02:00",
-      "etaTurbieIso": "2026-10-02T15:48:24+02:00",
-      "etaTurbieDate": "2026-10-02",
-      "etaTurbieTime": "15:48",
-      "etaTurbieDisplay": "15h48",
-      "quality": "ESTIME_GTFS_SHAPE",
-      "qualityLabel": "ESTIMÉ GTFS",
-      "interpolationRatio": 0.9448,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.046664+02:00",
-      "cancelled": false
-    },
-    {
-      "id": "flix:N1138-2-0925102026-MIO#LBO-00:2026-10-02",
-      "company": "FlixBus",
-      "tripId": "N1138-2-0925102026-MIO#LBO-00",
-      "journeyRef": "N1138-2-0925102026-MIO#LBO-00",
-      "serviceDate": "2026-10-02",
-      "line": "FlixBus N1138",
-      "origin": "Milan (Lampugnano bus station)",
-      "destination": "Lisbon (Oriente)",
-      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
-      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianScheduledIso": "2026-10-02T13:30:00+02:00",
-      "nextFrenchScheduledIso": "2026-10-02T17:00:00+02:00",
-      "etaTurbieIso": "2026-10-02T16:38:50+02:00",
-      "etaTurbieDate": "2026-10-02",
-      "etaTurbieTime": "16:38",
-      "etaTurbieDisplay": "16h38",
-      "quality": "ESTIME_GTFS_SHAPE",
-      "qualityLabel": "ESTIMÉ GTFS",
-      "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.166572+02:00",
-      "cancelled": false
-    },
-    {
-      "id": "flix:N719-16-1305102026-GNF#PQB-00:2026-10-02",
-      "company": "FlixBus",
-      "tripId": "N719-16-1305102026-GNF#PQB-00",
-      "journeyRef": "N719-16-1305102026-GNF#PQB-00",
-      "serviceDate": "2026-10-02",
-      "line": "FlixBus N719",
-      "origin": "Genoa (Fanti d'Italia/Principe bus station)",
-      "destination": "Paris (Bercy Seine)",
-      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
-      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianScheduledIso": "2026-10-02T15:05:00+02:00",
-      "nextFrenchScheduledIso": "2026-10-02T18:10:00+02:00",
-      "etaTurbieIso": "2026-10-02T17:51:21+02:00",
-      "etaTurbieDate": "2026-10-02",
-      "etaTurbieTime": "17:51",
-      "etaTurbieDisplay": "17h51",
-      "quality": "ESTIME_GTFS_SHAPE",
-      "qualityLabel": "ESTIMÉ GTFS",
-      "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.277267+02:00",
-      "cancelled": false
-    },
-    {
-      "id": "flix:728-11-1415102026-GNF#BAC-00:2026-10-02",
-      "company": "FlixBus",
-      "tripId": "728-11-1415102026-GNF#BAC-00",
-      "journeyRef": "728-11-1415102026-GNF#BAC-00",
-      "serviceDate": "2026-10-02",
-      "line": "FlixBus 728",
-      "origin": "Genoa (Fanti d'Italia/Principe bus station)",
-      "destination": "Barcelona (Bus Terminal Nord)",
-      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
-      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianScheduledIso": "2026-10-02T16:15:00+02:00",
-      "nextFrenchScheduledIso": "2026-10-02T19:05:00+02:00",
-      "etaTurbieIso": "2026-10-02T18:47:52+02:00",
-      "etaTurbieDate": "2026-10-02",
-      "etaTurbieTime": "18:47",
-      "etaTurbieDisplay": "18h47",
-      "quality": "ESTIME_GTFS_SHAPE",
-      "qualityLabel": "ESTIMÉ GTFS",
-      "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.351522+02:00",
-      "cancelled": false
-    },
-    {
-      "id": "flix:404-3-1255102026-TO#MAA-00:2026-10-02",
-      "company": "FlixBus",
-      "tripId": "404-3-1255102026-TO#MAA-00",
-      "journeyRef": "404-3-1255102026-TO#MAA-00",
-      "serviceDate": "2026-10-02",
-      "line": "FlixBus 404",
-      "origin": "Turin (Vittorio Emanuele)",
-      "destination": "Marseille (Saint-Charles)",
-      "lastItalianStop": "Savona (Stazione FS)",
-      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianScheduledIso": "2026-10-02T16:50:00+02:00",
-      "nextFrenchScheduledIso": "2026-10-02T19:20:00+02:00",
-      "etaTurbieIso": "2026-10-02T19:00:26+02:00",
-      "etaTurbieDate": "2026-10-02",
-      "etaTurbieTime": "19:00",
-      "etaTurbieDisplay": "19h00",
-      "quality": "ESTIME_GTFS_SHAPE",
-      "qualityLabel": "ESTIMÉ GTFS",
-      "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.876714+02:00",
-      "cancelled": false
-    },
-    {
-      "id": "flix:492-8-0600102026-M#NIT-00:2026-10-02",
-      "company": "FlixBus",
-      "tripId": "492-8-0600102026-M#NIT-00",
-      "journeyRef": "492-8-0600102026-M#NIT-00",
-      "serviceDate": "2026-10-02",
-      "line": "FlixBus 492",
-      "origin": "Munich central bus station",
-      "destination": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
-      "nextFrenchStop": "Nice (Vauban Bus Station)",
-      "lastItalianScheduledIso": "2026-10-02T17:15:00+02:00",
-      "nextFrenchScheduledIso": "2026-10-02T20:05:00+02:00",
-      "etaTurbieIso": "2026-10-02T19:55:41+02:00",
-      "etaTurbieDate": "2026-10-02",
-      "etaTurbieTime": "19:55",
-      "etaTurbieDisplay": "19h55",
-      "quality": "ESTIME_GTFS_SHAPE",
-      "qualityLabel": "ESTIMÉ GTFS",
-      "interpolationRatio": 0.9452,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.176022+02:00",
-      "cancelled": false
-    },
-    {
-      "id": "flix:N718-5-1335102026-FIV#BDX-00:2026-10-02",
-      "company": "FlixBus",
-      "tripId": "N718-5-1335102026-FIV#BDX-00",
-      "journeyRef": "N718-5-1335102026-FIV#BDX-00",
-      "serviceDate": "2026-10-02",
-      "line": "FlixBus N718",
-      "origin": "Florence (Villa Costanza)",
-      "destination": "Bordeaux (Saint-Jean - Paludate)",
-      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
-      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianScheduledIso": "2026-10-02T18:35:00+02:00",
-      "nextFrenchScheduledIso": "2026-10-02T21:20:00+02:00",
-      "etaTurbieIso": "2026-10-02T21:03:22+02:00",
-      "etaTurbieDate": "2026-10-02",
-      "etaTurbieTime": "21:03",
-      "etaTurbieDisplay": "21h03",
-      "quality": "ESTIME_GTFS_SHAPE",
-      "qualityLabel": "ESTIMÉ GTFS",
-      "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.249115+02:00",
-      "cancelled": false
-    },
-    {
-      "id": "flix:N1719-2-1620102026-TO#CLF-00:2026-10-02",
-      "company": "FlixBus",
-      "tripId": "N1719-2-1620102026-TO#CLF-00",
-      "journeyRef": "N1719-2-1620102026-TO#CLF-00",
-      "serviceDate": "2026-10-02",
-      "line": "FlixBus N1719",
-      "origin": "Turin (Vittorio Emanuele)",
-      "destination": "Clermont-Ferrand (Bus Station)",
-      "lastItalianStop": "Turin (Vittorio Emanuele)",
-      "nextFrenchStop": "Nice (Vauban Bus Station)",
-      "lastItalianScheduledIso": "2026-10-02T18:20:00+02:00",
-      "nextFrenchScheduledIso": "2026-10-02T22:40:00+02:00",
-      "etaTurbieIso": "2026-10-02T22:31:26+02:00",
-      "etaTurbieDate": "2026-10-02",
-      "etaTurbieTime": "22:31",
-      "etaTurbieDisplay": "22h31",
-      "quality": "ESTIME_GTFS_SHAPE",
-      "qualityLabel": "ESTIMÉ GTFS",
-      "interpolationRatio": 0.9671,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.220103+02:00",
-      "cancelled": false
-    },
-    {
-      "id": "flix:N758-3-1615102026-FIV#BAC-00:2026-10-02",
-      "company": "FlixBus",
-      "tripId": "N758-3-1615102026-FIV#BAC-00",
-      "journeyRef": "N758-3-1615102026-FIV#BAC-00",
-      "serviceDate": "2026-10-02",
-      "line": "FlixBus N758",
-      "origin": "Florence (Villa Costanza)",
-      "destination": "Barcelona (Bus Terminal Nord)",
-      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
-      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianScheduledIso": "2026-10-02T21:25:00+02:00",
-      "nextFrenchScheduledIso": "2026-10-03T00:20:00+02:00",
-      "etaTurbieIso": "2026-10-03T00:02:21+02:00",
-      "etaTurbieDate": "2026-10-03",
-      "etaTurbieTime": "00:02",
-      "etaTurbieDisplay": "00h02",
-      "quality": "ESTIME_GTFS_SHAPE",
-      "qualityLabel": "ESTIMÉ GTFS",
-      "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.161036+02:00",
-      "cancelled": false
-    },
-    {
-      "id": "flix:N778-3-1820102026-BG#TLS-00:2026-10-02",
-      "company": "FlixBus",
-      "tripId": "N778-3-1820102026-BG#TLS-00",
-      "journeyRef": "N778-3-1820102026-BG#TLS-00",
-      "serviceDate": "2026-10-02",
-      "line": "FlixBus N778",
-      "origin": "Bergamo (Bus Station)",
-      "destination": "Toulouse (Blagnac Airport)",
-      "lastItalianStop": "Turin (Vittorio Emanuele)",
-      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianScheduledIso": "2026-10-02T23:15:00+02:00",
-      "nextFrenchScheduledIso": "2026-10-03T03:20:00+02:00",
-      "etaTurbieIso": "2026-10-03T02:52:23+02:00",
-      "etaTurbieDate": "2026-10-03",
-      "etaTurbieTime": "02:52",
-      "etaTurbieDisplay": "02h52",
-      "quality": "ESTIME_GTFS_SHAPE",
-      "qualityLabel": "ESTIMÉ GTFS",
-      "interpolationRatio": 0.8873,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.504332+02:00",
-      "cancelled": false
-    },
-    {
-      "id": "flix:N523-3-1435102026-NAP#MAA-00:2026-10-02",
-      "company": "FlixBus",
-      "tripId": "N523-3-1435102026-NAP#MAA-00",
-      "journeyRef": "N523-3-1435102026-NAP#MAA-00",
-      "serviceDate": "2026-10-02",
-      "line": "FlixBus N523",
-      "origin": "Naples (FS Park Stazione Centrale)",
-      "destination": "Marseille (Saint-Charles)",
-      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
-      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianScheduledIso": "2026-10-03T02:30:00+02:00",
-      "nextFrenchScheduledIso": "2026-10-03T05:20:00+02:00",
-      "etaTurbieIso": "2026-10-03T05:03:09+02:00",
-      "etaTurbieDate": "2026-10-03",
-      "etaTurbieTime": "05:03",
-      "etaTurbieDisplay": "05h03",
-      "quality": "ESTIME_GTFS_SHAPE",
-      "qualityLabel": "ESTIMÉ GTFS",
-      "interpolationRatio": 0.9009,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.641843+02:00",
-      "cancelled": false
-    },
-    {
-      "id": "flix:N728-4-1815102026-M#BAC-00:2026-10-02",
-      "company": "FlixBus",
-      "tripId": "N728-4-1815102026-M#BAC-00",
-      "journeyRef": "N728-4-1815102026-M#BAC-00",
-      "serviceDate": "2026-10-02",
-      "line": "FlixBus N728",
-      "origin": "Munich central bus station",
-      "destination": "Barcelona (Bus Terminal Nord)",
-      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
-      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianScheduledIso": "2026-10-03T05:15:00+02:00",
-      "nextFrenchScheduledIso": "2026-10-03T08:05:00+02:00",
-      "etaTurbieIso": "2026-10-03T07:47:52+02:00",
-      "etaTurbieDate": "2026-10-03",
-      "etaTurbieTime": "07:47",
-      "etaTurbieDisplay": "07h47",
-      "quality": "ESTIME_GTFS_SHAPE",
-      "qualityLabel": "ESTIMÉ GTFS",
-      "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.143381+02:00",
-      "cancelled": false
-    },
-    {
-      "id": "flix:N482-1-1600102026-ZAG#MAP-00:2026-10-02",
-      "company": "FlixBus",
-      "tripId": "N482-1-1600102026-ZAG#MAP-00",
-      "journeyRef": "N482-1-1600102026-ZAG#MAP-00",
-      "serviceDate": "2026-10-02",
-      "line": "FlixBus N482",
-      "origin": "Zagreb (Bus Station)",
-      "destination": "Marseille Airport (Bus Station)",
-      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
-      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianScheduledIso": "2026-10-03T06:50:00+02:00",
-      "nextFrenchScheduledIso": "2026-10-03T09:35:00+02:00",
-      "etaTurbieIso": "2026-10-03T09:18:34+02:00",
-      "etaTurbieDate": "2026-10-03",
-      "etaTurbieTime": "09:18",
-      "etaTurbieDisplay": "09h18",
-      "quality": "ESTIME_GTFS_SHAPE",
-      "qualityLabel": "ESTIMÉ GTFS",
-      "interpolationRatio": 0.9004,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.182809+02:00",
-      "cancelled": false
-    },
     {
       "id": "flix:1404-8-0430102026-TO#NIT-00:2026-10-03",
       "company": "FlixBus",
@@ -435,30 +21,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.323380+02:00",
-      "cancelled": false
-    },
-    {
-      "id": "flix:N1501-2-1750102026-SAC#NIT-00:2026-10-02",
-      "company": "FlixBus",
-      "tripId": "N1501-2-1750102026-SAC#NIT-00",
-      "journeyRef": "N1501-2-1750102026-SAC#NIT-00",
-      "serviceDate": "2026-10-02",
-      "line": "FlixBus N1501",
-      "origin": "Sala Consilina",
-      "destination": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
-      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianScheduledIso": "2026-10-03T09:15:00+02:00",
-      "nextFrenchScheduledIso": "2026-10-03T11:55:00+02:00",
-      "etaTurbieIso": "2026-10-03T11:38:52+02:00",
-      "etaTurbieDate": "2026-10-03",
-      "etaTurbieTime": "11:38",
-      "etaTurbieDisplay": "11h38",
-      "quality": "ESTIME_GTFS_SHAPE",
-      "qualityLabel": "ESTIMÉ GTFS",
-      "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.923712+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.733537+02:00",
       "cancelled": false
     },
     {
@@ -481,7 +44,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.423704+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.835076+02:00",
       "cancelled": false
     },
     {
@@ -504,30 +67,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.283742+02:00",
-      "cancelled": false
-    },
-    {
-      "id": "flix:N508-2-1920102026-F#NIT-00:2026-10-02",
-      "company": "FlixBus",
-      "tripId": "N508-2-1920102026-F#NIT-00",
-      "journeyRef": "N508-2-1920102026-F#NIT-00",
-      "serviceDate": "2026-10-02",
-      "line": "FlixBus N508",
-      "origin": "Frankfurt central train station",
-      "destination": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianStop": "Sanremo",
-      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianScheduledIso": "2026-10-03T12:20:00+02:00",
-      "nextFrenchScheduledIso": "2026-10-03T13:20:00+02:00",
-      "etaTurbieIso": "2026-10-03T12:57:55+02:00",
-      "etaTurbieDate": "2026-10-03",
-      "etaTurbieTime": "12:57",
-      "etaTurbieDisplay": "12h57",
-      "quality": "ESTIME_GTFS_SHAPE",
-      "qualityLabel": "ESTIMÉ GTFS",
-      "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.590911+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.691847+02:00",
       "cancelled": false
     },
     {
@@ -550,7 +90,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.903242+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.269976+02:00",
       "cancelled": false
     },
     {
@@ -573,30 +113,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.074877+02:00",
-      "cancelled": false
-    },
-    {
-      "id": "flix:1922-3-0045102026-BM#BDX-00:2026-10-02",
-      "company": "FlixBus",
-      "tripId": "1922-3-0045102026-BM#BDX-00",
-      "journeyRef": "1922-3-0045102026-BM#BDX-00",
-      "serviceDate": "2026-10-02",
-      "line": "FlixBus 1922",
-      "origin": "Bucharest (bus station Militari)",
-      "destination": "Bordeaux (Saint-Jean - Paludate)",
-      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
-      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
-      "lastItalianScheduledIso": "2026-10-03T12:35:00+02:00",
-      "nextFrenchScheduledIso": "2026-10-03T15:50:00+02:00",
-      "etaTurbieIso": "2026-10-03T15:30:14+02:00",
-      "etaTurbieDate": "2026-10-03",
-      "etaTurbieTime": "15:30",
-      "etaTurbieDisplay": "15h30",
-      "quality": "ESTIME_GTFS_SHAPE",
-      "qualityLabel": "ESTIMÉ GTFS",
-      "interpolationRatio": 0.8986,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.563660+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.447192+02:00",
       "cancelled": false
     },
     {
@@ -619,7 +136,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9448,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.046693+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.418140+02:00",
       "cancelled": false
     },
     {
@@ -642,30 +159,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.166603+02:00",
-      "cancelled": false
-    },
-    {
-      "id": "flix:N456-2-1010102026-LBI#MAR-00:2026-10-02",
-      "company": "FlixBus",
-      "tripId": "N456-2-1010102026-LBI#MAR-00",
-      "journeyRef": "N456-2-1010102026-LBI#MAR-00",
-      "serviceDate": "2026-10-02",
-      "line": "FlixBus N456",
-      "origin": "Lublin, Bus Station Lublin",
-      "destination": "Marseille (Saint-Antoine)",
-      "lastItalianStop": "Sanremo",
-      "nextFrenchStop": "Nice (Vauban Bus Station)",
-      "lastItalianScheduledIso": "2026-10-03T16:35:00+02:00",
-      "nextFrenchScheduledIso": "2026-10-03T18:00:00+02:00",
-      "etaTurbieIso": "2026-10-03T17:41:59+02:00",
-      "etaTurbieDate": "2026-10-03",
-      "etaTurbieTime": "17:41",
-      "etaTurbieDisplay": "17h41",
-      "quality": "ESTIME_GTFS_SHAPE",
-      "qualityLabel": "ESTIMÉ GTFS",
-      "interpolationRatio": 0.7881,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.238367+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.556908+02:00",
       "cancelled": false
     },
     {
@@ -688,7 +182,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.277295+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.684979+02:00",
       "cancelled": false
     },
     {
@@ -711,7 +205,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.351567+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.762012+02:00",
       "cancelled": false
     },
     {
@@ -734,7 +228,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.876761+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.242710+02:00",
       "cancelled": false
     },
     {
@@ -757,7 +251,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9452,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.176049+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.571249+02:00",
       "cancelled": false
     },
     {
@@ -780,7 +274,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.249143+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.656424+02:00",
       "cancelled": false
     },
     {
@@ -803,7 +297,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9671,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.220138+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.626621+02:00",
       "cancelled": false
     },
     {
@@ -826,7 +320,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.161064+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.551126+02:00",
       "cancelled": false
     },
     {
@@ -849,7 +343,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8873,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.504361+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.917638+02:00",
       "cancelled": false
     },
     {
@@ -872,7 +366,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9009,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.641870+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:17.057641+02:00",
       "cancelled": false
     },
     {
@@ -895,7 +389,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.143430+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.533025+02:00",
       "cancelled": false
     },
     {
@@ -918,7 +412,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9004,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.182837+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.583132+02:00",
       "cancelled": false
     },
     {
@@ -941,7 +435,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.323411+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.733563+02:00",
       "cancelled": false
     },
     {
@@ -964,7 +458,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.923742+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.290817+02:00",
       "cancelled": false
     },
     {
@@ -987,7 +481,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.423728+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.835107+02:00",
       "cancelled": false
     },
     {
@@ -1010,7 +504,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.283766+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.691873+02:00",
       "cancelled": false
     },
     {
@@ -1033,7 +527,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.590939+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:17.005655+02:00",
       "cancelled": false
     },
     {
@@ -1056,7 +550,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.903268+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.270008+02:00",
       "cancelled": false
     },
     {
@@ -1079,7 +573,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.074901+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.447221+02:00",
       "cancelled": false
     },
     {
@@ -1102,7 +596,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9448,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.046717+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.418172+02:00",
       "cancelled": false
     },
     {
@@ -1125,7 +619,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.166627+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.556944+02:00",
       "cancelled": false
     },
     {
@@ -1148,7 +642,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.7881,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.238393+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.645402+02:00",
       "cancelled": false
     },
     {
@@ -1171,7 +665,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.277319+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.685007+02:00",
       "cancelled": false
     },
     {
@@ -1194,7 +688,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.351590+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.762042+02:00",
       "cancelled": false
     },
     {
@@ -1217,7 +711,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.876791+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.242753+02:00",
       "cancelled": false
     },
     {
@@ -1240,7 +734,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9452,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.176072+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.571309+02:00",
       "cancelled": false
     },
     {
@@ -1263,7 +757,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.249166+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.656454+02:00",
       "cancelled": false
     },
     {
@@ -1286,7 +780,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9671,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.220165+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.626655+02:00",
       "cancelled": false
     },
     {
@@ -1309,7 +803,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.161107+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.551154+02:00",
       "cancelled": false
     },
     {
@@ -1332,7 +826,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8873,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.504384+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.917669+02:00",
       "cancelled": false
     },
     {
@@ -1355,7 +849,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9009,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.641896+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:17.057675+02:00",
       "cancelled": false
     },
     {
@@ -1378,7 +872,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.143456+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.533058+02:00",
       "cancelled": false
     },
     {
@@ -1401,7 +895,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9004,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.182860+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.583211+02:00",
       "cancelled": false
     },
     {
@@ -1424,7 +918,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.323435+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.733591+02:00",
       "cancelled": false
     },
     {
@@ -1447,7 +941,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.923778+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.290849+02:00",
       "cancelled": false
     },
     {
@@ -1470,7 +964,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.423752+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.835133+02:00",
       "cancelled": false
     },
     {
@@ -1493,7 +987,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.283789+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.691897+02:00",
       "cancelled": false
     },
     {
@@ -1516,7 +1010,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.903293+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.270035+02:00",
       "cancelled": false
     },
     {
@@ -1539,7 +1033,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.074933+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.447247+02:00",
       "cancelled": false
     },
     {
@@ -1562,7 +1056,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9448,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.046759+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.418209+02:00",
       "cancelled": false
     },
     {
@@ -1585,7 +1079,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.166650+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.556970+02:00",
       "cancelled": false
     },
     {
@@ -1608,7 +1102,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.7881,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.238425+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.645430+02:00",
       "cancelled": false
     },
     {
@@ -1631,7 +1125,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.277343+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.685034+02:00",
       "cancelled": false
     },
     {
@@ -1654,7 +1148,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.351613+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.762066+02:00",
       "cancelled": false
     },
     {
@@ -1677,7 +1171,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.876818+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.242785+02:00",
       "cancelled": false
     },
     {
@@ -1700,7 +1194,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.249188+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.656478+02:00",
       "cancelled": false
     },
     {
@@ -1723,7 +1217,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9671,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.220188+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.626685+02:00",
       "cancelled": false
     },
     {
@@ -1746,7 +1240,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.161136+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.551186+02:00",
       "cancelled": false
     },
     {
@@ -1769,7 +1263,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8873,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.504409+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.917694+02:00",
       "cancelled": false
     },
     {
@@ -1792,7 +1286,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9009,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.641919+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:17.057703+02:00",
       "cancelled": false
     },
     {
@@ -1815,7 +1309,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.143481+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.533084+02:00",
       "cancelled": false
     },
     {
@@ -1838,7 +1332,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9004,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.182882+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.583237+02:00",
       "cancelled": false
     },
     {
@@ -1861,7 +1355,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.323458+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.733616+02:00",
       "cancelled": false
     },
     {
@@ -1884,7 +1378,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.423775+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.835157+02:00",
       "cancelled": false
     },
     {
@@ -1907,7 +1401,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.283816+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.691925+02:00",
       "cancelled": false
     },
     {
@@ -1930,7 +1424,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.903326+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.270061+02:00",
       "cancelled": false
     },
     {
@@ -1953,7 +1447,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.074957+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.447273+02:00",
       "cancelled": false
     },
     {
@@ -1976,7 +1470,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8986,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.563699+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.978056+02:00",
       "cancelled": false
     },
     {
@@ -1999,7 +1493,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.166674+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.556994+02:00",
       "cancelled": false
     },
     {
@@ -2022,7 +1516,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.7881,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.238448+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.645460+02:00",
       "cancelled": false
     },
     {
@@ -2045,7 +1539,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.277366+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.685059+02:00",
       "cancelled": false
     },
     {
@@ -2068,7 +1562,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.876845+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.242813+02:00",
       "cancelled": false
     },
     {
@@ -2091,7 +1585,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.249210+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.656503+02:00",
       "cancelled": false
     },
     {
@@ -2114,7 +1608,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.161162+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.551211+02:00",
       "cancelled": false
     },
     {
@@ -2137,7 +1631,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8873,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.504433+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.917720+02:00",
       "cancelled": false
     },
     {
@@ -2160,7 +1654,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9009,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.907176+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.274083+02:00",
       "cancelled": false
     },
     {
@@ -2183,7 +1677,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.997188+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.366473+02:00",
       "cancelled": false
     },
     {
@@ -2206,7 +1700,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9004,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.182905+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.583261+02:00",
       "cancelled": false
     },
     {
@@ -2229,7 +1723,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.323482+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.733640+02:00",
       "cancelled": false
     },
     {
@@ -2252,7 +1746,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.423797+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.835181+02:00",
       "cancelled": false
     },
     {
@@ -2275,7 +1769,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.903352+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.270103+02:00",
       "cancelled": false
     },
     {
@@ -2298,7 +1792,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.074981+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.447304+02:00",
       "cancelled": false
     },
     {
@@ -2321,7 +1815,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.166698+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.557018+02:00",
       "cancelled": false
     },
     {
@@ -2344,7 +1838,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.7881,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.238471+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.645484+02:00",
       "cancelled": false
     },
     {
@@ -2367,7 +1861,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.277390+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.685084+02:00",
       "cancelled": false
     },
     {
@@ -2390,7 +1884,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.876879+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.242848+02:00",
       "cancelled": false
     },
     {
@@ -2413,7 +1907,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.249235+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.656527+02:00",
       "cancelled": false
     },
     {
@@ -2436,7 +1930,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9671,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.220217+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.626714+02:00",
       "cancelled": false
     },
     {
@@ -2459,7 +1953,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.161187+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.551236+02:00",
       "cancelled": false
     },
     {
@@ -2482,7 +1976,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8873,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.504472+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.917751+02:00",
       "cancelled": false
     },
     {
@@ -2505,7 +1999,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9009,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.907208+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.274116+02:00",
       "cancelled": false
     },
     {
@@ -2528,7 +2022,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.997230+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.366505+02:00",
       "cancelled": false
     },
     {
@@ -2551,7 +2045,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9004,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.182927+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.583285+02:00",
       "cancelled": false
     },
     {
@@ -2574,7 +2068,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.323504+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.733664+02:00",
       "cancelled": false
     },
     {
@@ -2597,7 +2091,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.923812+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.290883+02:00",
       "cancelled": false
     },
     {
@@ -2620,7 +2114,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.423835+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.835205+02:00",
       "cancelled": false
     },
     {
@@ -2643,7 +2137,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.903382+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.270132+02:00",
       "cancelled": false
     },
     {
@@ -2666,7 +2160,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9026,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.630840+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:17.046556+02:00",
       "cancelled": false
     },
     {
@@ -2689,7 +2183,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.075006+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.447329+02:00",
       "cancelled": false
     },
     {
@@ -2712,7 +2206,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9448,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.046791+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.418244+02:00",
       "cancelled": false
     },
     {
@@ -2735,7 +2229,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.166722+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.557045+02:00",
       "cancelled": false
     },
     {
@@ -2758,7 +2252,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.7881,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.238494+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.645508+02:00",
       "cancelled": false
     },
     {
@@ -2781,7 +2275,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.277413+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.685110+02:00",
       "cancelled": false
     },
     {
@@ -2804,7 +2298,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.876904+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.242881+02:00",
       "cancelled": false
     },
     {
@@ -2827,7 +2321,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9452,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.321837+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.731965+02:00",
       "cancelled": false
     },
     {
@@ -2850,7 +2344,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.249257+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.656553+02:00",
       "cancelled": false
     },
     {
@@ -2873,7 +2367,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9671,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.220269+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.626740+02:00",
       "cancelled": false
     },
     {
@@ -2896,7 +2390,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.161214+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.551262+02:00",
       "cancelled": false
     },
     {
@@ -2919,7 +2413,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8873,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.504494+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.917778+02:00",
       "cancelled": false
     },
     {
@@ -2942,7 +2436,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9009,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.907234+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.274144+02:00",
       "cancelled": false
     },
     {
@@ -2965,7 +2459,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.143516+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.533117+02:00",
       "cancelled": false
     },
     {
@@ -2988,7 +2482,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9004,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.182950+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.583331+02:00",
       "cancelled": false
     },
     {
@@ -3011,7 +2505,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.323526+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.733687+02:00",
       "cancelled": false
     },
     {
@@ -3034,7 +2528,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.923839+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.290909+02:00",
       "cancelled": false
     },
     {
@@ -3057,7 +2551,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.423860+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.835244+02:00",
       "cancelled": false
     },
     {
@@ -3080,7 +2574,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.283847+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.691956+02:00",
       "cancelled": false
     },
     {
@@ -3103,7 +2597,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.590977+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:17.005695+02:00",
       "cancelled": false
     },
     {
@@ -3126,7 +2620,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.903407+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.270160+02:00",
       "cancelled": false
     },
     {
@@ -3149,7 +2643,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.075033+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.447355+02:00",
       "cancelled": false
     },
     {
@@ -3172,7 +2666,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9448,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.046817+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.418269+02:00",
       "cancelled": false
     },
     {
@@ -3195,7 +2689,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.166745+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.557069+02:00",
       "cancelled": false
     },
     {
@@ -3218,7 +2712,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.7881,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.238518+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.645532+02:00",
       "cancelled": false
     },
     {
@@ -3241,7 +2735,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.277439+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.685136+02:00",
       "cancelled": false
     },
     {
@@ -3264,7 +2758,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.351647+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.762100+02:00",
       "cancelled": false
     },
     {
@@ -3287,7 +2781,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.876928+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.242908+02:00",
       "cancelled": false
     },
     {
@@ -3310,7 +2804,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9452,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.176118+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.571378+02:00",
       "cancelled": false
     },
     {
@@ -3333,7 +2827,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.249279+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.656577+02:00",
       "cancelled": false
     },
     {
@@ -3356,7 +2850,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9671,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.220296+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.626789+02:00",
       "cancelled": false
     },
     {
@@ -3379,7 +2873,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.161238+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.551287+02:00",
       "cancelled": false
     },
     {
@@ -3402,7 +2896,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8873,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.504516+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.917804+02:00",
       "cancelled": false
     },
     {
@@ -3425,7 +2919,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9009,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.641950+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:17.057740+02:00",
       "cancelled": false
     },
     {
@@ -3448,7 +2942,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.143540+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.533155+02:00",
       "cancelled": false
     },
     {
@@ -3471,7 +2965,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9004,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.182972+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.583378+02:00",
       "cancelled": false
     },
     {
@@ -3494,7 +2988,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.323548+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.733710+02:00",
       "cancelled": false
     },
     {
@@ -3517,7 +3011,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.923866+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.290950+02:00",
       "cancelled": false
     },
     {
@@ -3540,7 +3034,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.423883+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.835271+02:00",
       "cancelled": false
     },
     {
@@ -3563,7 +3057,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.283875+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.691980+02:00",
       "cancelled": false
     },
     {
@@ -3586,7 +3080,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.591001+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:17.005720+02:00",
       "cancelled": false
     },
     {
@@ -3609,7 +3103,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.903432+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.270185+02:00",
       "cancelled": false
     },
     {
@@ -3632,7 +3126,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.075059+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.447397+02:00",
       "cancelled": false
     },
     {
@@ -3655,7 +3149,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8986,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.563734+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.978093+02:00",
       "cancelled": false
     },
     {
@@ -3678,7 +3172,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9448,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.046841+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.418296+02:00",
       "cancelled": false
     },
     {
@@ -3701,7 +3195,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.166767+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.557094+02:00",
       "cancelled": false
     },
     {
@@ -3724,7 +3218,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.7881,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.238541+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.645555+02:00",
       "cancelled": false
     },
     {
@@ -3747,7 +3241,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.277462+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.685159+02:00",
       "cancelled": false
     },
     {
@@ -3770,7 +3264,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.351671+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.762123+02:00",
       "cancelled": false
     },
     {
@@ -3793,7 +3287,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.876955+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.242937+02:00",
       "cancelled": false
     },
     {
@@ -3816,7 +3310,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9452,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.176142+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.571450+02:00",
       "cancelled": false
     },
     {
@@ -3839,7 +3333,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.249301+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.656602+02:00",
       "cancelled": false
     },
     {
@@ -3862,7 +3356,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9671,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.220319+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.626816+02:00",
       "cancelled": false
     },
     {
@@ -3885,7 +3379,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.161261+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.551312+02:00",
       "cancelled": false
     },
     {
@@ -3908,7 +3402,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8873,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.504538+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.917829+02:00",
       "cancelled": false
     },
     {
@@ -3931,7 +3425,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9009,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.641973+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:17.057765+02:00",
       "cancelled": false
     },
     {
@@ -3954,7 +3448,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.143567+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.533180+02:00",
       "cancelled": false
     },
     {
@@ -3977,7 +3471,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9004,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.182994+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.583422+02:00",
       "cancelled": false
     },
     {
@@ -4000,7 +3494,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.323573+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.733733+02:00",
       "cancelled": false
     },
     {
@@ -4023,7 +3517,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.923892+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.290978+02:00",
       "cancelled": false
     },
     {
@@ -4046,7 +3540,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.423909+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.835295+02:00",
       "cancelled": false
     },
     {
@@ -4069,7 +3563,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.283900+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.692005+02:00",
       "cancelled": false
     },
     {
@@ -4092,7 +3586,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.591024+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:17.005744+02:00",
       "cancelled": false
     },
     {
@@ -4115,7 +3609,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.903459+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.270209+02:00",
       "cancelled": false
     },
     {
@@ -4138,7 +3632,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.075091+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.447428+02:00",
       "cancelled": false
     },
     {
@@ -4161,7 +3655,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9448,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.046866+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.418321+02:00",
       "cancelled": false
     },
     {
@@ -4184,7 +3678,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.166790+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.557120+02:00",
       "cancelled": false
     },
     {
@@ -4207,7 +3701,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.7881,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.238567+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.645581+02:00",
       "cancelled": false
     },
     {
@@ -4230,7 +3724,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.277485+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.685183+02:00",
       "cancelled": false
     },
     {
@@ -4253,7 +3747,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.351697+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.762147+02:00",
       "cancelled": false
     },
     {
@@ -4276,7 +3770,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.876980+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.242963+02:00",
       "cancelled": false
     },
     {
@@ -4299,7 +3793,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9452,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.176168+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.571490+02:00",
       "cancelled": false
     },
     {
@@ -4322,7 +3816,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.249323+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.656625+02:00",
       "cancelled": false
     },
     {
@@ -4345,7 +3839,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9671,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.220344+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.626841+02:00",
       "cancelled": false
     },
     {
@@ -4368,7 +3862,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.161287+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.551336+02:00",
       "cancelled": false
     },
     {
@@ -4391,7 +3885,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8873,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.504561+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.917853+02:00",
       "cancelled": false
     },
     {
@@ -4414,7 +3908,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9009,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.641995+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:17.057790+02:00",
       "cancelled": false
     },
     {
@@ -4437,7 +3931,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.143595+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.533204+02:00",
       "cancelled": false
     },
     {
@@ -4460,7 +3954,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9004,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.183019+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.583447+02:00",
       "cancelled": false
     },
     {
@@ -4483,7 +3977,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.323596+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.733758+02:00",
       "cancelled": false
     },
     {
@@ -4506,7 +4000,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.923918+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.291005+02:00",
       "cancelled": false
     },
     {
@@ -4529,7 +4023,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.423931+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.835319+02:00",
       "cancelled": false
     },
     {
@@ -4552,7 +4046,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.283923+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.692028+02:00",
       "cancelled": false
     },
     {
@@ -4575,7 +4069,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.903483+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.270237+02:00",
       "cancelled": false
     },
     {
@@ -4598,7 +4092,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.075116+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.447454+02:00",
       "cancelled": false
     },
     {
@@ -4621,7 +4115,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9448,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.046890+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.418346+02:00",
       "cancelled": false
     },
     {
@@ -4644,7 +4138,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.166812+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.557145+02:00",
       "cancelled": false
     },
     {
@@ -4667,7 +4161,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.7881,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.238590+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.645607+02:00",
       "cancelled": false
     },
     {
@@ -4690,7 +4184,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.277510+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.685206+02:00",
       "cancelled": false
     },
     {
@@ -4713,7 +4207,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.351720+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.762178+02:00",
       "cancelled": false
     },
     {
@@ -4736,7 +4230,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.877005+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.242988+02:00",
       "cancelled": false
     },
     {
@@ -4759,7 +4253,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.249350+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.656649+02:00",
       "cancelled": false
     },
     {
@@ -4782,7 +4276,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9671,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.220367+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.626866+02:00",
       "cancelled": false
     },
     {
@@ -4805,7 +4299,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.161310+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.551363+02:00",
       "cancelled": false
     },
     {
@@ -4828,7 +4322,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8873,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.504584+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.917877+02:00",
       "cancelled": false
     },
     {
@@ -4851,7 +4345,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9009,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.642017+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:17.057813+02:00",
       "cancelled": false
     },
     {
@@ -4874,7 +4368,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.143618+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.533231+02:00",
       "cancelled": false
     },
     {
@@ -4897,7 +4391,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9004,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.183041+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.583502+02:00",
       "cancelled": false
     },
     {
@@ -4920,7 +4414,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.323619+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.733782+02:00",
       "cancelled": false
     },
     {
@@ -4943,7 +4437,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.423953+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.835342+02:00",
       "cancelled": false
     },
     {
@@ -4966,7 +4460,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.283950+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.692052+02:00",
       "cancelled": false
     },
     {
@@ -4989,7 +4483,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.903506+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.270262+02:00",
       "cancelled": false
     },
     {
@@ -5012,7 +4506,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.075142+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.447479+02:00",
       "cancelled": false
     },
     {
@@ -5035,7 +4529,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8986,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.563781+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.978124+02:00",
       "cancelled": false
     },
     {
@@ -5058,7 +4552,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.166840+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.557169+02:00",
       "cancelled": false
     },
     {
@@ -5081,7 +4575,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.7881,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.238613+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.645630+02:00",
       "cancelled": false
     },
     {
@@ -5104,7 +4598,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.277534+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.685232+02:00",
       "cancelled": false
     },
     {
@@ -5127,7 +4621,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.877030+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.243014+02:00",
       "cancelled": false
     },
     {
@@ -5150,7 +4644,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.249375+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.656672+02:00",
       "cancelled": false
     },
     {
@@ -5173,7 +4667,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.161333+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.551404+02:00",
       "cancelled": false
     },
     {
@@ -5196,7 +4690,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8873,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.504608+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.917900+02:00",
       "cancelled": false
     },
     {
@@ -5219,7 +4713,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9009,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.907278+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.274183+02:00",
       "cancelled": false
     },
     {
@@ -5242,7 +4736,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.997279+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.366566+02:00",
       "cancelled": false
     },
     {
@@ -5265,7 +4759,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9004,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.183066+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.583539+02:00",
       "cancelled": false
     },
     {
@@ -5288,7 +4782,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.323641+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.733805+02:00",
       "cancelled": false
     },
     {
@@ -5311,7 +4805,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.423976+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.835366+02:00",
       "cancelled": false
     },
     {
@@ -5334,7 +4828,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.903531+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.270288+02:00",
       "cancelled": false
     },
     {
@@ -5357,7 +4851,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.075170+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.447506+02:00",
       "cancelled": false
     },
     {
@@ -5380,7 +4874,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.166862+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.557197+02:00",
       "cancelled": false
     },
     {
@@ -5403,7 +4897,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.7881,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.238636+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.645654+02:00",
       "cancelled": false
     },
     {
@@ -5426,7 +4920,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.277556+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.685255+02:00",
       "cancelled": false
     },
     {
@@ -5449,7 +4943,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.877055+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.243042+02:00",
       "cancelled": false
     },
     {
@@ -5472,7 +4966,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.249398+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.656700+02:00",
       "cancelled": false
     },
     {
@@ -5495,7 +4989,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9671,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.220395+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.626893+02:00",
       "cancelled": false
     },
     {
@@ -5518,7 +5012,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.161358+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.551432+02:00",
       "cancelled": false
     },
     {
@@ -5541,7 +5035,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8873,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.504634+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.917923+02:00",
       "cancelled": false
     },
     {
@@ -5564,7 +5058,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9009,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.907305+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.274208+02:00",
       "cancelled": false
     },
     {
@@ -5587,7 +5081,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.997308+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.366594+02:00",
       "cancelled": false
     },
     {
@@ -5610,7 +5104,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9004,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.183097+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.583567+02:00",
       "cancelled": false
     },
     {
@@ -5633,7 +5127,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.323665+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.733828+02:00",
       "cancelled": false
     },
     {
@@ -5656,7 +5150,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.923952+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.291037+02:00",
       "cancelled": false
     },
     {
@@ -5679,7 +5173,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.423999+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.835405+02:00",
       "cancelled": false
     },
     {
@@ -5702,7 +5196,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.903554+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.270314+02:00",
       "cancelled": false
     },
     {
@@ -5725,7 +5219,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9026,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.630888+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:17.046610+02:00",
       "cancelled": false
     },
     {
@@ -5748,7 +5242,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.075194+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.447531+02:00",
       "cancelled": false
     },
     {
@@ -5771,7 +5265,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9448,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.046922+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.418393+02:00",
       "cancelled": false
     },
     {
@@ -5794,7 +5288,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.166884+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.557221+02:00",
       "cancelled": false
     },
     {
@@ -5817,7 +5311,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.7881,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.238664+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.645676+02:00",
       "cancelled": false
     },
     {
@@ -5840,7 +5334,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.277578+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.685279+02:00",
       "cancelled": false
     },
     {
@@ -5863,7 +5357,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.877101+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.243069+02:00",
       "cancelled": false
     },
     {
@@ -5886,7 +5380,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9452,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.321889+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.732014+02:00",
       "cancelled": false
     },
     {
@@ -5909,7 +5403,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.249426+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.656723+02:00",
       "cancelled": false
     },
     {
@@ -5932,7 +5426,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9671,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.220421+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.626920+02:00",
       "cancelled": false
     },
     {
@@ -5955,7 +5449,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.161380+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.551459+02:00",
       "cancelled": false
     },
     {
@@ -5978,7 +5472,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8873,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.504656+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.917950+02:00",
       "cancelled": false
     },
     {
@@ -6001,7 +5495,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9009,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.907330+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.274234+02:00",
       "cancelled": false
     },
     {
@@ -6024,7 +5518,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.143648+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.533261+02:00",
       "cancelled": false
     },
     {
@@ -6047,7 +5541,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9004,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.183120+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.583591+02:00",
       "cancelled": false
     },
     {
@@ -6070,7 +5564,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.323689+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.733852+02:00",
       "cancelled": false
     },
     {
@@ -6093,7 +5587,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.923976+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.291061+02:00",
       "cancelled": false
     },
     {
@@ -6116,7 +5610,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.424022+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.835430+02:00",
       "cancelled": false
     },
     {
@@ -6139,7 +5633,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.283983+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.692085+02:00",
       "cancelled": false
     },
     {
@@ -6162,7 +5656,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.903580+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.270338+02:00",
       "cancelled": false
     },
     {
@@ -6185,7 +5679,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.075217+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.447557+02:00",
       "cancelled": false
     },
     {
@@ -6208,7 +5702,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9448,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.046946+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.418424+02:00",
       "cancelled": false
     },
     {
@@ -6231,7 +5725,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.166913+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.557244+02:00",
       "cancelled": false
     },
     {
@@ -6254,7 +5748,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.7881,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.238687+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.645702+02:00",
       "cancelled": false
     },
     {
@@ -6277,7 +5771,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.277601+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.685302+02:00",
       "cancelled": false
     },
     {
@@ -6300,7 +5794,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.351757+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.762211+02:00",
       "cancelled": false
     },
     {
@@ -6323,7 +5817,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.877127+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.243093+02:00",
       "cancelled": false
     },
     {
@@ -6346,7 +5840,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9452,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.176203+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.571568+02:00",
       "cancelled": false
     },
     {
@@ -6369,7 +5863,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.249448+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.656751+02:00",
       "cancelled": false
     },
     {
@@ -6392,7 +5886,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9671,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.220443+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.626943+02:00",
       "cancelled": false
     },
     {
@@ -6415,7 +5909,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.161404+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.551483+02:00",
       "cancelled": false
     },
     {
@@ -6438,7 +5932,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8873,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.504678+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.917973+02:00",
       "cancelled": false
     },
     {
@@ -6461,7 +5955,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9009,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.642050+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:17.057847+02:00",
       "cancelled": false
     },
     {
@@ -6484,7 +5978,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.143673+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.533286+02:00",
       "cancelled": false
     },
     {
@@ -6507,7 +6001,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9004,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.183142+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.583635+02:00",
       "cancelled": false
     },
     {
@@ -6530,7 +6024,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.323715+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.733875+02:00",
       "cancelled": false
     },
     {
@@ -6553,7 +6047,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.923998+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.291086+02:00",
       "cancelled": false
     },
     {
@@ -6576,7 +6070,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.424045+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.835453+02:00",
       "cancelled": false
     },
     {
@@ -6599,7 +6093,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.284006+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.692109+02:00",
       "cancelled": false
     },
     {
@@ -6622,7 +6116,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.903603+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.270366+02:00",
       "cancelled": false
     },
     {
@@ -6645,7 +6139,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.075240+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.447581+02:00",
       "cancelled": false
     },
     {
@@ -6668,7 +6162,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8986,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.563820+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.978163+02:00",
       "cancelled": false
     },
     {
@@ -6691,7 +6185,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9448,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.046969+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.418453+02:00",
       "cancelled": false
     },
     {
@@ -6714,7 +6208,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.166935+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.557269+02:00",
       "cancelled": false
     },
     {
@@ -6737,7 +6231,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.7881,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.238710+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.645728+02:00",
       "cancelled": false
     },
     {
@@ -6760,7 +6254,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.277624+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.685326+02:00",
       "cancelled": false
     },
     {
@@ -6783,7 +6277,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.351782+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.762239+02:00",
       "cancelled": false
     },
     {
@@ -6806,7 +6300,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.877153+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.243117+02:00",
       "cancelled": false
     },
     {
@@ -6829,7 +6323,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9452,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.176226+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.571767+02:00",
       "cancelled": false
     },
     {
@@ -6852,7 +6346,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.249470+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.656777+02:00",
       "cancelled": false
     },
     {
@@ -6875,7 +6369,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9671,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.220466+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.626967+02:00",
       "cancelled": false
     },
     {
@@ -6898,7 +6392,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.161428+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.551507+02:00",
       "cancelled": false
     },
     {
@@ -6921,7 +6415,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8873,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.504707+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.917997+02:00",
       "cancelled": false
     },
     {
@@ -6944,7 +6438,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9009,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.642072+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:17.057871+02:00",
       "cancelled": false
     },
     {
@@ -6967,7 +6461,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.143701+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.533314+02:00",
       "cancelled": false
     },
     {
@@ -6990,7 +6484,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9004,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.183168+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.583671+02:00",
       "cancelled": false
     },
     {
@@ -7013,7 +6507,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.323737+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.733901+02:00",
       "cancelled": false
     },
     {
@@ -7036,7 +6530,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.924021+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.291111+02:00",
       "cancelled": false
     },
     {
@@ -7059,7 +6553,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.424070+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.835477+02:00",
       "cancelled": false
     },
     {
@@ -7082,7 +6576,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.284028+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.692132+02:00",
       "cancelled": false
     },
     {
@@ -7105,7 +6599,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.903627+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.270411+02:00",
       "cancelled": false
     },
     {
@@ -7128,7 +6622,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.075263+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.447604+02:00",
       "cancelled": false
     },
     {
@@ -7151,7 +6645,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9448,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.046996+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.418478+02:00",
       "cancelled": false
     },
     {
@@ -7174,7 +6668,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.166960+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.557294+02:00",
       "cancelled": false
     },
     {
@@ -7197,7 +6691,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.7881,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.238732+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.645750+02:00",
       "cancelled": false
     },
     {
@@ -7220,7 +6714,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.277645+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.685349+02:00",
       "cancelled": false
     },
     {
@@ -7243,7 +6737,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.351804+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.762263+02:00",
       "cancelled": false
     },
     {
@@ -7266,7 +6760,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.877176+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.243147+02:00",
       "cancelled": false
     },
     {
@@ -7289,7 +6783,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9452,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.176249+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.571791+02:00",
       "cancelled": false
     },
     {
@@ -7312,7 +6806,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.249493+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.656801+02:00",
       "cancelled": false
     },
     {
@@ -7335,7 +6829,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9671,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.220493+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.626990+02:00",
       "cancelled": false
     },
     {
@@ -7358,7 +6852,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.161451+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.551531+02:00",
       "cancelled": false
     },
     {
@@ -7381,7 +6875,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8873,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.504732+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.918024+02:00",
       "cancelled": false
     },
     {
@@ -7404,7 +6898,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9009,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.642110+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:17.057895+02:00",
       "cancelled": false
     },
     {
@@ -7427,7 +6921,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.143727+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.533342+02:00",
       "cancelled": false
     },
     {
@@ -7450,7 +6944,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9004,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.183194+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.583696+02:00",
       "cancelled": false
     },
     {
@@ -7473,7 +6967,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.323760+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.733925+02:00",
       "cancelled": false
     },
     {
@@ -7496,7 +6990,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.924044+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.291138+02:00",
       "cancelled": false
     },
     {
@@ -7519,7 +7013,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.424102+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.835503+02:00",
       "cancelled": false
     },
     {
@@ -7542,7 +7036,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.284052+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.692156+02:00",
       "cancelled": false
     },
     {
@@ -7565,7 +7059,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.903650+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.270438+02:00",
       "cancelled": false
     },
     {
@@ -7588,7 +7082,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.075286+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.447628+02:00",
       "cancelled": false
     },
     {
@@ -7611,7 +7105,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9448,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.047023+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.418503+02:00",
       "cancelled": false
     },
     {
@@ -7634,7 +7128,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.166986+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.557317+02:00",
       "cancelled": false
     },
     {
@@ -7657,7 +7151,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.7881,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.238754+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.645773+02:00",
       "cancelled": false
     },
     {
@@ -7680,7 +7174,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.277671+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.685372+02:00",
       "cancelled": false
     },
     {
@@ -7703,7 +7197,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.351826+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.762287+02:00",
       "cancelled": false
     },
     {
@@ -7726,7 +7220,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.877202+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.243173+02:00",
       "cancelled": false
     },
     {
@@ -7749,7 +7243,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.249515+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.656824+02:00",
       "cancelled": false
     },
     {
@@ -7772,7 +7266,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9671,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.220515+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.627023+02:00",
       "cancelled": false
     },
     {
@@ -7795,7 +7289,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.161473+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.551555+02:00",
       "cancelled": false
     },
     {
@@ -7818,7 +7312,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8873,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.504757+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.918049+02:00",
       "cancelled": false
     },
     {
@@ -7841,7 +7335,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9009,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.642132+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:17.057920+02:00",
       "cancelled": false
     },
     {
@@ -7864,7 +7358,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.143750+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.533368+02:00",
       "cancelled": false
     },
     {
@@ -7887,7 +7381,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9004,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.183217+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.583721+02:00",
       "cancelled": false
     },
     {
@@ -7910,7 +7404,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.323782+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.733948+02:00",
       "cancelled": false
     },
     {
@@ -7933,7 +7427,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.424124+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.835527+02:00",
       "cancelled": false
     },
     {
@@ -7956,7 +7450,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.284076+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.692179+02:00",
       "cancelled": false
     },
     {
@@ -7979,7 +7473,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.903674+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.270462+02:00",
       "cancelled": false
     },
     {
@@ -8002,7 +7496,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.075311+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.447652+02:00",
       "cancelled": false
     },
     {
@@ -8025,7 +7519,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8986,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.563851+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.978196+02:00",
       "cancelled": false
     },
     {
@@ -8048,7 +7542,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.167008+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.557340+02:00",
       "cancelled": false
     },
     {
@@ -8071,7 +7565,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.7881,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.238777+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.645796+02:00",
       "cancelled": false
     },
     {
@@ -8094,7 +7588,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.277692+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.685414+02:00",
       "cancelled": false
     },
     {
@@ -8117,7 +7611,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.877227+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.243202+02:00",
       "cancelled": false
     },
     {
@@ -8140,7 +7634,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.249537+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.656848+02:00",
       "cancelled": false
     },
     {
@@ -8163,7 +7657,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.161495+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.551580+02:00",
       "cancelled": false
     },
     {
@@ -8186,7 +7680,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8873,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.504782+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.918076+02:00",
       "cancelled": false
     },
     {
@@ -8209,7 +7703,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9009,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.907368+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.274276+02:00",
       "cancelled": false
     },
     {
@@ -8232,7 +7726,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.997347+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.366635+02:00",
       "cancelled": false
     },
     {
@@ -8255,7 +7749,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9004,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.183239+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.583745+02:00",
       "cancelled": false
     },
     {
@@ -8278,7 +7772,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.323806+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.733972+02:00",
       "cancelled": false
     },
     {
@@ -8301,7 +7795,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.424147+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.835551+02:00",
       "cancelled": false
     },
     {
@@ -8324,7 +7818,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.284110+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.692202+02:00",
       "cancelled": false
     },
     {
@@ -8347,7 +7841,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.903698+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.270486+02:00",
       "cancelled": false
     },
     {
@@ -8370,7 +7864,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.075334+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.447678+02:00",
       "cancelled": false
     },
     {
@@ -8393,7 +7887,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.167030+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.557364+02:00",
       "cancelled": false
     },
     {
@@ -8416,7 +7910,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.7881,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.238799+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.645819+02:00",
       "cancelled": false
     },
     {
@@ -8439,7 +7933,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.277715+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.685438+02:00",
       "cancelled": false
     },
     {
@@ -8462,7 +7956,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.877253+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.243227+02:00",
       "cancelled": false
     },
     {
@@ -8485,7 +7979,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.249559+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.656871+02:00",
       "cancelled": false
     },
     {
@@ -8508,7 +8002,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9671,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.220541+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.627050+02:00",
       "cancelled": false
     },
     {
@@ -8531,7 +8025,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.161518+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.551604+02:00",
       "cancelled": false
     },
     {
@@ -8554,7 +8048,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8873,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.504805+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.918100+02:00",
       "cancelled": false
     },
     {
@@ -8577,7 +8071,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9009,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.907393+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.274302+02:00",
       "cancelled": false
     },
     {
@@ -8600,7 +8094,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.997372+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.366661+02:00",
       "cancelled": false
     },
     {
@@ -8623,7 +8117,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9004,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.183265+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.583792+02:00",
       "cancelled": false
     },
     {
@@ -8646,7 +8140,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.323829+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.733997+02:00",
       "cancelled": false
     },
     {
@@ -8669,7 +8163,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.924073+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.291170+02:00",
       "cancelled": false
     },
     {
@@ -8692,7 +8186,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.424174+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.835574+02:00",
       "cancelled": false
     },
     {
@@ -8715,7 +8209,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.284134+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.692226+02:00",
       "cancelled": false
     },
     {
@@ -8738,7 +8232,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.903721+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.270512+02:00",
       "cancelled": false
     },
     {
@@ -8761,7 +8255,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9026,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.630929+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:17.046653+02:00",
       "cancelled": false
     },
     {
@@ -8784,7 +8278,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.6321,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.075361+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.447702+02:00",
       "cancelled": false
     },
     {
@@ -8807,7 +8301,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9448,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.047055+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.418535+02:00",
       "cancelled": false
     },
     {
@@ -8830,7 +8324,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.167052+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.557401+02:00",
       "cancelled": false
     },
     {
@@ -8853,7 +8347,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.7881,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.238825+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.645841+02:00",
       "cancelled": false
     },
     {
@@ -8876,7 +8370,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.277739+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.685462+02:00",
       "cancelled": false
     },
     {
@@ -8899,7 +8393,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8696,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.877277+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.243252+02:00",
       "cancelled": false
     },
     {
@@ -8922,7 +8416,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9452,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.321950+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.732062+02:00",
       "cancelled": false
     },
     {
@@ -8945,7 +8439,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.249581+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.656895+02:00",
       "cancelled": false
     },
     {
@@ -8968,7 +8462,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9671,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.220564+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.627074+02:00",
       "cancelled": false
     },
     {
@@ -8991,7 +8485,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.161540+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.551627+02:00",
       "cancelled": false
     },
     {
@@ -9014,7 +8508,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8873,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.504827+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.918127+02:00",
       "cancelled": false
     },
     {
@@ -9037,7 +8531,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9009,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.907420+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.274326+02:00",
       "cancelled": false
     },
     {
@@ -9060,7 +8554,7 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.143781+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.533417+02:00",
       "cancelled": false
     },
     {
@@ -9083,7 +8577,30 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.9004,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.183288+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.583824+02:00",
+      "cancelled": false
+    },
+    {
+      "id": "flix:1404-8-0430102026-TO#NIT-00:2026-10-23",
+      "company": "FlixBus",
+      "tripId": "1404-8-0430102026-TO#NIT-00",
+      "journeyRef": "1404-8-0430102026-TO#NIT-00",
+      "serviceDate": "2026-10-23",
+      "line": "FlixBus 1404",
+      "origin": "Turin (Vittorio Emanuele)",
+      "destination": "Nice Airport (Bus Station - Terminal 1)",
+      "lastItalianStop": "Sanremo",
+      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
+      "lastItalianScheduledIso": "2026-10-23T09:50:00+02:00",
+      "nextFrenchScheduledIso": "2026-10-23T11:00:00+02:00",
+      "etaTurbieIso": "2026-10-23T10:34:15+02:00",
+      "etaTurbieDate": "2026-10-23",
+      "etaTurbieTime": "10:34",
+      "etaTurbieDisplay": "10h34",
+      "quality": "ESTIME_GTFS_SHAPE",
+      "qualityLabel": "ESTIMÉ GTFS",
+      "interpolationRatio": 0.6321,
+      "sourceUpdatedAt": "2026-10-03T08:35:16.734026+02:00",
       "cancelled": false
     },
     {
@@ -9106,7 +8623,145 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.8992,
-      "sourceUpdatedAt": "2026-10-02T09:01:27.924109+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.291195+02:00",
+      "cancelled": false
+    },
+    {
+      "id": "flix:404-1-0550102026-TO#MAA-00:2026-10-23",
+      "company": "FlixBus",
+      "tripId": "404-1-0550102026-TO#MAA-00",
+      "journeyRef": "404-1-0550102026-TO#MAA-00",
+      "serviceDate": "2026-10-23",
+      "line": "FlixBus 404",
+      "origin": "Turin (Vittorio Emanuele)",
+      "destination": "Marseille (Saint-Charles)",
+      "lastItalianStop": "Savona (Stazione FS)",
+      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
+      "lastItalianScheduledIso": "2026-10-23T10:10:00+02:00",
+      "nextFrenchScheduledIso": "2026-10-23T12:30:00+02:00",
+      "etaTurbieIso": "2026-10-23T12:11:45+02:00",
+      "etaTurbieDate": "2026-10-23",
+      "etaTurbieTime": "12:11",
+      "etaTurbieDisplay": "12h11",
+      "quality": "ESTIME_GTFS_SHAPE",
+      "qualityLabel": "ESTIMÉ GTFS",
+      "interpolationRatio": 0.8696,
+      "sourceUpdatedAt": "2026-10-03T08:35:16.835600+02:00",
+      "cancelled": false
+    },
+    {
+      "id": "flix:728-13-0755102026-GNF#BAC-00:2026-10-23",
+      "company": "FlixBus",
+      "tripId": "728-13-0755102026-GNF#BAC-00",
+      "journeyRef": "728-13-0755102026-GNF#BAC-00",
+      "serviceDate": "2026-10-23",
+      "line": "FlixBus 728",
+      "origin": "Genoa (Fanti d'Italia/Principe bus station)",
+      "destination": "Barcelona (Bus Terminal Nord)",
+      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
+      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
+      "lastItalianScheduledIso": "2026-10-23T09:55:00+02:00",
+      "nextFrenchScheduledIso": "2026-10-23T13:05:00+02:00",
+      "etaTurbieIso": "2026-10-23T12:45:51+02:00",
+      "etaTurbieDate": "2026-10-23",
+      "etaTurbieTime": "12:45",
+      "etaTurbieDisplay": "12h45",
+      "quality": "ESTIME_GTFS_SHAPE",
+      "qualityLabel": "ESTIMÉ GTFS",
+      "interpolationRatio": 0.8992,
+      "sourceUpdatedAt": "2026-10-03T08:35:16.692249+02:00",
+      "cancelled": false
+    },
+    {
+      "id": "flix:798-1-0720102026-MIO#MAA-00:2026-10-23",
+      "company": "FlixBus",
+      "tripId": "798-1-0720102026-MIO#MAA-00",
+      "journeyRef": "798-1-0720102026-MIO#MAA-00",
+      "serviceDate": "2026-10-23",
+      "line": "FlixBus 798",
+      "origin": "Milan (Lampugnano bus station)",
+      "destination": "Marseille (Saint-Charles)",
+      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
+      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
+      "lastItalianScheduledIso": "2026-10-23T11:40:00+02:00",
+      "nextFrenchScheduledIso": "2026-10-23T15:05:00+02:00",
+      "etaTurbieIso": "2026-10-23T14:44:20+02:00",
+      "etaTurbieDate": "2026-10-23",
+      "etaTurbieTime": "14:44",
+      "etaTurbieDisplay": "14h44",
+      "quality": "ESTIME_GTFS_SHAPE",
+      "qualityLabel": "ESTIMÉ GTFS",
+      "interpolationRatio": 0.8992,
+      "sourceUpdatedAt": "2026-10-03T08:35:16.270538+02:00",
+      "cancelled": false
+    },
+    {
+      "id": "flix:1404-16-0500102026-GEN#NIT-00:2026-10-23",
+      "company": "FlixBus",
+      "tripId": "1404-16-0500102026-GEN#NIT-00",
+      "journeyRef": "1404-16-0500102026-GEN#NIT-00",
+      "serviceDate": "2026-10-23",
+      "line": "FlixBus 1404",
+      "origin": "Geneva (central bus station)",
+      "destination": "Nice Airport (Bus Station - Terminal 1)",
+      "lastItalianStop": "Sanremo",
+      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
+      "lastItalianScheduledIso": "2026-10-23T14:45:00+02:00",
+      "nextFrenchScheduledIso": "2026-10-23T15:55:00+02:00",
+      "etaTurbieIso": "2026-10-23T15:29:15+02:00",
+      "etaTurbieDate": "2026-10-23",
+      "etaTurbieTime": "15:29",
+      "etaTurbieDisplay": "15h29",
+      "quality": "ESTIME_GTFS_SHAPE",
+      "qualityLabel": "ESTIMÉ GTFS",
+      "interpolationRatio": 0.6321,
+      "sourceUpdatedAt": "2026-10-03T08:35:16.447730+02:00",
+      "cancelled": false
+    },
+    {
+      "id": "flix:482-1-0410102026-VE#MTP-00:2026-10-23",
+      "company": "FlixBus",
+      "tripId": "482-1-0410102026-VE#MTP-00",
+      "journeyRef": "482-1-0410102026-VE#MTP-00",
+      "serviceDate": "2026-10-23",
+      "line": "FlixBus 482",
+      "origin": "Venice (Tronchetto)",
+      "destination": "Montpellier (Sabines)",
+      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
+      "nextFrenchStop": "Nice (Vauban Bus Station)",
+      "lastItalianScheduledIso": "2026-10-23T12:30:00+02:00",
+      "nextFrenchScheduledIso": "2026-10-23T16:00:00+02:00",
+      "etaTurbieIso": "2026-10-23T15:48:24+02:00",
+      "etaTurbieDate": "2026-10-23",
+      "etaTurbieTime": "15:48",
+      "etaTurbieDisplay": "15h48",
+      "quality": "ESTIME_GTFS_SHAPE",
+      "qualityLabel": "ESTIMÉ GTFS",
+      "interpolationRatio": 0.9448,
+      "sourceUpdatedAt": "2026-10-03T08:35:16.418559+02:00",
+      "cancelled": false
+    },
+    {
+      "id": "flix:N1138-2-0925102026-MIO#LBO-00:2026-10-23",
+      "company": "FlixBus",
+      "tripId": "N1138-2-0925102026-MIO#LBO-00",
+      "journeyRef": "N1138-2-0925102026-MIO#LBO-00",
+      "serviceDate": "2026-10-23",
+      "line": "FlixBus N1138",
+      "origin": "Milan (Lampugnano bus station)",
+      "destination": "Lisbon (Oriente)",
+      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
+      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
+      "lastItalianScheduledIso": "2026-10-23T13:30:00+02:00",
+      "nextFrenchScheduledIso": "2026-10-23T17:00:00+02:00",
+      "etaTurbieIso": "2026-10-23T16:38:50+02:00",
+      "etaTurbieDate": "2026-10-23",
+      "etaTurbieTime": "16:38",
+      "etaTurbieDisplay": "16h38",
+      "quality": "ESTIME_GTFS_SHAPE",
+      "qualityLabel": "ESTIMÉ GTFS",
+      "interpolationRatio": 0.8992,
+      "sourceUpdatedAt": "2026-10-03T08:35:16.557426+02:00",
       "cancelled": false
     },
     {
@@ -9129,7 +8784,329 @@
       "quality": "ESTIME_GTFS_SHAPE",
       "qualityLabel": "ESTIMÉ GTFS",
       "interpolationRatio": 0.7881,
-      "sourceUpdatedAt": "2026-10-02T09:01:28.238848+02:00",
+      "sourceUpdatedAt": "2026-10-03T08:35:16.645864+02:00",
+      "cancelled": false
+    },
+    {
+      "id": "flix:N719-16-1305102026-GNF#PQB-00:2026-10-23",
+      "company": "FlixBus",
+      "tripId": "N719-16-1305102026-GNF#PQB-00",
+      "journeyRef": "N719-16-1305102026-GNF#PQB-00",
+      "serviceDate": "2026-10-23",
+      "line": "FlixBus N719",
+      "origin": "Genoa (Fanti d'Italia/Principe bus station)",
+      "destination": "Paris (Bercy Seine)",
+      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
+      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
+      "lastItalianScheduledIso": "2026-10-23T15:05:00+02:00",
+      "nextFrenchScheduledIso": "2026-10-23T18:10:00+02:00",
+      "etaTurbieIso": "2026-10-23T17:51:21+02:00",
+      "etaTurbieDate": "2026-10-23",
+      "etaTurbieTime": "17:51",
+      "etaTurbieDisplay": "17h51",
+      "quality": "ESTIME_GTFS_SHAPE",
+      "qualityLabel": "ESTIMÉ GTFS",
+      "interpolationRatio": 0.8992,
+      "sourceUpdatedAt": "2026-10-03T08:35:16.685487+02:00",
+      "cancelled": false
+    },
+    {
+      "id": "flix:728-11-1415102026-GNF#BAC-00:2026-10-23",
+      "company": "FlixBus",
+      "tripId": "728-11-1415102026-GNF#BAC-00",
+      "journeyRef": "728-11-1415102026-GNF#BAC-00",
+      "serviceDate": "2026-10-23",
+      "line": "FlixBus 728",
+      "origin": "Genoa (Fanti d'Italia/Principe bus station)",
+      "destination": "Barcelona (Bus Terminal Nord)",
+      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
+      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
+      "lastItalianScheduledIso": "2026-10-23T16:15:00+02:00",
+      "nextFrenchScheduledIso": "2026-10-23T19:05:00+02:00",
+      "etaTurbieIso": "2026-10-23T18:47:52+02:00",
+      "etaTurbieDate": "2026-10-23",
+      "etaTurbieTime": "18:47",
+      "etaTurbieDisplay": "18h47",
+      "quality": "ESTIME_GTFS_SHAPE",
+      "qualityLabel": "ESTIMÉ GTFS",
+      "interpolationRatio": 0.8992,
+      "sourceUpdatedAt": "2026-10-03T08:35:16.762320+02:00",
+      "cancelled": false
+    },
+    {
+      "id": "flix:404-3-1255102026-TO#MAA-00:2026-10-23",
+      "company": "FlixBus",
+      "tripId": "404-3-1255102026-TO#MAA-00",
+      "journeyRef": "404-3-1255102026-TO#MAA-00",
+      "serviceDate": "2026-10-23",
+      "line": "FlixBus 404",
+      "origin": "Turin (Vittorio Emanuele)",
+      "destination": "Marseille (Saint-Charles)",
+      "lastItalianStop": "Savona (Stazione FS)",
+      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
+      "lastItalianScheduledIso": "2026-10-23T16:50:00+02:00",
+      "nextFrenchScheduledIso": "2026-10-23T19:20:00+02:00",
+      "etaTurbieIso": "2026-10-23T19:00:26+02:00",
+      "etaTurbieDate": "2026-10-23",
+      "etaTurbieTime": "19:00",
+      "etaTurbieDisplay": "19h00",
+      "quality": "ESTIME_GTFS_SHAPE",
+      "qualityLabel": "ESTIMÉ GTFS",
+      "interpolationRatio": 0.8696,
+      "sourceUpdatedAt": "2026-10-03T08:35:16.243277+02:00",
+      "cancelled": false
+    },
+    {
+      "id": "flix:492-8-0600102026-M#NIT-00:2026-10-23",
+      "company": "FlixBus",
+      "tripId": "492-8-0600102026-M#NIT-00",
+      "journeyRef": "492-8-0600102026-M#NIT-00",
+      "serviceDate": "2026-10-23",
+      "line": "FlixBus 492",
+      "origin": "Munich central bus station",
+      "destination": "Nice Airport (Bus Station - Terminal 1)",
+      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
+      "nextFrenchStop": "Nice (Vauban Bus Station)",
+      "lastItalianScheduledIso": "2026-10-23T17:15:00+02:00",
+      "nextFrenchScheduledIso": "2026-10-23T20:05:00+02:00",
+      "etaTurbieIso": "2026-10-23T19:55:41+02:00",
+      "etaTurbieDate": "2026-10-23",
+      "etaTurbieTime": "19:55",
+      "etaTurbieDisplay": "19h55",
+      "quality": "ESTIME_GTFS_SHAPE",
+      "qualityLabel": "ESTIMÉ GTFS",
+      "interpolationRatio": 0.9452,
+      "sourceUpdatedAt": "2026-10-03T08:35:16.571827+02:00",
+      "cancelled": false
+    },
+    {
+      "id": "flix:N718-5-1335102026-FIV#BDX-00:2026-10-23",
+      "company": "FlixBus",
+      "tripId": "N718-5-1335102026-FIV#BDX-00",
+      "journeyRef": "N718-5-1335102026-FIV#BDX-00",
+      "serviceDate": "2026-10-23",
+      "line": "FlixBus N718",
+      "origin": "Florence (Villa Costanza)",
+      "destination": "Bordeaux (Saint-Jean - Paludate)",
+      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
+      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
+      "lastItalianScheduledIso": "2026-10-23T18:35:00+02:00",
+      "nextFrenchScheduledIso": "2026-10-23T21:20:00+02:00",
+      "etaTurbieIso": "2026-10-23T21:03:22+02:00",
+      "etaTurbieDate": "2026-10-23",
+      "etaTurbieTime": "21:03",
+      "etaTurbieDisplay": "21h03",
+      "quality": "ESTIME_GTFS_SHAPE",
+      "qualityLabel": "ESTIMÉ GTFS",
+      "interpolationRatio": 0.8992,
+      "sourceUpdatedAt": "2026-10-03T08:35:16.656918+02:00",
+      "cancelled": false
+    },
+    {
+      "id": "flix:N1719-2-1620102026-TO#CLF-00:2026-10-23",
+      "company": "FlixBus",
+      "tripId": "N1719-2-1620102026-TO#CLF-00",
+      "journeyRef": "N1719-2-1620102026-TO#CLF-00",
+      "serviceDate": "2026-10-23",
+      "line": "FlixBus N1719",
+      "origin": "Turin (Vittorio Emanuele)",
+      "destination": "Clermont-Ferrand (Bus Station)",
+      "lastItalianStop": "Turin (Vittorio Emanuele)",
+      "nextFrenchStop": "Nice (Vauban Bus Station)",
+      "lastItalianScheduledIso": "2026-10-23T18:20:00+02:00",
+      "nextFrenchScheduledIso": "2026-10-23T22:40:00+02:00",
+      "etaTurbieIso": "2026-10-23T22:31:26+02:00",
+      "etaTurbieDate": "2026-10-23",
+      "etaTurbieTime": "22:31",
+      "etaTurbieDisplay": "22h31",
+      "quality": "ESTIME_GTFS_SHAPE",
+      "qualityLabel": "ESTIMÉ GTFS",
+      "interpolationRatio": 0.9671,
+      "sourceUpdatedAt": "2026-10-03T08:35:16.627097+02:00",
+      "cancelled": false
+    },
+    {
+      "id": "flix:N758-3-1615102026-FIV#BAC-00:2026-10-23",
+      "company": "FlixBus",
+      "tripId": "N758-3-1615102026-FIV#BAC-00",
+      "journeyRef": "N758-3-1615102026-FIV#BAC-00",
+      "serviceDate": "2026-10-23",
+      "line": "FlixBus N758",
+      "origin": "Florence (Villa Costanza)",
+      "destination": "Barcelona (Bus Terminal Nord)",
+      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
+      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
+      "lastItalianScheduledIso": "2026-10-23T21:25:00+02:00",
+      "nextFrenchScheduledIso": "2026-10-24T00:20:00+02:00",
+      "etaTurbieIso": "2026-10-24T00:02:21+02:00",
+      "etaTurbieDate": "2026-10-24",
+      "etaTurbieTime": "00:02",
+      "etaTurbieDisplay": "00h02",
+      "quality": "ESTIME_GTFS_SHAPE",
+      "qualityLabel": "ESTIMÉ GTFS",
+      "interpolationRatio": 0.8992,
+      "sourceUpdatedAt": "2026-10-03T08:35:16.551654+02:00",
+      "cancelled": false
+    },
+    {
+      "id": "flix:N778-3-1820102026-BG#TLS-00:2026-10-23",
+      "company": "FlixBus",
+      "tripId": "N778-3-1820102026-BG#TLS-00",
+      "journeyRef": "N778-3-1820102026-BG#TLS-00",
+      "serviceDate": "2026-10-23",
+      "line": "FlixBus N778",
+      "origin": "Bergamo (Bus Station)",
+      "destination": "Toulouse (Blagnac Airport)",
+      "lastItalianStop": "Turin (Vittorio Emanuele)",
+      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
+      "lastItalianScheduledIso": "2026-10-23T23:15:00+02:00",
+      "nextFrenchScheduledIso": "2026-10-24T03:20:00+02:00",
+      "etaTurbieIso": "2026-10-24T02:52:23+02:00",
+      "etaTurbieDate": "2026-10-24",
+      "etaTurbieTime": "02:52",
+      "etaTurbieDisplay": "02h52",
+      "quality": "ESTIME_GTFS_SHAPE",
+      "qualityLabel": "ESTIMÉ GTFS",
+      "interpolationRatio": 0.8873,
+      "sourceUpdatedAt": "2026-10-03T08:35:16.918151+02:00",
+      "cancelled": false
+    },
+    {
+      "id": "flix:N523-3-1435102026-NAP#MAA-00:2026-10-23",
+      "company": "FlixBus",
+      "tripId": "N523-3-1435102026-NAP#MAA-00",
+      "journeyRef": "N523-3-1435102026-NAP#MAA-00",
+      "serviceDate": "2026-10-23",
+      "line": "FlixBus N523",
+      "origin": "Naples (FS Park Stazione Centrale)",
+      "destination": "Marseille (Saint-Charles)",
+      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
+      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
+      "lastItalianScheduledIso": "2026-10-24T02:30:00+02:00",
+      "nextFrenchScheduledIso": "2026-10-24T05:20:00+02:00",
+      "etaTurbieIso": "2026-10-24T05:03:09+02:00",
+      "etaTurbieDate": "2026-10-24",
+      "etaTurbieTime": "05:03",
+      "etaTurbieDisplay": "05h03",
+      "quality": "ESTIME_GTFS_SHAPE",
+      "qualityLabel": "ESTIMÉ GTFS",
+      "interpolationRatio": 0.9009,
+      "sourceUpdatedAt": "2026-10-03T08:35:17.057956+02:00",
+      "cancelled": false
+    },
+    {
+      "id": "flix:N728-4-1815102026-M#BAC-00:2026-10-23",
+      "company": "FlixBus",
+      "tripId": "N728-4-1815102026-M#BAC-00",
+      "journeyRef": "N728-4-1815102026-M#BAC-00",
+      "serviceDate": "2026-10-23",
+      "line": "FlixBus N728",
+      "origin": "Munich central bus station",
+      "destination": "Barcelona (Bus Terminal Nord)",
+      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
+      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
+      "lastItalianScheduledIso": "2026-10-24T05:15:00+02:00",
+      "nextFrenchScheduledIso": "2026-10-24T08:05:00+02:00",
+      "etaTurbieIso": "2026-10-24T07:47:52+02:00",
+      "etaTurbieDate": "2026-10-24",
+      "etaTurbieTime": "07:47",
+      "etaTurbieDisplay": "07h47",
+      "quality": "ESTIME_GTFS_SHAPE",
+      "qualityLabel": "ESTIMÉ GTFS",
+      "interpolationRatio": 0.8992,
+      "sourceUpdatedAt": "2026-10-03T08:35:16.533443+02:00",
+      "cancelled": false
+    },
+    {
+      "id": "flix:N482-1-1600102026-ZAG#MAP-00:2026-10-23",
+      "company": "FlixBus",
+      "tripId": "N482-1-1600102026-ZAG#MAP-00",
+      "journeyRef": "N482-1-1600102026-ZAG#MAP-00",
+      "serviceDate": "2026-10-23",
+      "line": "FlixBus N482",
+      "origin": "Zagreb (Bus Station)",
+      "destination": "Marseille Airport (Bus Station)",
+      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
+      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
+      "lastItalianScheduledIso": "2026-10-24T06:50:00+02:00",
+      "nextFrenchScheduledIso": "2026-10-24T09:35:00+02:00",
+      "etaTurbieIso": "2026-10-24T09:18:34+02:00",
+      "etaTurbieDate": "2026-10-24",
+      "etaTurbieTime": "09:18",
+      "etaTurbieDisplay": "09h18",
+      "quality": "ESTIME_GTFS_SHAPE",
+      "qualityLabel": "ESTIMÉ GTFS",
+      "interpolationRatio": 0.9004,
+      "sourceUpdatedAt": "2026-10-03T08:35:16.583848+02:00",
+      "cancelled": false
+    },
+    {
+      "id": "flix:N1501-2-1750102026-SAC#NIT-00:2026-10-23",
+      "company": "FlixBus",
+      "tripId": "N1501-2-1750102026-SAC#NIT-00",
+      "journeyRef": "N1501-2-1750102026-SAC#NIT-00",
+      "serviceDate": "2026-10-23",
+      "line": "FlixBus N1501",
+      "origin": "Sala Consilina",
+      "destination": "Nice Airport (Bus Station - Terminal 1)",
+      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
+      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
+      "lastItalianScheduledIso": "2026-10-24T09:15:00+02:00",
+      "nextFrenchScheduledIso": "2026-10-24T11:55:00+02:00",
+      "etaTurbieIso": "2026-10-24T11:38:52+02:00",
+      "etaTurbieDate": "2026-10-24",
+      "etaTurbieTime": "11:38",
+      "etaTurbieDisplay": "11h38",
+      "quality": "ESTIME_GTFS_SHAPE",
+      "qualityLabel": "ESTIMÉ GTFS",
+      "interpolationRatio": 0.8992,
+      "sourceUpdatedAt": "2026-10-03T08:35:16.291222+02:00",
+      "cancelled": false
+    },
+    {
+      "id": "flix:1922-3-0045102026-BM#BDX-00:2026-10-23",
+      "company": "FlixBus",
+      "tripId": "1922-3-0045102026-BM#BDX-00",
+      "journeyRef": "1922-3-0045102026-BM#BDX-00",
+      "serviceDate": "2026-10-23",
+      "line": "FlixBus 1922",
+      "origin": "Bucharest (bus station Militari)",
+      "destination": "Bordeaux (Saint-Jean - Paludate)",
+      "lastItalianStop": "Genoa (Fanti d'Italia/Principe bus station)",
+      "nextFrenchStop": "Nice Airport (Bus Station - Terminal 1)",
+      "lastItalianScheduledIso": "2026-10-24T12:35:00+02:00",
+      "nextFrenchScheduledIso": "2026-10-24T15:50:00+02:00",
+      "etaTurbieIso": "2026-10-24T15:30:14+02:00",
+      "etaTurbieDate": "2026-10-24",
+      "etaTurbieTime": "15:30",
+      "etaTurbieDisplay": "15h30",
+      "quality": "ESTIME_GTFS_SHAPE",
+      "qualityLabel": "ESTIMÉ GTFS",
+      "interpolationRatio": 0.8986,
+      "sourceUpdatedAt": "2026-10-03T08:35:16.978229+02:00",
+      "cancelled": false
+    },
+    {
+      "id": "flix:N456-2-1010102026-LBI#MAR-00:2026-10-23",
+      "company": "FlixBus",
+      "tripId": "N456-2-1010102026-LBI#MAR-00",
+      "journeyRef": "N456-2-1010102026-LBI#MAR-00",
+      "serviceDate": "2026-10-23",
+      "line": "FlixBus N456",
+      "origin": "Lublin, Bus Station Lublin",
+      "destination": "Marseille (Saint-Antoine)",
+      "lastItalianStop": "Sanremo",
+      "nextFrenchStop": "Nice (Vauban Bus Station)",
+      "lastItalianScheduledIso": "2026-10-24T16:35:00+02:00",
+      "nextFrenchScheduledIso": "2026-10-24T18:00:00+02:00",
+      "etaTurbieIso": "2026-10-24T17:41:59+02:00",
+      "etaTurbieDate": "2026-10-24",
+      "etaTurbieTime": "17:41",
+      "etaTurbieDisplay": "17h41",
+      "quality": "ESTIME_GTFS_SHAPE",
+      "qualityLabel": "ESTIMÉ GTFS",
+      "interpolationRatio": 0.7881,
+      "sourceUpdatedAt": "2026-10-03T08:35:16.645888+02:00",
       "cancelled": false
     }
   ]
