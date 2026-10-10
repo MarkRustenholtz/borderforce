@@ -99,6 +99,8 @@
   .icon-compteurs i { color: #9b59b6; }
   .icon-esi i { color: #e74c3c; }
   .icon-passeur i { color: #16a085; }
+  .icon-interpellation i { color: #2c3e50; }
+  .icon-renseignement i { color: #2980b9; }
   .icon-obs i { color: #95a5a6; }
   .icon-deroulement i { color: #d35400; }
   .icon-pulsar i { color: #e67e22; }
@@ -525,11 +527,6 @@ html, body {
   padding: 10px;
   font-size: 16px;
   box-sizing: border-box;
-}
-/* Cache le champ "Majeur(e) / Mineur(e) automatique" en permanence */
-#esiAge,
-#passeurAge {
-  display: none !important;
 }
 
 
@@ -2783,22 +2780,36 @@ button.whatsapp:hover {
       <small>Ajouter ou modifier les passeurs</small>
     </button>
 
-    <button class="icon-button home-step icon-deroulement" onclick="showPage('deroulementPage')">
+    <button class="icon-button home-step icon-interpellation" onclick="showPage('interpellationPage')">
       <span class="step-num">6</span>
+      <i class="fas fa-handcuffs"></i>
+      <span class="label">Interpellations</span>
+      <small>Ajouter ou modifier les interpellations</small>
+    </button>
+
+    <button class="icon-button home-step icon-renseignement" onclick="showPage('renseignementPage')">
+      <span class="step-num">7</span>
+      <i class="fas fa-circle-info"></i>
+      <span class="label">Renseignements</span>
+      <small>Ajouter ou modifier les renseignements</small>
+    </button>
+
+    <button class="icon-button home-step icon-deroulement" onclick="showPage('deroulementPage')">
+      <span class="step-num">8</span>
       <i class="fas fa-tasks"></i>
       <span class="label">Déroulement</span>
       <small>Heures, actions et déroulement mission</small>
     </button>
 
     <button class="icon-button home-step icon-obs" onclick="showPage('observationsPage')">
-      <span class="step-num">7</span>
+      <span class="step-num">9</span>
       <i class="fas fa-eye"></i>
       <span class="label">Observations</span>
       <small>Difficultés ou éléments particuliers</small>
     </button>
 
     <button class="icon-button home-step primary icon-cr" onclick="showPage('generatePage')">
-      <span class="step-num">8</span>
+      <span class="step-num">10</span>
       <i class="fas fa-file-alt"></i>
       <span class="label">Compte rendu final</span>
       <small>Générer et copier le CR</small>
@@ -3278,86 +3289,40 @@ button.whatsapp:hover {
   <div class="page-content">
     <div id="esiList"></div>
     <div style="margin-top: 20px;">
-      <input type="text" id="esiAge" placeholder="Majeur(e) ou mineur(e) automatique" readonly />
-
-      <select id="esiSexe" aria-label="Sexe H/F">
-        <option value="">Homme/Femme</option>
-        <option value="Homme">Homme</option>
-        <option value="Femme">Femme</option>
-      </select>
-     <div style="display:flex; gap:8px; margin-top:8px;">
-  <input
-    id="esiDob"
-    placeholder="JJ/MM/AAAA"
-    maxlength="10"
-    oninput="formatDOB(this); majEsiStatut();"
-
-    type="text"
-    inputmode="numeric"
-    pattern="[0-9]*"
-    autocomplete="off"
-    enterkeyhint="next"
-  />
-  <input
-    id="esiAgeNum"
-    min="0"
-    oninput="majEsiStatut()"
-    placeholder="Âge"
-    type="number"
-    style="width:60px;"
-  />
-</div>
+      <label for="esiHeure">Heure interpellation :</label>
+      <input type="time" id="esiHeure" />
 
       <input id="esiNationalite"
        class="nat-autocomplete"
        placeholder="Nationalité"
        type="text"
        autocomplete="off">
-	   <label for="esiSituation">Situation de l'individu :</label>
-<select id="esiSituation">
-  <option value="">— Sélectionner —</option>
-  <option value="INDIVIDU EN SITUATION RÉGULIÈRE">INDIVIDU EN SITUATION RÉGULIÈRE</option>
-  <option value="INDIVIDU EN SITUATION IRRÉGULIÈRE">INDIVIDU EN SITUATION IRRÉGULIÈRE</option>
-</select>
 
       <div id="bfEsiBusTurbieBlock" style="display:none;">
         <label for="bfEsiBusTurbieSelect">Bus de la mission :</label>
         <select id="bfEsiBusTurbieSelect">
-          <option value="">— Choisir un bus ou saisir manuellement —</option>
+          <option value="">— Ajouter un bus à la description —</option>
         </select>
         <div class="small-note" style="margin-top:-2px;">
-          Le choix remplit automatiquement « Moyen de transport ». Deux passages de la même ligne restent bien distincts par leur heure. L'heure d'interpellation reste celle que tu saisis toi-même.
+          Le bus choisi est ajouté à la fin de la description. L'heure d'interpellation reste celle que tu saisis toi-même.
         </div>
       </div>
 
-      <input type="text" id="esiLieu" placeholder="Moyen de transport" />
-      <label for="esiHeure">Heure interpellation :</label>
-      <input type="time" id="esiHeure" />
-      <label for="esiSuitesType">Suites données :</label>
-<select id="esiSuitesType">
-  <option value="">— Sélectionner —</option>
-  <option value="TRANSPORT_PAF">TRANSPORT PAF</option>
-  <option value="LAISSE_LIBRE">LAISSÉ LIBRE</option>
-</select>
+      <label for="esiDescription">Description (reprise dans le compte rendu) :</label>
+      <textarea id="esiDescription"
+        placeholder="Ex. Un homme majeur de nationalité … dans un VL particulier avec … Transport PAF … après appel OPJ PAF"
+        rows="4"></textarea>
 
-<input type="text" id="esiSuitesLieu" placeholder="Lieu TRANSPORT PAF (ex: Menton)" style="display:none;" />
-<div id="esiStatutPafBloc" style="display:none;">
-  <label for="esiStatutPaf">Issue après TRANSPORT PAF :</label>
-  <select id="esiStatutPaf">
-    <option value="">— Sélectionner —</option>
-    <option value="RETENU">RETENU</option>
-    <option value="LAISSÉ LIBRE">LAISSÉ LIBRE</option>
-  </select>
-</div>
-	  <label for="esiEvent">Événement / motif (appel CORG + OPJ PAF)</label>
-<textarea id="esiEvent"
-  placeholder="Décrire brièvement l'événement motivant l'appel CORG / OPJ PAF"
-  rows="3"></textarea>
+      <label for="esiLaisseLibre">Laissé libre :</label>
+      <select id="esiLaisseLibre">
+        <option value="non">Non</option>
+        <option value="oui">Oui</option>
+      </select>
 
       <button id="addEsiBtn" class="blue">Ajouter ESI</button>
       <button id="delEsiBtn" class="red">Supprimer dernier ESI</button>
     </div>
-    <div class="small-note">Les champs obligatoires doivent être remplis. L’issue après TRANSPORT PAF (RETENU / LAISSÉ LIBRE) peut être complétée plus tard.</div>
+    <div class="small-note">La nationalité sert uniquement à l'affichage dans l'application : elle n'apparaît pas dans le compte rendu. « Laissé libre » peut être modifié plus tard.</div>
   </div>
 </div>
 
@@ -3372,70 +3337,82 @@ button.whatsapp:hover {
   <div class="page-content">
     <div id="passeurList"></div>
     <div style="margin-top: 20px;">
-      <input type="text" id="passeurAge" placeholder="Majeur(e) ou mineur(e) automatique" readonly />
-  
-      <select id="passeurSexe" aria-label="Sexe H/F">
-        <option value="">Homme/Femme</option>
-        <option value="Homme">Homme</option>
-        <option value="Femme">Femme</option>
-      </select>
-     <div style="display:flex; gap:8px; margin-top:8px;">
-  <input
-    id="passeurDob"
-    placeholder="JJ/MM/AAAA"
-    maxlength="10"
-    oninput="formatDOB(this); majPasseurStatut();"
-	type="text"
-    inputmode="numeric"
-    pattern="[0-9]*"
-    autocomplete="off"
-  />
-  <input
-    id="passeurAgeNum"
-    min="0"
-    placeholder="Âge"
-    type="number"
-    style="width:60px;"
-    oninput="majPasseurStatut()"
-  />
-</div>
+      <label for="passeurHeure">Heure interpellation :</label>
+      <input type="time" id="passeurHeure" />
 
-           <input id="passeurNationalite"
+      <input id="passeurNationalite"
        class="nat-autocomplete"
        placeholder="Nationalité"
        type="text"
        autocomplete="off">
-      <input type="text" id="passeurLieu" placeholder="Moyen de transport" />
-      <label for="passeurHeure">Heure interpellation :
-</label>
-      <input type="time" id="passeurHeure" />
-    <label for="passeurSuitesType">Suites données :</label>
-<select id="passeurSuitesType">
-  <option value="">— Sélectionner —</option>
-  <option value="TRANSPORT_PAF">TRANSPORT PAF</option>
-  <option value="LAISSE_LIBRE">LAISSÉ LIBRE</option>
-</select>
 
-<input type="text" id="passeurSuitesLieu" placeholder="Lieu TRANSPORT PAF (ex: Menton)" style="display:none;" />
+      <label for="passeurDescription">Description (reprise dans le compte rendu) :</label>
+      <textarea id="passeurDescription"
+        placeholder="Ex. Un homme majeur … dans un VL particulier avec à son bord ESI 1 et ESI 2"
+        rows="4"></textarea>
 
-<div id="passeurStatutPafBloc" style="display:none;">
-  <label for="passeurStatutPaf">Issue après TRANSPORT PAF :</label>
-  <select id="passeurStatutPaf">
-    <option value="">— Sélectionner —</option>
-    <option value="RETENU">RETENU</option>
-    <option value="LAISSÉ LIBRE">LAISSÉ LIBRE</option>
-  </select>
-</div>
-
-	  <label for="passeurEvent">Événement / motif (appel CORG + OPJ PAF)</label>
-<textarea id="passeurEvent"
-  placeholder="Décrire brièvement l'événement motivant l'appel CORG / OPJ PAF"
-  rows="3"></textarea>
+      <label for="passeurLaisseLibre">Laissé libre :</label>
+      <select id="passeurLaisseLibre">
+        <option value="non">Non</option>
+        <option value="oui">Oui</option>
+      </select>
 
       <button id="addPasseurBtn" class="blue">Ajouter Passeur</button>
       <button id="delPasseurBtn" class="red">Suppr. dernier Passeur</button>
     </div>
-    <div class="small-note">Les champs obligatoires doivent être remplis. L’issue après TRANSPORT PAF (RETENU / LAISSÉ LIBRE) peut être complétée plus tard.</div>
+    <div class="small-note">La nationalité sert uniquement à l'affichage dans l'application : elle n'apparaît pas dans le compte rendu. « Laissé libre » peut être modifié plus tard.</div>
+  </div>
+</div>
+
+<!-- Page Interpellations -->
+<div id="interpellationPage" class="page">
+  <div class="page-header">
+    <button class="back-button" onclick="showPage('homePage')">
+      <i class="fas fa-arrow-left"></i> Retour
+    </button>
+    <div class="page-title">Individu(s) interpellé(s)</div>
+  </div>
+  <div class="page-content">
+    <div id="interpellationList"></div>
+    <div style="margin-top: 20px;">
+      <label for="interpellationHeure">Heure interpellation :</label>
+      <input type="time" id="interpellationHeure" />
+
+      <label for="interpellationDescription">Description (reprise dans le compte rendu) :</label>
+      <textarea id="interpellationDescription"
+        placeholder="Ex. Interpellation d'un homme majeur … Appel CORG, présentation OPJ …"
+        rows="4"></textarea>
+
+      <button id="addInterpellationBtn" class="blue">Ajouter Interpellation</button>
+      <button id="delInterpellationBtn" class="red">Suppr. dernière Interpellation</button>
+    </div>
+    <div class="small-note">Cette rubrique n'apparaît dans le compte rendu que si au moins une interpellation est saisie.</div>
+  </div>
+</div>
+
+<!-- Page Renseignements -->
+<div id="renseignementPage" class="page">
+  <div class="page-header">
+    <button class="back-button" onclick="showPage('homePage')">
+      <i class="fas fa-arrow-left"></i> Retour
+    </button>
+    <div class="page-title">Renseignement(s)</div>
+  </div>
+  <div class="page-content">
+    <div id="renseignementList"></div>
+    <div style="margin-top: 20px;">
+      <label for="renseignementHeure">Heure :</label>
+      <input type="time" id="renseignementHeure" />
+
+      <label for="renseignementDescription">Description (reprise dans le compte rendu) :</label>
+      <textarea id="renseignementDescription"
+        placeholder="Ex. Un homme majeur … Après passage au FPR, demande de renseignements … Renseignements transmis …"
+        rows="4"></textarea>
+
+      <button id="addRenseignementBtn" class="blue">Ajouter Renseignement</button>
+      <button id="delRenseignementBtn" class="red">Suppr. dernier Renseignement</button>
+    </div>
+    <div class="small-note">Cette rubrique n'apparaît dans le compte rendu que si au moins un renseignement est saisi.</div>
   </div>
 </div>
 
@@ -4304,6 +4281,8 @@ button.whatsapp:hover {
       cf: { train: 0, bus: 0, vl: 0, pl: 0 },
       esiList: [],
       passeurList: [],
+      interpellationList: [],
+      renseignementList: [],
       observations: '',
       deroulement: '',
       autoDeroulementCounts: { vehicules: { train: 0, bus: 0 }, cv: { train: 0, bus: 0 } },
@@ -4311,6 +4290,8 @@ button.whatsapp:hover {
       editingEsrIndex: null,
       editingEsiIndex: null,
       editingPasseurIndex: null,
+      editingInterpellationIndex: null,
+      editingRenseignementIndex: null,
       scannedIdentityNigends: [],
     };
     
@@ -4339,6 +4320,8 @@ button.whatsapp:hover {
         cf: state.cf || {},
         esiList: state.esiList || [],
         passeurList: state.passeurList || [],
+        interpellationList: state.interpellationList || [],
+        renseignementList: state.renseignementList || [],
         observations: state.observations || '',
         deroulement: state.deroulement || '',
         pulsar: state.pulsar || ''
@@ -4365,12 +4348,32 @@ button.whatsapp:hover {
       }
     }
     
+    // Entrée ESI / passeur saisie avant le passage au texte libre :
+    // la description reprend les anciens champs (motif compris), donc l'ancienne ligne du compte rendu.
+    function bfMigrerAncienneEntree(entree) {
+      if (!entree || typeof entree.description === 'string') return entree;
+
+      const suites = entree.suites || '';
+      return {
+        heure: entree.heure || '',
+        nationalite: entree.nationalite || '',
+        description: [entree.age, entree.sexe, entree.nationalite, entree.lieu, entree.situation, entree.event, suites]
+          .filter(Boolean)
+          .join(' - '),
+        laisseLibre: suites.toUpperCase().includes('LAISSÉ LIBRE')
+      };
+    }
+
     function loadFromStorage() {
       const data = localStorage.getItem('borderforce');
       if(data) {
         const parsed = JSON.parse(data);
         const hadAutoCounts = !!(parsed && parsed.autoDeroulementCounts);
         Object.assign(state, parsed);
+
+        ['esiList', 'passeurList'].forEach(liste => {
+          state[liste] = (state[liste] || []).map(bfMigrerAncienneEntree);
+        });
 
         // Migration douce depuis l'ancienne version :
         // l'ancien fichier ajoutait les compteurs au clic, mais ne savait pas les corriger.
@@ -4416,8 +4419,7 @@ button.whatsapp:hover {
         document.querySelectorAll(".vehicle-card").forEach(c => c.style.display = "block");
       }
 
-      renderEsiList();
-      renderPasseurList();
+      Object.keys(BF_SECTIONS_INDIVIDUS).forEach(bfAfficherEntreesSection);
       document.getElementById('observations').value = state.observations || '';
       document.getElementById('deroulement').value = state.deroulement || '';
       
@@ -4748,9 +4750,74 @@ function bf_parseHeureToMinutesSimple(h) {
   return hh * 60 + mm;
 }
 
-// Trie state.esiList selon l'heure de mission (gère les services de nuit)
-function bf_trierEsiState() {
-  if (!Array.isArray(state.esiList) || state.esiList.length <= 1) return;
+// « liste » sert à la fois de clé dans state et d'id du conteneur HTML ;
+// l'ordre des rubriques est celui du compte rendu et du déroulement.
+const BF_SECTIONS_INDIVIDUS = {
+  esi: {
+    label: 'ESI',
+    titreCr: 'ESI INTERCEPTÉ(S):',
+    liste: 'esiList',
+    edition: 'editingEsiIndex',
+    boutonAjout: 'addEsiBtn',
+    boutonSuppression: 'delEsiBtn',
+    texteAjout: 'Ajouter ESI',
+    listeVide: 'Aucun ESI ajouté.',
+    confirmation: 'Supprimer cet ESI ?',
+    titreConfirmation: 'Supprimer un ESI',
+    avecNationalite: true,
+    avecLaisseLibre: true
+  },
+  passeur: {
+    label: 'PASSEUR',
+    titreCr: 'PASSEUR(S) INTERCEPTÉ(S):',
+    liste: 'passeurList',
+    edition: 'editingPasseurIndex',
+    boutonAjout: 'addPasseurBtn',
+    boutonSuppression: 'delPasseurBtn',
+    texteAjout: 'Ajouter Passeur',
+    listeVide: 'Aucun passeur ajouté.',
+    confirmation: 'Supprimer ce passeur ?',
+    titreConfirmation: 'Supprimer un passeur',
+    avecNationalite: true,
+    avecLaisseLibre: true,
+    suffixeLaisseLibre: true
+  },
+  interpellation: {
+    label: 'INTERPELLATION',
+    titreCr: 'INDIVIDU(S) INTERPELLÉ(S) :',
+    liste: 'interpellationList',
+    edition: 'editingInterpellationIndex',
+    boutonAjout: 'addInterpellationBtn',
+    boutonSuppression: 'delInterpellationBtn',
+    texteAjout: 'Ajouter Interpellation',
+    listeVide: 'Aucune interpellation ajoutée.',
+    confirmation: 'Supprimer cette interpellation ?',
+    titreConfirmation: 'Supprimer une interpellation',
+    facultative: true
+  },
+  renseignement: {
+    label: 'RENS',
+    titreCr: 'RENSEIGNEMENT(S) :',
+    liste: 'renseignementList',
+    edition: 'editingRenseignementIndex',
+    boutonAjout: 'addRenseignementBtn',
+    boutonSuppression: 'delRenseignementBtn',
+    texteAjout: 'Ajouter Renseignement',
+    listeVide: 'Aucun renseignement ajouté.',
+    confirmation: 'Supprimer ce renseignement ?',
+    titreConfirmation: 'Supprimer un renseignement',
+    facultative: true
+  }
+};
+
+function bfChampSection(cle, nom) {
+  return document.getElementById(cle + nom);
+}
+
+// Trie les entrées d'une rubrique selon l'heure de mission (gère les services de nuit)
+function bfTrierEntreesSection(cle) {
+  const entrees = state[BF_SECTIONS_INDIVIDUS[cle].liste];
+  if (!Array.isArray(entrees) || entrees.length <= 1) return;
 
   const debutInput = document.getElementById('heureDebutInput');
   const finInput   = document.getElementById('heureFinInput');
@@ -4763,7 +4830,7 @@ function bf_trierEsiState() {
 
   const MARGE = 60; // 1h avant le début de mission
 
-  state.esiList.sort((a, b) => {
+  entrees.sort((a, b) => {
     let ma = bf_parseHeureToMinutesSimple((a.heure || '').trim());
     let mb = bf_parseHeureToMinutesSimple((b.heure || '').trim());
 
@@ -4782,23 +4849,31 @@ function bf_trierEsiState() {
   });
 }
 
-// ESI
-function renderEsiList() {
-  const container = document.getElementById('esiList');
+function bfRemplirFormulaireSection(cle, entree = {}) {
+  const section = BF_SECTIONS_INDIVIDUS[cle];
+  bfChampSection(cle, 'Heure').value = entree.heure || '';
+  bfChampSection(cle, 'Description').value = entree.description || '';
+  if (section.avecNationalite) bfChampSection(cle, 'Nationalite').value = entree.nationalite || '';
+  if (section.avecLaisseLibre) bfChampSection(cle, 'LaisseLibre').value = entree.laisseLibre ? 'oui' : 'non';
+}
+window.bfRemplirFormulaireSection = bfRemplirFormulaireSection;
+
+function bfAfficherEntreesSection(cle) {
+  const section = BF_SECTIONS_INDIVIDUS[cle];
+  const container = document.getElementById(section.liste);
   container.innerHTML = '';
-  if (!state.esiList || state.esiList.length === 0) {
-    container.innerHTML = '<p>Aucun ESI ajouté.</p>';
+  if (!state[section.liste] || state[section.liste].length === 0) {
+    container.innerHTML = `<p>${section.listeVide}</p>`;
     return;
   }
 
-  // Toujours afficher dans l'ordre chronologique
-  bf_trierEsiState();
+  bfTrierEntreesSection(cle);
 
   const ul = document.createElement('ul');
   ul.style.listStyle = 'none';
   ul.style.padding = '0';
 
-  state.esiList.forEach((esi, i) => {
+  state[section.liste].forEach((entree, i) => {
     const li = document.createElement('li');
     li.style.background = '#f8f9fa';
     li.style.padding = '10px';
@@ -4807,51 +4882,32 @@ function renderEsiList() {
     li.style.border = '1px solid #ddd';
 
     const info = document.createElement('div');
-   info.textContent =
-  `${i + 1} - ${esi.heure} - ${esi.age} - ${esi.sexe} - ${esi.ageNum} ans - ${esi.nationalite} - ${esi.lieu} - ${esi.situation || '—'} - ${esi.suites}`;
-
-
+    info.textContent =
+      [i + 1, entree.heure, entree.nationalite, entree.description, entree.laisseLibre && 'LAISSÉ LIBRE']
+        .filter(Boolean)
+        .join(' - ');
     info.style.marginBottom = '8px';
 
     const buttons = document.createElement('div');
 
-    // bouton Modifier
     const editBtn = document.createElement('button');
     editBtn.textContent = 'Modifier';
     editBtn.className = 'blue';
     editBtn.style.marginRight = '8px';
     editBtn.onclick = () => {
-      document.getElementById('esiAge').value = esi.age;
-      document.getElementById('esiSexe').value = esi.sexe;
-      document.getElementById('esiAgeNum').value = esi.ageNum;
-      document.getElementById('esiNationalite').value = esi.nationalite;
-      document.getElementById('esiSituation').value = esi.situation || '';
-	  document.getElementById('esiLieu').value = esi.lieu;
-      document.getElementById('esiHeure').value = esi.heure;
-      bf_setSuites('esi', esi.suites);
-      document.getElementById('esiDob').value = esi.dob || "";
-      state.editingEsiIndex = i;
-      document.getElementById('addEsiBtn').textContent = "Enregistrer";
-	  document.getElementById('esiEvent').value = esi.event || "";
-
-      if (typeof window.bfEsiBusTurbieSetSelection === 'function') {
-        window.bfEsiBusTurbieSetSelection(esi.busMissionKey || '', esi.lieu || '');
-      }
-
+      bfRemplirFormulaireSection(cle, entree);
+      state[section.edition] = i;
+      document.getElementById(section.boutonAjout).textContent = "Enregistrer";
     };
 
-    // bouton Supprimer
     const delBtn = document.createElement('button');
     delBtn.textContent = 'Supprimer';
     delBtn.className = 'red';
     delBtn.onclick = async () => {
-      if (await appConfirm("Supprimer cet ESI ?", { title: "Supprimer un ESI", confirmText: "Oui, supprimer" })) {
-        state.esiList.splice(i, 1);
-        // On reconstruit les lignes auto (ESI/PASSEUR) dans le déroulement
-        if (typeof rebuildDeroulementAuto === 'function') {
-          rebuildDeroulementAuto();
-        }
-        renderEsiList();
+      if (await appConfirm(section.confirmation, { title: section.titreConfirmation, confirmText: "Oui, supprimer" })) {
+        state[section.liste].splice(i, 1);
+        rebuildDeroulementAuto();
+        bfAfficherEntreesSection(cle);
         debounceSave();
       }
     };
@@ -4882,501 +4938,96 @@ function bf_appendDeroulementAuto(hhmm, label, num, texte) {
   const der = document.getElementById('deroulement');
   if (der) der.value = state.deroulement;
 }
-function bf_toggleSuitesLieu(prefix) {
-  const typeEl = document.getElementById(prefix + 'SuitesType');
-  const lieuEl = document.getElementById(prefix + 'SuitesLieu');
-  const statutBloc = document.getElementById(prefix + 'StatutPafBloc');
-  const statutEl = document.getElementById(prefix + 'StatutPaf');
-  if (!typeEl || !lieuEl) return;
 
-  const isTransportPaf = typeEl.value === 'TRANSPORT_PAF';
-
-  lieuEl.style.display = isTransportPaf ? '' : 'none';
-  if (statutBloc) statutBloc.style.display = isTransportPaf ? '' : 'none';
-
-  if (!isTransportPaf) {
-    lieuEl.value = '';
-    if (statutEl) statutEl.value = '';
-  }
-}
-
-function bf_getSuites(prefix) {
-  const typeEl = document.getElementById(prefix + 'SuitesType');
-  const lieuEl = document.getElementById(prefix + 'SuitesLieu');
-  const statutEl = document.getElementById(prefix + 'StatutPaf');
-
-  const type = typeEl ? typeEl.value : '';
-  const lieu = lieuEl ? lieuEl.value.trim() : '';
-  const statutPaf = statutEl ? statutEl.value : '';
-
-  if (!type) {
-    return { ok: false, msg: 'Merci de sélectionner les suites.' };
-  }
-
-  if (type === 'TRANSPORT_PAF') {
-    if (!lieu) {
-      return { ok: false, msg: 'Merci de préciser le lieu du TRANSPORT PAF.' };
-    }
-
-    // RETENU / LAISSÉ LIBRE est volontairement facultatif :
-    // l'utilisateur peut enregistrer l'ESI/PASSEUR puis revenir le compléter plus tard.
-    return {
-      ok: true,
-      suites: statutPaf ? `TRANSPORT PAF ${lieu} - ${statutPaf}` : `TRANSPORT PAF ${lieu}`,
-      isLibre: statutPaf === 'LAISSÉ LIBRE'
-    };
-  }
-
-  return {
-    ok: true,
-    suites: 'LAISSÉ LIBRE',
-    isLibre: true
+function bfEnregistrerEntreeSection(cle) {
+  const section = BF_SECTIONS_INDIVIDUS[cle];
+  const entree = {
+    heure: bfChampSection(cle, 'Heure').value.trim(),
+    description: bfChampSection(cle, 'Description').value.replace(/[ \t]*[\r\n]+[ \t]*/g, ' ').trim()
   };
-}
+  if (section.avecNationalite) entree.nationalite = bfChampSection(cle, 'Nationalite').value.trim();
+  if (section.avecLaisseLibre) entree.laisseLibre = bfChampSection(cle, 'LaisseLibre').value === 'oui';
 
-function bf_setSuites(prefix, suitesRaw) {
-  const typeEl = document.getElementById(prefix + 'SuitesType');
-  const lieuEl = document.getElementById(prefix + 'SuitesLieu');
-  const statutEl = document.getElementById(prefix + 'StatutPaf');
-  if (!typeEl) return;
-
-  const s = (suitesRaw || '').trim();
-  const up = s.toUpperCase();
-
-  typeEl.value = '';
-  if (lieuEl) lieuEl.value = '';
-  if (statutEl) statutEl.value = '';
-
-  if (up.startsWith('TRANSPORT PAF')) {
-    typeEl.value = 'TRANSPORT_PAF';
-
-    let reste = s.replace(/^TRANSPORT PAF\s*/i, '').trim();
-    const matchStatut = reste.match(/\s+-\s+(RETENU|LAISSÉ LIBRE)$/i);
-
-    if (matchStatut) {
-      if (statutEl) statutEl.value = matchStatut[1].toUpperCase() === 'RETENU' ? 'RETENU' : 'LAISSÉ LIBRE';
-      reste = reste.replace(/\s+-\s+(RETENU|LAISSÉ LIBRE)$/i, '').trim();
-    }
-
-    if (lieuEl) lieuEl.value = reste;
-  } else if (up.startsWith('LAISSÉ LIBRE') || up.startsWith('LAISSE LIBRE')) {
-    typeEl.value = 'LAISSE_LIBRE';
-  }
-
-  bf_toggleSuitesLieu(prefix);
-}
-// ✅ Rendre ces fonctions accessibles partout (fiche identité, QR, etc.)
-window.bf_getSuites = bf_getSuites;
-window.bf_setSuites = bf_setSuites;
-window.bf_toggleSuitesLieu = bf_toggleSuitesLieu;
-
-
-function addEsi() {
-  const heure = document.getElementById('esiHeure').value.trim();
-  const age = document.getElementById('esiAge').value;
-  const sexe = document.getElementById('esiSexe').value;
-  const ageNum = document.getElementById('esiAgeNum').value.trim();
-  const nationalite = document.getElementById('esiNationalite').value.trim();
-  const situation = document.getElementById('esiSituation').value;
-  const lieu = document.getElementById('esiLieu').value.trim();
-  const suitesInfo = bf_getSuites('esi');
-if (!suitesInfo.ok) { appAlert(suitesInfo.msg); return; }
-const suites = suitesInfo.suites;
-
-  const dob = document.getElementById('esiDob').value.trim(); // date de naissance
-const event = document.getElementById('esiEvent')?.value.trim() || "";
-
-if (!age || !sexe || !ageNum || !nationalite || !situation || !lieu) {
-  appAlert('Merci de remplir tous les champs ESI.');
-  return;
-}
-
-   const busMissionSelection =
-     (typeof window.bfEsiBusTurbieGetSelection === 'function')
-       ? window.bfEsiBusTurbieGetSelection()
-       : { busMissionKey:'', busMissionId:'', busMissionEta:'', busMissionDate:'' };
-
-   const esiData = {
-     age, sexe, ageNum, nationalite, situation, lieu, heure, suites, dob, event,
-     ...busMissionSelection
-   };
-
-  if (state.editingEsiIndex !== null && state.editingEsiIndex !== undefined) {
-    // 🔁 MODIFICATION
-    const idx = state.editingEsiIndex;
-    state.esiList[idx] = esiData;
-    state.editingEsiIndex = null;
-    document.getElementById('addEsiBtn').textContent = "Ajouter ESI";
-  } else {
-    // ➕ AJOUT
-    state.esiList.push(esiData);
-  }
-
-  // Tri en mémoire
-  bf_trierEsiState();
-
-  // On laisse rebuildDeroulementAuto reconstruire toutes les lignes auto ESI/PASSEUR
-  if (typeof rebuildDeroulementAuto === 'function') {
-    rebuildDeroulementAuto();
-  }
-
-  // Nettoyage des champs
-  document.getElementById('esiAge').value = '';
-  document.getElementById('esiSexe').value = '';
-  document.getElementById('esiAgeNum').value = '';
-  document.getElementById('esiNationalite').value = '';
-  document.getElementById('esiSituation').value = '';
-  document.getElementById('esiLieu').value = '';
-  if (typeof window.bfEsiBusTurbieClearSelection === 'function') {
-    window.bfEsiBusTurbieClearSelection();
-  }
-  document.getElementById('esiHeure').value = '';
-  document.getElementById('esiDob').value = '';
-document.getElementById('esiEvent').value = '';
- bf_setSuites('esi', '');
-  renderEsiList();
-  debounceSave();
-}
-
-function delEsi() {
-  if (state.esiList && state.esiList.length > 0) {
-    state.esiList.pop();
-    bf_trierEsiState();
-    if (typeof rebuildDeroulementAuto === 'function') {
-      rebuildDeroulementAuto();
-    }
-    renderEsiList();
-    debounceSave();
-  }
-}
-
-   // --- Tri des PASSEURS selon l'heure de mission (même logique que ESI) ---
-function bf_trierPasseurState() {
-  if (!Array.isArray(state.passeurList) || state.passeurList.length <= 1) return;
-
-  const debutInput = document.getElementById('heureDebutInput');
-  const finInput   = document.getElementById('heureFinInput');
-
-  const debutMinutes = bf_parseHeureToMinutesSimple(debutInput ? debutInput.value : '');
-  const finMinutes   = bf_parseHeureToMinutesSimple(finInput ? finInput.value : '');
-
-  const traverseMinuit =
-    (debutMinutes !== null && finMinutes !== null && finMinutes < debutMinutes);
-
-  const MARGE = 60; // 1h avant le début de mission
-
-  state.passeurList.sort((a, b) => {
-    let ma = bf_parseHeureToMinutesSimple((a.heure || '').trim());
-    let mb = bf_parseHeureToMinutesSimple((b.heure || '').trim());
-
-    // Sans heure → en dernier
-    if (ma === null && mb === null) return 0;
-    if (ma === null) return 1;
-    if (mb === null) return -1;
-
-    if (traverseMinuit && debutMinutes !== null) {
-      const seuil = Math.max(0, debutMinutes - MARGE);
-      if (ma < seuil) ma += 24 * 60;
-      if (mb < seuil) mb += 24 * 60;
-    }
-
-    return ma - mb;
-  });
-}
- 
-// PASSEUR
-function renderPasseurList() {
-  const container = document.getElementById('passeurList');
-  container.innerHTML = '';
-  if (!state.passeurList || state.passeurList.length === 0) {
-    container.innerHTML = '<p>Aucun passeur ajouté.</p>';
+  if (!entree.heure || !entree.description || (section.avecNationalite && !entree.nationalite)) {
+    appAlert(`Merci de remplir tous les champs ${section.label}.`);
     return;
   }
 
-  // Tri auto
-  bf_trierPasseurState();
-
-  const ul = document.createElement('ul');
-  ul.style.listStyle = 'none';
-  ul.style.padding = '0';
-
-  state.passeurList.forEach((passeur, i) => {
-    const li = document.createElement('li');
-    li.style.background = '#f8f9fa';
-    li.style.padding = '10px';
-    li.style.margin = '8px 0';
-    li.style.borderRadius = '6px';
-    li.style.border = '1px solid #ddd';
-
-    const info = document.createElement('div');
-    info.textContent =
-      `${i + 1} - ${passeur.heure} - ${passeur.age} - ${passeur.sexe} - ${passeur.ageNum} ans - ${passeur.nationalite} - ${passeur.lieu} - ${passeur.suites}`;
-    info.style.marginBottom = '8px';
-
-    const buttons = document.createElement('div');
-
-    // bouton Modifier
-    const editBtn = document.createElement('button');
-    editBtn.textContent = 'Modifier';
-    editBtn.className = 'blue';
-    editBtn.style.marginRight = '8px';
-    editBtn.onclick = () => {
-      document.getElementById('passeurAge').value = passeur.age;
-      document.getElementById('passeurSexe').value = passeur.sexe;
-      document.getElementById('passeurAgeNum').value = passeur.ageNum;
-      document.getElementById('passeurNationalite').value = passeur.nationalite;
-      document.getElementById('passeurLieu').value = passeur.lieu;
-      document.getElementById('passeurHeure').value = passeur.heure;
-      bf_setSuites('passeur', passeur.suites);
-      document.getElementById('passeurDob').value = passeur.dob || "";
-      state.editingPasseurIndex = i;
-      document.getElementById('addPasseurBtn').textContent = "Enregistrer";
-	  document.getElementById('passeurEvent').value = passeur.event || "";
-
-    };
-
-    // bouton Supprimer
-    const delBtn = document.createElement('button');
-    delBtn.textContent = 'Supprimer';
-    delBtn.className = 'red';
-    delBtn.onclick = async () => {
-      if (await appConfirm("Supprimer ce passeur ?", { title: "Supprimer un passeur", confirmText: "Oui, supprimer" })) {
-        state.passeurList.splice(i, 1);
-        if (typeof rebuildDeroulementAuto === 'function') {
-          rebuildDeroulementAuto();
-        }
-        renderPasseurList();
-        debounceSave();
-      }
-    };
-
-    buttons.appendChild(editBtn);
-    buttons.appendChild(delBtn);
-    li.appendChild(info);
-    li.appendChild(buttons);
-    ul.appendChild(li);
-  });
-  container.appendChild(ul);
-}
-
-function addPasseur() {
-  const heure = document.getElementById('passeurHeure').value.trim();
-  const age = document.getElementById('passeurAge').value;
-  const sexe = document.getElementById('passeurSexe').value;
-  const ageNum = document.getElementById('passeurAgeNum').value.trim();
-  const nationalite = document.getElementById('passeurNationalite').value.trim();
-  const lieu = document.getElementById('passeurLieu').value.trim();
-  const suitesInfo = bf_getSuites('passeur');
-if (!suitesInfo.ok) { appAlert(suitesInfo.msg); return; }
-const suites = suitesInfo.suites;
-
-  const dob = document.getElementById('passeurDob').value.trim(); // date de naissance
-const event = document.getElementById('passeurEvent')?.value.trim() || "";
-
-
-  if (!age || !sexe || !ageNum || !nationalite || !lieu || !suites) {
-    appAlert('Merci de remplir tous les champs PASSEUR.');
-    return;
-  }
-
-  const passeurData = { age, sexe, ageNum, nationalite, lieu, heure, suites, dob, event };
-
-
-  if (state.editingPasseurIndex !== null && state.editingPasseurIndex !== undefined) {
-    // 🔁 MODIFICATION
-    const idx = state.editingPasseurIndex;
-    state.passeurList[idx] = passeurData;
-    state.editingPasseurIndex = null;
-    document.getElementById('addPasseurBtn').textContent = "Ajouter PASSEUR";
+  const index = state[section.edition];
+  if (index !== null && index !== undefined) {
+    state[section.liste][index] = entree;
+    state[section.edition] = null;
+    document.getElementById(section.boutonAjout).textContent = section.texteAjout;
   } else {
-    // ➕ AJOUT
-    state.passeurList.push(passeurData);
+    state[section.liste].push(entree);
   }
 
-  // Tri
-  bf_trierPasseurState();
-
-  // Reconstruit déroulement
-  if (typeof rebuildDeroulementAuto === 'function') {
-    rebuildDeroulementAuto();
-  }
-
-  // Vide les champs
-  document.getElementById('passeurAge').value = '';
-  document.getElementById('passeurSexe').value = '';
-  document.getElementById('passeurAgeNum').value = '';
-  document.getElementById('passeurNationalite').value = '';
-  document.getElementById('passeurLieu').value = '';
-  document.getElementById('passeurHeure').value = '';
-  document.getElementById('passeurDob').value = '';
-document.getElementById('passeurEvent').value = '';
-bf_setSuites('passeur', '');
-
-  renderPasseurList();
+  rebuildDeroulementAuto();
+  bfRemplirFormulaireSection(cle);
+  bfAfficherEntreesSection(cle);
   debounceSave();
 }
 
-function delPasseur() {
-  if (state.passeurList && state.passeurList.length > 0) {
-    state.passeurList.pop();
-    bf_trierPasseurState();
-    if (typeof rebuildDeroulementAuto === 'function') {
-      rebuildDeroulementAuto();
-    }
-    renderPasseurList();
-    debounceSave();
-  }
+function bfSupprimerDerniereEntreeSection(cle) {
+  const entrees = state[BF_SECTIONS_INDIVIDUS[cle].liste];
+  if (!entrees || entrees.length === 0) return;
+
+  entrees.pop();
+  rebuildDeroulementAuto();
+  bfAfficherEntreesSection(cle);
+  debounceSave();
 }
 
-   
+function bfCrLignesSection(cle) {
+  const section = BF_SECTIONS_INDIVIDUS[cle];
+  bfTrierEntreesSection(cle);
 
- function majLigneDeroulementPourEsi(index) {
-  const der = document.getElementById('deroulement');
-  if (!der) return;
-
-  const esi = state.esiList[index];
-  if (!esi) return;
-
-  const num = index + 1;
-  const heure = esi.heure || "";
-  const sexe = esi.sexe || "";
-  const ageNum = esi.ageNum || "";
-  const nat = esi.nationalite || "";
-  const suites = esi.suites || "";
-
-  const nouvelleLigne =
-    `${heure ? heure + " — " : ""}ESI ${num} — ${sexe} — ${ageNum} ans — ${nat} — Ordre OPJ PAF : ${suites}`;
-
-  const lignes = der.value.split('\n');
-  let trouve = false;
-
-  for (let i = 0; i < lignes.length; i++) {
-    if (lignes[i].includes(`ESI ${num} —`)) {
-      lignes[i] = nouvelleLigne;
-      trouve = true;
-      break;
-    }
-  }
-
-  if (!trouve) {
-    lignes.push(nouvelleLigne);
-  }
-
-  der.value = lignes.join('\n');
-  der.dispatchEvent(new Event('input'));
-}
-
-
-    function delPasseur() {
-      if(state.passeurList && state.passeurList.length > 0) {
-        state.passeurList.pop();
-        renderPasseurList();
-		 rebuildDeroulementAuto();
-        debounceSave();
-      }
-    }
-
-function majLigneDeroulementPourPasseur(index) {
-  const der = document.getElementById('deroulement');
-  if (!der) return;
-
-  const passeur = state.passeurList[index];
-  if (!passeur) return;
-
-  const num = index + 1;
-  const heure = passeur.heure || "";
-  const sexe = passeur.sexe || "";
-  const ageNum = passeur.ageNum || "";
-  const nat = passeur.nationalite || "";
-  const suites = passeur.suites || "";
-
-  const nouvelleLigne =
-    `${heure ? heure + " — " : ""}PASSEUR ${num} — ${sexe} — ${ageNum} ans — ${nat} — Ordre OPJ PAF : ${suites}`;
-
-  const lignes = der.value.split('\n');
-  let trouve = false;
-
-  for (let i = 0; i < lignes.length; i++) {
-    if (lignes[i].includes(`PASSEUR ${num} —`)) {
-      lignes[i] = nouvelleLigne;
-      trouve = true;
-      break;
-    }
-  }
-
-  if (!trouve) {
-    lignes.push(nouvelleLigne);
-  }
-
-  der.value = lignes.join('\n');
-  der.dispatchEvent(new Event('input'));
+  return (state[section.liste] || []).map((entree, i) => {
+    const ligne = [`${section.label} ${i + 1}`, entree.heure, entree.description].filter(Boolean).join(' - ');
+    const dejaMentionne = /laiss[ée] libre\W*$/i.test(ligne);
+    return section.suffixeLaisseLibre && entree.laisseLibre && !dejaMentionne
+      ? `${ligne} - LAISSÉ LIBRE`
+      : ligne;
+  });
 }
 
 function rebuildDeroulementAuto() {
   const der = document.getElementById('deroulement');
   if (!der) return;
 
-  const lignesExistantes = (der.value || '').split('\n');
+  const reference = `(?:${Object.values(BF_SECTIONS_INDIVIDUS).map(section => section.label).join('|')})\\s+\\d+`;
 
-  // On garde les lignes manuelles,
-  // mais on supprime les anciennes lignes automatiques ESI/PASSEUR
-  const lignesManuelles = lignesExistantes.filter(l => {
-    const t = l.trim();
-    if (!t) return false;
+  // Lignes automatiques à remplacer, anciens formats compris :
+  // 22:00 — ESI 1
+  // 22:00 - ESI 1 - MOTIF APPEL CORG/OPJ PAF: ...
+  // 22:00 - ESI 1, ESI 2 et PASSEUR 1
+  const ligneAuto = new RegExp(
+    `^(?:\\d{1,2}:\\d{2}\\s*(?:—|-)\\s*)?${reference}(?:\\s*(?:,|et)\\s*${reference})*(?:\\s*(?:—|-).*)?$`,
+    'i'
+  );
 
-    // Supprime les anciennes lignes auto du type :
-    // 22:00 — ESI 1
-    // 22:00 - ESI 1
-    // 22:00 - ESI 1 - MOTIF APPEL CORG/OPJ PAF: ...
-    // 22:00 — PASSEUR 1 — ...
-    return !/^(\d{1,2}:\d{2}\s*(?:—|-)\s*)?(ESI|PASSEUR)\s+\d+(?:\s*(?:—|-).*)?$/i.test(t);
+  const lignesManuelles = (der.value || '')
+    .split('\n')
+    .filter(ligne => ligne.trim() && !ligneAuto.test(ligne.trim()));
+
+  const referencesParHeure = new Map();
+  Object.keys(BF_SECTIONS_INDIVIDUS).forEach(cle => {
+    const section = BF_SECTIONS_INDIVIDUS[cle];
+    bfTrierEntreesSection(cle);
+
+    (state[section.liste] || []).forEach((entree, idx) => {
+      const heure = entree.heure || "";
+      if (!referencesParHeure.has(heure)) referencesParHeure.set(heure, []);
+      referencesParHeure.get(heure).push(`${section.label} ${idx + 1}`);
+    });
   });
 
-  const lignesAuto = [];
-
-  // Reconstruire les lignes ESI courtes + motif si renseigné
-  if (Array.isArray(state.esiList)) {
-    state.esiList.forEach((esi, idx) => {
-      const num = idx + 1;
-      const heure = esi.heure || "";
-      const prefix = heure ? heure + " - " : "";
-
-      const evt = (esi.event || "").trim();
-      const evtClean = evt
-        ? evt.replace(/\s*\n+\s*/g, " | ").replace(/\s+/g, " ")
-        : "";
-
-      let ligne = `${prefix}ESI ${num}`;
-
-      if (evtClean) {
-        ligne += ` - MOTIF APPEL CORG/OPJ PAF: ${evtClean}`;
-      }
-
-      lignesAuto.push(ligne);
-    });
-  }
-
-  // Reconstruire les lignes PASSEUR courtes + motif si renseigné
-  if (Array.isArray(state.passeurList)) {
-    state.passeurList.forEach((passeur, idx) => {
-      const num = idx + 1;
-      const heure = passeur.heure || "";
-      const prefix = heure ? heure + " - " : "";
-
-      const evt = (passeur.event || "").trim();
-      const evtClean = evt
-        ? evt.replace(/\s*\n+\s*/g, " | ").replace(/\s+/g, " ")
-        : "";
-
-      let ligne = `${prefix}PASSEUR ${num}`;
-
-      if (evtClean) {
-        ligne += ` - MOTIF APPEL CORG/OPJ PAF: ${evtClean}`;
-      }
-
-      lignesAuto.push(ligne);
-    });
-  }
+  const lignesAuto = [...referencesParHeure].map(([heure, references]) => {
+    const enumeration = references.length > 1
+      ? `${references.slice(0, -1).join(', ')} et ${references[references.length - 1]}`
+      : references[0];
+    return (heure ? heure + " - " : "") + enumeration;
+  });
 
   const final = [...lignesManuelles];
 
@@ -5468,53 +5119,32 @@ function rebuildDeroulementAuto() {
       cr += `\nTOTAL MOYENS : ${totalVehicules}\n`;
       cr += `TOTAL PERSONNES : ${totalPersonnes}\n`;
 
-    // On s'assure que la liste ESI est triée comme dans l'appli
-if (typeof bf_trierEsiState === 'function') {
-  bf_trierEsiState();
-}
-const esiListCr = state.esiList || [];
+      let numeroSection = 1;
 
-// ✅ Compte "LAISSÉ LIBRE"
-const esiLibres = esiListCr.filter(e => {
-  const s = (e.suites || '').toUpperCase();
- return s.startsWith('LAISSÉ LIBRE') || s.includes('LAISSÉ LIBRE');
-}).length;
+      Object.keys(BF_SECTIONS_INDIVIDUS).forEach(cle => {
+        const section = BF_SECTIONS_INDIVIDUS[cle];
+        const lignes = bfCrLignesSection(cle);
+        if (section.facultative && !lignes.length) return;
 
-cr += `\n2 - ESI INTERCEPTÉ(S): ${esiListCr.length}` +
-      (esiLibres ? ` dont ${esiLibres} laissé(s) libre(s)` : '') +
-      `\n`;
+        const libres = (state[section.liste] || []).filter(entree => entree.laisseLibre).length;
 
-esiListCr.forEach((esi, i) => {
-  cr += `ESI ${i + 1} - ${esi.heure} - ${esi.age} - ${esi.sexe} - ${esi.nationalite} - ${esi.lieu} - ${esi.situation || '—'} - ${esi.suites}\n`;
+        cr += `\n${++numeroSection} - ${section.titreCr} ${lignes.length}` +
+              (libres ? ` dont ${libres} laissé(s) libre(s)` : '') +
+              `\n`;
 
-});
- 
-// 3 - PASSEUR(S) INTERCEPTÉ(S)
-if (typeof bf_trierPasseurState === 'function') {
-  bf_trierPasseurState();
-}
-const passeurs = state.passeurList || [];
+        lignes.forEach(ligne => {
+          cr += `${ligne}\n`;
+        });
+      });
 
-// ✅ Compte "LAISSÉ LIBRE"
-const passeurLibres = passeurs.filter(p => {
-  const s = (p.suites || '').toUpperCase();
-  return s.startsWith('LAISSÉ LIBRE') || s.startsWith('LAISSÉ LIBRE');
-}).length;
+      cr += `\n${++numeroSection} - OBSERVATIONS\n${state.observations ? state.observations.trim() : '(Aucune)'}\n`;
 
-cr += `\n3 - PASSEUR(S) INTERCEPTÉ(S): ${passeurs.length}` +
-      (passeurLibres ? ` dont ${passeurLibres} laissé(s) libre(s)` : '') +
-      `\n`;
+      cr += `\n${++numeroSection} - DÉROULEMENT DE LA MISSION\n${deroulementTexte}\n`;
 
-passeurs.forEach((passeur, i) => {
-  cr += `PASSEUR ${i + 1} - ${passeur.heure} - ${passeur.age} - ${passeur.sexe} - ${passeur.nationalite} - ${passeur.lieu} - ${passeur.suites}\n`;
-});
-
-      cr += `\n4 - OBSERVATIONS\n${state.observations ? state.observations.trim() : '(Aucune)'}\n`;
-     
-	  cr += `\n5 - DÉROULEMENT DE LA MISSION\n${deroulementTexte}\n`;
-      if(state.pulsar === 'oui') cr += `\n6 - PULSAR fait\n`;
-      else if(state.pulsar === 'non') cr += `\n6 - PULSAR non fait\n`;
-      else cr += `\n6 - PULSAR (non renseigné)\n`;
+      numeroSection++;
+      if(state.pulsar === 'oui') cr += `\n${numeroSection} - PULSAR fait\n`;
+      else if(state.pulsar === 'non') cr += `\n${numeroSection} - PULSAR non fait\n`;
+      else cr += `\n${numeroSection} - PULSAR (non renseigné)\n`;
 
       document.getElementById("compteRendu").value = cr;
 autoResize(document.getElementById("compteRendu"));
@@ -7300,102 +6930,23 @@ L’import PDF est annulé afin de ne pas mélanger deux services.`);
       const parts = texteDecode.split(";");
 
       const catBrute = (parts[1] || "").trim().toUpperCase();
-      const heure       = (parts[2] || "").trim();
-      const dateNaiss   = (parts[3] || "").trim();
-      const lieu        = (parts[4] || "").trim();
-      const suites      = (parts[5] || "").trim();
-      const nat         = (parts[6] || "").trim();
-      let   sexeBrut    = (parts[7] || "").trim();
-// ✅ NOUVEAU : situation ESI (optionnelle, si le QR l’envoie)
-const situationEsi = (parts[8] || "").trim();  // sera "" si ancien QR
+      const sexeBrut = (parts[7] || "").trim().toLowerCase();
+      const cle = catBrute === "PASSEUR" ? "passeur" : "esi";
 
-      // Normalisation du sexe vers Homme/Femme
-      const s = sexeBrut.toLowerCase();
-      if (s.startsWith("m")) sexeBrut = "Homme";
-      else if (s.startsWith("f")) sexeBrut = "Femme";
+      bfPreremplirDepuisIdentite(cle, {
+        heure: (parts[2] || "").trim(),
+        nationalite: (parts[6] || "").trim(),
+        sexe: sexeBrut.startsWith("m") ? "Homme" : sexeBrut.startsWith("f") ? "Femme" : "",
+        age: calculateAge((parts[3] || "").trim()),
+        lieu: (parts[4] || "").trim(),
+        situation: (parts[8] || "").trim(),
+        suites: (parts[5] || "").trim()
+      });
 
-      if (catBrute === "PASSEUR") {
-        // 👉 Remplir directement la section PASSEUR
-        const pSexe   = document.getElementById("passeurSexe");
-        const pDob    = document.getElementById("passeurDob");
-        const pNat    = document.getElementById("passeurNationalite");
-        const pLieu   = document.getElementById("passeurLieu");
-        const pHeure  = document.getElementById("passeurHeure");
-        
-	    const pAgeNum  = document.getElementById("passeurAgeNum");
-		
-        if (pSexe)   pSexe.value   = sexeBrut;
-        if (pDob)    pDob.value    = dateNaiss;
-        if (pNat)    pNat.value    = nat;
-        if (pLieu)   pLieu.value   = lieu;
-        if (pHeure)  pHeure.value  = heure;
-     // ✅ Suites : nouveau système (select + lieu) + fallback
-if (typeof bf_setSuites === "function") {
-  bf_setSuites("passeur", suites);
-} else {
-  const pSuitesOld = document.getElementById("passeurSuites");
-  if (pSuitesOld) pSuitesOld.value = suites;
-}
-   
-
-		
-		// 🧮 Calcul automatique de l'âge à partir de la date de naissance JJ/MM/AAAA
-  if (typeof calculateAge === "function" && dateNaiss && dateNaiss.length === 10 && pAgeNum) {
-    const age = calculateAge(dateNaiss);
-    if (age !== null) {
-      pAgeNum.value = age;
-    }
-  }
-        // statut majeur/mineur si besoin
-        if (typeof majPasseurStatut === "function") {
-          majPasseurStatut();
-        }
-
-        showPage("passeurPage");
-        appAlert('Fiche PASSEUR importée via QR.\nVérifie puis clique sur "Ajouter Passeur".');
-
-      } else {
-  // 👉 Par défaut : ESI
-  const eSexe  = document.getElementById("esiSexe");
-  const eDob   = document.getElementById("esiDob");
-  const eNat   = document.getElementById("esiNationalite");
-  const eLieu  = document.getElementById("esiLieu");
-  const eHeure = document.getElementById("esiHeure");
-
-  if (eSexe)  eSexe.value  = sexeBrut;
-  if (eDob)   eDob.value   = dateNaiss;
-  if (eNat)   eNat.value   = nat;
-  if (eLieu)  eLieu.value  = lieu;
-  if (eHeure) eHeure.value = heure;
-
-  // ✅ Suites : nouveau système (select + lieu) + fallback
-  if (typeof bf_setSuites === "function") {
-    bf_setSuites("esi", suites);
-  } else {
-    const eSuitesOld = document.getElementById("esiSuites");
-    if (eSuitesOld) eSuitesOld.value = suites;
-  }
-
-  // ✅ Situation ESI (optionnelle)
-  const eSituation = document.getElementById("esiSituation");
-  if (eSituation) eSituation.value = situationEsi || "";
-
-  // 🧮 Age auto
-  if (typeof calculateAge === "function" && dateNaiss && dateNaiss.length === 10) {
-    const age = calculateAge(dateNaiss);
-    if (age !== null) {
-      const ageNumInput = document.getElementById("esiAgeNum");
-      if (ageNumInput) ageNumInput.value = age;
-    }
-  }
-
-  if (typeof majEsiStatut === "function") {
-    majEsiStatut();
-  }
-
-  showPage("esiPage");
-  appAlert('Fiche ESI importée via QR.\nVérifie puis clique sur "Ajouter ESI".');
-}
+      showPage(cle + "Page");
+      appAlert(cle === "passeur"
+        ? 'Fiche PASSEUR importée via QR.\nVérifie puis clique sur "Ajouter Passeur".'
+        : 'Fiche ESI importée via QR.\nVérifie puis clique sur "Ajouter ESI".');
 
 
       // On arrête le scan et on ferme le modal pour voir la page ESI/PASSEUR
@@ -7756,18 +7307,6 @@ generateCompteRendu = function() {
       if (typeof bfVerifierDemandeDeroulementAutomatique === 'function') {
         bfVerifierDemandeDeroulementAutomatique();
       }
-	  
-	  const esiSuitesType = document.getElementById('esiSuitesType');
-if (esiSuitesType) {
-  esiSuitesType.addEventListener('change', () => bf_toggleSuitesLieu('esi'));
-  bf_toggleSuitesLieu('esi');
-}
-
-const passeurSuitesType = document.getElementById('passeurSuitesType');
-if (passeurSuitesType) {
-  passeurSuitesType.addEventListener('change', () => bf_toggleSuitesLieu('passeur'));
-  bf_toggleSuitesLieu('passeur');
-}
 
       // 🔹 Au chargement : trier le déroulement une fois
       const der = document.getElementById('deroulement');
@@ -7791,10 +7330,11 @@ if (passeurSuitesType) {
       document.addEventListener('visibilitychange', () => {
         if (!document.hidden) bfActualiserListeEsrLocal();
       });
-      document.getElementById('addEsiBtn').addEventListener('click', addEsi);
-      document.getElementById('delEsiBtn').addEventListener('click', delEsi);
-      document.getElementById('addPasseurBtn').addEventListener('click', addPasseur);
-      document.getElementById('delPasseurBtn').addEventListener('click', delPasseur);
+      Object.keys(BF_SECTIONS_INDIVIDUS).forEach(cle => {
+        const section = BF_SECTIONS_INDIVIDUS[cle];
+        document.getElementById(section.boutonAjout).addEventListener('click', () => bfEnregistrerEntreeSection(cle));
+        document.getElementById(section.boutonSuppression).addEventListener('click', () => bfSupprimerDerniereEntreeSection(cle));
+      });
 
       document.querySelectorAll('button.plusminus').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -8322,91 +7862,40 @@ document.getElementById('effacerFiches').addEventListener('click', async functio
 
 afficherHistorique();
 
+function bfBrouillonDescription({ sexe, age, nationalite, lieu, situation, suites }) {
+  const sujet = sexe === 'Femme' ? 'Une femme' : sexe === 'Homme' ? 'Un homme' : 'Un individu';
+  const identite = [
+    sujet,
+    Number.isFinite(age) ? computeStatut(age, sexe).toLowerCase() : '',
+    nationalite && `de nationalité ${nationalite}`
+  ].filter(Boolean).join(' ');
+
+  return [[identite, lieu, situation].filter(Boolean).join(' - '), suites].filter(Boolean).join('. ');
+}
+
+function bfPreremplirDepuisIdentite(cle, identite) {
+  window.bfRemplirFormulaireSection(cle, {
+    heure: identite.heure,
+    nationalite: identite.nationalite,
+    description: bfBrouillonDescription(identite),
+    laisseLibre: /^LAISS[ÉE] LIBRE/i.test(identite.suites || '')
+  });
+}
+
 // 🔹 Envoie les infos utiles de la fiche vers la section ESI ou Passeur
 function remplirDepuisFicheDansEsiOuPasseur(fiche) {
-  // On ne récupère QUE ce que tu as demandé :
-  // sexe, date de naissance, âge num, nationalité, lieu, heure, suites données
+  const cle = { ESI: 'esi', PASSEUR: 'passeur' }[fiche.categorie];
+  if (!cle) return;
 
-  if (fiche.categorie === 'ESI') {
-    // Sexe : on convertit Masculin/Féminin → Homme/Femme
-    const esiSexe = document.getElementById('esiSexe');
-    if (esiSexe) {
-      if (fiche.sexe === 'Masculin') esiSexe.value = 'Homme';
-      else if (fiche.sexe === 'Féminin') esiSexe.value = 'Femme';
-      else esiSexe.value = '';
-    }
-
-    const esiDob = document.getElementById('esiDob');
-    if (esiDob) esiDob.value = fiche.dateNaissance || '';
-
-    const esiAgeNum = document.getElementById('esiAgeNum');
-    if (esiAgeNum) esiAgeNum.value = fiche.age || '';
-
-    const esiNat = document.getElementById('esiNationalite');
-    if (esiNat) esiNat.value = fiche.nationalite || '';
-
-    const esiLieu = document.getElementById('esiLieu');
-    if (esiLieu) esiLieu.value = fiche.lieuInterpellation || '';
-
-    const esiHeure = document.getElementById('esiHeure');
-    if (esiHeure) esiHeure.value = fiche.heure || '';
-
-   // ✅ Suites : nouveau système (select + lieu)
-if (typeof window.bf_setSuites === 'function') {
-  window.bf_setSuites('esi', fiche.suitesDonnees || '');
-} else {
-  console.warn('bf_setSuites indisponible : suites non remplies');
-}
-
-// ✅ Situation ESI (uniquement)
-const esiSituation = document.getElementById('esiSituation');
-if (esiSituation) {
-  esiSituation.value = fiche.situationEsi || '';
-}
-
-
-    // On laisse ta fonction gérer "Majeur(e)/Mineur(e)" si elle existe
-    if (typeof majEsiStatut === 'function') {
-      majEsiStatut();
-    }
-  }
-
-  if (fiche.categorie === 'PASSEUR') {
-    const pSexe = document.getElementById('passeurSexe');
-    if (pSexe) {
-      if (fiche.sexe === 'Masculin') pSexe.value = 'Homme';
-      else if (fiche.sexe === 'Féminin') pSexe.value = 'Femme';
-      else pSexe.value = '';
-    }
-
-    const pDob = document.getElementById('passeurDob');
-    if (pDob) pDob.value = fiche.dateNaissance || '';
-
-    const pAgeNum = document.getElementById('passeurAgeNum');
-    if (pAgeNum) pAgeNum.value = fiche.age || '';
-
-    const pNat = document.getElementById('passeurNationalite');
-    if (pNat) pNat.value = fiche.nationalite || '';
-
-    const pLieu = document.getElementById('passeurLieu');
-    if (pLieu) pLieu.value = fiche.lieuInterpellation || '';
-
-    const pHeure = document.getElementById('passeurHeure');
-    if (pHeure) pHeure.value = fiche.heure || '';
-
-    // ✅ Suites : nouveau système (select + lieu)
-if (typeof window.bf_setSuites === 'function') {
-  window.bf_setSuites('passeur', fiche.suitesDonnees || '');
-} else {
-  console.warn('bf_setSuites indisponible : suites non remplies');
-}
-
-
-    if (typeof majPasseurStatut === 'function') {
-      majPasseurStatut();
-    }
-  }
-
+  bfPreremplirDepuisIdentite(cle, {
+    heure: fiche.heure,
+    nationalite: fiche.nationalite,
+    sexe: { Masculin: 'Homme', 'Féminin': 'Femme' }[fiche.sexe] || '',
+    age: parseInt(fiche.age, 10),
+    lieu: fiche.lieuInterpellation,
+    situation: fiche.situationEsi,
+    suites: fiche.suitesDonnees
+  });
 }
 
 
@@ -8638,37 +8127,6 @@ if (typeof window.bf_setSuites === 'function') {
   return (sexe === "Femme") ? "Mineure" : "Mineur";
 }
 
-function majEsiStatut() {
-  const age = parseInt(document.getElementById("esiAgeNum").value, 10);
-  const sexe = document.getElementById("esiSexe").value;
-  const champStatut = document.getElementById("esiAge");
-
-  champStatut.value = computeStatut(age, sexe);
-}
-
-// on "écoute" les 2 champs en même temps
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("esiAgeNum").addEventListener("input", majEsiStatut);
-  document.getElementById("esiSexe").addEventListener("change", majEsiStatut);
-});
-	function computePasseurStatut(age, sexe) {
-  if (isNaN(age) || !sexe) return "";
-  if (age >= 18) return (sexe === "Femme") ? "Majeure" : "Majeur";
-  return (sexe === "Femme") ? "Mineure" : "Mineur";
-}
-
-function majPasseurStatut() {
-  const age = parseInt(document.getElementById("passeurAgeNum").value, 10);
-  const sexe = document.getElementById("passeurSexe").value;
-  const champStatut = document.getElementById("passeurAge");
-
-  champStatut.value = computePasseurStatut(age, sexe);
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("passeurAgeNum").addEventListener("input", majPasseurStatut);
-  document.getElementById("passeurSexe").addEventListener("change", majPasseurStatut);
-});
 // Fin de mission : conserve le premier ESR comme auparavant.
 function resetData() {
   if (typeof window.bfCrDoitAvertirFinMission === 'function' && window.bfCrDoitAvertirFinMission()) {
@@ -8738,12 +8196,16 @@ async function confirmerFinMissionBorderForce() {
       cf: { train: 0, bus: 0, vl: 0, pl: 0 },
       esiList: [],
       passeurList: [],
+      interpellationList: [],
+      renseignementList: [],
       observations: '',
       deroulement: '',
       pulsar: '',
       editingEsrIndex: null,
       editingEsiIndex: null,
       editingPasseurIndex: null,
+      editingInterpellationIndex: null,
+      editingRenseignementIndex: null,
       resumeEsr: '',
       scannedNigends: [],
       scannedIdentityNigends: []
@@ -8787,90 +8249,6 @@ function confirmCallCORG() {
   cancelBtn.onclick = () => {
     popup.style.display = 'none';
   };
-}
-
-// Formate JJ/MM/AAAA et met à jour l'âge automatiquement
-function formatDOB(input) {
-  let numbers = input.value.replace(/\D/g, ''); // on garde seulement les chiffres
-
-  // Auto-formatage JJ/MM/AAAA
-  if (numbers.length >= 5) {
-    input.value = numbers.slice(0, 2) + "/" +
-                  numbers.slice(2, 4) + "/" +
-                  numbers.slice(4, 8);
-  } else if (numbers.length >= 3) {
-    input.value = numbers.slice(0, 2) + "/" + numbers.slice(2, 4);
-  } else {
-    input.value = numbers;
-  }
-
-  // Si la date n'est pas complète → on ne fait rien
-  if (input.value.length !== 10) return;
-
-  // On calcule l'âge à partir de la date complète
-  const age = calculateAge(input.value);
-  if (age === null) return;
-
-  // ESI
-  if (input.id === "esiDob") {
-    const ageNumInput = document.getElementById("esiAgeNum");
-    ageNumInput.value = age;
-    // on met à jour Majeur/Mineur
-    if (typeof majEsiStatut === "function") {
-      majEsiStatut();
-    }
-  }
-
-  // PASSEUR
-  if (input.id === "passeurDob") {
-    const ageNumInput = document.getElementById("passeurAgeNum");
-    ageNumInput.value = age;
-    if (typeof majPasseurStatut === "function") {
-      majPasseurStatut();
-    }
-  }
-}
-
-// Formate JJ/MM/AAAA et met à jour l'âge automatiquement
-function formatDOB(input) {
-  let numbers = input.value.replace(/\D/g, ''); // on garde seulement les chiffres
-
-  // Auto-formatage JJ/MM/AAAA
-  if (numbers.length >= 5) {
-    input.value = numbers.slice(0, 2) + "/" +
-                  numbers.slice(2, 4) + "/" +
-                  numbers.slice(4, 8);
-  } else if (numbers.length >= 3) {
-    input.value = numbers.slice(0, 2) + "/" + numbers.slice(2, 4);
-  } else {
-    input.value = numbers;
-  }
-
-  // Si la date n'est pas complète → on ne fait rien
-  if (input.value.length !== 10) return;
-
-  // On calcule l'âge à partir de la date complète
-  const age = calculateAge(input.value);
-  if (age === null) return;
-
-  // ESI
-  if (input.id === "esiDob") {
-    const ageNumInput = document.getElementById("esiAgeNum");
-    ageNumInput.value = age;
-    // on met à jour Majeur/Mineur
-    if (typeof majEsiStatut === "function") {
-      majEsiStatut();
-    }
-  }
-
-  // PASSEUR
-  if (input.id === "passeurDob") {
-    const ageNumInput = document.getElementById("passeurAgeNum");
-    ageNumInput.value = age;
-    if (typeof majPasseurStatut === "function") {
-      majPasseurStatut();
-    }
-  }
 }
 
 // Calcule l'âge à partir de "JJ/MM/AAAA"
@@ -10012,13 +9390,13 @@ function cleanMrzText(){
       page: "homePage",
       target: ".friendly-grid",
       titre: "Bienvenue dans Border Force",
-      texte: "Cette application sert à préparer le compte rendu LIMES : mission, effectif, matériel, contrôles, ESI, passeurs, déroulement, observations et compte rendu final."
+      texte: "Cette application sert à préparer le compte rendu LIMES : mission, effectif, matériel, contrôles, ESI, passeurs, interpellations, renseignements, déroulement, observations et compte rendu final."
     },
     {
       page: "homePage",
       target: ".friendly-grid",
       titre: "Le parcours principal",
-      texte: "L'utilisation normale suit les gros boutons dans l'ordre : Mission / ESR, Matériel, Contrôles, ESI, Passeurs, Déroulement, Observations puis Compte rendu final."
+      texte: "L'utilisation normale suit les gros boutons dans l'ordre : Mission / ESR, Matériel, Contrôles, ESI, Passeurs, Interpellations, Renseignements, Déroulement, Observations puis Compte rendu final."
     },
     {
       page: "esrPage",
@@ -10069,7 +9447,7 @@ function cleanMrzText(){
       page: "esiPage",
       target: "#esiPage .page-content",
       titre: "4 — ESI",
-      texte: "Cette page permet d'ajouter les ESI interceptés : sexe, date de naissance ou âge, nationalité, situation, moyen de transport, heure et suites données."
+      texte: "Cette page permet d'ajouter les ESI interceptés : heure, nationalité, description et laissé libre ou non. La description est reprise telle quelle dans le compte rendu ; la nationalité sert uniquement à l'affichage dans l'application."
     },
     {
       page: "passeurPage",
@@ -10078,23 +9456,35 @@ function cleanMrzText(){
       texte: "Cette page fonctionne comme la page ESI, mais pour les passeurs. Les informations saisies seront intégrées dans le compte rendu final."
     },
     {
+      page: "interpellationPage",
+      target: "#interpellationPage .page-content",
+      titre: "6 — Interpellations",
+      texte: "Cette page permet d'ajouter les individus interpellés : heure et description. La rubrique n'apparaît dans le compte rendu que si au moins une interpellation est saisie."
+    },
+    {
+      page: "renseignementPage",
+      target: "#renseignementPage .page-content",
+      titre: "7 — Renseignements",
+      texte: "Cette page permet d'ajouter les renseignements recueillis : heure et description. La rubrique n'apparaît dans le compte rendu que si au moins un renseignement est saisi."
+    },
+    {
       page: "deroulementPage",
       target: "#temps_action",
-      titre: "6 — Déroulement",
+      titre: "8 — Déroulement",
       texte: "Ajoute les actions de la mission avec l'heure : départ, arrivée, contrôle routier, train, bus, début ou fin de mission. Le déroulement est repris dans le compte rendu."
     },
     {
       page: "deroulementPage",
       target: "#type_action",
       fallbackTarget: "#temps_action",
-      titre: "6.1 — Comptage automatique Bus / Train",
+      titre: "8.1 — Comptage automatique Bus / Train",
       texte: "Lorsque le site sélectionné est Breil ou DSI Tende, le déroulement peut incrémenter automatiquement les compteurs. Choisis Bus ou Train dans Action prédéfinie, renseigne le nombre de personnes contrôlées, puis appuie sur Ajouter au déroulement. L'application ajoute alors +1 au compteur Bus ou Train et ajoute les personnes contrôlées en CV. Si tu modifies ou supprimes la ligne du déroulement, les compteurs sont recalculés. Cette fonction ne s'applique pas à La Turbie.",
       position: "top"
     },
     {
       page: "observationsPage",
       target: "#observations",
-      titre: "7 — Observations",
+      titre: "9 — Observations",
       texte: "Note ici les difficultés ou éléments particuliers : tablette, téléphone, véhicule, incident, observation utile au chef de dispositif ou au compte rendu."
     },
     {
@@ -10130,8 +9520,8 @@ function cleanMrzText(){
     {
       page: "generatePage",
       target: "#generateBtn",
-      titre: "8 — Générer le compte rendu",
-      texte: "Ce bouton génère le compte rendu complet avec les informations mission, ESR, matériel, compteurs, ESI, passeurs, déroulement, observations et Pulsar."
+      titre: "10 — Générer le compte rendu",
+      texte: "Ce bouton génère le compte rendu complet avec les informations mission, ESR, matériel, compteurs, ESI, passeurs, interpellations, renseignements, déroulement, observations et Pulsar."
     },
     {
       page: "generatePage",
@@ -14314,13 +13704,10 @@ const route = /^P\d+$/i.test(routeBrute.trim())
 /* =========================================================
    ESI — choix d'un bus de la mission à La Turbie
    IMPORTANT :
-   - chaque passage de bus a une clé unique ;
-   - le moyen de transport contient compagnie + origine + destination ;
+   - le bus choisi est ajouté à la description de l'ESI ;
    - l'heure d'interpellation reste toujours saisie manuellement.
    ========================================================= */
 (() => {
-  let selectedBusKey = "";
-
   function getMission() {
     const mission = window.BF_MISSION_SESSION || {};
     return {
@@ -14353,66 +13740,22 @@ const route = /^P\d+$/i.test(routeBrute.trim())
     return line ? `${company} ${line}` : company;
   }
 
-  function transportText(bus) {
-    return `${companyLineText(bus)} — ${villeFr(bus?.origin || "Italie")} → ${villeFr(bus?.destination || "France")}`;
+  function trajetText(bus) {
+    return `${villeFr(bus?.origin || "Italie")} → ${villeFr(bus?.destination || "France")}`;
   }
 
   function optionLabel(bus) {
     const time = String(bus?.etaTurbieDisplay || bus?.etaTurbieTime || "--h--").replace(":", "h");
-    return `${time} — ${transportText(bus)}`;
-  }
-
-  function busKey(bus, index = 0) {
-    return [
-      String(bus?.id || bus?.journeyRef || bus?.tripId || `bus-${index}`),
-      String(bus?.etaTurbieDate || ""),
-      String(bus?.etaTurbieTime || "")
-    ].join("|");
-  }
-
-  function selectedOption() {
-    const select = document.getElementById("bfEsiBusTurbieSelect");
-    return select?.selectedOptions?.[0] || null;
-  }
-
-  function syncSelectWithInput() {
-    const select = document.getElementById("bfEsiBusTurbieSelect");
-    const input = document.getElementById("esiLieu");
-    if (!select || !input) return;
-
-    if (selectedBusKey) {
-      const exact = [...select.options].find(o => o.value === selectedBusKey);
-      if (exact) {
-        select.value = selectedBusKey;
-        return;
-      }
-    }
-
-    const current = input.value.trim();
-    if (!current) {
-      select.value = "";
-      return;
-    }
-
-    const sameTransport = [...select.options].filter(
-      o => o.dataset.transportText && o.dataset.transportText === current
-    );
-
-    // S'il existe plusieurs passages identiques, ne pas prendre le premier par erreur.
-    select.value = sameTransport.length === 1 ? sameTransport[0].value : "";
+    return `${time} — ${companyLineText(bus)} — ${trajetText(bus)}`;
   }
 
   async function updateOptions(fetchIfEmpty = false) {
     const block = document.getElementById("bfEsiBusTurbieBlock");
     const select = document.getElementById("bfEsiBusTurbieSelect");
-    const input = document.getElementById("esiLieu");
-    if (!block || !select || !input) return;
+    if (!block || !select) return;
 
-    const mission = getMission();
-    if (!isTurbie(mission.site)) {
+    if (!isTurbie(getMission().site)) {
       block.style.display = "none";
-      selectedBusKey = "";
-      select.value = "";
       return;
     }
 
@@ -14429,20 +13772,12 @@ const route = /^P\d+$/i.test(routeBrute.trim())
         : [];
     }
 
-    const previousInput = input.value.trim();
-    const previousKey = selectedBusKey;
+    select.innerHTML = '<option value="">— Ajouter un bus à la description —</option>';
 
-    select.innerHTML = '<option value="">— Choisir un bus ou saisir manuellement —</option>';
-
-    buses.forEach((bus, index) => {
+    buses.forEach(bus => {
       const option = document.createElement("option");
-      const key = busKey(bus, index);
-      option.value = key;
+      option.value = `${companyLineText(bus)} (${trajetText(bus)})`;
       option.textContent = optionLabel(bus);
-      option.dataset.transportText = transportText(bus);
-      option.dataset.busId = String(bus?.id || "");
-      option.dataset.busEta = String(bus?.etaTurbieTime || "");
-      option.dataset.busDate = String(bus?.etaTurbieDate || "");
       select.appendChild(option);
     });
 
@@ -14453,75 +13788,20 @@ const route = /^P\d+$/i.test(routeBrute.trim())
       option.disabled = true;
       select.appendChild(option);
     }
-
-    input.value = previousInput;
-    selectedBusKey = previousKey;
-    syncSelectWithInput();
-  }
-
-  function setSelection(key, transportFallback = "") {
-    selectedBusKey = String(key || "");
-    const input = document.getElementById("esiLieu");
-    if (input && transportFallback) input.value = transportFallback;
-    syncSelectWithInput();
-  }
-
-  function clearSelection() {
-    selectedBusKey = "";
-    const select = document.getElementById("bfEsiBusTurbieSelect");
-    if (select) select.value = "";
-  }
-
-  function getSelection() {
-    const option = selectedOption();
-    if (!selectedBusKey || !option || option.value !== selectedBusKey) {
-      return { busMissionKey: "", busMissionId: "", busMissionEta: "", busMissionDate: "" };
-    }
-    return {
-      busMissionKey: selectedBusKey,
-      busMissionId: String(option.dataset.busId || ""),
-      busMissionEta: String(option.dataset.busEta || ""),
-      busMissionDate: String(option.dataset.busDate || "")
-    };
   }
 
   window.bfEsiBusTurbieUpdateOptions = updateOptions;
-  window.bfEsiBusTurbieSetSelection = setSelection;
-  window.bfEsiBusTurbieClearSelection = clearSelection;
-  window.bfEsiBusTurbieGetSelection = getSelection;
 
   document.addEventListener("DOMContentLoaded", () => {
     const select = document.getElementById("bfEsiBusTurbieSelect");
-    const input = document.getElementById("esiLieu");
+    const description = document.getElementById("esiDescription");
 
-    if (select && input) {
+    if (select && description) {
       select.addEventListener("change", () => {
-        const option = selectedOption();
-        if (option?.value) {
-          selectedBusKey = option.value;
+        if (!select.value) return;
 
-          // Remplit uniquement le moyen de transport.
-          // L'heure théorique du bus n'est jamais copiée dans esiHeure.
-          input.value = String(option.dataset.transportText || "");
-          input.dispatchEvent(new Event("input", { bubbles: true }));
-        } else {
-          selectedBusKey = "";
-        }
-      });
-
-      input.addEventListener("input", () => {
-        const option = selectedOption();
-
-        if (
-          selectedBusKey &&
-          option?.value === selectedBusKey &&
-          String(option.dataset.transportText || "") === input.value.trim()
-        ) {
-          return;
-        }
-
-        if (selectedBusKey) selectedBusKey = "";
-        syncSelectWithInput();
+        description.value = [description.value.trim(), select.value].filter(Boolean).join(" ");
+        select.value = "";
       });
     }
 
