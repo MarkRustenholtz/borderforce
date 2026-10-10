@@ -528,6 +528,15 @@ html, body {
   font-size: 16px;
   box-sizing: border-box;
 }
+#texte_libre {
+  display: block;
+  min-height: 0;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  line-height: 1.4;
+  resize: none;
+  overflow: hidden;
+}
 
 
 
@@ -3581,7 +3590,10 @@ button.whatsapp:hover {
       <option>FINEX</option>
     </select>
     <label style="display:block;margin-top:6px">Texte libre</label>
-    <input id="texte_libre" placeholder="Ex. Bus / Patrouille pédestre…" oninput="majAffichageComptage()" />
+    <textarea id="texte_libre" rows="2" enterkeyhint="done"
+      placeholder="Ex. Bus / Patrouille pédestre…"
+      oninput="majAffichageComptage()"
+      onkeydown="if(event.key === 'Enter' && !event.isComposing){ event.preventDefault(); this.blur(); }"></textarea>
 
     <div id="bloc_comptage" style="display:none;margin-top:8px">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
@@ -8413,7 +8425,21 @@ function buildSuffixComptage(nbCtrl, nbDesc){
 }
 function triJoin(parts){ return parts.filter(Boolean).join(" — "); }
 
+// Le texte libre devient une seule ligne du déroulement : le champ grandit
+// avec le texte, mais sans retour à la ligne.
+function bfAjusterTexteLibre(){
+  const champ = document.getElementById("texte_libre");
+  if(!champ) return;
+
+  if(/[\r\n]/.test(champ.value)) champ.value = champ.value.replace(/\s*[\r\n]+\s*/g, " ");
+
+  if(!champ.offsetParent) return;
+  champ.style.height = "auto";
+  champ.style.height = (champ.scrollHeight + champ.offsetHeight - champ.clientHeight) + "px";
+}
+
 function majAffichageComptage(){
+  bfAjusterTexteLibre();
   const action = (document.getElementById("type_action").value || "").toLowerCase();
   const libre  = (document.getElementById("texte_libre").value || "").toLowerCase();
   // ✅ Affiche les champs de comptage pour "bus" ou "train"
