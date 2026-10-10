@@ -4792,8 +4792,7 @@ const BF_SECTIONS_INDIVIDUS = {
     confirmation: 'Supprimer ce passeur ?',
     titreConfirmation: 'Supprimer un passeur',
     avecNationalite: true,
-    avecLaisseLibre: true,
-    suffixeLaisseLibre: true
+    avecLaisseLibre: true
   },
   interpellation: {
     label: 'INTERPELLATION',
@@ -4995,13 +4994,9 @@ function bfCrLignesSection(cle) {
   const section = BF_SECTIONS_INDIVIDUS[cle];
   bfTrierEntreesSection(cle);
 
-  return (state[section.liste] || []).map((entree, i) => {
-    const ligne = [`${section.label} ${i + 1}`, entree.heure, entree.description].filter(Boolean).join(' - ');
-    const dejaMentionne = /laiss[ée] libre\W*$/i.test(ligne);
-    return section.suffixeLaisseLibre && entree.laisseLibre && !dejaMentionne
-      ? `${ligne} - LAISSÉ LIBRE`
-      : ligne;
-  });
+  return (state[section.liste] || []).map((entree, i) =>
+    [`${section.label} ${i + 1}`, entree.heure, entree.description].filter(Boolean).join(' - ')
+  );
 }
 
 function rebuildDeroulementAuto() {
